@@ -1,0 +1,112 @@
+import type { Archetype, ArchetypePublic } from "./types";
+
+// Catalogue des 12 archétypes — porté depuis archetypes.yaml (source de vérité
+// du pipeline Python). Le texte du livre reste ÉPICÈNE : `genre` ne sert qu'à
+// la présentation visuelle, jamais à accorder le texte.
+export const ARCHETYPES: Archetype[] = [
+  // ---- Garçons ----
+  {
+    id: "g1-chatain-clair",
+    genre: "garçon",
+    description: "garçon aux cheveux châtains courts, peau claire",
+    tenue: "t-shirt jaune, short bleu, baskets blanches",
+    distinctif: "le second porte une petite casquette bleue",
+  },
+  {
+    id: "g2-brun-mat",
+    genre: "garçon",
+    description: "garçon aux cheveux bruns foncés courts, peau mate",
+    tenue: "t-shirt vert d'eau, short beige, baskets blanches",
+    distinctif: "le second porte un bracelet tressé au poignet",
+  },
+  {
+    id: "g3-blond-clair",
+    genre: "garçon",
+    description: "garçon aux cheveux blonds courts, peau claire",
+    tenue: "pull rayé bleu et blanc, short rouge, baskets blanches",
+    distinctif: "le second porte de petites lunettes rondes",
+  },
+  {
+    id: "g4-noir-fonce",
+    genre: "garçon",
+    description: "garçon aux cheveux noirs très courts, peau foncée",
+    tenue: "t-shirt orange, short bleu marine, baskets blanches",
+    distinctif: "le second porte une casquette verte",
+  },
+  {
+    id: "g5-roux-clair",
+    genre: "garçon",
+    description: "garçon aux cheveux roux avec des taches de rousseur, peau claire",
+    tenue: "salopette en jean sur t-shirt blanc, baskets blanches",
+    distinctif: "le second porte un nœud papillon rouge",
+  },
+  {
+    id: "g6-asiatique",
+    genre: "garçon",
+    description: "garçon d'origine asiatique, cheveux noirs lisses avec une frange, peau claire",
+    tenue: "t-shirt bleu, short gris, baskets blanches",
+    distinctif: "le second porte un petit sac à dos jaune",
+  },
+  // ---- Filles ----
+  {
+    id: "f1-natte-brune",
+    genre: "fille",
+    description: "fille aux cheveux bruns coiffés en une seule natte tombant sur une épaule, peau claire",
+    tenue: "robe vert d'eau à petite tête de koala grise, chaussures blanches",
+    distinctif: "le second porte un serre-tête à fleur",
+  },
+  {
+    id: "f2-nattes-brune",
+    genre: "fille",
+    description: "fille aux cheveux bruns coiffés en deux nattes, une de chaque côté, peau claire",
+    tenue: "robe corail à petite tête de chien beige, chaussures blanches",
+    distinctif: "le second porte un nœud dans les cheveux",
+  },
+  {
+    id: "f3-blonde-claire",
+    genre: "fille",
+    description: "fille aux cheveux blonds mi-longs, peau claire",
+    tenue: "robe lilas, chaussures blanches",
+    distinctif: "le second porte un serre-tête doré",
+  },
+  {
+    id: "f4-bouclee-mate",
+    genre: "fille",
+    description: "fille aux cheveux bruns bouclés, peau mate",
+    tenue: "robe jaune à pois blancs, chaussures blanches",
+    distinctif: "le second porte deux petites barrettes colorées",
+  },
+  {
+    id: "f5-tressee-fonce",
+    genre: "fille",
+    description: "fille aux cheveux noirs coiffés en petites tresses ornées de perles, peau foncée",
+    tenue: "robe turquoise, chaussures blanches",
+    distinctif: "le second porte un foulard coloré dans les cheveux",
+  },
+  {
+    id: "f6-asiatique",
+    genre: "fille",
+    description: "fille d'origine asiatique, cheveux noirs coupés au carré avec une frange, peau claire",
+    tenue: "robe rose poudré, chaussures blanches",
+    distinctif: "le second porte une fleur dans les cheveux",
+  },
+];
+
+const PAR_ID = new Map(ARCHETYPES.map((a) => [a.id, a]));
+
+export function archetypeParId(id: string): Archetype | undefined {
+  return PAR_ID.get(id);
+}
+
+export function existe(id: string | undefined | null): boolean {
+  return !!id && PAR_ID.has(id);
+}
+
+/** Version publique : ajoute l'URL de fiche + la disponibilité. */
+export function cataloguePublic(): ArchetypePublic[] {
+  return ARCHETYPES.map((a) => ({
+    ...a,
+    fiche: `/fiches/${a.id}.png`,
+    disponible: true, // les 12 fiches sont validées et présentes dans /public/fiches
+  }));
+}

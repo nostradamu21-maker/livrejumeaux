@@ -1,0 +1,42 @@
+{
+  "_comment": "Une page = un fichier. x/y personnage = centre horizontal (x) et ligne de sol/bas (y), en % du document fond perdu compris. scale = hauteur du perso en fraction de la hauteur du document. Texte : x/y = coin haut-gauche de la zone, width = largeur, en % du document.",
+  "page_id": "page-test",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/chambre.png",
+  "characters": [
+    {
+      "asset": "assets/archetype1/face-sourire.png",
+      "x": 50,
+      "y": 87,
+      "scale": 0.46,
+      "mirror": false,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.30,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "content": "{prenom1} ouvre les yeux le premier, comme tous les matins.",
+    "x": 12,
+    "y": 9,
+    "width": 76,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3
+  },
+  "vars": {
+    "prenom1": "Léo"
+  }
+}

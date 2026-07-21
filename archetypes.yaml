@@ -1,0 +1,115 @@
+# Catalogue des archétypes — « Deux comme nous »
+# ---------------------------------------------------------------------------
+# Un archétype = un personnage FIGÉ (traits physiques + tenue fixe) que les
+# parents choisissent pour chaque jumeau. On produit UNE fiche de référence par
+# archétype (déclinaison d'une base validée), triée à la main par Simon, puis
+# réutilisée à l'infini dans les livres-combos.
+#
+# La personnalisation client = choisir un archétype par enfant (mixage libre :
+# n'importe quelle paire) + les prénoms. Le texte du livre reste ÉPICÈNE :
+# `genre` ne sert qu'à l'aperçu/au tri visuel, jamais à accorder le texte.
+#
+# Champs d'un archétype :
+#   genre         : garçon | fille (présentation visuelle uniquement)
+#   description   : traits physiques — repris dans les prompts de génération
+#   tenue         : tenue FIXE, ancre de cohérence — NE JAMAIS faire varier
+#   distinctif    : petit différenciateur appliqué au SECOND jumeau quand les
+#                   deux enfants choisissent le MÊME archétype (sinon ils seraient
+#                   indiscernables) ; permet de mapper prénom1 / prénom2
+#   base          : garcon | fille — image de base dont on décline le style
+#   source_validee: (optionnel) fiche déjà validée à réutiliser telle quelle
+# ---------------------------------------------------------------------------
+
+bases:
+  garcon: reference.png
+  fille: livres/test-filles/base-luna.png
+
+archetypes:
+
+  # ---- Garçons ----
+  g1-chatain-clair:
+    genre: garçon
+    description: garçon aux cheveux châtains courts, peau claire
+    tenue: t-shirt jaune, short bleu, baskets blanches
+    distinctif: le second porte une petite casquette bleue
+    base: garcon
+
+  g2-brun-mat:
+    genre: garçon
+    description: garçon aux cheveux bruns foncés courts, peau mate
+    tenue: t-shirt vert d'eau, short beige, baskets blanches
+    distinctif: le second porte un bracelet tressé au poignet
+    base: garcon
+
+  g3-blond-clair:
+    genre: garçon
+    description: garçon aux cheveux blonds courts, peau claire
+    tenue: pull rayé bleu et blanc, short rouge, baskets blanches
+    distinctif: le second porte de petites lunettes rondes
+    base: garcon
+
+  g4-noir-fonce:
+    genre: garçon
+    description: garçon aux cheveux noirs très courts, peau foncée
+    tenue: t-shirt orange, short bleu marine, baskets blanches
+    distinctif: le second porte une casquette verte
+    base: garcon
+
+  g5-roux-clair:
+    genre: garçon
+    description: garçon aux cheveux roux avec des taches de rousseur, peau claire
+    tenue: salopette en jean sur t-shirt blanc, baskets blanches
+    distinctif: le second porte un nœud papillon rouge
+    base: garcon
+
+  g6-asiatique:
+    genre: garçon
+    description: garçon d'origine asiatique, cheveux noirs lisses avec une frange, peau claire
+    tenue: t-shirt bleu, short gris, baskets blanches
+    distinctif: le second porte un petit sac à dos jaune
+    base: garcon
+
+  # ---- Filles ----
+  f1-natte-brune:
+    genre: fille
+    description: fille aux cheveux bruns coiffés en UNE seule natte tombant sur une épaule, peau claire
+    tenue: robe vert d'eau à petite tête de koala grise, chaussures blanches
+    distinctif: le second porte un serre-tête à fleur
+    base: fille
+    source_validee: livres/test-filles/variantes/page-ref-1/v1.png
+
+  f2-nattes-brune:
+    genre: fille
+    description: fille aux cheveux bruns coiffés en DEUX nattes, une de chaque côté, peau claire
+    tenue: robe corail à petite tête de chien beige, chaussures blanches
+    distinctif: le second porte un nœud dans les cheveux
+    base: fille
+    source_validee: livres/test-filles/variantes/page-ref-2/v1.png
+
+  f3-blonde-claire:
+    genre: fille
+    description: fille aux cheveux blonds mi-longs, peau claire
+    tenue: robe lilas, chaussures blanches
+    distinctif: le second porte un serre-tête doré
+    base: fille
+
+  f4-bouclee-mate:
+    genre: fille
+    description: fille aux cheveux bruns bouclés, peau mate
+    tenue: robe jaune à pois blancs, chaussures blanches
+    distinctif: le second porte deux petites barrettes colorées
+    base: fille
+
+  f5-tressee-fonce:
+    genre: fille
+    description: fille aux cheveux noirs coiffés en petites tresses ornées de perles, peau foncée
+    tenue: robe turquoise, chaussures blanches
+    distinctif: le second porte un foulard coloré dans les cheveux
+    base: fille
+
+  f6-asiatique:
+    genre: fille
+    description: fille d'origine asiatique, cheveux noirs coupés au carré avec une frange, peau claire
+    tenue: robe rose poudré, chaussures blanches
+    distinctif: le second porte une fleur dans les cheveux
+    base: fille

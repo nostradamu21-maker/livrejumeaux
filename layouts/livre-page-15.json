@@ -1,0 +1,26 @@
+{
+  "page_id": "livre-page-15",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "output/pilote-fullgen/selected/page-15.png",
+  "characters": [],
+  "text": {
+    "content": "Les jours de gros chagrin, {prenom2} n'est jamais loin de {prenom1}.\nÀ deux, le chagrin est deux fois moins lourd.",
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

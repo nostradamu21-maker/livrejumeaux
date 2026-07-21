@@ -1,0 +1,60 @@
+{
+  "_comment": "",
+  "page_id": "page-08-jouer-ensemble",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/parc.png",
+  "characters": [
+    {
+      "_role": "B en l'air, ombre décollée",
+      "asset": "assets/archetype1/sauter.png",
+      "x": 68,
+      "y": 78,
+      "scale": 0.4,
+      "mirror": false,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.22,
+        "blur": 0.018,
+        "width_ratio": 0.6,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.04
+      }
+    },
+    {
+      "_role": "A avant-plan",
+      "asset": "assets/archetype1/courir.png",
+      "x": 36,
+      "y": 90,
+      "scale": 0.5,
+      "mirror": false,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3,
+    "content": "Au parc, {prenom1} et {prenom2} courent et sautent.\nÀ deux, c'est deux fois plus rigolo !"
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

@@ -1,0 +1,53 @@
+# Config brique 1 — archétype de test
+# Chemins relatifs à ce fichier.
+
+archetype_name: archetype-test
+
+# Fournisseur d'image (couche d'abstraction dans providers.py)
+provider: openai            # openai | (plus tard) fal / flux-kontext
+model: gpt-image-1
+size: 1024x1536             # portrait = résolution max pour gpt-image-1
+quality: high              # low | medium | high — high pour la qualité max
+
+reference_image: reference.png
+style_images:
+  - style1.png
+  - style2.png
+
+style_prompt: >
+  illustration aquarelle douce pour album jeunesse, contours légers,
+  palette pastel, éclairage tendre, rendu cohérent d'une page à l'autre
+
+variants_per_pose: 4
+
+negative_constraints:
+  - fond neutre uni gris clair
+  - personnage entier visible en entier dans le cadre
+  - pas de texte ni de logo dans l'image
+  - mains bien formées avec cinq doigts
+  - un seul personnage dans l'image
+
+poses:
+  - id: face-sourire
+    prompt: debout, face à la caméra, grand sourire chaleureux
+  - id: profil-marche
+    prompt: vu de profil, en train de marcher d'un pas assuré
+  - id: courir
+    prompt: course joyeuse et dynamique, vu de profil, cheveux en mouvement
+  - id: assis-lecture
+    prompt: assis en tailleur, tenant un livre ouvert et le regardant
+  - id: dormir
+    prompt: allongé sur le côté, endormi et paisible, yeux fermés
+  - id: calin
+    prompt: debout, bras grands ouverts, prêt à faire un câlin
+  - id: sauter
+    prompt: saut joyeux en l'air, bras levés vers le ciel, genoux fléchis, vu de trois quarts
+  - id: montrer-du-doigt
+    prompt: debout, bras tendu pointant du doigt vers le côté, expression émerveillée, vu de trois quarts
+  - id: rire
+    prompt: debout, grand éclat de rire, tête légèrement renversée en arrière, mains sur le ventre
+  - id: dormir-borde
+    prompt: >
+      endormi paisiblement, bordé sous une couverture douce bleu clair qui recouvre
+      tout le corps, seuls la tête sur un oreiller blanc et un bras dépassent de la
+      couverture, yeux fermés, vu de trois quarts en légère plongée

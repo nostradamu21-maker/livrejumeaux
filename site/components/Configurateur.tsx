@@ -1,0 +1,196 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import type { ArchetypePublic } from "@/lib/types";
+
+const PRIX = "44,90\u00A0€";
+
+type Choix = { 1: string | null; 2: string | null };
+type Prenoms = { 1: string; 2: string };
+
+export default function Configurateur({
+  archetypes,
+}: {
+  archetypes: ArchetypePublic[];
+}) {
+  const [choix, setChoix] = useState<Choix>({ 1: null, 2: null });
+  const [prenoms, setPrenoms] = useState<Prenoms>({ 1: "", 2: "" });
+  const [filtre, setFiltre] = useState<"tous" | "garçon" | "fille">("tous");
+  const [email, setEmail] = useState("");
+  const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
+  const [envoi, setEnvoi] = useState(false);
+
+  const parId = useMemo(
+    () => new Map(archetypes.map((a) => [a.id, a])),
+    [archetypes],
+  );
+  const fiche = (id: string | null) => (id ? parId.get(id) : undefined);
+
+  const visibles = archetypes.filter(
+    (a) => filtre === "tous" || a.genre === filtre,
+  );
+
+  const memeArchetype = !!choix[1] && choix[1] === choix[2];
+  const pret = !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
+
+  const texteCouv = (() => {
+    if (prenoms[1] && prenoms[2]) return `${prenoms[1]} & ${prenoms[2]}`;
+    if (prenoms[1] || prenoms[2]) return prenoms[1] || prenoms[2];
+    return choix[1] && choix[2] ? "Ajoutez les prénoms" : "Choisissez deux archétypes";
+  })();
+
+  async function commander(e: React.FormEvent) {
+    e.preventDefault();
+    setEnvoi(true);
+    setStatut({ txt: "Traitement…", cls: "" });
+    try {
+      const r = await fetch("/api/commander", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          archetype1: choix[1],
+          archetype2: choix[2],
+          prenom1: prenoms[1],
+          prenom2: prenoms[2],
+          email: email.trim(),
+        }),
+      });
+      const data = await r.json();
+      if (data.ok && data.url) {
+        setStatut({ txt: "Redirection vers le paiement sécurisé…", cls: "ok" });
+        window.location.href = data.url;
+        return;
+      }
+      if (data.ok) {
+        setStatut({ txt: data.message, cls: "ok" });
+      } else {
+        setStatut({ txt: data.erreur || "Une erreur est survenue.", cls: "erreur" });
+        setEnvoi(false);
+      }
+    } catch {
+      setStatut({ txt: "Serveur injoignable.", cls: "erreur" });
+      setEnvoi(false);
+    }
+  }
+
+  const grille = (jumeau: 1 | 2) => (
+    <div className="grille">
+      {visibles.map((a) => {
+        const actif = choix[jumeau] === a.id;
+        return (
+          <div
+            key={a.id}
+            className={`carte${a.disponible ? "" : " indispo"}${actif ? " actif" : ""}`}
+            onClick={() => a.disponible && setChoix((c) => ({ ...c, [jumeau]: a.id }))}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={a.fiche} alt={a.description} loading="lazy" />
+            <div className="legende">{a.description}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <section id="creer" className="creer">
+      <div className="section-tete">
+        <h2>Composez votre livre</h2>
+        <p className="section-sub">
+          Choisissez un personnage pour chaque enfant, ajoutez leurs prénoms, et
+          voyez votre couverture prendre vie.
+        </p>
+      </div>
+
+      <div className="configurateur">
+        <div className="choix">
+          <div className="filtres">
+            <span>Afficher :</span>
+            {(["tous", "garçon", "fille"] as const).map((g) => (
+              <button
+                key={g}
+                className={`filtre${filtre === g ? " actif" : ""}`}
+                onClick={() => setFiltre(g)}
+              >
+                {g === "tous" ? "Tous" : g === "garçon" ? "Garçons" : "Filles"}
+              </button>
+            ))}
+          </div>
+
+          {([1, 2] as const).map((j) => (
+            <div className="jumeau" key={j}>
+              <div className="jumeau-tete">
+                <span className="pastille">{j}</span>
+                <label>
+                  {j === 1 ? "Premier enfant" : "Second enfant"}
+                  <input
+                    type="text"
+                    className="prenom"
+                    maxLength={18}
+                    placeholder="Son prénom"
+                    autoComplete="off"
+                    value={prenoms[j]}
+                    onChange={(e) =>
+                      setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))
+                    }
+                  />
+                </label>
+              </div>
+              {grille(j)}
+            </div>
+          ))}
+        </div>
+
+        <aside className="apercu">
+          <div className="book book-preview">
+            <div className="book-cover">
+              <div className="couv-titre">Deux comme&nbsp;nous</div>
+              <div className="couv-fiches">
+                {([1, 2] as const).map((j) => {
+                  const a = fiche(choix[j]);
+                  return (
+                    <div className="couv-fiche" key={j}>
+                      {a ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={a.fiche} alt="" />
+                      ) : (
+                        <span className="vide">Enfant {j}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="couv-prenoms">{texteCouv}</div>
+            </div>
+          </div>
+
+          {memeArchetype && (
+            <p className="note">
+              Vos enfants ont le même archétype : pour les distinguer,{" "}
+              {fiche(choix[1])?.distinctif ?? "un petit détail les distinguera"}.
+            </p>
+          )}
+
+          <form className="commande" onSubmit={commander}>
+            <div className="prix-ligne">
+              <span className="prix">{PRIX}</span>
+              <span className="prix-note">livraison incluse</span>
+            </div>
+            <input
+              type="email"
+              className="champ-email"
+              placeholder="Votre e-mail (facultatif)"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit" className="btn-commander" disabled={!pret || envoi}>
+              Commander notre livre
+            </button>
+            <p className={`statut ${statut.cls}`}>{statut.txt}</p>
+          </form>
+        </aside>
+      </div>
+    </section>
+  );
+}

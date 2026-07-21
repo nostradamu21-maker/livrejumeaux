@@ -1,0 +1,21 @@
+# Brique 1 — génération d'archétypes (API OpenAI gpt-image)
+openai>=1.55.0
+PyYAML>=6.0
+python-dotenv>=1.0
+
+# Brique 2 — détourage + upscale (tout en local)
+rembg[cpu]>=2.0.61   # détourage BiRefNet
+onnxruntime>=1.19    # backend rembg (forcé sur CPUExecutionProvider)
+torch>=2.2           # backend upscale
+torchvision>=0.17
+spandrel>=0.4.1      # charge les poids Real-ESRGAN
+Pillow>=10
+numpy>=1.26
+scipy>=1.11          # défrangeage / bouchage de trous du masque
+
+# Brique 3 — composition + PDF imprimable (local)
+reportlab>=4.0       # PDF avec texte vectoriel + police embarquée
+
+# Front-end de commande (phase 1) — configurateur local
+Flask>=3.0           # serveur du configurateur (serveur.py)
+stripe>=9.0          # paiement Stripe Checkout (repli simulé si clé absente)

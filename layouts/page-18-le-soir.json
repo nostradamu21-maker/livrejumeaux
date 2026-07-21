@@ -1,0 +1,60 @@
+{
+  "_comment": "",
+  "page_id": "page-18-le-soir",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/chambre.png",
+  "characters": [
+    {
+      "_role": "A près de son lit",
+      "asset": "assets/archetype1/face-sourire.png",
+      "x": 30,
+      "y": 88,
+      "scale": 0.4,
+      "mirror": false,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    },
+    {
+      "_role": "B près du sien",
+      "asset": "assets/archetype1/face-sourire.png",
+      "x": 72,
+      "y": 85,
+      "scale": 0.37,
+      "mirror": true,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3,
+    "content": "Le soir, c'est deux pyjamas, deux bisous, deux doudous.\nUn pour chacun, et beaucoup d'amour pour deux."
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

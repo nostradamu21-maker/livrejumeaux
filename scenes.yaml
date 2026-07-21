@@ -1,0 +1,295 @@
+style: 'illustration aquarelle douce pour album jeunesse, contours légers, palette pastel,
+  éclairage tendre, rendu cohérent d''une page à l''autre
+
+  '
+jumeaux: 'Les DEUX enfants sont le même personnage de référence (jumeaux identiques), même
+  tenue : t-shirt jaune, short bleu, baskets blanches.
+
+  '
+contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
+  Pas de texte ni de logo dans l''image. Mains bien formées.
+
+  '
+pages:
+  '01':
+    ancre: backgrounds/chambre.png
+    scene: 'Les deux jumeaux debout côte à côte dans leur chambre, souriants face au lecteur,
+      l''un fait un petit signe de la main, l''autre a les mains sur les hanches, complices,
+      à des distances légèrement différentes.
+
+      '
+    texte: 'Bonjour {prenom1} ! Bonjour {prenom2} !
+
+      Vous êtes deux, comme le soleil et la lune.
+
+      Deux, depuis le tout début.'
+  '02':
+    scene: 'Souvenir tout doux : deux tout petits bébés aux cheveux châtains, emmaillotés,
+      endormis côte à côte dans un grand landau ancien, dans un jardin baigné de lumière douce,
+      un mobile d''étoiles au-dessus d''eux.'
+    solo: true
+    texte: 'Il y a longtemps, vous étiez deux tout petits bébés
+
+      dans le même landau. Déjà inséparables !'
+  '03':
+    ancre: backgrounds/chambre.png
+    solo: true
+    scene: 'La chambre des jumeaux SANS personnage : deux petits lits jumeaux, deux doudous,
+      deux paires de chaussures alignées, jouets — tout va par deux.
+
+      '
+    texte: 'Deux lits, deux doudous, deux paires de chaussures…
+
+      Et une chambre pour deux !'
+  '04':
+    ancre: backgrounds/chambre.png
+    scene: 'Un jumeau assis dans son lit s''étire en bâillant joyeusement, cheveux ébouriffés,
+      lumière douce du matin ; l''autre lit est encore occupé par une forme endormie sous
+      la couette.
+
+      '
+    texte: '{prenom1} ouvre les yeux en premier, comme tous les matins.'
+  '05':
+    ancre: backgrounds/chambre.png
+    scene: 'Un jumeau dort profondément bordé sous sa couette, seule la tête dépasse ; l''autre,
+      debout près du lit sur la pointe des pieds, un doigt sur la bouche, sourit tendrement.
+
+      '
+    texte: 'Chut… {prenom2} dort encore un petit peu.
+
+      Chacun se réveille à sa façon.'
+  '06':
+    scene: Dans une cuisine chaleureuse au petit matin, les deux jumeaux attablés côte à côte
+      devant deux bols fumants et des tartines, l'un trempe sa tartine, l'autre lève son bol,
+      joyeux et gourmands.
+    texte: 'Deux bols, deux tartines… et un chocolat qui fume.
+
+      Bon appétit, vous deux !'
+  '07':
+    scene: 'Dans un jardin fleuri devant une petite maison, les deux jumeaux debout côte à
+      côte, presque en miroir, se regardent du coin de l''œil en souriant — on pourrait les
+      confondre.
+
+      '
+    texte: 'Deux nez, deux sourires qui se ressemblent…
+
+      Parfois, on vous mélange !
+
+      « Tu es {prenom1}, ou tu es {prenom2} ? »'
+  08:
+    ancre: page:07
+    scene: 'Dans ce même jardin, un jumeau se désigne fièrement du pouce en souriant, l''autre
+      désigne son frère de la main, joyeux — chacun est bien lui-même.
+
+      '
+    texte: 'Pas de souci : il suffit de bien regarder avec le cœur.
+
+      {prenom1} est {prenom1}. {prenom2} est {prenom2}.
+
+      Et personne d''autre au monde !'
+  09:
+    scene: 'Sur un petit chemin de campagne bordé de fleurs et de haies, les deux jumeaux
+      marchent du même pas joyeux vers le parc, l''un légèrement devant l''autre, en balançant
+      les bras.
+
+      '
+    texte: 'Un, deux ! Un, deux !
+
+      Sur le chemin du parc, on marche du même pas.'
+  '10':
+    scene: 'Dans une aire de jeux colorée (toboggan, balançoires), un jumeau glisse sur le
+      toboggan en riant pendant que l''autre saute à pieds joints dans l''herbe, bras levés.
+
+      '
+    texte: '{prenom1} et {prenom2} glissent, courent et sautent.
+
+      À deux, c''est deux fois plus rigolo !'
+  '11':
+    ancre: backgrounds/parc.png
+    scene: 'Dans le parc, grand arbre feuillu à droite, banc au loin à gauche, chemin sablé
+      : un jumeau court joyeusement sur le chemin au premier plan à gauche ; l''autre assis
+      en tailleur sous l''arbre à droite, absorbé par un livre ouvert, ombre douce au sol.
+      Composition asymétrique.
+
+      '
+    texte: '{prenom1} court sans s''arrêter, {prenom2} lit sous l''arbre.
+
+      Chacun son rythme !'
+  '12':
+    ancre: backgrounds/parc.png
+    scene: 'Un jumeau allongé dans l''herbe regarde les nuages en rêvant, mains derrière la
+      tête ; l''autre assis en tailleur contre l''arbre lit un livre, absorbé. Chacun heureux
+      à sa façon.
+
+      '
+    texte: '{prenom2} adore les histoires de dragons.
+
+      {prenom1} préfère compter les nuages.
+
+      Et c''est très bien comme ça !'
+  '13':
+    ancre: backgrounds/parc.png
+    scene: 'Partie de cache-cache dans le parc : un jumeau compte contre le grand arbre, les
+      mains sur les yeux ; l''autre, complice avec le lecteur, se faufile derrière un buisson
+      en souriant, un doigt sur la bouche.'
+    texte: 'Un, deux, trois… caché !
+
+      {prenom1} compte, {prenom2} se faufile.
+
+      Le parc devient une cachette géante.'
+  '14':
+    scene: 'Sur une couverture de pique-nique dans l''herbe, les deux jumeaux rient aux éclats
+      ensemble, tête renversée, l''un tenant son ventre, quelques fruits et un panier autour.
+
+      '
+    texte: 'Quand {prenom1} rit, {prenom2} rit aussi.
+
+      Le rire, à deux, ça s''attrape !'
+  '15':
+    scene: 'Au bord d''une petite mare aux canards, un jumeau montre du doigt une famille
+      de canetons, émerveillé ; l''autre accroupi les observe de près, mains sur les genoux.
+
+      '
+    texte: '« Regarde là-bas ! » montre {prenom2}.
+
+      À deux, on voit deux fois plus de choses.'
+  '16':
+    scene: Sous une pluie fine et joyeuse, les deux jumeaux partagent un grand parapluie coloré,
+      bottes de pluie aux pieds par-dessus leur tenue, l'un saute dans une flaque en éclaboussant,
+      l'autre rit sous le parapluie.
+    texte: 'Plic, ploc ! Deux bottes, deux flaques…
+
+      et un parapluie pour deux.'
+  '17':
+    scene: 'Dans un salon chaleureux avec un tapis et un coffre à jouets, les deux jumeaux
+      se disputent un livre : chacun tire un côté du livre, sourcils froncés, boudeurs mais
+      attendrissants.
+
+      '
+    texte: 'Parfois, on n''est pas d''accord.
+
+      « C''est mon livre ! — Non, c''est le mien ! »
+
+      Ça arrive, même quand on s''aime très fort.'
+  '18':
+    ancre: page:17
+    scene: 'Dans ce même salon, réconciliés : les deux jumeaux se font un gros câlin tendre
+      au milieu de la pièce, bras enlacés, joues proches, yeux fermés, le livre posé au sol
+      à côté d''eux.
+
+      '
+    texte: 'Un gros câlin… et hop !
+
+      La colère s''envole comme un petit nuage.'
+  '19':
+    ancre: backgrounds/parc.png
+    scene: 'Assis ensemble sur le banc du parc, un jumeau a du chagrin (tête basse, une petite
+      larme) ; l''autre passe un bras autour de ses épaules pour le consoler, tendre et protecteur.
+
+      '
+    texte: 'Les jours de gros chagrin, {prenom2} n''est jamais loin de {prenom1}.
+
+      À deux, le chagrin est deux fois moins lourd.'
+  '20':
+    ancre: page:17
+    scene: 'Dans ce même salon, à plat ventre sur le tapis face à face, chacun un crayon à
+      la main et une feuille devant soi : les deux jumeaux se dessinent l''un l''autre, concentrés
+      et souriants, des crayons de couleur éparpillés.'
+    texte: '{prenom2} dessine {prenom1}. {prenom1} dessine {prenom2}.
+
+      Deux portraits, deux artistes !'
+  '21':
+    ancre: backgrounds/chambre.png
+    scene: 'Dans leur chambre, petite fête à deux : un jumeau tape dans ses mains en riant,
+      l''autre tourne sur lui-même bras écartés, plein d''élan — ils dansent ensemble, des
+      notes de musique suggérées par de petits confettis colorés.'
+    texte: '{prenom1} tape dans ses mains, {prenom2} tourne et saute.
+
+      Et si on inventait notre danse à deux ?'
+  '22':
+    ancre: backgrounds/chambre.png
+    scene: 'Dans leur chambre, chacun joue tranquillement de son côté : un jumeau assis au
+      sol lit un livre, l''autre à l''autre bout construit une tour de cubes en bois, paisibles,
+      sans interaction.
+
+      '
+    texte: 'Des fois, chacun joue de son côté.
+
+      C''est bien aussi, d''être un peu tranquille.'
+  '23':
+    scene: 'Dans un jardin ensoleillé, les deux jumeaux courent joyeusement l''un vers l''autre
+      bras ouverts, sur le point de se retrouver, herbe et fleurs autour.
+
+      '
+    texte: 'Et après… quelle joie de se retrouver !
+
+      « On joue ensemble ? — Oh oui ! »'
+  '24':
+    tenue: pyjamas assortis doux (exception du soir)
+    scene: 'Dans une salle de bain douce et chaleureuse, les deux jumeaux en pyjama se brossent
+      les dents côte à côte devant le lavabo, l''un debout sur un petit marchepied, se souriant
+      dans le miroir.
+
+      '
+    texte: 'Le soir, c''est deux pyjamas, deux bisous, deux doudous.
+
+      Un pour chacun, et beaucoup d''amour pour deux.'
+  '25':
+    ancre: backgrounds/chambre.png
+    tenue: pyjamas assortis doux (exception du soir)
+    scene: Le soir dans leur chambre, les deux jumeaux en pyjama serrés l'un contre l'autre
+      sous un même plaid, un grand livre d'images ouvert sur leurs genoux, lumière chaude
+      d'une petite lampe.
+    texte: 'Une histoire pour deux, sous la même couverture.
+
+      Encore une page… s''il te plaît !'
+  '26':
+    ancre: backgrounds/chambre.png
+    scene: 'Nuit tombée, veilleuse allumée : les deux jumeaux dorment paisiblement chacun
+      dans son lit, bordés sous leur couette, seules les têtes dépassent sur les oreillers,
+      lumière bleutée très douce.
+
+      '
+    texte: 'Bonne nuit {prenom1}. Bonne nuit {prenom2}.
+
+      Les rêves arrivent… un pour chacun.'
+  '27':
+    ancre: backgrounds/parc.png
+    scene: 'Lumière dorée de fin de journée dans le parc : les deux jumeaux marchent bras
+      dessus bras dessous vers l''horizon en se souriant, vus de trois quarts arrière, complices.
+
+      '
+    texte: 'Des ressemblances, des différences… ensemble, et chacun soi.
+
+      Deux comme nous, c''est deux fois plus d''amour !'
+  '28':
+    solo: true
+    scene: 'Page décorative douce SANS personnage : un joli cadre d''étoiles, de nuages et
+      de petits soleils à l''aquarelle autour d''un espace central clair et vide, comme une
+      page de dédicace.'
+    texte: 'Ce livre appartient à {prenom1} et {prenom2}.
+
+      Deux comme vous, il n''y en a pas d''autres !'
+    texte_centre: 'Colle ici une photo
+
+      de {prenom1} et {prenom2}'
+  '29':
+    texte_seul: true
+    titre: 'Un mot pour vous, les parents'
+    texte: |
+      Ce petit livre raconte une grande aventure : celle d'être deux.
+
+      Grandir jumeaux ou jumelles, c'est presque tout partager — la chambre, les jeux, les fous rires — et découvrir, jour après jour, qu'on est aussi une personne à part entière.
+
+      Rappeler combien {prenom1} et {prenom2} se ressemblent, mais aussi combien chaque enfant est unique, c'est leur offrir deux cadeaux précieux : le lien qui les unit, et la liberté d'être pleinement soi.
+  '30':
+    texte_seul: true
+    titre: 'Deux, et pourtant uniques'
+    texte: |
+      Jumeaux et jumelles entendent souvent « les jumeaux »… plus rarement leur prénom.
+
+      En leur lisant cette histoire, vous les aidez à mettre des mots sur leur quotidien : la complicité, mais aussi le droit d'aimer des choses différentes, d'avoir un caractère, un rythme et des rêves bien à soi.
+
+      Relisez-le souvent, à deux voix. Et rappelez qu'il n'y a, dans le monde entier, personne d'autre comme {prenom1} et {prenom2}.
+
+      — Avec toute la tendresse de la communauté Gémellité.com

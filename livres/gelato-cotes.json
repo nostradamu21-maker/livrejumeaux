@@ -1,0 +1,49 @@
+{
+  "productUid": "photobooks-hardcover_pf_200x200-mm-8x8-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+  "pagesCount": 34,
+  "measureUnit": "mm",
+  "wraparoundInsideSize": {
+    "width": 458.0,
+    "height": 246.0,
+    "left": 0,
+    "top": 0,
+    "thickness": 17
+  },
+  "wraparoundEdgeSize": {
+    "width": 424.0,
+    "height": 212.0,
+    "left": 17,
+    "top": 17,
+    "thickness": 3
+  },
+  "contentBackSize": {
+    "width": 198.0,
+    "height": 206.0,
+    "left": 20,
+    "top": 20
+  },
+  "jointBackSize": {
+    "width": 8,
+    "height": 206.0,
+    "left": 218.0,
+    "top": 20
+  },
+  "spineSize": {
+    "width": 6,
+    "height": 206.0,
+    "left": 226.0,
+    "top": 20
+  },
+  "jointFrontSize": {
+    "width": 8,
+    "height": 206.0,
+    "left": 232.0,
+    "top": 20
+  },
+  "contentFrontSize": {
+    "width": 198.0,
+    "height": 206.0,
+    "left": 240.0,
+    "top": 20
+  }
+}

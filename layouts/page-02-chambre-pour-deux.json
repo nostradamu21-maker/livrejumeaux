@@ -1,0 +1,27 @@
+{
+  "_comment": "Page décor seul — respiration.",
+  "page_id": "page-02-chambre-pour-deux",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/chambre.png",
+  "characters": [],
+  "text": {
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3,
+    "content": "Deux lits, deux doudous, deux paires de chaussures…\nEt une chambre pour deux !"
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

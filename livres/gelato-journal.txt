@@ -1,0 +1,256 @@
+CATALOGUES:
+[
+  {
+    "catalogUid": "accordion-fold-brochures",
+    "title": "Accordion fold brochures",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "acrylic",
+    "title": "Acrylic Print",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "apparel",
+    "title": "Apparel",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "aprons",
+    "title": "Aprons",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "baby-clothing",
+    "title": "Baby Clothing",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "beanies",
+    "title": "Beanies",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "blank-envelopes",
+    "title": "Blank Envelopes",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "bottles",
+    "title": "Bottles",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "bucket-hat",
+    "title": "Bucket Hat",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "business-cards",
+    "title": "Business Cards",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "calendars",
+    "title": "Calendars",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "canvas",
+    "title": "Canvas",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "cards",
+    "title": "Cards",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "cards-eu",
+    "title": "Cards - RoW & EU",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "cards-us",
+    "title": "Cards - US",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "dad-hat",
+    "title": "Dad hat",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "default",
+    "title": "Default catalog",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "default-flat-prices",
+    "title": "Default catalog (Flat prices)",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "enterprise",
+    "title": "Enterprise",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "fine-art",
+    "title": "Fine Art",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "fine-art-framed-poster",
+    "title": "Fine Art Framed Poster",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "flyers",
+    "title": "Flyers",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "foam-print-product",
+    "title": "Foam Print Product",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "folded-cards",
+    "title": "Folded cards",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "folders",
+    "title": "Folders",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "framed-canvas",
+    "title": "Framed canvas",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "framed-posters",
+    "title": "Framed posters",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "frames",
+    "title": "Frames",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "hangers",
+    "title": "Hangers",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "hard-cover-photobooks",
+    "title": "Hard cover Photobooks",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "hoodies",
+    "title": "Hoodies",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "kids-apparel",
+    "title": "Kids Apparel",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "letterheads",
+    "title": "Letterheads",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "metallic",
+    "title": "Metallic Print",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "mounted-fine-art",
+    "title": "Mounted Fine Ar",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "mounted-framed-posters",
+    "title": "Mounted Framed Poster",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "mugs",
+    "title": "Mugs",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "multipage-brochures",
+    "title": "Multipage Brochures",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "notebooks",
+    "title": "Notebooks",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "pack-of-cards",
+    "title": "Pack of Cards (2-sided)",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "pack-of-cards-envelopes",
+    "title": "Pack of cards (2-sided, Envelopes incl)",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "pack-of-cards-folded-envelopes",
+    "title": "Pack of Cards (folded, Envelopes included)",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "pack-of-cards-folded",
+    "title": "Pack of Cards (folded, no envelopes)",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "pack-of-cards-general",
+    "title": "Pack of cards - General",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "phone-cases",
+    "title": "Phone cases",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "polos",
+    "title": "Polos",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "poster-hangers",
+    "title": "Poster & Hanger",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "hanging-posters",
+    "title": "Poster+Hanger",
+    "productAttributes": []
+  },
+  {
+    "catalogUid": "posters",
+    "title": "Posters",
+    "productAttributes": []
+  },
+ 
+
+
+RAW hard-cover-photobooks (1re page, 3000 c):
+{"products": [{"productUid": "photobooks-hardcover_pf_11x11-inch-280x280-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver", "attributes": {"BindingType": "glued-left", "CoatingType": "matt-lamination", "ColorType": "4-4", "CoverColorType": "4-4", "Orientation": "ver", "PagesCount": "custom", "ProductStatus": "activated", "ProtectionType": "1-0", "State": "published", "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk", "UnifiedPaperFormat": "11x11-inch-280x280-mm", "UnifiedPaperType": "170-gsm-65lb-coated-silk"}, "weight": {"value": 185.7931768, "measureUnit": "grams"}, "supportedCountries": [], "notSupportedCountries": [], "dimensions": {"Height": {"value": "279.40", "measureUnit": "mm"}, "Length": {"value": "4.5677826", "measureUnit": "mm"}, "Imagewrapfoldsize": {"value": "3", "measureUnit": "mm"}, "Thickness": {"value": "0.155", "measureUnit": "mm"}, "Width": {"value": "279.40", "measureUnit": "mm"}, "Sheetscount": {"value": "14", "measureUnit": "sheets"}, "Coverextramarginwidth": {"value": "-2", "measureUnit": "mm"}, "Cardboardwidth": {"value": "277.4", "measureUnit": "mm"}, "Casesidesize": {"value": "17", "measureUnit": "mm"}, "Coverextramarginheight": {"value": "6", "measureUnit": "mm"}, "Covertotalheight": {"value": "325.4", "measureUnit": "mm"}, "Innerpagescount": {"value": "26", "measureUnit": "pages"}, "Jointsize": {"value": "8", "measureUnit": "mm"}, "Covertotalwidth": {"value": "616.8", "measureUnit": "mm"}, "Spinesize": {"value": "6", "measureUnit": "mm"}, "Textblocktotalwidth": {"value": "285.4", "measureUnit": "mm"}, "Cardboardheight": {"value": "285.4", "measureUnit": "mm"}, "Textblocktotalheight": {"value": "285.4", "measureUnit": "mm"}, "Packaginglength": {"value": "4.5677826", "measureUnit": "mm"}, "Packagingwidth": {"value": "279.40", "measureUnit": "mm"}, "Packagingheight": {"value": "279.40", "measureUnit": "mm"}, "Assemblytype": {"value": "fixed_one_stack", "measureUnit": "type"}}, "hasFlatShippingPriceType": null, "isPrintable": null, "validPageCounts": [], "isStockable": null, "productTypeUid": null, "contentAreas": []}, {"productUid": "photobooks-hardcover_pf_200x200-mm-8x8-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver", "attributes": {"BindingType": "glued-left", "CoatingType": "matt-lamination", "ColorType": "4-4", "CoverColorType": "4-4", "Orientation": "ver", "PagesCount": "custom", "ProductStatus": "activated", "ProtectionType": "1-0", "State": "published", "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk", "UnifiedPaperFormat": "200x200-mm-8x8-inch", "UnifiedPaperType": "170-gsm-65lb-coated-silk"}, "weight": {"value": 95.2, "measureUnit": "grams"}, "supportedCountries": ["PM", "PT", "GB", "OM", "PE", "IN", "AF", "GU", "BA", "LR", "BL", "SH", "MD", "BY", "FM", "ZM", "MO", "YE", "MH", "PH", "MX", "TN", "UY", "GQ", "AT", "SX", "GP", "CV", "SI",
+
+RAW soft-cover-photobooks (1re page, 3000 c):
+{"products": [{"productUid": "photobooks-softcover_pf_140x140-mm-5_5x5_5-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver", "attributes": {"BindingType": "glued-left", "CoatingType": "matt-lamination", "ColorType": "4-4", "CoverColorType": "4-4", "Orientation": "ver", "PagesCount": "custom", "ProductStatus": "activated", "ProtectionType": "1-0", "State": "published", "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk", "UnifiedPaperFormat": "140x140-mm-5_5x5_5-inch", "UnifiedPaperType": "170-gsm-65lb-coated-silk"}, "weight": {"value": 46.648, "measureUnit": "grams"}, "supportedCountries": ["PR", "LC", "MX", "FJ", "BA", "LI", "PH", "EG", "MF", "BR", "ZM", "IL", "MV", "FO", "GL", "TJ", "IQ", "GP", "CM", "TC", "TM", "SY", "AL", "NP", "UA", "GQ", "PF", "KN", "GY", "PG", "DM", "MR", "RE", "BZ", "TD", "AE", "AW", "SK", "IC", "HU", "BQ", "MQ", "IE", "AG", "MU", "BH", "PL", "SC", "SV", "GI", "BW", "TH", "PK", "GM", "LB", "VU", "ID", "WF", "NU", "MW", "BE", "PT", "MP", "PN", "CR", "LU", "SL", "DJ", "GH", "SE", "FR", "NC", "DE", "MG", "SR", "VI", "AR", "QA", "CW", "HN", "CN", "DK", "RW", "TL", "CG", "GN", "BT", "SO", "TR", "MD", "TV", "BG", "SA", "ET", "AM", "TN", "KW", "GT", "GS", "YE", "FK", "BN", "GU", "IO", "VC", "ER", "SB", "US", "UZ", "AT", "KG", "ZA", "MZ", "SM", "FM", "IN", "TF", "TO", "TW", "KH", "CI", "LV", "CF", "TT", "UG", "MK", "TZ", "CZ", "CD", "KM", "ST", "CO", "YT", "KE", "VG", "NZ", "GE", "HT", "IT", "MA", "AS", "IR", "AZ", "AF", "NL", "NG", "GR", "WS", "LS", "BM", "GW", "EE", "CV", "NI", "IM", "GF", "NE", "JO", "BS", "MO", "KR", "GB", "HK", "SG", "HR", "MS", "MN", "JM", "ML", "AU", "ZW", "CH", "MH", "ME", "BI", "BF", "PW", "LY", "LR", "CK", "MC", "SN", "KI", "BD", "GA", "DZ", "CL", "AX", "CA", "SZ", "MY", "JP", "BY", "PE", "MT", "VA", "UY", "ES", "PY", "CY", "IS", "SD", "MM", "AN", "NO", "RU", "SX", "JE", "DO", "NR", "OM", "RS", "BJ", "SI", "SS", "PA", "LT", "LA", "NA", "VE", "PM", "EC", "KZ", "RO", "FI", "KY", "BL", "AI", "VN", "AD", "LK", "GG", "GD", "BO", "AO", "TG", "SH", "BB"], "notSupportedCountries": [], "dimensions": {"Coverthickness": {"value": "0.2764100", "measureUnit": "mm"}, "Textblocktotalwidth": {"value": "146", "measureUnit": "mm"}, "Covertotalwidth": {"value": "288.56782", "measureUnit": "mm"}, "Sheetscount": {"value": "14", "measureUnit": "sheets"}, "Length": {"value": "4.58282", "measureUnit": "mm"}, "Jointsize": {"value": "8", "measureUnit": "mm"}, "Width": {"value": "140", "measureUnit": "mm"}, "Height": {"value": "140", "measureUnit": "mm"}, "Textblocktotalheight": {"value": "146", "measureUnit": "mm"}, "Innerpagescount": {"value": "26", "measureUnit": "pages"}, "Innerthickness": {"value": "0.155", "measureUnit": "mm"}, "Spinesize": {"value": "2.56782", "measureUnit": "mm"}, "Thickness": {"value": "0.155", "measureUnit": "mm"}, "Covertotalheight": {"value": "146", "measureUnit": "mm"}, "Packaginglength": {"value": "4.58282", "mea
+OK — 16 produits photobooks

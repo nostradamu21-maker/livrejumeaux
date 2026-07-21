@@ -1,0 +1,290 @@
+[
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_11x11-inch-280x280-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "11x11-inch-280x280-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_200x200-mm-8x8-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "200x200-mm-8x8-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_210x280-mm-8x11-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_hor",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "hor",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "210x280-mm-8x11-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_210x280-mm-8x11-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "210x280-mm-8x11-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_280x280-mm-11x11-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "280x280-mm-11x11-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_8x11-inch-210x280-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_hor",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "hor",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "8x11-inch-210x280-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_8x11-inch-210x280-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "8x11-inch-210x280-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "hard-cover-photobooks",
+    "productUid": "photobooks-hardcover_pf_8x8-inch-200x200-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_130-gsm-65-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "130-gsm-65-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "8x8-inch-200x200-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_140x140-mm-5_5x5_5-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "140x140-mm-5_5x5_5-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_140x215-mm-5_5x8_5-inch_pt_250-gsm-100-lb-text-uncoated_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-uncoated_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-uncoated",
+      "UnifiedPaperFormat": "140x215-mm-5_5x8_5-inch",
+      "UnifiedPaperType": "250-gsm-100-lb-text-uncoated"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_200x200-mm-8x8-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "200x200-mm-8x8-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_210x280-mm-8x11-inch_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "210x280-mm-8x11-inch",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_5_5x5_5-inch-140x140-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "5_5x5_5-inch-140x140-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_5_5x8_5-inch-140x215-mm_pt_250-gsm-100-lb-text-uncoated_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-uncoated_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-uncoated",
+      "UnifiedPaperFormat": "5_5x8_5-inch-140x215-mm",
+      "UnifiedPaperType": "250-gsm-100-lb-text-uncoated"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_8x11-inch-210x280-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "8x11-inch-210x280-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  },
+  {
+    "catalog": "soft-cover-photobooks",
+    "productUid": "photobooks-softcover_pf_8x8-inch-200x200-mm_pt_170-gsm-65lb-coated-silk_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0_cpt_250-gsm-100-lb-cover-coated-silk_ver",
+    "attributes": {
+      "BindingType": "glued-left",
+      "CoatingType": "matt-lamination",
+      "ColorType": "4-4",
+      "CoverColorType": "4-4",
+      "Orientation": "ver",
+      "PagesCount": "custom",
+      "ProductStatus": "activated",
+      "ProtectionType": "1-0",
+      "State": "published",
+      "UnifiedCoverPaperType": "250-gsm-100-lb-cover-coated-silk",
+      "UnifiedPaperFormat": "8x8-inch-200x200-mm",
+      "UnifiedPaperType": "170-gsm-65lb-coated-silk"
+    }
+  }
+]

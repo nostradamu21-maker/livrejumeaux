@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deux comme nous — le livre personnalisé de vos jumeaux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/web/style.css">
+</head>
+<body id="top">
+
+  <nav class="nav">
+    <a class="brand" href="#top">Deux&nbsp;comme&nbsp;nous</a>
+    <div class="nav-links">
+      <a href="#livre">Le livre</a>
+      <a href="#etapes">Comment ça marche</a>
+      <a href="#creer" class="nav-cta">Créer le nôtre</a>
+    </div>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Album personnalisé · jumeaux &amp; jumelles</p>
+      <h1>L'histoire d'être<br><em>deux comme nous</em></h1>
+      <p class="lead">
+        Un livre tendre et unique qui célèbre le lien de vos jumeaux : leurs
+        prénoms, leur allure, leur complicité — page après page.
+      </p>
+      <div class="hero-actions">
+        <a href="#creer" class="btn btn-primary">Créer notre livre</a>
+        <a href="#livre" class="btn btn-ghost">Feuilleter un exemple</a>
+      </div>
+      <ul class="hero-points">
+        <li>Deux héros à votre image</li>
+        <li>Imprimé &amp; relié avec soin</li>
+        <li>Livré en quelques jours</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-blob"></div>
+      <div class="book book-hero">
+        <img src="/apercu/test-filles/couverture.jpg" alt="Couverture du livre"
+             onerror="this.closest('.book').classList.add('book-vide')">
+        <span class="book-fallback">Deux comme nous</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================= FLIPBOOK ========================= -->
+  <section id="livre" class="livre-flip">
+    <div class="section-tete">
+      <h2>Feuilletez le livre</h2>
+      <p class="section-sub">
+        Tournez les pages pour découvrir la couverture et l'intérieur d'un
+        exemplaire réel — illustrations douces à l'aquarelle, pour les jumeaux
+        comme pour les jumelles.
+      </p>
+    </div>
+    <div class="fb">
+      <div class="fb-book" id="fb-book"></div>
+    </div>
+    <div class="fb-controls">
+      <button class="fb-btn" id="fb-prev" aria-label="Page précédente">‹</button>
+      <span class="fb-hint" id="fb-hint">Cliquez pour tourner les pages</span>
+      <button class="fb-btn" id="fb-next" aria-label="Page suivante">›</button>
+    </div>
+    <p class="fb-perso">
+      Dans cet exemplaire, les héroïnes s'appellent <b>Elia</b> &amp; <b>Luna</b>.
+      Dans le vôtre, ce sont
+      <span class="perso-noms"><span id="perso-a">Léo</span> &amp; <span id="perso-b">Emma</span></span>
+      — vos prénoms, sur chaque page.
+    </p>
+  </section>
+
+  <!-- ======================= CONFIGURATEUR ======================= -->
+  <section id="creer" class="creer">
+    <div class="section-tete">
+      <h2>Composez votre livre</h2>
+      <p class="section-sub">
+        Choisissez un personnage pour chaque enfant, ajoutez leurs prénoms, et
+        voyez votre couverture prendre vie.
+      </p>
+    </div>
+
+    <div class="configurateur">
+      <div class="choix">
+        <div class="filtres">
+          <span>Afficher :</span>
+          <button class="filtre actif" data-genre="tous">Tous</button>
+          <button class="filtre" data-genre="garçon">Garçons</button>
+          <button class="filtre" data-genre="fille">Filles</button>
+        </div>
+
+        <div class="jumeau" data-jumeau="1">
+          <div class="jumeau-tete">
+            <span class="pastille">1</span>
+            <label>Premier enfant
+              <input type="text" class="prenom" data-jumeau="1" maxlength="18"
+                     placeholder="Son prénom" autocomplete="off">
+            </label>
+          </div>
+          <div class="grille" data-grille="1"></div>
+        </div>
+
+        <div class="jumeau" data-jumeau="2">
+          <div class="jumeau-tete">
+            <span class="pastille">2</span>
+            <label>Second enfant
+              <input type="text" class="prenom" data-jumeau="2" maxlength="18"
+                     placeholder="Son prénom" autocomplete="off">
+            </label>
+          </div>
+          <div class="grille" data-grille="2"></div>
+        </div>
+      </div>
+
+      <aside class="apercu">
+        <div class="book book-preview" id="couverture">
+          <div class="book-cover">
+            <div class="couv-titre">Deux comme&nbsp;nous</div>
+            <div class="couv-fiches">
+              <div class="couv-fiche" id="couv-fiche-1"><span class="vide">Enfant 1</span></div>
+              <div class="couv-fiche" id="couv-fiche-2"><span class="vide">Enfant 2</span></div>
+            </div>
+            <div class="couv-prenoms" id="couv-prenoms">Choisissez deux archétypes</div>
+          </div>
+        </div>
+
+        <p class="note" id="note-distinctif" hidden></p>
+
+        <div class="apercus-reels" id="apercus-reels" hidden>
+          <h3>Aperçu réel de vos pages</h3>
+          <div class="bandeau" id="bandeau-apercus"></div>
+        </div>
+
+        <form class="commande" id="commande">
+          <div class="prix-ligne">
+            <span class="prix">44,90&nbsp;€</span>
+            <span class="prix-note">livraison incluse</span>
+          </div>
+          <input type="email" id="email" placeholder="Votre e-mail (facultatif)"
+                 autocomplete="email">
+          <button type="submit" id="btn-commander" disabled>Commander notre livre</button>
+          <p class="statut" id="statut"></p>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========================= ÉTAPES ========================= -->
+  <section id="etapes" class="etapes">
+    <div class="section-tete">
+      <h2>Comment ça marche</h2>
+    </div>
+    <div class="etapes-grid">
+      <div class="etape">
+        <span class="etape-num">1</span>
+        <h3>Vous composez</h3>
+        <p>Un personnage et un prénom pour chaque jumeau. L'aperçu se met à jour en direct.</p>
+      </div>
+      <div class="etape">
+        <span class="etape-num">2</span>
+        <h3>On crée le livre</h3>
+        <p>Nos illustrations sont personnalisées et vérifiées une à une, avec le plus grand soin.</p>
+      </div>
+      <div class="etape">
+        <span class="etape-num">3</span>
+        <h3>Vous le recevez</h3>
+        <p>Imprimé, relié et expédié chez vous — prêt à être lu et relu, encore et encore.</p>
+      </div>
+    </div>
+    <div class="etapes-cta">
+      <a href="#creer" class="btn btn-primary">Créer notre livre</a>
+    </div>
+  </section>
+
+  <footer class="pied">
+    <p class="pied-titre">Deux comme nous</p>
+    <p>Un album unique pour les jumeaux et les jumelles.</p>
+    <p class="pied-fin">Avec toute la tendresse de la communauté Gémellité.com</p>
+  </footer>
+
+  <script src="/web/app.js"></script>
+</body>
+</html>

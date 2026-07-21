@@ -1,0 +1,59 @@
+{
+  "_comment": "Page à DEUX jumeaux, non symétriques. Ordre de la liste characters = profondeur : le premier est dessiné en premier (arrière-plan), le dernier par-dessus (avant-plan). scale différent = perspective. rotate = léger basculement.",
+  "page_id": "chacun-son-rythme",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/parc.png",
+  "background_mirror": true,
+  "characters": [
+    {
+      "_role": "arrière-plan — jumeau qui lit sous l'arbre, à droite",
+      "asset": "assets/archetype1/assis-lecture.png",
+      "x": 78,
+      "y": 87,
+      "scale": 0.4,
+      "mirror": false,
+      "rotate": 2,
+      "shadow": {
+        "_note": "ombre peinte fournie par l'underlay",
+        "opacity": 0.0
+      },
+      "underlay": "assets/archetype1/assis-lecture-ombre.png"
+    },
+    {
+      "_role": "avant-plan — jumeau qui court, à gauche",
+      "asset": "assets/archetype1/courir.png",
+      "x": 33,
+      "y": 90,
+      "scale": 0.52,
+      "mirror": false,
+      "rotate": -4,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.02,
+        "width_ratio": 0.8,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "content": "{prenom1} court sans s'arrêter, {prenom2} lit sous l'arbre. Chacun son rythme !",
+    "x": 10,
+    "y": 8,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

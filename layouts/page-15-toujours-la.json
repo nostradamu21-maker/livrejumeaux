@@ -1,0 +1,60 @@
+{
+  "_comment": "",
+  "page_id": "page-15-toujours-la",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/parc.png",
+  "characters": [
+    {
+      "_role": "A tête basse, près du banc",
+      "asset": "assets/archetype1/face-sourire.png",
+      "x": 30,
+      "y": 88,
+      "scale": 0.4,
+      "mirror": false,
+      "rotate": -6,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    },
+    {
+      "_role": "B bras ouverts tourné vers A",
+      "asset": "assets/archetype1/calin.png",
+      "x": 52,
+      "y": 86,
+      "scale": 0.44,
+      "mirror": true,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3,
+    "content": "Les jours de gros chagrin, {prenom2} n'est jamais loin de {prenom1}.\nÀ deux, le chagrin est deux fois moins lourd."
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}

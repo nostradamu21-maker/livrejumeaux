@@ -1,0 +1,40 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.local.example
+*.local
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- Modeles re-telechargeables ---
+models/
+
+# --- Sorties de generation / artefacts lourds ---
+output/
+assets/
+selected/
+backgrounds/.cache/
+archetypes/_variantes/
+*.pdf
+
+# --- Livres generes (dumps lourds) : on garde les configs, pas les rendus ---
+livres/**/apercus/
+livres/**/variantes/
+livres/**/photos/
+livres/**/*.png
+livres/**/*.jpg
+livres/**/*.jpeg
+
+# --- Node / Next.js (site/) ---
+node_modules/
+.next/
+.vercel/
+out/
+
+# --- OS / editeur ---
+.DS_Store
+Thumbs.db

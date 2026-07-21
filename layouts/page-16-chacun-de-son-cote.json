@@ -1,0 +1,61 @@
+{
+  "_comment": "",
+  "page_id": "page-16-chacun-de-son-cote",
+  "book": {
+    "trim_cm": 21.0,
+    "bleed_mm": 3.0,
+    "safety_mm": 5.0,
+    "dpi": 300
+  },
+  "background": "backgrounds/chambre.png",
+  "characters": [
+    {
+      "_role": "A coin gauche",
+      "asset": "assets/archetype1/assis-lecture.png",
+      "x": 22,
+      "y": 88,
+      "scale": 0.36,
+      "mirror": false,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.0,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      },
+      "underlay": "assets/archetype1/assis-lecture-ombre.png"
+    },
+    {
+      "_role": "B coin droit près des jouets",
+      "asset": "assets/archetype1/face-sourire.png",
+      "x": 78,
+      "y": 86,
+      "scale": 0.38,
+      "mirror": true,
+      "rotate": 0,
+      "shadow": {
+        "opacity": 0.3,
+        "blur": 0.018,
+        "width_ratio": 0.72,
+        "height_ratio": 0.12,
+        "dy_ratio": 0.0
+      }
+    }
+  ],
+  "text": {
+    "x": 10,
+    "y": 7,
+    "width": 80,
+    "align": "center",
+    "font": "fonts/Andika-Regular.ttf",
+    "size_pt": 23,
+    "color": "#3a3230",
+    "line_spacing": 1.3,
+    "content": "Des fois, chacun joue de son côté.\nC'est bien aussi, d'être un peu tranquille."
+  },
+  "vars": {
+    "prenom1": "Léo",
+    "prenom2": "Jules"
+  }
+}
