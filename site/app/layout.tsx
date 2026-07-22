@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Deux comme nous — le cadeau des parents de jumeaux",
+  title: "Deux comme nous : le cadeau des parents de jumeaux",
   description:
-    "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité — ensemble sur chaque page. Relié 20×20 cm, livré chez vous. Le cadeau de naissance et d'anniversaire des jumeaux et jumelles.",
+    "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité, ensemble sur chaque page. Relié 20×20 cm, livré chez vous. Le cadeau de naissance et d'anniversaire des jumeaux et jumelles.",
   keywords: [
     "cadeau jumeaux",
     "livre personnalisé jumeaux",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "livre enfant personnalisé",
   ],
   openGraph: {
-    title: "Deux comme nous — le cadeau des parents de jumeaux",
+    title: "Deux comme nous : le cadeau des parents de jumeaux",
     description:
       "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et livré chez vous.",
     url: "https://boutique.gemellite.com",

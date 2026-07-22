@@ -26,7 +26,7 @@ export default function Etapes() {
           <h3>Ils se découvrent en héros</h3>
           <p>
             Le livre arrive relié chez vous. Il ne reste qu&apos;à ouvrir la
-            première page — et à la relire tous les soirs.
+            première page, et à la relire tous les soirs.
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ const QUESTIONS: { q: string; r: React.ReactNode }[] = [
       <>
         De la naissance à 6&nbsp;ans environ. Offert à la naissance, c&apos;est
         un souvenir qui grandit avec eux&nbsp;; vers 2-3&nbsp;ans, c&apos;est
-        l&apos;histoire du soir qu&apos;ils réclament — celle où les héros
+        l&apos;histoire du soir qu&apos;ils réclament&nbsp;: celle où les héros
         portent leurs prénoms.
       </>
     ),
@@ -25,8 +25,8 @@ const QUESTIONS: { q: string; r: React.ReactNode }[] = [
     r: (
       <>
         C&apos;est prévu&nbsp;: si vous choisissez le même personnage pour les
-        deux, vous sélectionnez un petit détail — doudou, lunettes, casquette,
-        foulard — que porte le second sur toutes les pages. Chacun se reconnaît
+        deux, vous sélectionnez un petit détail (doudou, lunettes, casquette,
+        foulard) que porte le second sur toutes les pages. Chacun se reconnaît
         au premier coup d&apos;œil.
       </>
     ),

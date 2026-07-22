@@ -10,7 +10,7 @@ export default function Hero() {
         </h1>
         <p className="lead">
           Le livre personnalisé pensé pour les jumeaux&nbsp;: leurs prénoms,
-          leur allure, leur complicité — ensemble sur chaque page, du premier
+          leur allure, leur complicité. Ensemble sur chaque page, du premier
           câlin au dernier bisou du soir.
         </p>
         <div className="hero-actions">

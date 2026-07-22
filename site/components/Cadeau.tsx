@@ -7,7 +7,7 @@ export default function Cadeau() {
         <p className="cadeau-texte">
           Un cadeau de naissance qui ne finit pas au fond d&apos;un placard,
           un anniversaire qui fait briller deux paires d&apos;yeux d&apos;un
-          coup. Il vous suffit de connaître leurs prénoms — on
+          coup. Il vous suffit de connaître leurs prénoms, on
           s&apos;occupe du reste, livraison comprise.
         </p>
         <ul className="cadeau-occasions">

@@ -3,8 +3,8 @@ export default function Footer() {
     <footer className="pied">
       <p className="pied-titre">Deux comme nous</p>
       <p>
-        Le livre personnalisé des jumeaux et des jumelles — deux héros, une
-        histoire.
+        Le livre personnalisé des jumeaux et des jumelles&nbsp;: deux héros,
+        une histoire.
       </p>
       <nav className="pied-nav">
         <a href="#livre">Le livre</a>
@@ -14,7 +14,7 @@ export default function Footer() {
         <a href="#faq">Questions</a>
       </nav>
       <p className="pied-fin">
-        Imaginé et écrit avec la communauté Gémellité.com — par des parents de
+        Imaginé et écrit avec la communauté Gémellité.com, par des parents de
         jumeaux, pour des parents de jumeaux. 💛
       </p>
     </footer>

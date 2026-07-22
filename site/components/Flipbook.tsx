@@ -69,8 +69,8 @@ export default function Flipbook() {
         <h2>Feuilletez le livre</h2>
         <p className="section-sub">
           Tournez les pages pour découvrir la couverture et l&apos;intérieur
-          d&apos;un exemplaire réel — illustrations douces à l&apos;aquarelle,
-          pour les jumeaux comme pour les jumelles.
+          d&apos;un exemplaire réel&nbsp;: illustrations douces à
+          l&apos;aquarelle, pour les jumeaux comme pour les jumelles.
         </p>
       </div>
 
@@ -126,8 +126,8 @@ export default function Flipbook() {
         <span className="perso-noms">
           <span className={`perso-a${swap ? " perso-swap" : ""}`}>{a}</span> &amp;{" "}
           <span className={`perso-b${swap ? " perso-swap" : ""}`}>{b}</span>
-        </span>{" "}
-        — vos prénoms, sur chaque page.
+        </span>
+        . Vos prénoms, sur chaque page.
       </p>
     </section>
   );

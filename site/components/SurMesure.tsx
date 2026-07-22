@@ -38,7 +38,7 @@ export default function SurMesure() {
             Demander mon livre sur mesure
           </a>
           <span className="sm-note">
-            Réponse sous 48&nbsp;h — nous vous guidons pas à pas.
+            Réponse sous 48&nbsp;h, nous vous guidons pas à pas.
           </span>
         </div>
       </div>

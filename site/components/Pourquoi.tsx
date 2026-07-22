@@ -19,8 +19,8 @@ export default function Pourquoi() {
           <span className="pq-icone">👑👑</span>
           <h3>Deux héros, une histoire</h3>
           <p>
-            Ils apparaissent <strong>ensemble</strong> sur chaque illustration —
-            câlins, fous rires, bêtises comprises. Pas un héros et son
+            Ils apparaissent <strong>ensemble</strong> sur chaque illustration,
+            câlins, fous rires et bêtises compris. Pas un héros et son
             figurant&nbsp;: deux premiers rôles.
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function Pourquoi() {
           <h3>Chacun sa place</h3>
           <p>
             Chacun son prénom, son personnage, son caractère. Le livre célèbre
-            leur complicité <strong>et</strong> ce qui les rend uniques — jamais
+            leur complicité <strong>et</strong> ce qui les rend uniques. Jamais
             «&nbsp;les jumeaux&nbsp;», toujours eux deux.
           </p>
         </div>
