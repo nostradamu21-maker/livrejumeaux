@@ -6,7 +6,9 @@ export default function Nav() {
       </a>
       <div className="nav-links">
         <a href="#livre">Le livre</a>
-        <a href="#etapes">Comment ça marche</a>
+        <a href="#pourquoi">Pourquoi</a>
+        <a href="#cadeau">Offrir</a>
+        <a href="#faq">Questions</a>
         <a href="#creer" className="nav-cta">
           Créer le vôtre
         </a>

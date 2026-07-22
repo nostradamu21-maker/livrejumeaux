@@ -2,28 +2,29 @@ export default function Hero() {
   return (
     <header className="hero">
       <div className="hero-text">
-        <p className="eyebrow">Album personnalisé · jumeaux &amp; jumelles</p>
+        <p className="eyebrow">Le cadeau des parents de jumeaux</p>
         <h1>
-          L&apos;histoire d&apos;être
+          Enfin une histoire
           <br />
-          <em>deux comme nous</em>
+          où ils sont <em>deux</em>
         </h1>
         <p className="lead">
-          Un livre tendre et unique qui célèbre le lien de vos jumeaux : leurs
-          prénoms, leur allure, leur complicité — page après page.
+          Le livre personnalisé pensé pour les jumeaux&nbsp;: leurs prénoms,
+          leur allure, leur complicité — ensemble sur chaque page, du premier
+          câlin au dernier bisou du soir.
         </p>
         <div className="hero-actions">
           <a href="#creer" className="btn btn-primary">
-            Créer notre livre
+            Créer leur livre
           </a>
           <a href="#livre" className="btn btn-ghost">
             Feuilleter un exemple
           </a>
         </div>
         <ul className="hero-points">
-          <li>Deux héros à votre image</li>
-          <li>Imprimé &amp; relié avec soin</li>
-          <li>Livré en quelques jours</li>
+          <li>Deux héros à leur image</li>
+          <li>Relié 20×20&nbsp;cm, vérifié à la main</li>
+          <li>Né dans la communauté Gémellité.com</li>
         </ul>
       </div>
       <div className="hero-visual">

@@ -202,10 +202,43 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .etape h3 { font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: 600; }
 .etape p { color: var(--encre-doux); margin: 0; font-size: 0.98rem; }
 
+/* -------------------------- POURQUOI -------------------------- */
+.pourquoi .section-tete { max-width: 56ch; }
+.pourquoi .section-tete h2 { font-size: clamp(1.9rem, 3.8vw, 2.6rem); line-height: 1.18; }
+.pourquoi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.4rem; }
+.pq-carte { background: #fff; border-radius: var(--r); padding: 1.8rem 1.5rem; box-shadow: var(--ombre-s); border-top: 3px solid var(--terracotta); transition: transform 0.16s, box-shadow 0.16s; }
+.pq-carte:hover { transform: translateY(-4px); box-shadow: var(--ombre-m); }
+.pq-icone { display: inline-block; font-size: 1.6rem; margin-bottom: 0.7rem; }
+.pq-carte h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+.pq-carte p { color: var(--encre-doux); margin: 0; font-size: 0.96rem; line-height: 1.55; }
+.pq-carte p strong { color: var(--encre); }
+
+/* -------------------------- CADEAU -------------------------- */
+.cadeau-carte { text-align: center; background: linear-gradient(155deg, #fff 0%, var(--creme-2) 100%); border: 1.5px solid var(--ligne); border-radius: var(--r); padding: clamp(2.2rem, 5vw, 3.6rem); box-shadow: var(--ombre-m); max-width: 780px; margin: 0 auto; }
+.cadeau-carte h2 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 600; }
+.cadeau-texte { color: var(--encre-doux); font-size: 1.1rem; line-height: 1.65; max-width: 52ch; margin: 1.1rem auto 1.4rem; }
+.cadeau-occasions { list-style: none; padding: 0; margin: 0 auto 1.8rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+.cadeau-occasions li { background: #fff; border: 1.5px solid var(--ligne); border-radius: 999px; padding: 0.45rem 1rem; font-size: 0.92rem; font-weight: 700; color: var(--encre); box-shadow: var(--ombre-s); }
+
+/* -------------------------- FAQ -------------------------- */
+.faq { max-width: 820px; }
+.faq-liste { display: flex; flex-direction: column; gap: 0.8rem; }
+.faq-item { background: #fff; border-radius: 14px; box-shadow: var(--ombre-s); border: 1.5px solid var(--ligne); overflow: hidden; }
+.faq-item summary { cursor: pointer; list-style: none; padding: 1.05rem 1.3rem; font-weight: 800; font-size: 1.02rem; color: var(--encre); position: relative; padding-right: 3rem; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--terracotta); transition: transform 0.2s; }
+.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item[open] summary { color: var(--terracotta-f); }
+.faq-item p { margin: 0; padding: 0 1.3rem 1.15rem; color: var(--encre-doux); line-height: 1.6; font-size: 0.98rem; }
+.faq-item a { color: var(--terracotta-f); font-weight: 700; }
+
 /* -------------------------- PIED -------------------------- */
 .pied { text-align: center; padding: 3rem 1.5rem 3.5rem; background: linear-gradient(180deg, transparent, rgba(217, 143, 99, 0.08)); color: var(--encre-doux); }
 .pied-titre { font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--terracotta-f); margin: 0 0 0.3rem; }
 .pied p { margin: 0.2rem 0; }
+.pied-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; margin: 1.1rem 0 0; }
+.pied-nav a { color: var(--encre-doux); text-decoration: none; font-weight: 700; font-size: 0.92rem; }
+.pied-nav a:hover { color: var(--terracotta-f); }
 .pied-fin { margin-top: 1.2rem; font-style: italic; }
 
 /* -------------------------- RESPONSIVE -------------------------- */

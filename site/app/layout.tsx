@@ -2,9 +2,26 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Deux comme nous — le livre personnalisé de vos jumeaux",
+  title: "Deux comme nous — le cadeau des parents de jumeaux",
   description:
-    "Un album tendre et unique qui célèbre le lien de vos jumeaux : leurs prénoms, leur allure, leur complicité — page après page.",
+    "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité — ensemble sur chaque page. Relié 20×20 cm, livré chez vous. Le cadeau de naissance et d'anniversaire des jumeaux et jumelles.",
+  keywords: [
+    "cadeau jumeaux",
+    "livre personnalisé jumeaux",
+    "cadeau naissance jumeaux",
+    "cadeau jumelles",
+    "livre enfant personnalisé",
+  ],
+  openGraph: {
+    title: "Deux comme nous — le cadeau des parents de jumeaux",
+    description:
+      "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et livré chez vous.",
+    url: "https://boutique.gemellite.com",
+    siteName: "Deux comme nous",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "/apercus/test-filles/couverture.jpg" }],
+  },
 };
 
 export default function RootLayout({
