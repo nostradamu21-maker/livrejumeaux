@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { existe } from "@/lib/catalogue";
 import { comboId } from "@/lib/combo";
+import { accessoireExiste } from "@/lib/accessoires";
 import {
   stripe,
   stripeActif,
@@ -16,6 +17,7 @@ interface Corps {
   prenom1?: string;
   prenom2?: string;
   email?: string;
+  accessoire?: string | null;
 }
 
 export async function POST(req: Request) {
@@ -25,6 +27,11 @@ export async function POST(req: Request) {
   const p1 = (body.prenom1 ?? "").trim();
   const p2 = (body.prenom2 ?? "").trim();
   const email = (body.email ?? "").trim();
+  // L'accessoire distinctif ne s'applique qu'aux paires identiques.
+  const acc =
+    a1 === a2 && body.accessoire && accessoireExiste(body.accessoire)
+      ? body.accessoire
+      : null;
 
   if (!existe(a1) || !existe(a2)) {
     return NextResponse.json({ ok: false, erreur: "Archétype inconnu." }, { status: 400 });
@@ -36,7 +43,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const cid = comboId(a1, a2);
+  const cid = comboId(a1, a2, acc);
   const origin = new URL(req.url).origin;
 
   // --- Paiement réel via Stripe si configuré ---

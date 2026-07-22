@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { ArchetypePublic } from "@/lib/types";
+import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
 
 const PRIX = "44,90\u00A0€";
 
@@ -17,6 +18,7 @@ export default function Configurateur({
   const [prenoms, setPrenoms] = useState<Prenoms>({ 1: "", 2: "" });
   const [filtre, setFiltre] = useState<"tous" | "garçon" | "fille">("tous");
   const [email, setEmail] = useState("");
+  const [accessoire, setAccessoire] = useState<string>(ACCESSOIRE_DEFAUT);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
   const [envoi, setEnvoi] = useState(false);
 
@@ -53,6 +55,7 @@ export default function Configurateur({
           prenom1: prenoms[1],
           prenom2: prenoms[2],
           email: email.trim(),
+          accessoire: memeArchetype ? accessoire : null,
         }),
       });
       const data = await r.json();
@@ -165,10 +168,28 @@ export default function Configurateur({
           </div>
 
           {memeArchetype && (
-            <p className="note">
-              Vos enfants ont le même archétype : pour les distinguer,{" "}
-              {fiche(choix[1])?.distinctif ?? "un petit détail les distinguera"}.
-            </p>
+            <div className="distinctif">
+              <p className="distinctif-tete">
+                Vos jumeaux ont le même personnage&nbsp;: choisissez un petit
+                détail pour distinguer le second.
+              </p>
+              <div className="distinctif-choix">
+                {ACCESSOIRES.map((a) => (
+                  <button
+                    key={a.id}
+                    type="button"
+                    className={`acc${accessoire === a.id ? " actif" : ""}`}
+                    onClick={() => setAccessoire(a.id)}
+                    aria-pressed={accessoire === a.id}
+                  >
+                    <span className="acc-emoji" aria-hidden="true">
+                      {a.emoji}
+                    </span>
+                    <span className="acc-label">{a.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
 
           <form className="commande" onSubmit={commander}>

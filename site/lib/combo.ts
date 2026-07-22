@@ -1,8 +1,12 @@
 // Identité canonique d'une combinaison d'archétypes : paire triée, pour servir
 // de clé de cache stable (identique à combo.py côté pipeline Python).
-export function comboId(a1: string, a2: string): string {
+// Pour une paire IDENTIQUE, l'accessoire distinctif choisi par le parent fait
+// partie de la clé (chaque accessoire = un livre-combo différent en cache).
+export function comboId(a1: string, a2: string, accessoire?: string | null): string {
   const [a, b] = [a1, a2].sort();
-  return `combo-${a}__${b}`;
+  const base = `combo-${a}__${b}`;
+  if (a === b && accessoire) return `${base}__acc-${accessoire}`;
+  return base;
 }
 
 /** Extrait l'accessoire d'un `distinctif` ("le second porte X" → "X"). */
