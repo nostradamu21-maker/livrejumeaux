@@ -8,7 +8,7 @@ export default function Nav() {
         <a href="#livre">Le livre</a>
         <a href="#etapes">Comment ça marche</a>
         <a href="#creer" className="nav-cta">
-          Créer le nôtre
+          Créer le vôtre
         </a>
       </div>
     </nav>
