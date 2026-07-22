@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { existe } from "@/lib/catalogue";
+import { existe, archetypeParId } from "@/lib/catalogue";
 import { comboId } from "@/lib/combo";
 import { accessoireExiste } from "@/lib/accessoires";
 import {
@@ -58,7 +58,9 @@ export async function POST(req: Request) {
             unit_amount: PRIX_CENTIMES,
             product_data: {
               name: PRODUIT_NOM,
-              description: `${p1} & ${p2} — ${a1} + ${a2}`,
+              // Libellés clients uniquement (jamais les ids techniques des
+              // archétypes, qui décrivent la carnation).
+              description: `${p1} (${archetypeParId(a1)?.label ?? ""}) & ${p2} (${archetypeParId(a2)?.label ?? ""})`,
             },
           },
         },

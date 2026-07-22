@@ -9,7 +9,13 @@ export interface Archetype {
   distinctif: string;
 }
 
-export interface ArchetypePublic extends Archetype {
+// Version exposée au navigateur : uniquement les champs de présentation.
+// JAMAIS `description` ni `tenue` (vocabulaire technique de génération,
+// mentions de carnation) — ils restent côté serveur.
+export interface ArchetypePublic {
+  id: string;
+  genre: Genre;
+  label: string;
   fiche: string;      // URL de la fiche de référence
   disponible: boolean;
 }

@@ -87,7 +87,7 @@ export default function Configurateur({
             onClick={() => a.disponible && setChoix((c) => ({ ...c, [jumeau]: a.id }))}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={a.fiche} alt={a.description} loading="lazy" />
+            <img src={a.fiche} alt={a.label} loading="lazy" />
             <div className="legende">{a.label}</div>
           </div>
         );

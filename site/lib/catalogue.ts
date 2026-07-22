@@ -114,10 +114,13 @@ export function existe(id: string | undefined | null): boolean {
   return !!id && PAR_ID.has(id);
 }
 
-/** Version publique : ajoute l'URL de fiche + la disponibilité. */
+/** Version publique : champs de présentation seulement (pas de description
+ *  technique ni de tenue — voir ArchetypePublic). */
 export function cataloguePublic(): ArchetypePublic[] {
   return ARCHETYPES.map((a) => ({
-    ...a,
+    id: a.id,
+    genre: a.genre,
+    label: a.label,
     fiche: `/fiches/${a.id}.png`,
     disponible: true, // les 12 fiches sont validées et présentes dans /public/fiches
   }));
