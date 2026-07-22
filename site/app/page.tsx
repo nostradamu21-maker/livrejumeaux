@@ -8,6 +8,7 @@ import SurMesure from "@/components/SurMesure";
 import Cadeau from "@/components/Cadeau";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
+import BarreMobile from "@/components/BarreMobile";
 import { cataloguePublic } from "@/lib/catalogue";
 
 export default function Page() {
@@ -24,6 +25,7 @@ export default function Page() {
       <Cadeau />
       <Faq />
       <Footer />
+      <BarreMobile />
     </>
   );
 }

@@ -29,6 +29,9 @@ export default function Hero() {
       </div>
       <div className="hero-visual">
         <div className="hero-blob" />
+        <span className="hero-deco deco-1" aria-hidden="true">✦</span>
+        <span className="hero-deco deco-2" aria-hidden="true">✦</span>
+        <span className="hero-deco deco-3" aria-hidden="true">💛</span>
         <div className="book book-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/apercus/test-filles/couverture.jpg" alt="Couverture du livre" />
