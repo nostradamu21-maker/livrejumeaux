@@ -18,6 +18,11 @@ pages « mot aux parents ») sont dans `scenes.yaml` (ancres de décor incluses 
 chambre/parc, `page:NN` pour les paires jardin 5-6 et salon 13-14). Une page marquée
 `texte_seul: true` (pages 29-30) est rendue directement — fond crème, cadre doux, titre +
 texte vectoriel — SANS génération IA (gratuit) ; elle est ignorée à la génération et au tri.
+**Texte mono/dizygote** : les pages qui reposent sur la ressemblance (07 « on se ressemble »
+et 08) ont une variante `texte_dizygote` / `scene_dizygote` dans `scenes.yaml`. `livre.py`
+(`champ_page()`) choisit la variante dizygote quand `livre.yaml` porte `monozygote: false`
+(archétypes différents) ; sinon la version standard. Par défaut (flag absent) = monozygote,
+donc les livres déjà produits ne changent pas.
 UN SEUL point d'entrée :
 - `livre.command` (double-clic) = `python livre.py <id>` → fait l'étape suivante :
   génération des pages manquantes (coût annoncé + confirmation), puis TRI CLIQUABLE dans
@@ -69,7 +74,7 @@ Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leço
 0. **Commande Gelato de test en cours** (test-filles, Elia & Luna, ~23 € le livre) — vérifier le rendu physique à réception.
 0.a **Catalogue d'archétypes** : générer les 9 fiches manquantes (`python archetypes.py`, coût annoncé avant, ~quelques $) puis tri Simon → 12 fiches validées dans `archetypes/`.
 0.b **Générateur de livres-combos** (`combo.py`, ✅ scaffoldé) : `python combo.py <archétype1> <archétype2>` crée le `livre.yaml` d'une combo depuis `archetypes.yaml` (id canonique = paire triée pour le cache ; réutilise les fiches validées comme références directes, gratuites ; ne génère une variante `distinctif` que pour une paire identique), puis `python livre.py <combo>` lance le pipeline en mode « combo à la commande + cache ».
-0.c **Front-end de commande** (`serveur.py` + `web/`, ✅ scaffoldé phase 1) : configurateur d'archétypes + prénoms, aperçu live (2 fiches + prénoms + couverture maquette, vrais aperçus si combo en cache), commande SIMULÉE (paiement + Gelato mock) journalisée dans `livres/commandes.json` ; le parcours client ne génère aucune image et ne déclenche aucun tri. Reste à brancher le vrai Stripe + la vraie commande `gelato.py`.
+0.c **Front-end de commande** (`site/`, Next.js 15, ✅ EN PRODUCTION sur **https://boutique.gemellite.com**, déployé via Vercel depuis GitHub `nostradamu21-maker/livrejumeaux`, root = `site`) : configurateur d'archétypes + prénoms + aperçu live, **sélecteur d'accessoire distinctif** pour les paires identiques (vignettes illustrées `site/public/accessoires/`, générées sur g1), section « sur mesure » 129 € (option −15 € si réutilisation du personnage, RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés) ; le parcours client ne génère aucune image ni tri. Reste à activer le vrai Stripe/Supabase (clés Vercel) + la vraie commande `gelato.py`, et à faire un vrai formulaire d'upload pour le sur-mesure (aujourd'hui `mailto:`). L'ancien scaffold Flask `serveur.py` + `web/` reste comme plan B.
 1. (ancienne chaîne, plan B) Ajouter 3 poses au catalogue (`sauter`, `montrer-du-doigt`, `rire`) via la config de la brique 1 — ce sont les seules poses bloquantes pour composer tout le livret.
 2. Générer l'**archétype fille** (référence fournie par Simon) : briques 1 puis 2.
 3. Utiliser `rotate` pour les scènes de sommeil (personnages couchés sur les lits) — pages 4 et 19 du manuscrit.
@@ -83,9 +88,13 @@ Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leço
 - `config.yaml` — config brique 1 (archétype en cours, poses, style).
 - `archetypes.yaml` — catalogue des 12 archétypes (genre, physique, tenue fixe, distinctif, base).
 - `archetypes.py` — production + tri des fiches de référence d'archétypes (déclinaison d'une base).
-- `combo.py` — générateur de livres-combos : prépare le `livre.yaml` d'une paire d'archétypes (`python combo.py <a1> <a2>`), réutilise les fiches validées comme références directes (gratuit), distinctif généré seulement pour les paires identiques. Aucune image générée par ce script.
-- `serveur.py` + `web/` — front-end de commande (phase 1, Flask) : configurateur d'archétypes + prénoms, aperçu live, tunnel de commande SIMULÉ (`python serveur.py` → http://127.0.0.1:5001/, ou double-clic `serveur.command`). Écrit les commandes dans `livres/commandes.json`. Ne génère aucune image.
+- `combo.py` — générateur de livres-combos : prépare le `livre.yaml` d'une paire d'archétypes (`python combo.py <a1> <a2>`), réutilise les fiches validées comme références directes (gratuit), distinctif généré seulement pour les paires identiques. Aucune image générée par ce script. Écrit un flag `monozygote: true/false` dans le `livre.yaml`. Option `--accessoire <id>` : pour une paire IDENTIQUE, applique l'accessoire distinctif CHOISI par le parent (doudou-lapin/ours/chat, lunettes, casquette, foulard) au 2ᵉ jumeau ; l'id de cache devient `combo-{a}__{b}__acc-{id}` (aligné sur `site/lib/combo.ts`).
+- `test_doudou.py` — test ponctuel : ajoute un doudou dans les bras d'une fiche validée (g1) pour valider le rendu d'un accessoire (2 variantes). Sortie `output/test-doudou/`.
+- `generer_accessoires.py` — génère les vignettes d'aperçu des accessoires du sélecteur (décline g1 avec chaque accessoire, medium) dans `site/public/accessoires/<id>.png` ; réutilise le doudou lapin déjà généré (gratuit). Payant → annoncer le coût.
+- `site/` — **front-end de commande de PRODUCTION** (Next.js 15 / React 19 / TS, App Router), déployé sur Vercel → **https://boutique.gemellite.com** (repo GitHub `nostradamu21-maker/livrejumeaux`, root Vercel = `site`). Remplace le scaffold Flask `serveur.py` (conservé comme plan B). Configurateur d'archétypes + prénoms + aperçu live, sélecteur d'accessoire distinctif (paires identiques), section « sur mesure » 129 € (option −15 € si réutilisation du personnage, mention RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés). Catalogue porté dans `site/lib/catalogue.ts` (champ `label` client SANS mention de peau ; `description` technique la garde pour la génération). Le parcours client ne génère aucune image.
+- `serveur.py` + `web/` — ancien front-end Flask (phase 1, plan B) : `python serveur.py` → http://127.0.0.1:5001/. Écrit les commandes dans `livres/commandes.json`. Ne génère aucune image.
 - `archetypes/` — fiches de référence validées (`<id>.png`) ; `_variantes/` = variantes en attente de tri.
+- `site/public/accessoires/` — vignettes illustrées des accessoires distinctifs (générées sur g1) affichées dans le sélecteur du configurateur.
 - `output/archetype-test/` — générations brutes de la brique 1 (4 variantes par pose + planche contact).
 - `selected/archetype1/` — générations retenues (brutes, une par pose).
 - `assets/archetype1/` — PNG transparents haute résolution prêts à composer.
