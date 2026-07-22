@@ -98,10 +98,10 @@ export default function Configurateur({
   return (
     <section id="creer" className="creer">
       <div className="section-tete">
-        <h2>Composez votre livre</h2>
+        <h2>Composez le livre de vos jumeaux</h2>
         <p className="section-sub">
-          Choisissez un personnage pour chaque enfant, ajoutez leurs prénoms, et
-          voyez votre couverture prendre vie.
+          Choisissez un personnage pour chacun, ajoutez leurs prénoms, et voyez
+          la couverture de leur livre personnalisé prendre vie.
         </p>
       </div>
 

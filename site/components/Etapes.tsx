@@ -2,7 +2,7 @@ export default function Etapes() {
   return (
     <section id="etapes" className="etapes">
       <div className="section-tete">
-        <h2>Trois minutes pour un souvenir à vie</h2>
+        <h2>Un cadeau unique en trois minutes</h2>
       </div>
       <div className="etapes-grid">
         <div className="etape">

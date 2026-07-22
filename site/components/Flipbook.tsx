@@ -66,11 +66,11 @@ export default function Flipbook() {
   return (
     <section id="livre" className="livre-flip">
       <div className="section-tete">
-        <h2>Feuilletez le livre</h2>
+        <h2>Feuilletez le livre de vos jumeaux</h2>
         <p className="section-sub">
-          Tournez les pages pour découvrir la couverture et l&apos;intérieur
-          d&apos;un exemplaire réel&nbsp;: illustrations douces à
-          l&apos;aquarelle, pour les jumeaux comme pour les jumelles.
+          Tournez les pages de ce livre personnalisé pour jumeaux et
+          jumelles&nbsp;: un exemplaire réel, illustrations douces à
+          l&apos;aquarelle, du réveil au coucher.
         </p>
       </div>
 
