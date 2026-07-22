@@ -37,9 +37,10 @@ export default function Pourquoi() {
           <span className="pq-icone">💛</span>
           <h3>Par des parents de jumeaux</h3>
           <p>
-            Né dans la communauté <strong>Gémellité.com</strong>. Les rythmes
-            différents, la ressemblance, le «&nbsp;toi et moi&nbsp;»&nbsp;: tout
-            ce que vous vivez est dans le texte.
+            Par les créateurs de <strong>Jumelio</strong> et{" "}
+            <strong>Gemellite.com</strong>. Les rythmes différents, la
+            ressemblance, le «&nbsp;toi et moi&nbsp;»&nbsp;: tout ce que vous
+            vivez est dans le texte.
           </p>
         </div>
         <div className="pq-carte">

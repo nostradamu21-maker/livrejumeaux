@@ -24,7 +24,7 @@ export default function Hero() {
         <ul className="hero-points">
           <li>Deux héros à leur image</li>
           <li>Relié 20×20&nbsp;cm, vérifié à la main</li>
-          <li>Né dans la communauté Gémellité.com</li>
+          <li>Par les créateurs de Jumelio &amp; Gemellite.com</li>
         </ul>
       </div>
       <div className="hero-visual">

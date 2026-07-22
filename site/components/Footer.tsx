@@ -14,7 +14,7 @@ export default function Footer() {
         <a href="#faq">Questions</a>
       </nav>
       <p className="pied-fin">
-        Imaginé et écrit avec la communauté Gémellité.com, par des parents de
+        Par les créateurs de Jumelio &amp; Gemellite.com, des parents de
         jumeaux, pour des parents de jumeaux. 💛
       </p>
     </footer>
