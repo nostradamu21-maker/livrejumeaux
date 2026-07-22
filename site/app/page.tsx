@@ -10,11 +10,16 @@ import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import BarreMobile from "@/components/BarreMobile";
 import { cataloguePublic } from "@/lib/catalogue";
+import { donneesStructurees } from "@/lib/seo";
 
 export default function Page() {
   const archetypes = cataloguePublic();
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(donneesStructurees()) }}
+      />
       <Nav />
       <Hero />
       <Flipbook />

@@ -199,7 +199,7 @@ export default function Configurateur({
           <form className="commande" onSubmit={commander}>
             <div className="prix-ligne">
               <span className="prix">{PRIX}</span>
-              <span className="prix-note">livraison incluse</span>
+              <span className="prix-note">+ 4,99&nbsp;€ de livraison suivie</span>
             </div>
             <input
               type="email"

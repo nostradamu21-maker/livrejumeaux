@@ -13,7 +13,7 @@ export default function SurMesure() {
           <ul className="sm-points">
             <li>Personnages dessinés d&apos;après votre photo</li>
             <li>Validation des illustrations avant impression</li>
-            <li>Même livre relié 20×20&nbsp;cm, livraison incluse</li>
+            <li>Même livre relié 20×20&nbsp;cm (+ 4,99&nbsp;€ de livraison)</li>
             <li>
               <strong>Votre photo n&apos;est jamais conservée</strong> : elle
               est supprimée automatiquement dès que le livre est généré.

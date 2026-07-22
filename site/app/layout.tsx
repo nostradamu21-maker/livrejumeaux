@@ -1,26 +1,45 @@
 import type { Metadata } from "next";
+import { URL_SITE, NOM_SITE } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Deux comme nous : le cadeau des parents de jumeaux",
+  metadataBase: new URL(URL_SITE),
+  title: {
+    default:
+      "Cadeau jumeaux & jumelles : le livre personnalisé | Deux comme nous",
+    template: `%s | ${NOM_SITE}`,
+  },
   description:
-    "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité, ensemble sur chaque page. Relié 20×20 cm, livré chez vous. Le cadeau de naissance et d'anniversaire des jumeaux et jumelles.",
+    "LE cadeau des parents de jumeaux : un livre personnalisé où vos deux enfants sont les héros de la même histoire. Prénoms, personnages à leur image, relié 20×20 cm. Cadeau de naissance ou d'anniversaire pour jumeaux et jumelles, expédié chez vous.",
   keywords: [
     "cadeau jumeaux",
-    "livre personnalisé jumeaux",
-    "cadeau naissance jumeaux",
     "cadeau jumelles",
-    "livre enfant personnalisé",
+    "cadeau parents de jumeaux",
+    "cadeau naissance jumeaux",
+    "cadeau anniversaire jumeaux",
+    "livre personnalisé jumeaux",
+    "livre personnalisé jumelles",
+    "idée cadeau jumeaux",
+    "cadeau original jumeaux",
   ],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Deux comme nous : le cadeau des parents de jumeaux",
+    title: "Cadeau jumeaux & jumelles : le livre personnalisé Deux comme nous",
     description:
-      "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et livré chez vous.",
-    url: "https://boutique.gemellite.com",
-    siteName: "Deux comme nous",
+      "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et expédié chez vous. Le cadeau préféré des parents de jumeaux.",
+    url: URL_SITE,
+    siteName: NOM_SITE,
     locale: "fr_FR",
     type: "website",
     images: [{ url: "/apercus/test-filles/couverture.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cadeau jumeaux & jumelles : le livre personnalisé Deux comme nous",
+    description:
+      "Enfin une histoire où ils sont deux : le livre personnalisé des jumeaux et jumelles.",
+    images: ["/apercus/test-filles/couverture.jpg"],
   },
 };
 

@@ -6,8 +6,10 @@ import {
   stripe,
   stripeActif,
   PRIX_CENTIMES,
+  LIVRAISON_CENTIMES,
   DEVISE,
   PRODUIT_NOM,
+  PAYS_LIVRAISON,
 } from "@/lib/stripe";
 import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
 
@@ -66,6 +68,18 @@ export async function POST(req: Request) {
         },
       ],
       customer_email: email || undefined,
+      // Adresse indispensable pour l'impression à la demande (Gelato expédie
+      // directement chez le client).
+      shipping_address_collection: { allowed_countries: [...PAYS_LIVRAISON] },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            display_name: "Livraison suivie",
+            type: "fixed_amount",
+            fixed_amount: { amount: LIVRAISON_CENTIMES, currency: DEVISE },
+          },
+        },
+      ],
       success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#creer`,
       metadata: { combo_id: cid, archetype1: a1, archetype2: a2, prenom1: p1, prenom2: p2 },
@@ -86,7 +100,7 @@ export async function POST(req: Request) {
     statut,
     paiement: "simulé",
     ref: null,
-    montant_centimes: PRIX_CENTIMES,
+    montant_centimes: PRIX_CENTIMES + LIVRAISON_CENTIMES,
   });
 
   const message = cache

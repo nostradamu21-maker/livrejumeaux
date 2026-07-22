@@ -34,7 +34,10 @@ export default function Hero() {
         <span className="hero-deco deco-3" aria-hidden="true">💛</span>
         <div className="book book-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/apercus/test-filles/couverture.jpg" alt="Couverture du livre" />
+          <img
+            src="/apercus/test-filles/couverture.jpg"
+            alt="Livre personnalisé pour jumelles : couverture avec les deux enfants, cadeau pour jumeaux et jumelles"
+          />
         </div>
       </div>
     </header>
