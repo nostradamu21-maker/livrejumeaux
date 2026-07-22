@@ -174,6 +174,7 @@ def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool) -> 
         "id": cid,
         "description": f"Combo — {libelle}",
         "archetypes": [a_id, b_id],
+        "monozygote": identique,
         "personnages": personnages,
         "description_paire": description_paire(a, b, identique),
         "prenoms_defaut": prenoms,

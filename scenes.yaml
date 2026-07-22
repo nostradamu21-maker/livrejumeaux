@@ -71,11 +71,20 @@ pages:
       confondre.
 
       '
+    scene_dizygote: 'Dans un jardin fleuri devant une petite maison, les deux jumeaux debout
+      côte à côte se regardent en souriant, complices et bien différents l''un de l''autre.
+
+      '
     texte: 'Deux nez, deux sourires qui se ressemblent…
 
       Parfois, on vous mélange !
 
       « Tu es {prenom1}, ou tu es {prenom2} ? »'
+    texte_dizygote: 'On n''a pas le même sourire, ni les mêmes yeux…
+
+      mais on a commencé la vie ensemble, tous les deux.
+
+      Ça, ça ne se voit pas : ça se sent.'
   08:
     ancre: page:07
     scene: 'Dans ce même jardin, un jumeau se désigne fièrement du pouce en souriant, l''autre
@@ -85,6 +94,11 @@ pages:
     texte: 'Pas de souci : il suffit de bien regarder avec le cœur.
 
       {prenom1} est {prenom1}. {prenom2} est {prenom2}.
+
+      Et personne d''autre au monde !'
+    texte_dizygote: '{prenom1} est {prenom1}. {prenom2} est {prenom2}.
+
+      Deux personnes, une seule équipe.
 
       Et personne d''autre au monde !'
   09:

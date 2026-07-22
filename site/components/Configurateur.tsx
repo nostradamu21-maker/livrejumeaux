@@ -88,7 +88,7 @@ export default function Configurateur({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={a.fiche} alt={a.description} loading="lazy" />
-            <div className="legende">{a.description}</div>
+            <div className="legende">{a.label}</div>
           </div>
         );
       })}
@@ -170,8 +170,8 @@ export default function Configurateur({
           {memeArchetype && (
             <div className="distinctif">
               <p className="distinctif-tete">
-                Vos jumeaux ont le même personnage&nbsp;: choisissez un petit
-                détail pour distinguer le second.
+                Jumeaux monozygotes&nbsp;: choisissez un petit détail pour
+                distinguer le second.
               </p>
               <div className="distinctif-choix">
                 {ACCESSOIRES.map((a) => (
@@ -182,9 +182,13 @@ export default function Configurateur({
                     onClick={() => setAccessoire(a.id)}
                     aria-pressed={accessoire === a.id}
                   >
-                    <span className="acc-emoji" aria-hidden="true">
-                      {a.emoji}
-                    </span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="acc-img"
+                      src={`/accessoires/${a.id}.png`}
+                      alt=""
+                      loading="lazy"
+                    />
                     <span className="acc-label">{a.label}</span>
                   </button>
                 ))}

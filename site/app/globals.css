@@ -154,7 +154,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .acc { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.55rem 0.35rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); cursor: pointer; transition: border-color 0.14s, box-shadow 0.14s, transform 0.14s; font-family: "Nunito", sans-serif; }
 .acc:hover { transform: translateY(-2px); }
 .acc.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
-.acc-emoji { font-size: 1.5rem; line-height: 1; }
+.acc-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: top center; border-radius: 9px; background: #fff; }
 .acc-label { font-size: 0.72rem; font-weight: 700; color: var(--encre-doux); text-align: center; }
 .acc.actif .acc-label { color: var(--vert-f); }
 .apercus-reels { margin-top: 1.1rem; }

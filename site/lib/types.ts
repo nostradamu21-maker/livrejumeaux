@@ -3,6 +3,7 @@ export type Genre = "garçon" | "fille";
 export interface Archetype {
   id: string;
   genre: Genre;
+  label: string;
   description: string;
   tenue: string;
   distinctif: string;

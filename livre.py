@@ -102,6 +102,18 @@ def ancre_de(scenes: dict, livre: dict, dossier: Path, num: str):
     return ROOT / a
 
 
+def champ_page(p: dict, livre: dict, cle: str) -> str:
+    """Retourne la variante `<cle>_dizygote` d'un champ de page si les jumeaux ne
+    sont PAS monozygotes et que la variante existe, sinon le champ standard.
+    (Livres existants sans flag → monozygotes par défaut, texte inchangé.)"""
+    if not livre.get("monozygote", True):
+        alt = p.get(f"{cle}_dizygote")
+        if alt:
+            return alt
+    return p[cle]
+
+
+
 # ---------------------------------------------------------------------------
 # Étape 1 — génération
 # ---------------------------------------------------------------------------
@@ -218,7 +230,7 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
             if p.get("tenue"):
                 prompt_parts.append(f"Pour cette scène uniquement, les enfants portent : "
                                     f"{p['tenue']}.")
-        prompt_parts += [p["scene"].strip(), contraintes]
+        prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
         out = variantes_dir(dossier, num)
         out.mkdir(parents=True, exist_ok=True)
         print(f"  page {num} : génération…")
@@ -467,7 +479,7 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None) -> None:
 
         pcfg = scenes["pages"][num]
         # Cartouche blanc arrondi en bas (lisibilité garantie sur toute illustration).
-        tcfg = {"content": pcfg["texte"], "x": 10, "y": 50, "width": 80,
+        tcfg = {"content": champ_page(pcfg, livre, "texte"), "x": 10, "y": 50, "width": 80,
                 "align": "center", "font": str(ROOT / "fonts/Andika-Regular.ttf"),
                 "size_pt": 23, "color": pcfg.get("couleur_texte", "#3a3230"),
                 "line_spacing": 1.3}
