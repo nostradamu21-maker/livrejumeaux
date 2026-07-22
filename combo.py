@@ -68,10 +68,28 @@ def verifier(archs: dict, aid: str) -> None:
                  f"Lance d'abord `python archetypes.py`.")
 
 
-def combo_id(aid1: str, aid2: str) -> str:
-    """Id canonique (paire triée) → une seule combo en cache par paire."""
+def combo_id(aid1: str, aid2: str, accessoire: str | None = None) -> str:
+    """Id canonique (paire triée) → une seule combo en cache par paire.
+    Pour une paire IDENTIQUE, l'accessoire choisi fait partie de la clé (chaque
+    accessoire = un livre-combo distinct). Aligné sur site/lib/combo.ts."""
     a, b = sorted((aid1, aid2))
-    return f"combo-{a}__{b}"
+    base = f"combo-{a}__{b}"
+    if a == b and accessoire:
+        return f"{base}__acc-{accessoire}"
+    return base
+
+
+# Accessoires « distinctif » proposés au parent (paires identiques uniquement).
+# Chaque valeur est le PRÉDICAT qui suit « le second … » — doit rester aligné
+# sur site/lib/accessoires.ts (mêmes ids).
+ACCESSOIRES: dict[str, str] = {
+    "doudou-lapin": "tient un doudou lapin tout doux dans les bras",
+    "doudou-ours": "tient un doudou ours tout doux dans les bras",
+    "doudou-chat": "tient un doudou chat tout doux dans les bras",
+    "lunettes": "porte de petites lunettes rondes",
+    "casquette": "porte une petite casquette",
+    "foulard": "porte un foulard léger noué au cou",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -88,15 +106,28 @@ def accessoire(distinctif: str) -> str:
     return d
 
 
-def description_paire(a: dict, b: dict, identique: bool) -> str:
+def predicat_distinctif(b: dict, accessoire_id: str | None) -> str:
+    """Prédicat suivant « le second … » : l'accessoire choisi par le parent s'il
+    est fourni et connu, sinon le distinctif fixe de l'archétype b."""
+    if accessoire_id and accessoire_id in ACCESSOIRES:
+        return ACCESSOIRES[accessoire_id]
+    # distinctif fixe « le second porte X » → « porte X »
+    d = b["distinctif"].strip()
+    if d.lower().startswith("le second "):
+        return d[len("le second "):]
+    return d
+
+
+def description_paire(a: dict, b: dict, identique: bool,
+                      predicat: str | None = None) -> str:
     if identique:
         return (
             f"Deux enfants JUMEAUX identiques : {a['description']}, vêtus de "
             f"{a['tenue']}, entièrement fidèles à l'image de référence — même "
             "visage, mêmes cheveux, même style aquarelle. On les distingue par un "
-            f"seul détail : le SECOND porte {accessoire(b['distinctif'])} (voir la "
-            "deuxième image de référence) ; le PREMIER n'a pas ce détail (première "
-            "image de référence). Reproduire fidèlement ces deux personnages.")
+            f"seul détail : le SECOND {predicat} (voir la deuxième image de "
+            "référence) ; le PREMIER n'a pas ce détail (première image de "
+            "référence). Reproduire fidèlement ces deux personnages.")
     return (
         f"Deux enfants. Le PREMIER : {a['description']}, vêtu de {a['tenue']} "
         "(voir la première image de référence). Le SECOND : "
@@ -105,7 +136,8 @@ def description_paire(a: dict, b: dict, identique: bool) -> str:
         "de référence, sans mélanger leurs traits ni leurs tenues.")
 
 
-def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool) -> Path:
+def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool,
+               accessoire_id: str | None = None) -> Path:
     archs = charger_catalogue()
     verifier(archs, aid1)
     verifier(archs, aid2)
@@ -113,7 +145,10 @@ def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool) -> 
     a_id, b_id = sorted((aid1, aid2))
     identique = a_id == b_id
     a, b = archs[a_id], archs[b_id]
-    cid = combo_id(aid1, aid2)
+    # l'accessoire ne s'applique qu'aux paires identiques
+    acc = accessoire_id if (identique and accessoire_id in ACCESSOIRES) else None
+    predicat = predicat_distinctif(b, acc) if identique else None
+    cid = combo_id(aid1, aid2, acc)
     dossier = LIVRES / cid
 
     if dossier.exists() and not force:
@@ -144,10 +179,9 @@ def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool) -> 
                 "archetype": aid,
                 "base": base_local,
                 "modifications": (
-                    "ajoute UNIQUEMENT cet accessoire pour distinguer ce jumeau : "
-                    f"{accessoire(data['distinctif'])}. Tout le reste (visage, "
-                    "cheveux, tenue, style) reste strictement identique à la fiche "
-                    "de référence."),
+                    "ajoute UNIQUEMENT ce détail pour distinguer ce jumeau : il "
+                    f"{predicat}. Tout le reste (visage, cheveux, tenue, style) "
+                    "reste strictement identique à la fiche de référence."),
                 "tenue": data["tenue"],
             })
             # laissé à générer + trier par livre.py (seule dépense côté références)
@@ -176,7 +210,7 @@ def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool) -> 
         "archetypes": [a_id, b_id],
         "monozygote": identique,
         "personnages": personnages,
-        "description_paire": description_paire(a, b, identique),
+        "description_paire": description_paire(a, b, identique, predicat),
         "prenoms_defaut": prenoms,
         "selections": selections,
     }
@@ -209,6 +243,9 @@ def main() -> None:
     ap.add_argument("archetype1", nargs="?", help="id du 1er archétype (ex. g1-chatain-clair)")
     ap.add_argument("archetype2", nargs="?", help="id du 2e archétype (ex. f3-blonde-claire)")
     ap.add_argument("--prenoms", help='prénoms d\'aperçu, ex. "Léo,Emma"')
+    ap.add_argument("--accessoire",
+                    help="id de l'accessoire distinctif choisi par le parent "
+                         "(paires identiques) : " + ", ".join(ACCESSOIRES))
     ap.add_argument("--force", action="store_true",
                     help="réécrit la combo même si elle existe déjà")
     ap.add_argument("--liste", action="store_true",
@@ -227,7 +264,8 @@ def main() -> None:
         if len(prenoms) != 2:
             sys.exit("--prenoms attend exactement deux prénoms séparés par une virgule.")
 
-    dossier = construire(args.archetype1, args.archetype2, prenoms, args.force)
+    dossier = construire(args.archetype1, args.archetype2, prenoms, args.force,
+                         args.accessoire)
     if not (dossier / "livre.yaml").exists():
         return
     cid = dossier.name

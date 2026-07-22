@@ -16,7 +16,7 @@ export const ARCHETYPES: Archetype[] = [
   {
     id: "g2-brun-mat",
     genre: "garçon",
-    label: "Brun, peau mate",
+    label: "Brun, cheveux courts",
     description: "garçon aux cheveux bruns foncés courts, peau mate",
     tenue: "t-shirt vert d'eau, short beige, baskets blanches",
     distinctif: "le second porte un bracelet tressé au poignet",
@@ -32,7 +32,7 @@ export const ARCHETYPES: Archetype[] = [
   {
     id: "g4-noir-fonce",
     genre: "garçon",
-    label: "Cheveux noirs, peau foncée",
+    label: "Cheveux noirs courts",
     description: "garçon aux cheveux noirs très courts, peau foncée",
     tenue: "t-shirt orange, short bleu marine, baskets blanches",
     distinctif: "le second porte une casquette verte",
@@ -81,7 +81,7 @@ export const ARCHETYPES: Archetype[] = [
   {
     id: "f4-bouclee-mate",
     genre: "fille",
-    label: "Bouclée, peau mate",
+    label: "Bouclée, brune",
     description: "fille aux cheveux bruns bouclés, peau mate",
     tenue: "robe jaune à pois blancs, chaussures blanches",
     distinctif: "le second porte deux petites barrettes colorées",

@@ -185,9 +185,11 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-points { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .sm-points li { position: relative; padding-left: 1.6rem; color: var(--encre); font-size: 0.98rem; }
 .sm-points li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: var(--vert); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; font-weight: 800; }
+.sm-reduc { margin: 1.2rem 0 0; padding: 0.9rem 1.1rem; background: var(--creme-2); border: 1.5px solid var(--ligne); border-radius: 14px; font-size: 0.92rem; color: var(--encre); line-height: 1.5; }
 .sm-offre { background: #fff; border-radius: var(--r); padding: 1.8rem 1.5rem; box-shadow: var(--ombre-m); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; }
 .sm-prix { font-family: "Fraunces", serif; font-size: 2.6rem; font-weight: 600; color: var(--encre); line-height: 1; }
 .sm-prix-note { font-size: 0.9rem; color: var(--encre-doux); max-width: 22ch; }
+.sm-prix-reduc { font-size: 0.9rem; font-weight: 800; color: var(--vert-f); }
 .sm-cta { margin-top: 0.7rem; background: var(--vert); color: #fff; text-decoration: none; border-radius: 999px; padding: 0.85rem 1.5rem; font-family: "Nunito", sans-serif; font-size: 1.02rem; font-weight: 800; box-shadow: 0 8px 20px rgba(127, 169, 141, 0.35); transition: transform 0.15s, background 0.15s; }
 .sm-cta:hover { transform: translateY(-2px); background: var(--vert-f); }
 .sm-note { font-size: 0.8rem; color: var(--encre-doux); }
