@@ -73,20 +73,12 @@ export default function ApercuLivre({
             <div className="al-feuille">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`${apercu.dossier}/page-${numPage}.jpg`} alt="" />
-              <div className="al-bandeau">
-                <svg
-                  className="al-courbe"
-                  viewBox="0 0 100 8"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <path d="M0 8 L0 5 Q 18 0 45 2.6 Q 75 5.4 100 1.6 L100 8 Z" fill="#ffffff" />
-                </svg>
-                <div className="al-texte">
-                  {lignes.map((l, i) => (
-                    <p key={i}>{l}</p>
-                  ))}
-                </div>
+              {/* Cartouche blanc arrondi, identique à la mise en page du PDF
+                  imprimé (recouvre celui incrusté dans l'aperçu). */}
+              <div className="al-cartouche">
+                {lignes.map((l, i) => (
+                  <p key={i}>{l}</p>
+                ))}
               </div>
             </div>
           )}
@@ -103,8 +95,9 @@ export default function ApercuLivre({
           </button>
         </div>
         <p className="al-note">
-          Vraies pages d&apos;un exemplaire imprimé, avec vos prénoms. Votre
-          livre est vérifié page à page avant impression.
+          Extrait de quelques pages seulement&nbsp;: le livre complet compte
+          30&nbsp;pages. Vraies pages d&apos;un exemplaire imprimé, avec vos
+          prénoms&nbsp;; votre livre est vérifié page à page avant impression.
         </p>
       </div>
     </div>

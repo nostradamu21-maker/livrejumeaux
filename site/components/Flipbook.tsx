@@ -69,8 +69,8 @@ export default function Flipbook() {
         <h2>Feuilletez un exemplaire réel</h2>
         <p className="section-sub">
           Voici le livre personnalisé d&apos;Elia &amp; Luna&nbsp;: tournez les
-          pages pour découvrir les illustrations douces à l&apos;aquarelle,
-          pour les jumeaux comme pour les jumelles.
+          pages pour découvrir les illustrations douces à l&apos;aquarelle.
+          Extrait de quelques pages, le livre complet en compte 30.
         </p>
       </div>
 
