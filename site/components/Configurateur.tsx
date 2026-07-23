@@ -8,7 +8,6 @@ import { apercuPourCombo } from "@/lib/apercus";
 import { t, type Locale } from "@/lib/i18n";
 import ApercuLivre from "@/components/ApercuLivre";
 
-const PRIX = "44,90 €";
 
 type Choix = { 1: string | null; 2: string | null };
 type Prenoms = { 1: string; 2: string };
@@ -236,7 +235,7 @@ export default function Configurateur({
 
           <form className="commande" onSubmit={commander}>
             <div className="prix-ligne">
-              <span className="prix">{PRIX}</span>
+              <span className="prix">{d.config.prixLivre}</span>
               <span className="prix-note">{d.config.prixNote}</span>
             </div>
             <input

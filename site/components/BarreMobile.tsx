@@ -5,7 +5,7 @@ export default function BarreMobile({ l }: { l: Locale }) {
   return (
     <a href="#creer" className="barre-mobile">
       <span className="bm-prix">
-        44,90&nbsp;€ <small>{d.barre.note}</small>
+        {d.config.prixLivre} <small>{d.barre.note}</small>
       </span>
       <span className="bm-btn">{d.barre.cta}</span>
     </a>

@@ -60,6 +60,7 @@ export interface Dict {
   config: {
     h2: string;
     sub: string;
+    prixLivre: string;
     noteCatalogue: string;
     afficher: string;
     filtreTous: string;
@@ -95,6 +96,8 @@ export interface Dict {
   };
   sm: {
     eyebrow: string;
+    prix: string;
+    prixReduit: string;
     h2: string;
     intro: string;
     points: [string, string, string, string];
@@ -238,6 +241,7 @@ const FR: Dict = {
   config: {
     h2: "Composez le livre de vos jumeaux",
     sub: "Choisissez un personnage pour chacun, ajoutez leurs prénoms, et voyez la couverture de leur livre personnalisé prendre vie.",
+    prixLivre: "44,90 €",
     noteCatalogue: "Nous ajoutons de nouveaux personnages petit à petit — pour l'instant, on y va doucement. Aucun ne leur ressemble ? L'édition sur mesure les dessine d'après une photo.",
     afficher: "Afficher :",
     filtreTous: "Tous", filtreGarcons: "Garçons", filtreFilles: "Filles",
@@ -270,6 +274,8 @@ const FR: Dict = {
   },
   sm: {
     eyebrow: "Édition sur mesure",
+    prix: "129 €",
+    prixReduit: "99 €",
     h2: "Vous ne trouvez pas de ressemblance ?",
     intro: "Nos personnages ne ressemblent pas assez à vos enfants ? Nous créons leur livre entièrement sur mesure, à leur image, à partir d'une simple photo.",
     points: [
@@ -417,6 +423,7 @@ const EN: Dict = {
   config: {
     h2: "Compose your twins' book",
     sub: "Pick a character for each child, add their names, and watch the cover of their personalized book come to life.",
+    prixLivre: "€44.90",
     noteCatalogue: "We add new characters little by little — for now, we're taking it slow. None quite like them? The custom edition draws them from a photo.",
     afficher: "Show:",
     filtreTous: "All", filtreGarcons: "Boys", filtreFilles: "Girls",
@@ -449,6 +456,8 @@ const EN: Dict = {
   },
   sm: {
     eyebrow: "Custom edition",
+    prix: "€129",
+    prixReduit: "€99",
     h2: "No character looks quite like them?",
     intro: "None of our characters look quite like your children? We create their book fully custom, in their likeness, from a simple photo.",
     points: [
@@ -614,6 +623,7 @@ const ES: Dict = {
   config: {
     h2: "Compón el libro de tus gemelos",
     sub: "Elige un personaje para cada uno, añade sus nombres y mira cómo cobra vida la portada de su libro personalizado.",
+    prixLivre: "44,90 €",
     noteCatalogue: "Vamos añadiendo nuevos personajes poco a poco — de momento, con calma. ¿Ninguno se les parece? La edición a medida los dibuja a partir de una foto.",
     afficher: "Mostrar:",
     filtreTous: "Todos", filtreGarcons: "Niños", filtreFilles: "Niñas",
@@ -646,6 +656,8 @@ const ES: Dict = {
   },
   sm: {
     eyebrow: "Edición a medida",
+    prix: "129 €",
+    prixReduit: "99 €",
     h2: "¿Ningún personaje se les parece?",
     intro: "¿Ninguno de nuestros personajes se parece a tus hijos? Creamos su libro totalmente a medida, a su imagen, a partir de una simple foto.",
     points: [
@@ -811,6 +823,7 @@ const DE: Dict = {
   config: {
     h2: "Gestalten Sie das Buch Ihrer Zwillinge",
     sub: "Wählen Sie für jedes Kind eine Figur, fügen Sie die Namen hinzu und sehen Sie zu, wie das Cover ihres personalisierten Buchs entsteht.",
+    prixLivre: "44,90 €",
     noteCatalogue: "Wir ergänzen nach und nach neue Figuren — vorerst gehen wir es langsam an. Keine passt? Die Maßanfertigung zeichnet sie nach einem Foto.",
     afficher: "Anzeigen:",
     filtreTous: "Alle", filtreGarcons: "Jungen", filtreFilles: "Mädchen",
@@ -843,6 +856,8 @@ const DE: Dict = {
   },
   sm: {
     eyebrow: "Maßanfertigung",
+    prix: "129 €",
+    prixReduit: "99 €",
     h2: "Keine Figur sieht ihnen ähnlich?",
     intro: "Keine unserer Figuren ähnelt Ihren Kindern genug? Wir gestalten ihr Buch komplett nach Maß, nach ihrem Vorbild, aus einem einfachen Foto.",
     points: [
