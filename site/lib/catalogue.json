@@ -94,5 +94,21 @@
     "description": "fille d'origine asiatique, cheveux noirs coupés au carré avec une frange, peau claire",
     "tenue": "robe rose poudré, chaussures blanches",
     "distinctif": "le second porte une fleur dans les cheveux"
+  },
+  {
+    "id": "g7-marceau",
+    "genre": "garçon",
+    "label": "Brun, cheveux courts",
+    "description": "garçon — brun, cheveux courts",
+    "tenue": "tenue de la fiche de référence",
+    "distinctif": "le second tient un petit doudou dans les bras"
+  },
+  {
+    "id": "f7-jade",
+    "genre": "fille",
+    "label": "Brune, couettes",
+    "description": "fille — brune, couettes",
+    "tenue": "tenue de la fiche de référence",
+    "distinctif": "le second tient un petit doudou dans les bras"
   }
 ]

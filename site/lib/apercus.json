@@ -1,6 +1,24 @@
 {
   "combo-f1-natte-brune__f2-nattes-brune": {
     "dossier": "/apercus/test-filles",
-    "pages": ["01", "05", "09", "14", "21", "27"]
+    "pages": [
+      "01",
+      "05",
+      "09",
+      "14",
+      "21",
+      "27"
+    ]
+  },
+  "combo-f7-jade__g7-marceau": {
+    "dossier": "/apercus/sur-mesure-marceau-jade",
+    "pages": [
+      "01",
+      "05",
+      "09",
+      "14",
+      "21",
+      "27"
+    ]
   }
 }
