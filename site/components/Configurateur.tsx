@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import type { ArchetypePublic } from "@/lib/types";
 import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
+import { comboId } from "@/lib/combo";
+import { apercuPourCombo } from "@/lib/apercus";
+import ApercuLivre from "@/components/ApercuLivre";
 
 const PRIX = "44,90\u00A0€";
 
@@ -34,6 +37,13 @@ export default function Configurateur({
 
   const memeArchetype = !!choix[1] && choix[1] === choix[2];
   const pret = !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
+
+  // Vraies pages disponibles pour cette paire (combo déjà produite) ?
+  const [apercuOuvert, setApercuOuvert] = useState(false);
+  const apercuDispo =
+    choix[1] && choix[2]
+      ? apercuPourCombo(comboId(choix[1], choix[2], memeArchetype ? accessoire : null))
+      : undefined;
 
   const texteCouv = (() => {
     if (prenoms[1] && prenoms[2]) return `${prenoms[1]} & ${prenoms[2]}`;
@@ -170,6 +180,27 @@ export default function Configurateur({
             Aperçu indicatif — sur la couverture imprimée, vos deux héros sont
             illustrés ensemble dans une scène complète.
           </p>
+          {apercuDispo && (
+            <button
+              type="button"
+              className="btn-apercu"
+              disabled={!prenoms[1] || !prenoms[2]}
+              onClick={() => setApercuOuvert(true)}
+            >
+              ✨ Feuilleter de vraies pages avec vos prénoms
+              {(!prenoms[1] || !prenoms[2]) && (
+                <small>ajoutez d&apos;abord les deux prénoms</small>
+              )}
+            </button>
+          )}
+          {apercuOuvert && apercuDispo && (
+            <ApercuLivre
+              apercu={apercuDispo}
+              prenom1={prenoms[1]}
+              prenom2={prenoms[2]}
+              onClose={() => setApercuOuvert(false)}
+            />
+          )}
 
           {memeArchetype && (
             <div className="distinctif">

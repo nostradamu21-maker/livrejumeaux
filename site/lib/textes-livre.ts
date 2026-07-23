@@ -1,0 +1,32 @@
+// GÉNÉRÉ depuis scenes.yaml (racine du repo) — ne pas éditer à la main.
+// Textes du livret avec emplacements {prenom1}/{prenom2} (épicènes).
+export const TEXTES_PAGES: Record<string, string> = {
+  "01": "Bonjour {prenom1} ! Bonjour {prenom2} !\nVous êtes deux, comme le soleil et la lune.\nDeux, depuis le tout début.",
+  "02": "Il y a longtemps, vous étiez deux tout petits bébés\ndans le même landau. Déjà inséparables !",
+  "03": "Deux lits, deux doudous, deux paires de chaussures…\nEt une chambre pour deux !",
+  "04": "{prenom1} ouvre les yeux en premier, comme tous les matins.",
+  "05": "Chut… {prenom2} dort encore un petit peu.\nChacun se réveille à sa façon.",
+  "06": "Deux bols, deux tartines… et un chocolat qui fume.\nBon appétit, vous deux !",
+  "07": "Deux nez, deux sourires qui se ressemblent…\nParfois, on vous mélange !\n« Tu es {prenom1}, ou tu es {prenom2} ? »",
+  "08": "Pas de souci : il suffit de bien regarder avec le cœur.\n{prenom1} est {prenom1}. {prenom2} est {prenom2}.\nEt personne d'autre au monde !",
+  "09": "Un, deux ! Un, deux !\nSur le chemin du parc, on marche du même pas.",
+  "10": "{prenom1} et {prenom2} glissent, courent et sautent.\nÀ deux, c'est deux fois plus rigolo !",
+  "11": "{prenom1} court sans s'arrêter, {prenom2} lit sous l'arbre.\nChacun son rythme !",
+  "12": "{prenom2} adore les histoires de dragons.\n{prenom1} préfère compter les nuages.\nEt c'est très bien comme ça !",
+  "13": "Un, deux, trois… caché !\n{prenom1} compte, {prenom2} se faufile.\nLe parc devient une cachette géante.",
+  "14": "Quand {prenom1} rit, {prenom2} rit aussi.\nLe rire, à deux, ça s'attrape !",
+  "15": "« Regarde là-bas ! » montre {prenom2}.\nÀ deux, on voit deux fois plus de choses.",
+  "16": "Plic, ploc ! Deux bottes, deux flaques…\net un parapluie pour deux.",
+  "17": "Parfois, on n'est pas d'accord.\n« C'est mon livre ! — Non, c'est le mien ! »\nÇa arrive, même quand on s'aime très fort.",
+  "18": "Un gros câlin… et hop !\nLa colère s'envole comme un petit nuage.",
+  "19": "Les jours de gros chagrin, {prenom2} n'est jamais loin de {prenom1}.\nÀ deux, le chagrin est deux fois moins lourd.",
+  "20": "{prenom2} dessine {prenom1}. {prenom1} dessine {prenom2}.\nDeux portraits, deux artistes !",
+  "21": "{prenom1} tape dans ses mains, {prenom2} tourne et saute.\nEt si on inventait notre danse à deux ?",
+  "22": "Des fois, chacun joue de son côté.\nC'est bien aussi, d'être un peu tranquille.",
+  "23": "Et après… quelle joie de se retrouver !\n« On joue ensemble ? — Oh oui ! »",
+  "24": "Le soir, c'est deux pyjamas, deux bisous, deux doudous.\nUn pour chacun, et beaucoup d'amour pour deux.",
+  "25": "Une histoire pour deux, sous la même couverture.\nEncore une page… s'il te plaît !",
+  "26": "Bonne nuit {prenom1}. Bonne nuit {prenom2}.\nLes rêves arrivent… un pour chacun.",
+  "27": "Des ressemblances, des différences… ensemble, et chacun soi.\nDeux comme nous, c'est deux fois plus d'amour !",
+  "28": "Ce livre appartient à {prenom1} et {prenom2}.\nDeux comme vous, il n'y en a pas d'autres !"
+};
