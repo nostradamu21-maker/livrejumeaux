@@ -98,9 +98,14 @@ export async function POST(req: Request) {
     }
   }
 
-  const prix = reutilisation
-    ? PRIX_SUR_MESURE_CENTIMES - REDUC_REUTILISATION_CENTIMES
-    : PRIX_SUR_MESURE_CENTIMES;
+  // Minimum Stripe (0,50 €) : garde-fou contre un prix de test très bas
+  // combiné à la remise réutilisation (éviterait un montant négatif).
+  const prix = Math.max(
+    50,
+    reutilisation
+      ? PRIX_SUR_MESURE_CENTIMES - REDUC_REUTILISATION_CENTIMES
+      : PRIX_SUR_MESURE_CENTIMES,
+  );
   const origin = new URL(req.url).origin;
   const metadata = {
     combo_id: "sur-mesure",
