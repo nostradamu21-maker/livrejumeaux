@@ -32,6 +32,7 @@ export interface InfosCommande {
   photoUrl2?: string | null; // sur-mesure dizygote : photo du 2e enfant
   monozygote?: boolean; // sur-mesure : jumeaux identiques (1 photo)
   relation?: string | null; // sur-mesure : lien du demandeur avec les enfants
+  langue?: string; // langue du texte du livre à produire
 }
 
 async function envoyer(to: string, subject: string, html: string): Promise<boolean> {
@@ -112,6 +113,7 @@ export async function emailNotifInterne(c: InfosCommande): Promise<boolean> {
       <tr><td style="padding:4px 0;color:#6f5d51;">Statut</td><td style="text-align:right;"><strong>${c.statut === "cache" ? "EN CACHE (générer le PDF prénoms)" : "À PRODUIRE (générer + trier)"}</strong></td></tr>
       <tr><td style="padding:4px 0;color:#6f5d51;">Archétypes</td><td style="text-align:right;">${c.archetype1} + ${c.archetype2}</td></tr>
       <tr><td style="padding:4px 0;color:#6f5d51;">Prénoms</td><td style="text-align:right;">${c.prenom1} &amp; ${c.prenom2}</td></tr>
+      <tr><td style="padding:4px 0;color:#6f5d51;">Langue du livre</td><td style="text-align:right;"><strong>${(c.langue ?? "fr").toUpperCase()}</strong></td></tr>
       <tr><td style="padding:4px 0;color:#6f5d51;">Client</td><td style="text-align:right;">${c.nomClient ?? "?"} · ${c.email ?? "email inconnu"}</td></tr>
       <tr><td style="padding:4px 0;color:#6f5d51;">Montant</td><td style="text-align:right;">${euros(c.montant_centimes)}</td></tr>
       <tr><td style="padding:4px 0;color:#6f5d51;">Réf. Stripe</td><td style="text-align:right;"><code>${c.ref ?? ""}</code></td></tr>
@@ -123,7 +125,7 @@ export async function emailNotifInterne(c: InfosCommande): Promise<boolean> {
          ${c.photoUrl ? `<a href="${c.photoUrl}">photo ${c.monozygote ? "des enfants" : `de ${c.prenom1}`}</a>` : "photo indisponible"}
          ${c.photoUrl2 ? ` · <a href="${c.photoUrl2}">photo de ${c.prenom2}</a>` : ""}
          (liens valables 30 jours). Le client choisit ses variantes de personnages en ligne — un e-mail suivra avec son choix. Supprimer les photos du bucket après génération.</p>`
-      : `<p style="margin:16px 0 0;">Commande à lancer : <code>python livre.py ${c.combo_id} --prenoms "${c.prenom1},${c.prenom2}"</code></p>`}`;
+      : `<p style="margin:16px 0 0;">Commande à lancer : <code>python livre.py ${c.combo_id} --prenoms "${c.prenom1},${c.prenom2}"${c.langue && c.langue !== "fr" ? ` --langue ${c.langue}` : ""}</code></p>`}`;
   return envoyer(NOTIF, `🧸 Commande : ${c.prenom1} & ${c.prenom2} (${c.combo_id})`, gabarit(contenu));
 }
 

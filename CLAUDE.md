@@ -30,6 +30,13 @@ UN SEUL point d'entrée :
   PDF complet + aperçus dans `livres/<id>/`.
 - `python livre.py <id> --prenoms "A,B"` = mode COMMANDE CLIENT : PDF final en secondes
   sur une combo validée. C'est ce que le site appellera (formulaire au début, API Gelato ensuite).
+- `--langue fr|en|es|de` = **langue du TEXTE du livre** (défaut fr). Les traductions du
+  manuscrit sont dans `traductions/<langue>.yaml` (par page : `texte`/`texte_dizygote`/`titre`,
+  placeholders `{prenom1}/{prenom2}` conservés) ; `appliquer_langue()` les superpose sur
+  `scenes` avant rendu. **Les images ne contiennent aucun texte → une combo en cache sert les
+  4 langues** ; le PDF client porte un suffixe (`impression-A-B-en.pdf`). La langue vient de
+  la commande (colonne `langue` Supabase, remplie par le site selon la locale du visiteur) et
+  est passée par `commandes.py`.
 Le tri humain reste obligatoire en production de combo, jamais dans le parcours client.
 
 ## Personnalisation & commercialisation (cap produit)

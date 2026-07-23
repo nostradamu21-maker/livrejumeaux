@@ -147,8 +147,13 @@ def produire(cmd: dict) -> None:
         # Génération (coût annoncé + confirmation par livre.py) puis TRI navigateur.
         _lancer(["livre.py", cid])
 
-    # PDF client : gratuit, quelques secondes.
-    _lancer(["livre.py", cid, "--prenoms", f"{p1},{p2}"])
+    # PDF client dans la langue de la commande (le texte est vectoriel ; une
+    # combo en cache sert toutes les langues).
+    langue = (cmd.get("langue") or "fr").lower()
+    args_pdf = ["livre.py", cid, "--prenoms", f"{p1},{p2}"]
+    if langue != "fr":
+        args_pdf += ["--langue", langue]
+    _lancer(args_pdf)
 
     enregistrer_combo_cache(cid, a1, a2)
     marquer_traitee(cmd["id"])
@@ -183,7 +188,8 @@ def main() -> None:
             "a_generer": f"À PRODUIRE → ≈ {cout:.2f} $ d'API",
         }[etat]
         date = (c.get("cree_le") or "")[:16].replace("T", " ")
-        print(f"  • {c['prenom1']} & {c['prenom2']:<12} {cid}")
+        langue = (c.get("langue") or "fr").upper()
+        print(f"  • {c['prenom1']} & {c['prenom2']:<12} {cid}  [{langue}]")
         print(f"    {date} · {c.get('email') or 'email inconnu'} · {etiquette}")
     print(f"\nCoût API total estimé : ≈ {cout_total:.2f} $ "
           f"(estimation ; livre.py redemande confirmation avant chaque génération)")

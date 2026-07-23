@@ -60,6 +60,7 @@ export interface Dict {
   config: {
     h2: string;
     sub: string;
+    noteCatalogue: string;
     afficher: string;
     filtreTous: string;
     filtreGarcons: string;
@@ -237,6 +238,7 @@ const FR: Dict = {
   config: {
     h2: "Composez le livre de vos jumeaux",
     sub: "Choisissez un personnage pour chacun, ajoutez leurs prénoms, et voyez la couverture de leur livre personnalisé prendre vie.",
+    noteCatalogue: "Nous ajoutons de nouveaux personnages petit à petit — pour l'instant, on y va doucement. Aucun ne leur ressemble ? L'édition sur mesure les dessine d'après une photo.",
     afficher: "Afficher :",
     filtreTous: "Tous", filtreGarcons: "Garçons", filtreFilles: "Filles",
     premier: "Premier enfant", second: "Second enfant",
@@ -269,7 +271,7 @@ const FR: Dict = {
   sm: {
     eyebrow: "Édition sur mesure",
     h2: "Vous ne trouvez pas de ressemblance ?",
-    intro: "Nos douze personnages ne ressemblent pas assez à vos enfants ? Nous créons leur livre entièrement sur mesure, à leur image, à partir d'une simple photo.",
+    intro: "Nos personnages ne ressemblent pas assez à vos enfants ? Nous créons leur livre entièrement sur mesure, à leur image, à partir d'une simple photo.",
     points: [
       "Personnages dessinés d'après vos photos",
       "Vous choisissez parmi 3 propositions par enfant, juste après la commande",
@@ -415,6 +417,7 @@ const EN: Dict = {
   config: {
     h2: "Compose your twins' book",
     sub: "Pick a character for each child, add their names, and watch the cover of their personalized book come to life.",
+    noteCatalogue: "We add new characters little by little — for now, we're taking it slow. None quite like them? The custom edition draws them from a photo.",
     afficher: "Show:",
     filtreTous: "All", filtreGarcons: "Boys", filtreFilles: "Girls",
     premier: "First child", second: "Second child",
@@ -429,7 +432,7 @@ const EN: Dict = {
     mentionCgv: "Personalized item: no right of withdrawal (French consumer law, art. L221-28)",
     cgv: "Terms",
     noteApercu: "Indicative preview: on the printed cover, your two heroes are illustrated together in a full scene.",
-    noteLangue: "The story text is currently written in French.",
+    noteLangue: "",
     btnApercu: "✨ Browse real pages with your names",
     btnApercuHint: "add both names first",
     stTraitement: "Processing…",
@@ -442,12 +445,12 @@ const EN: Dict = {
     fermer: "Close",
     precedente: "Previous page",
     suivante: "Next page",
-    note: "A short excerpt only: the full book has 30 pages. Real pages from a printed copy, with your names; the story text is currently in French. Every book is checked page by page before printing.",
+    note: "A short excerpt only: the full book has 30 pages. Real pages from a printed copy, with your names; every book is checked page by page before printing.",
   },
   sm: {
     eyebrow: "Custom edition",
     h2: "No character looks quite like them?",
-    intro: "Our twelve characters don't look enough like your children? We create their book fully custom, in their likeness, from a simple photo.",
+    intro: "None of our characters look quite like your children? We create their book fully custom, in their likeness, from a simple photo.",
     points: [
       "Characters drawn from your photos",
       "You choose among 3 proposals per child, right after ordering",
@@ -487,7 +490,7 @@ const EN: Dict = {
   faq: {
     titre: "Your questions",
     items: [
-      { q: "What language is the book in?", r: "The story is currently written in French, with a warm, simple text designed for twins. English, Spanish and German editions are in preparation; the website will let you choose the language as soon as they are available." },
+      { q: "Which language is the book printed in?", r: "The one you are reading: choose English and your children's book is printed in English. The website and the book are also available in French, Spanish and German — just switch language at the top of the page." },
       { q: "What gift should I give to twins or twin parents?", r: "A gift twin parents have never received twice: a personalized book where both children are the heroes of the same story. Unlike classic baby gifts (bought in duplicate), \"Deux comme nous\" celebrates what makes these children unique: being two. All you need is their names, for a birth, a birthday or Christmas." },
       { q: "What age is it suitable for?", r: "From birth to about 6 years old. Given at birth, it's a keepsake that grows with them; around 2-3, it becomes the bedtime story they ask for: the one where the heroes bear their names." },
       { q: "Does it work for a boy and a girl?", r: "Yes! All combinations are possible: two boys, two girls, or a boy and a girl. The text is written to work naturally in every case." },
@@ -611,6 +614,7 @@ const ES: Dict = {
   config: {
     h2: "Compón el libro de tus gemelos",
     sub: "Elige un personaje para cada uno, añade sus nombres y mira cómo cobra vida la portada de su libro personalizado.",
+    noteCatalogue: "Vamos añadiendo nuevos personajes poco a poco — de momento, con calma. ¿Ninguno se les parece? La edición a medida los dibuja a partir de una foto.",
     afficher: "Mostrar:",
     filtreTous: "Todos", filtreGarcons: "Niños", filtreFilles: "Niñas",
     premier: "Primer niño", second: "Segundo niño",
@@ -625,7 +629,7 @@ const ES: Dict = {
     mentionCgv: "Artículo personalizado: sin derecho de desistimiento (ley francesa, art. L221-28)",
     cgv: "Condiciones",
     noteApercu: "Vista previa indicativa: en la portada impresa, tus dos héroes aparecen ilustrados juntos en una escena completa.",
-    noteLangue: "El texto de la historia está por ahora en francés.",
+    noteLangue: "",
     btnApercu: "✨ Hojear páginas reales con vuestros nombres",
     btnApercuHint: "añade antes los dos nombres",
     stTraitement: "Procesando…",
@@ -638,12 +642,12 @@ const ES: Dict = {
     fermer: "Cerrar",
     precedente: "Página anterior",
     suivante: "Página siguiente",
-    note: "Solo un extracto de algunas páginas: el libro completo tiene 30. Páginas reales de un ejemplar impreso, con vuestros nombres; el texto está por ahora en francés. Cada libro se revisa página a página antes de imprimir.",
+    note: "Solo un extracto de algunas páginas: el libro completo tiene 30. Páginas reales de un ejemplar impreso, con vuestros nombres; cada libro se revisa página a página antes de imprimir.",
   },
   sm: {
     eyebrow: "Edición a medida",
     h2: "¿Ningún personaje se les parece?",
-    intro: "¿Nuestros doce personajes no se parecen lo suficiente a tus hijos? Creamos su libro totalmente a medida, a su imagen, a partir de una simple foto.",
+    intro: "¿Ninguno de nuestros personajes se parece a tus hijos? Creamos su libro totalmente a medida, a su imagen, a partir de una simple foto.",
     points: [
       "Personajes dibujados a partir de tus fotos",
       "Eliges entre 3 propuestas por niño, justo después del pedido",
@@ -683,7 +687,7 @@ const ES: Dict = {
   faq: {
     titre: "Vuestras preguntas",
     items: [
-      { q: "¿En qué idioma está el libro?", r: "La historia está por ahora escrita en francés, con un texto cálido y sencillo pensado para gemelos. Las ediciones en español, inglés y alemán están en preparación; la web permitirá elegir el idioma en cuanto estén disponibles." },
+      { q: "¿En qué idioma está impreso el libro?", r: "En el que estás leyendo: elige español y el libro de tus hijos se imprime en español. La web y el libro también están disponibles en francés, inglés y alemán — solo tienes que cambiar de idioma arriba en la página." },
       { q: "¿Qué regalar a unos gemelos o a padres de gemelos?", r: "Un regalo que los padres de gemelos nunca han recibido dos veces: un libro personalizado donde sus dos hijos son los héroes de la misma historia. A diferencia de los regalos clásicos (comprados por duplicado), «Deux comme nous» celebra lo que hace únicos a estos niños: ser dos. Solo necesitas sus nombres, para un nacimiento, un cumpleaños o Navidad." },
       { q: "¿Para qué edad es adecuado?", r: "Desde el nacimiento hasta los 6 años aproximadamente. Regalado al nacer, es un recuerdo que crece con ellos; hacia los 2-3 años, es el cuento de buenas noches que piden: aquel donde los héroes llevan sus nombres." },
       { q: "¿Funciona para un niño y una niña?", r: "¡Sí! Todas las combinaciones son posibles: dos niños, dos niñas o un niño y una niña. El texto está escrito para funcionar con naturalidad en todos los casos." },
@@ -807,6 +811,7 @@ const DE: Dict = {
   config: {
     h2: "Gestalten Sie das Buch Ihrer Zwillinge",
     sub: "Wählen Sie für jedes Kind eine Figur, fügen Sie die Namen hinzu und sehen Sie zu, wie das Cover ihres personalisierten Buchs entsteht.",
+    noteCatalogue: "Wir ergänzen nach und nach neue Figuren — vorerst gehen wir es langsam an. Keine passt? Die Maßanfertigung zeichnet sie nach einem Foto.",
     afficher: "Anzeigen:",
     filtreTous: "Alle", filtreGarcons: "Jungen", filtreFilles: "Mädchen",
     premier: "Erstes Kind", second: "Zweites Kind",
@@ -821,7 +826,7 @@ const DE: Dict = {
     mentionCgv: "Personalisierter Artikel: kein Widerrufsrecht (frz. Recht, Art. L221-28)",
     cgv: "AGB",
     noteApercu: "Unverbindliche Vorschau: Auf dem gedruckten Cover sind Ihre beiden Helden gemeinsam in einer vollständigen Szene illustriert.",
-    noteLangue: "Der Text der Geschichte ist derzeit auf Französisch.",
+    noteLangue: "",
     btnApercu: "✨ Echte Seiten mit Ihren Namen durchblättern",
     btnApercuHint: "fügen Sie zuerst beide Namen hinzu",
     stTraitement: "Wird bearbeitet…",
@@ -834,12 +839,12 @@ const DE: Dict = {
     fermer: "Schließen",
     precedente: "Vorherige Seite",
     suivante: "Nächste Seite",
-    note: "Nur ein Auszug weniger Seiten: das vollständige Buch hat 30. Echte Seiten eines gedruckten Exemplars, mit Ihren Namen; der Text ist derzeit auf Französisch. Jedes Buch wird vor dem Druck Seite für Seite geprüft.",
+    note: "Nur ein Auszug weniger Seiten: das vollständige Buch hat 30. Echte Seiten eines gedruckten Exemplars, mit Ihren Namen; jedes Buch wird vor dem Druck Seite für Seite geprüft.",
   },
   sm: {
     eyebrow: "Maßanfertigung",
     h2: "Keine Figur sieht ihnen ähnlich?",
-    intro: "Unsere zwölf Figuren ähneln Ihren Kindern nicht genug? Wir gestalten ihr Buch komplett nach Maß, nach ihrem Vorbild, aus einem einfachen Foto.",
+    intro: "Keine unserer Figuren ähnelt Ihren Kindern genug? Wir gestalten ihr Buch komplett nach Maß, nach ihrem Vorbild, aus einem einfachen Foto.",
     points: [
       "Figuren, gezeichnet nach Ihren Fotos",
       "Sie wählen aus 3 Vorschlägen pro Kind, direkt nach der Bestellung",
@@ -879,7 +884,7 @@ const DE: Dict = {
   faq: {
     titre: "Ihre Fragen",
     items: [
-      { q: "In welcher Sprache ist das Buch?", r: "Die Geschichte ist derzeit auf Französisch geschrieben, mit einem warmen, einfachen Text für Zwillinge. Deutsche, englische und spanische Ausgaben sind in Vorbereitung; sobald sie verfügbar sind, können Sie die Sprache auf der Website wählen." },
+      { q: "In welcher Sprache wird das Buch gedruckt?", r: "In der, die Sie gerade lesen: Wählen Sie Deutsch und das Buch Ihrer Kinder wird auf Deutsch gedruckt. Website und Buch gibt es auch auf Französisch, Englisch und Spanisch — einfach oben auf der Seite die Sprache wechseln." },
       { q: "Was schenkt man Zwillingen oder Zwillingseltern?", r: "Ein Geschenk, das Zwillingseltern noch nie doppelt bekommen haben: ein personalisiertes Buch, in dem beide Kinder die Helden derselben Geschichte sind. Anders als klassische Geschenke (doppelt gekauft) feiert „Deux comme nous“ das, was diese Kinder einzigartig macht: zu zweit zu sein. Sie brauchen nur die Namen, zur Geburt, zum Geburtstag oder zu Weihnachten." },
       { q: "Für welches Alter ist es geeignet?", r: "Von der Geburt bis etwa 6 Jahre. Zur Geburt geschenkt, ist es ein Andenken, das mitwächst; mit 2-3 Jahren wird es die Gutenachtgeschichte, die sie sich wünschen: die, in der die Helden ihre Namen tragen." },
       { q: "Funktioniert es für einen Jungen und ein Mädchen?", r: "Ja! Alle Kombinationen sind möglich: zwei Jungen, zwei Mädchen oder Junge und Mädchen. Der Text ist so geschrieben, dass er in jedem Fall natürlich funktioniert." },

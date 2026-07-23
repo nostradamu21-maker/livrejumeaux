@@ -58,6 +58,7 @@ export async function POST(req: Request) {
         statut,
         paiement: "stripe",
         ref: session.id,
+        langue: m.langue || "fr",
         montant_centimes: session.amount_total ?? PRIX_CENTIMES + LIVRAISON_CENTIMES,
       };
       await enregistrerCommande(infos);
@@ -82,6 +83,7 @@ export async function POST(req: Request) {
         adresse: adresseLivraison(session),
         monozygote: m.monozygote === "1",
         relation: m.relation || null,
+        langue: m.langue || "fr",
         photoUrl: m.photo ? await lienPhotoSurMesure(m.photo).catch(() => null) : null,
         photoUrl2: m.photo2 ? await lienPhotoSurMesure(m.photo2).catch(() => null) : null,
       };

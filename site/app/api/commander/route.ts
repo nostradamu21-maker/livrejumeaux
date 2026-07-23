@@ -20,7 +20,10 @@ interface Corps {
   prenom2?: string;
   email?: string;
   accessoire?: string | null;
+  langue?: string;
 }
+
+const LANGUES = new Set(["fr", "en", "es", "de"]);
 
 export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as Corps;
@@ -34,6 +37,8 @@ export async function POST(req: Request) {
     a1 === a2 && body.accessoire && accessoireExiste(body.accessoire)
       ? body.accessoire
       : null;
+  // Langue du TEXTE du livre (les images sont communes à toutes les langues).
+  const langue = LANGUES.has(body.langue ?? "") ? body.langue! : "fr";
 
   if (!existe(a1) || !existe(a2)) {
     return NextResponse.json({ ok: false, erreur: "Archétype inconnu." }, { status: 400 });
@@ -82,7 +87,7 @@ export async function POST(req: Request) {
       ],
       success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#creer`,
-      metadata: { combo_id: cid, archetype1: a1, archetype2: a2, prenom1: p1, prenom2: p2 },
+      metadata: { combo_id: cid, archetype1: a1, archetype2: a2, prenom1: p1, prenom2: p2, langue },
     });
     return NextResponse.json({ ok: true, url: session.url });
   }
@@ -100,6 +105,7 @@ export async function POST(req: Request) {
     statut,
     paiement: "simulé",
     ref: null,
+    langue,
     montant_centimes: PRIX_CENTIMES + LIVRAISON_CENTIMES,
   });
 

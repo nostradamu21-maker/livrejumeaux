@@ -113,6 +113,32 @@ def champ_page(p: dict, livre: dict, cle: str) -> str:
     return p[cle]
 
 
+LANGUES = {"fr", "en", "es", "de"}
+
+
+def appliquer_langue(scenes: dict, langue: str) -> None:
+    """Superpose les textes traduits (traductions/<langue>.yaml) sur scenes.
+    Ne touche QUE le texte imprimé (texte/texte_dizygote/titre) : les images
+    ne contiennent aucun texte, donc une combo en cache sert toutes les langues.
+    Français (ou traduction absente) → aucun changement."""
+    langue = (langue or "fr").lower()
+    if langue == "fr":
+        return
+    if langue not in LANGUES:
+        sys.exit(f"Langue inconnue : {langue} (attendu : {', '.join(sorted(LANGUES))})")
+    f = ROOT / "traductions" / f"{langue}.yaml"
+    if not f.exists():
+        sys.exit(f"Traduction manquante : {f}")
+    trad = yaml.safe_load(f.read_text(encoding="utf-8")).get("pages", {})
+    for num, champs in trad.items():
+        cible = scenes["pages"].get(str(num))
+        if not cible:
+            continue
+        for cle in ("titre", "texte", "texte_dizygote"):
+            if cle in champs:
+                cible[cle] = champs[cle]
+
+
 
 # ---------------------------------------------------------------------------
 # Étape 1 — génération
@@ -327,7 +353,8 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
 # ---------------------------------------------------------------------------
 
 
-def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None) -> None:
+def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
+              suffixe_pdf: str = "") -> None:
     from PIL import Image
     from reportlab.lib.colors import HexColor
     from reportlab.pdfbase import pdfmetrics
@@ -343,7 +370,7 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None) -> None:
     variables = {"prenom1": p1, "prenom2": p2}
 
     upscaler = None
-    pdf_path = dossier / (f"impression-{p1}-{p2}.pdf".replace(" ", "_"))
+    pdf_path = dossier / (f"impression-{p1}-{p2}{suffixe_pdf}.pdf".replace(" ", "_"))
     pdfmetrics.registerFont(TTFont("PageFont", str(ROOT / "fonts/Andika-Regular.ttf")))
     pdfmetrics.registerFont(TTFont("TitreFont", str(ROOT / "fonts/Andika-Bold.ttf")))
     c = canvas.Canvas(str(pdf_path), pagesize=(geo.doc_pt, geo.doc_pt))
@@ -574,13 +601,20 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("livre", help="id du livre (dossier dans livres/)")
     ap.add_argument("--prenoms", help='"Prenom1,Prenom2" — commande client (combo validée)')
+    ap.add_argument("--langue", default="fr",
+                    help="langue du TEXTE du livre : fr (défaut), en, es, de")
     args = ap.parse_args()
 
     livre, scenes, dossier = charger(args.livre)
+    # Langue du texte : priorité au flag, sinon champ du livre.yaml, sinon fr.
+    langue = (args.langue or livre.get("langue") or "fr").lower()
+    appliquer_langue(scenes, langue)
 
     if args.prenoms:
         p1, p2 = [s.strip() for s in args.prenoms.split(",")]
-        etape_pdf(livre, scenes, dossier, prenoms=(p1, p2))
+        # Le PDF client porte la langue dans son nom (une combo → N langues).
+        suffixe = "" if langue == "fr" else f"-{langue}"
+        etape_pdf(livre, scenes, dossier, prenoms=(p1, p2), suffixe_pdf=suffixe)
         return
 
     if etape_generation(livre, scenes, dossier):

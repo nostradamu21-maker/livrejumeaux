@@ -110,6 +110,7 @@ export default function SurMesure({ l }: { l: Locale }) {
       if (monozygote) form.set("accessoire", accessoire);
       form.set("relation", relation);
       form.set("consentement", consentement ? "1" : "0");
+      form.set("langue", l);
       form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
       if (!monozygote && photos[2]) {
         form.set("photo2", await reduirePhoto(photos[2]), "photo2.jpg");

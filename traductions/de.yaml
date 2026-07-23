@@ -1,0 +1,156 @@
+# Traduction du manuscrit « Deux comme nous » — DE.
+# Placeholders {prenom1}/{prenom2} conservés. Chargé par livre.py --langue.
+pages:
+  '01':
+    texte: 'Hallo {prenom1}! Hallo {prenom2}!
+
+      Ihr seid zwei, wie Sonne und Mond.
+
+      Zwei, von Anfang an.'
+  '02':
+    texte: 'Vor langer Zeit wart ihr zwei winzige Babys
+
+      im selben Kinderwagen. Schon unzertrennlich!'
+  '03':
+    texte: 'Zwei Betten, zwei Kuscheltiere, zwei Paar Schuhe…
+
+      Und ein Zimmer für zwei!'
+  '04':
+    texte: '{prenom1} macht als Erstes die Augen auf, wie jeden Morgen.'
+  '05':
+    texte: 'Pssst… {prenom2} schläft noch ein bisschen.
+
+      Jedes Kind wacht auf seine Weise auf.'
+  '06':
+    texte: 'Zwei Schüsseln, zwei Butterbrote… und ein dampfender Kakao.
+
+      Guten Appetit, ihr zwei!'
+  '07':
+    texte: 'Zwei Nasen, zwei ähnliche Lächeln…
+
+      Manchmal verwechselt man euch!
+
+      „Bist du {prenom1} oder bist du {prenom2}?“'
+    texte_dizygote: 'Wir haben nicht dasselbe Lächeln, nicht dieselben Augen…
+
+      aber wir haben das Leben gemeinsam begonnen, wir beide.
+
+      Das sieht man nicht: das fühlt man.'
+  08:
+    texte: 'Kein Problem: Man muss nur mit dem Herzen hinschauen.
+
+      {prenom1} ist {prenom1}. {prenom2} ist {prenom2}.
+
+      Und niemand sonst auf der Welt!'
+    texte_dizygote: '{prenom1} ist {prenom1}. {prenom2} ist {prenom2}.
+
+      Zwei Menschen, ein Team.
+
+      Und niemand sonst auf der Welt!'
+  09:
+    texte: 'Eins, zwei! Eins, zwei!
+
+      Auf dem Weg zum Park gehen wir im gleichen Schritt.'
+  '10':
+    texte: '{prenom1} und {prenom2} rutschen, rennen und springen.
+
+      Zu zweit macht es doppelt so viel Spaß!'
+  '11':
+    texte: '{prenom1} rennt ohne Pause, {prenom2} liest unter dem Baum.
+
+      Jedes Kind in seinem Tempo!'
+  '12':
+    texte: '{prenom2} liebt Drachengeschichten.
+
+      {prenom1} zählt lieber die Wolken.
+
+      Und das ist genau richtig so!'
+  '13':
+    texte: 'Eins, zwei, drei… versteckt!
+
+      {prenom1} zählt, {prenom2} schleicht sich davon.
+
+      Der Park wird zum riesigen Versteck.'
+  '14':
+    texte: 'Wenn {prenom1} lacht, lacht {prenom2} auch.
+
+      Lachen steckt zu zweit an!'
+  '15':
+    texte: '„Schau mal dort!“ zeigt {prenom2}.
+
+      Zu zweit sieht man doppelt so viel.'
+  '16':
+    texte: 'Plitsch, platsch! Zwei Stiefel, zwei Pfützen…
+
+      und ein Regenschirm für zwei.'
+  '17':
+    texte: 'Manchmal sind wir uns nicht einig.
+
+      „Das ist mein Buch! — Nein, das ist meins!“
+
+      Das passiert, sogar wenn man sich sehr lieb hat.'
+  '18':
+    texte: 'Eine große Umarmung… und schwupp!
+
+      Der Ärger fliegt davon wie ein kleines Wölkchen.'
+  '19':
+    texte: 'An Tagen mit großem Kummer ist {prenom2} nie weit von {prenom1}.
+
+      Zu zweit wiegt der Kummer halb so schwer.'
+  '20':
+    texte: '{prenom2} malt {prenom1}. {prenom1} malt {prenom2}.
+
+      Zwei Porträts, zwei Künstler!'
+  '21':
+    texte: '{prenom1} klatscht in die Hände, {prenom2} dreht sich und springt.
+
+      Wie wär''s, wenn wir unseren eigenen Tanz erfinden?'
+  '22':
+    texte: 'Manchmal spielt jedes Kind für sich.
+
+      Es ist auch schön, ein wenig Ruhe zu haben.'
+  '23':
+    texte: 'Und danach… welche Freude, wieder zusammen zu sein!
+
+      „Spielen wir zusammen? — Oh ja!“'
+  '24':
+    texte: 'Am Abend: zwei Schlafanzüge, zwei Küsse, zwei Kuscheltiere.
+
+      Eins für jedes, und ganz viel Liebe für zwei.'
+  '25':
+    texte: 'Eine Geschichte für zwei, unter derselben Decke.
+
+      Noch eine Seite… bitte!'
+  '26':
+    texte: 'Gute Nacht {prenom1}. Gute Nacht {prenom2}.
+
+      Die Träume kommen… eins für jedes.'
+  '27':
+    texte: 'Ähnlichkeiten, Unterschiede… zusammen, und jedes es selbst.
+
+      Zwei wie wir, das ist doppelt so viel Liebe!'
+  '28':
+    texte: 'Dieses Buch gehört {prenom1} und {prenom2}.
+
+      Zwei wie euch gibt es kein zweites Mal!'
+  '29':
+    titre: Ein Wort an euch, die Eltern
+    texte: 'Dieses kleine Buch erzählt ein großes Abenteuer: das, zu zweit zu sein.
+
+
+      Als Zwillinge aufzuwachsen heißt, fast alles zu teilen — das Zimmer, die Spiele, die Lachanfälle — und Tag für Tag zu entdecken, dass man auch ein ganz eigener Mensch ist.
+
+
+      Daran zu erinnern, wie ähnlich sich {prenom1} und {prenom2} sind, aber auch, wie einzigartig jedes Kind ist, schenkt ihnen zwei kostbare Gaben: das Band, das sie verbindet, und die Freiheit, ganz sie selbst zu sein.'
+  '30':
+    titre: Zwei, und doch einzigartig
+    texte: 'Zwillinge hören oft „die Zwillinge“… und seltener ihren eigenen Namen.
+
+
+      Wenn ihr ihnen diese Geschichte vorlest, helft ihr ihnen, ihren Alltag in Worte zu fassen: die Verbundenheit, aber auch das Recht, Verschiedenes zu mögen, einen eigenen Charakter, einen eigenen Rhythmus und eigene Träume zu haben.
+
+
+      Lest es oft, mit zwei Stimmen. Und erinnert sie daran, dass es auf der ganzen Welt niemanden gibt wie {prenom1} und {prenom2}.
+
+
+      — Mit aller Zärtlichkeit der Jumelio- & Gemellite.com-Gemeinschaft'

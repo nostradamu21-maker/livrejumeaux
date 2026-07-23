@@ -70,6 +70,7 @@ export default function Configurateur({
           prenom2: prenoms[2],
           email: email.trim(),
           accessoire: memeArchetype ? accessoire : null,
+          langue: l,
         }),
       });
       const data = await r.json();
@@ -114,6 +115,7 @@ export default function Configurateur({
       <div className="section-tete">
         <h2>{d.config.h2}</h2>
         <p className="section-sub">{d.config.sub}</p>
+        <p className="note-catalogue">{d.config.noteCatalogue}</p>
       </div>
 
       <div className="configurateur">

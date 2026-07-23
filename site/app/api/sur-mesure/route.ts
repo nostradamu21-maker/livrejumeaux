@@ -46,6 +46,9 @@ export async function POST(req: Request) {
   const relBrut = String(form.get("relation") ?? "");
   const relation = RELATIONS.has(relBrut) ? relBrut : "parent";
   const consentement = form.get("consentement") === "1";
+  const LANGUES = new Set(["fr", "en", "es", "de"]);
+  const langueBrut = String(form.get("langue") ?? "");
+  const langue = LANGUES.has(langueBrut) ? langueBrut : "fr";
 
   // Droit à l'image de mineurs : certification obligatoire (majeur +
   // autorisation parentale pour la photo).
@@ -109,6 +112,7 @@ export async function POST(req: Request) {
     accessoire,
     relation,
     consentement: "1",
+    langue,
     photo: chemins[0] ?? "",
     photo2: chemins[1] ?? "",
   };
@@ -160,6 +164,7 @@ export async function POST(req: Request) {
     statut: "a_produire",
     paiement: "simulé",
     ref: chemins.join(","),
+    langue,
     montant_centimes: prix + LIVRAISON_CENTIMES,
   });
   return NextResponse.json({

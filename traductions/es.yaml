@@ -1,0 +1,156 @@
+# Traduction du manuscrit « Deux comme nous » — ES.
+# Placeholders {prenom1}/{prenom2} conservés. Chargé par livre.py --langue.
+pages:
+  '01':
+    texte: '¡Hola {prenom1}! ¡Hola {prenom2}!
+
+      Sois dos, como el sol y la luna.
+
+      Dos, desde el principio.'
+  '02':
+    texte: 'Hace tiempo, erais dos bebés diminutos
+
+      en el mismo cochecito. ¡Ya inseparables!'
+  '03':
+    texte: 'Dos camas, dos peluches, dos pares de zapatos…
+
+      ¡Y una habitación para dos!'
+  '04':
+    texte: '{prenom1} abre los ojos primero, como cada mañana.'
+  '05':
+    texte: 'Chss… {prenom2} duerme todavía un poquito.
+
+      Cada uno se despierta a su manera.'
+  '06':
+    texte: 'Dos tazones, dos tostadas… y un chocolate humeante.
+
+      ¡Buen provecho, vosotros dos!'
+  '07':
+    texte: 'Dos narices, dos sonrisas que se parecen…
+
+      ¡A veces os confunden!
+
+      «¿Eres {prenom1} o eres {prenom2}?»'
+    texte_dizygote: 'No tenemos la misma sonrisa, ni los mismos ojos…
+
+      pero empezamos la vida juntos, los dos.
+
+      Eso no se ve: se siente.'
+  08:
+    texte: 'Sin problema: basta con mirar bien con el corazón.
+
+      {prenom1} es {prenom1}. {prenom2} es {prenom2}.
+
+      ¡Y nadie más en el mundo!'
+    texte_dizygote: '{prenom1} es {prenom1}. {prenom2} es {prenom2}.
+
+      Dos personas, un solo equipo.
+
+      ¡Y nadie más en el mundo!'
+  09:
+    texte: '¡Un, dos! ¡Un, dos!
+
+      Camino del parque, andamos al mismo paso.'
+  '10':
+    texte: '{prenom1} y {prenom2} se deslizan, corren y saltan.
+
+      ¡Entre dos, es el doble de divertido!'
+  '11':
+    texte: '{prenom1} corre sin parar, {prenom2} lee bajo el árbol.
+
+      ¡Cada uno a su ritmo!'
+  '12':
+    texte: 'A {prenom2} le encantan los cuentos de dragones.
+
+      {prenom1} prefiere contar las nubes.
+
+      ¡Y está muy bien así!'
+  '13':
+    texte: 'Uno, dos, tres… ¡escondido!
+
+      {prenom1} cuenta, {prenom2} se escabulle.
+
+      El parque se vuelve un escondite gigante.'
+  '14':
+    texte: 'Cuando {prenom1} ríe, {prenom2} ríe también.
+
+      ¡La risa, entre dos, se contagia!'
+  '15':
+    texte: '«¡Mira allí!» señala {prenom2}.
+
+      Entre dos, se ven el doble de cosas.'
+  '16':
+    texte: '¡Plic, ploc! Dos botas, dos charcos…
+
+      y un paraguas para dos.'
+  '17':
+    texte: 'A veces no estamos de acuerdo.
+
+      «¡Es mi libro! — ¡No, es el mío!»
+
+      Pasa, incluso cuando nos queremos mucho.'
+  '18':
+    texte: 'Un fuerte abrazo… ¡y listo!
+
+      El enfado se va volando como una nubecita.'
+  '19':
+    texte: 'Los días de mucha pena, {prenom2} nunca está lejos de {prenom1}.
+
+      Entre dos, la pena pesa la mitad.'
+  '20':
+    texte: '{prenom2} dibuja a {prenom1}. {prenom1} dibuja a {prenom2}.
+
+      ¡Dos retratos, dos artistas!'
+  '21':
+    texte: '{prenom1} da palmas, {prenom2} gira y salta.
+
+      ¿Y si inventáramos nuestro baile para dos?'
+  '22':
+    texte: 'A veces, cada uno juega por su lado.
+
+      También está bien estar un poco tranquilo.'
+  '23':
+    texte: 'Y después… ¡qué alegría reencontrarse!
+
+      «¿Jugamos juntos? — ¡Oh, sí!»'
+  '24':
+    texte: 'Por la noche: dos pijamas, dos besos, dos peluches.
+
+      Uno para cada uno, y mucho amor para dos.'
+  '25':
+    texte: 'Un cuento para dos, bajo la misma manta.
+
+      ¡Una página más… por favor!'
+  '26':
+    texte: 'Buenas noches {prenom1}. Buenas noches {prenom2}.
+
+      Llegan los sueños… uno para cada uno.'
+  '27':
+    texte: 'Parecidos, diferencias… juntos, y cada uno uno mismo.
+
+      ¡Dos como nosotros es el doble de amor!'
+  '28':
+    texte: 'Este libro es de {prenom1} y {prenom2}.
+
+      ¡Dos como vosotros no hay otros!'
+  '29':
+    titre: Unas palabras para vosotros, los padres
+    texte: 'Este pequeño libro cuenta una gran aventura: la de ser dos.
+
+
+      Crecer siendo gemelos es compartirlo casi todo — la habitación, los juegos, las risas — y descubrir, día tras día, que también se es una persona con entidad propia.
+
+
+      Recordar cuánto se parecen {prenom1} y {prenom2}, pero también cuán único es cada niño, es ofrecerles dos regalos preciosos: el vínculo que los une y la libertad de ser plenamente ellos mismos.'
+  '30':
+    titre: Dos, y sin embargo únicos
+    texte: 'Los gemelos oyen a menudo «los gemelos»… y más raramente su nombre.
+
+
+      Al leerles este cuento, les ayudáis a poner palabras a su día a día: la complicidad, pero también el derecho a amar cosas distintas, a tener un carácter, un ritmo y unos sueños propios.
+
+
+      Leedlo a menudo, a dos voces. Y recordadles que no hay, en el mundo entero, nadie como {prenom1} y {prenom2}.
+
+
+      — Con todo el cariño de la comunidad Jumelio & Gemellite.com'

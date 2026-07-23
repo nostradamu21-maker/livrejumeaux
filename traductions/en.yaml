@@ -1,0 +1,156 @@
+# Traduction du manuscrit « Deux comme nous » — EN.
+# Placeholders {prenom1}/{prenom2} conservés. Chargé par livre.py --langue.
+pages:
+  '01':
+    texte: 'Hello {prenom1}! Hello {prenom2}!
+
+      You are two, like the sun and the moon.
+
+      Two, right from the very start.'
+  '02':
+    texte: 'Long ago, you were two tiny babies
+
+      in the same pram. Already inseparable!'
+  '03':
+    texte: 'Two beds, two cuddly toys, two pairs of shoes…
+
+      And one room for two!'
+  '04':
+    texte: '{prenom1} opens their eyes first, like every morning.'
+  '05':
+    texte: 'Shhh… {prenom2} is still sleeping a little.
+
+      Everyone wakes up in their own way.'
+  '06':
+    texte: 'Two bowls, two slices of toast… and one steaming cocoa.
+
+      Enjoy, you two!'
+  '07':
+    texte: 'Two noses, two smiles that look alike…
+
+      Sometimes people mix you up!
+
+      “Are you {prenom1}, or are you {prenom2}?”'
+    texte_dizygote: 'We don''t have the same smile, nor the same eyes…
+
+      but we started life together, the two of us.
+
+      That can''t be seen: it''s felt.'
+  08:
+    texte: 'No worries: just look closely with your heart.
+
+      {prenom1} is {prenom1}. {prenom2} is {prenom2}.
+
+      And no one else in the whole world!'
+    texte_dizygote: '{prenom1} is {prenom1}. {prenom2} is {prenom2}.
+
+      Two people, one team.
+
+      And no one else in the whole world!'
+  09:
+    texte: 'One, two! One, two!
+
+      On the way to the park, we walk in step.'
+  '10':
+    texte: '{prenom1} and {prenom2} slide, run and jump.
+
+      Together, it''s twice as much fun!'
+  '11':
+    texte: '{prenom1} runs without stopping, {prenom2} reads under the tree.
+
+      Each at their own pace!'
+  '12':
+    texte: '{prenom2} loves dragon stories.
+
+      {prenom1} prefers counting clouds.
+
+      And that''s perfectly fine!'
+  '13':
+    texte: 'One, two, three… hide!
+
+      {prenom1} counts, {prenom2} slips away.
+
+      The park becomes a giant hiding place.'
+  '14':
+    texte: 'When {prenom1} laughs, {prenom2} laughs too.
+
+      Laughter, between two, is catching!'
+  '15':
+    texte: '“Look over there!” points {prenom2}.
+
+      Together, you see twice as many things.'
+  '16':
+    texte: 'Drip, drop! Two boots, two puddles…
+
+      and one umbrella for two.'
+  '17':
+    texte: 'Sometimes we don''t agree.
+
+      “It''s my book! — No, it''s mine!”
+
+      It happens, even when you love each other so much.'
+  '18':
+    texte: 'A big hug… and off it goes!
+
+      The anger floats away like a little cloud.'
+  '19':
+    texte: 'On days of great sadness, {prenom2} is never far from {prenom1}.
+
+      Together, sadness weighs half as much.'
+  '20':
+    texte: '{prenom2} draws {prenom1}. {prenom1} draws {prenom2}.
+
+      Two portraits, two artists!'
+  '21':
+    texte: '{prenom1} claps their hands, {prenom2} spins and jumps.
+
+      What if we made up our very own dance?'
+  '22':
+    texte: 'Sometimes, each one plays on their own.
+
+      It''s nice too, to have a little quiet.'
+  '23':
+    texte: 'And afterwards… what joy to be back together!
+
+      “Shall we play together? — Oh yes!”'
+  '24':
+    texte: 'In the evening: two pyjamas, two kisses, two cuddly toys.
+
+      One each, and lots of love for two.'
+  '25':
+    texte: 'One story for two, under the same blanket.
+
+      One more page… please!'
+  '26':
+    texte: 'Goodnight {prenom1}. Goodnight {prenom2}.
+
+      Dreams are coming… one for each.'
+  '27':
+    texte: 'Likenesses, differences… together, and each themselves.
+
+      Two like us means twice as much love!'
+  '28':
+    texte: 'This book belongs to {prenom1} and {prenom2}.
+
+      There are no others quite like you two!'
+  '29':
+    titre: A word for you, the parents
+    texte: 'This little book tells a great adventure: that of being two.
+
+
+      Growing up as twins means sharing almost everything — the bedroom, the games, the giggles — and discovering, day after day, that you are also a whole person in your own right.
+
+
+      Reminding {prenom1} and {prenom2} how alike they are, but also how unique each child is, offers them two precious gifts: the bond that unites them, and the freedom to be fully themselves.'
+  '30':
+    titre: Two, and yet unique
+    texte: 'Twins often hear “the twins”… and more rarely their own name.
+
+
+      By reading them this story, you help them put words to their daily life: the closeness, but also the right to love different things, to have their own character, rhythm and dreams.
+
+
+      Read it often, in two voices. And remind them that there is, in all the world, no one else like {prenom1} and {prenom2}.
+
+
+      — With all the tenderness of the Jumelio & Gemellite.com community'

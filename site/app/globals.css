@@ -138,6 +138,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .section-tete { text-align: center; max-width: 46ch; margin: 0 auto 2.5rem; }
 .section-tete h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 600; }
 .section-sub { color: var(--encre-doux); font-size: 1.08rem; margin-top: 0.8rem; }
+.note-catalogue { color: var(--encre-doux); font-size: 0.85rem; margin-top: 0.7rem; opacity: 0.82; background: var(--creme-2); border-radius: 12px; padding: 0.55rem 0.9rem; display: inline-block; }
 
 /* -------------------------- FLIPBOOK -------------------------- */
 .livre-flip { text-align: center; }

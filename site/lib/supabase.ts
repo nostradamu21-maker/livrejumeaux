@@ -21,6 +21,7 @@ export interface CommandeRow {
   statut: string;          // "a_produire" | "cache"
   paiement: string;        // "stripe" | "simulé"
   ref: string | null;      // id de session Stripe
+  langue?: string;         // "fr" | "en" | "es" | "de" (langue du texte du livre)
   montant_centimes: number;
 }
 
