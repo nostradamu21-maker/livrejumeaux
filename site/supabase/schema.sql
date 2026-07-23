@@ -58,4 +58,11 @@ create table if not exists public.sur_mesure (
   variantes   jsonb,                        -- {"1": [chemins], "2": [...]}
   choix       jsonb                         -- {"1": chemin retenu, "2": ...}
 );
+-- Colonnes ajoutées après coup : `create table if not exists` ci-dessus NE
+-- les ajoute PAS à une table déjà créée depuis une version antérieure. Ces
+-- ALTER sont idempotents et réparent une table `sur_mesure` incomplète
+-- (sans eux, l'insertion du webhook échoue en silence → table qui reste vide).
+alter table public.sur_mesure add column if not exists accessoire   text;
+alter table public.sur_mesure add column if not exists relation     text;
+alter table public.sur_mesure add column if not exists consentement boolean not null default false;
 alter table public.sur_mesure enable row level security;
