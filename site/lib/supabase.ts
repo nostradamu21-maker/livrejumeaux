@@ -101,6 +101,7 @@ export async function uploaderVariante(contenu: Buffer): Promise<string | null> 
 export interface SurMesureRow {
   ref: string; // id de session Stripe
   monozygote: boolean;
+  accessoire: string | null; // monozygotes : signe distinctif du 2e jumeau
   prenom1: string;
   prenom2: string;
   photos: string[]; // chemins bucket (1 si monozygote, 2 sinon)

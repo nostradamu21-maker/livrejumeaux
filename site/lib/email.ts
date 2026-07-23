@@ -131,15 +131,12 @@ export async function emailChoixVariantes(c: {
   ref: string;
   prenom1: string;
   prenom2: string;
-  monozygote: boolean;
+  libelles: string[]; // même ordre que `liens`
   liens: string[];
 }): Promise<boolean> {
   if (!NOTIF) return false;
   const lignes = c.liens
-    .map((u, i) => {
-      const nom = c.monozygote ? "les deux enfants" : i === 0 ? c.prenom1 : c.prenom2;
-      return `<li><a href="${u}">Personnage retenu pour ${nom}</a></li>`;
-    })
+    .map((u, i) => `<li><a href="${u}">${c.libelles[i] ?? `Personnage ${i + 1}`}</a></li>`)
     .join("");
   const contenu = `
     <p style="margin:0 0 14px;"><strong>Variantes choisies ✅</strong> — ${c.prenom1} &amp; ${c.prenom2}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
 
 /** Réduit la photo côté navigateur (max 1600 px, JPEG) : upload léger. */
 async function reduirePhoto(fichier: File): Promise<Blob> {
@@ -60,6 +61,7 @@ export default function SurMesure() {
   const [email, setEmail] = useState("");
   const [reutilisation, setReutilisation] = useState(false);
   const [monozygote, setMonozygote] = useState(true);
+  const [accessoire, setAccessoire] = useState<string>(ACCESSOIRE_DEFAUT);
   const [photos, setPhotos] = useState<{ 1: File | null; 2: File | null }>({ 1: null, 2: null });
   const [apercus, setApercus] = useState<{ 1: string | null; 2: string | null }>({ 1: null, 2: null });
   const [envoi, setEnvoi] = useState(false);
@@ -91,6 +93,7 @@ export default function SurMesure() {
       form.set("email", email.trim());
       form.set("reutilisation", reutilisation ? "1" : "0");
       form.set("monozygote", monozygote ? "1" : "0");
+      if (monozygote) form.set("accessoire", accessoire);
       form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
       if (!monozygote && photos[2]) {
         form.set("photo2", await reduirePhoto(photos[2]), "photo2.jpg");
@@ -190,6 +193,35 @@ export default function SurMesure() {
               <small>une photo par enfant</small>
             </button>
           </div>
+          {monozygote && (
+            <div className="sm-distinctif">
+              <p className="sm-distinctif-tete">
+                Un petit détail pour distinguer{" "}
+                {prenoms[2] ? <strong>{prenoms[2]}</strong> : "le second"} dans
+                le livre&nbsp;:
+              </p>
+              <div className="distinctif-choix">
+                {ACCESSOIRES.map((a) => (
+                  <button
+                    key={a.id}
+                    type="button"
+                    className={`acc${accessoire === a.id ? " actif" : ""}`}
+                    onClick={() => setAccessoire(a.id)}
+                    aria-pressed={accessoire === a.id}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="acc-img"
+                      src={`/accessoires/${a.id}.png`}
+                      alt=""
+                      loading="lazy"
+                    />
+                    <span className="acc-label">{a.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <BoutonPhoto
             libelle={monozygote ? "Ajouter la photo de vos enfants" : `Photo de ${prenoms[1] || "l'aîné·e"}`}
             apercu={apercus[1]}

@@ -9,6 +9,7 @@ interface Etat {
   monozygote?: boolean;
   prenoms?: [string, string];
   nEnfants?: number;
+  libelles?: string[];
   variantes?: Record<string, string[]>;
   choix?: Record<string, string>;
   erreur?: string;
@@ -120,10 +121,12 @@ export default function ChoixVariantes() {
       </p>
       {Array.from({ length: n }, (_, i) => i + 1).map((enfant) => {
         const urls = etat.variantes?.[String(enfant)] ?? [];
-        const nom = etat.monozygote ? `${p1} & ${p2}` : enfant === 1 ? p1 : p2;
+        const titre =
+          etat.libelles?.[enfant - 1] ??
+          `Le personnage de ${etat.monozygote ? `${p1} & ${p2}` : enfant === 1 ? p1 : p2}`;
         return (
           <section key={enfant} className="v-groupe">
-            <h2>{etat.monozygote ? `Le personnage de ${nom}` : `Le personnage de ${nom}`}</h2>
+            <h2>{titre}</h2>
             {urls.length ? (
               <div className="v-grille">
                 {urls.map((u, idx) => (

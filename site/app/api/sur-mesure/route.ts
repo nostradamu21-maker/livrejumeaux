@@ -9,6 +9,7 @@ import {
   PAYS_LIVRAISON,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
+import { accessoireExiste, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
 
 const TAILLE_MAX = 4 * 1024 * 1024; // les photos sont réduites côté navigateur
 const TYPES_OK = new Set(["image/jpeg", "image/png"]);
@@ -31,6 +32,14 @@ export async function POST(req: Request) {
   const email = String(form.get("email") ?? "").trim();
   const reutilisation = form.get("reutilisation") === "1";
   const monozygote = form.get("monozygote") === "1";
+  // Monozygotes : signe distinctif porté par le second jumeau (obligatoire
+  // pour les distinguer dans le livre et générer sa variante).
+  const accBrut = String(form.get("accessoire") ?? "");
+  const accessoire = monozygote
+    ? accessoireExiste(accBrut)
+      ? accBrut
+      : ACCESSOIRE_DEFAUT
+    : "";
   const photo1 = form.get("photo1");
   const photo2 = form.get("photo2");
 
@@ -80,6 +89,7 @@ export async function POST(req: Request) {
     prenom1: p1,
     prenom2: p2,
     monozygote: monozygote ? "1" : "0",
+    accessoire,
     photo: chemins[0] ?? "",
     photo2: chemins[1] ?? "",
   };

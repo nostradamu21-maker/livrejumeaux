@@ -30,11 +30,15 @@ export const N_VARIANTES_SUR_MESURE = 3;
 export async function genererVariantes(
   photo: ArrayBuffer,
   ancresStyle: ArrayBuffer[],
+  complement?: string,
 ): Promise<Buffer[]> {
   if (!generationActive) throw new Error("OPENAI_API_KEY absente");
   const form = new FormData();
   form.append("model", "gpt-image-1");
-  form.append("prompt", PROMPT_PERSONNAGE);
+  form.append(
+    "prompt",
+    complement ? `${PROMPT_PERSONNAGE} ${complement}` : PROMPT_PERSONNAGE,
+  );
   form.append("n", String(N_VARIANTES_SUR_MESURE));
   form.append("size", "1024x1536");
   form.append("quality", QUALITE);

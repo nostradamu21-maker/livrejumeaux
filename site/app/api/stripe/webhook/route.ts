@@ -66,6 +66,7 @@ export async function POST(req: Request) {
         await creerSurMesure({
           ref: session.id,
           monozygote: m.monozygote === "1",
+          accessoire: m.accessoire || null,
           prenom1: m.prenom1 ?? "",
           prenom2: m.prenom2 ?? "",
           photos: [m.photo, m.photo2].filter(Boolean) as string[],
