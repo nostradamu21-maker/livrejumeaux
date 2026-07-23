@@ -165,12 +165,21 @@ def produire(cmd: dict) -> None:
 def main() -> None:
     liste_seulement = "--liste" in sys.argv
 
-    cmds = commandes_a_traiter()
+    toutes = commandes_a_traiter()
+    # Les commandes SUR-MESURE (personnages dessinés d'après photo) ne sont pas
+    # des combos d'archétypes : elles se produisent avec `sur_mesure.py`.
+    sur_mesure = [c for c in toutes if c.get("combo_id") == "sur-mesure"]
+    cmds = [c for c in toutes if c.get("combo_id") != "sur-mesure"]
+    if sur_mesure:
+        print(f"\nℹ️  {len(sur_mesure)} commande(s) SUR-MESURE à produire à part "
+              "(python sur_mesure.py <ref>) :")
+        for c in sur_mesure:
+            print(f"    • {c['prenom1']} & {c['prenom2']}  ref={c.get('ref') or '?'}")
     if not cmds:
-        print("Aucune commande en attente. ☕")
+        print("\nAucune commande combo en attente. ☕")
         return
 
-    print(f"\n{len(cmds)} commande(s) en attente :\n")
+    print(f"\n{len(cmds)} commande(s) combo en attente :\n")
     cout_total = 0.0
     combos_vues: set[str] = set()
     for c in cmds:
