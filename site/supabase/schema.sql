@@ -27,6 +27,10 @@ create table if not exists public.commandes (
 
 create index if not exists commandes_combo_idx on public.commandes (combo_id);
 
+-- Suivi de production : rempli par commandes.py quand le PDF client est fait.
+-- (Sur une base déjà créée, exécuter simplement cette ligne dans SQL Editor.)
+alter table public.commandes add column if not exists traitee_le timestamptz;
+
 -- Row Level Security : accès uniquement via la clé service_role (côté serveur).
 alter table public.commandes enable row level security;
 alter table public.combos enable row level security;
