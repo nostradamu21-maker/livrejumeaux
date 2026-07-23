@@ -70,8 +70,10 @@ function gabarit(contenu: string): string {
 /** Email de confirmation envoyé au client après paiement. */
 export async function emailConfirmationClient(c: InfosCommande): Promise<boolean> {
   if (!c.email) return false;
-  const delai =
-    c.statut === "cache"
+  const surMesure = c.combo_id === "sur-mesure";
+  const delai = surMesure
+    ? "<strong>Important : répondez à cet e-mail avec une photo claire de vos deux enfants</strong> (visages bien visibles). Nous dessinons leurs personnages, vous validez les illustrations, puis votre livre part à l'impression. Votre photo est supprimée dès la génération du livre."
+    : c.statut === "cache"
       ? "Votre livre part très vite à l'impression."
       : "Cette combinaison de personnages est créée pour la première fois : nos illustrations sont vérifiées une à une à la main (1 à 2 jours), puis votre livre part à l'impression.";
   const contenu = `
@@ -80,7 +82,7 @@ export async function emailConfirmationClient(c: InfosCommande): Promise<boolean
     Le livre de <strong>${c.prenom1}</strong> &amp; <strong>${c.prenom2}</strong> est en préparation.</p>
     <p style="margin:0 0 14px;">${delai} Il est ensuite expédié directement chez vous en livraison suivie. Comptez environ une semaine en tout.</p>
     <table style="width:100%;border-collapse:collapse;font-size:14px;margin:18px 0;">
-      <tr><td style="padding:6px 0;color:#6f5d51;">Livre</td><td style="text-align:right;">« Deux comme nous », personnalisé</td></tr>
+      <tr><td style="padding:6px 0;color:#6f5d51;">Livre</td><td style="text-align:right;">« Deux comme nous », ${c.combo_id === "sur-mesure" ? "édition sur mesure" : "personnalisé"}</td></tr>
       <tr><td style="padding:6px 0;color:#6f5d51;">Héros</td><td style="text-align:right;">${c.prenom1} &amp; ${c.prenom2}</td></tr>
       <tr><td style="padding:6px 0;color:#6f5d51;border-top:1px solid #ecdfce;">Total payé</td><td style="text-align:right;border-top:1px solid #ecdfce;"><strong>${euros(c.montant_centimes)}</strong></td></tr>
     </table>
@@ -109,6 +111,8 @@ export async function emailNotifInterne(c: InfosCommande): Promise<boolean> {
     </table>
     <p style="margin:14px 0 6px;color:#6f5d51;">Adresse de livraison :</p>
     <pre style="margin:0;background:#fbf5ec;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;">${c.adresse ?? "non transmise"}</pre>
-    <p style="margin:16px 0 0;">Commande à lancer : <code>python livre.py ${c.combo_id} --prenoms "${c.prenom1},${c.prenom2}"</code></p>`;
+    ${c.combo_id === "sur-mesure"
+      ? `<p style="margin:16px 0 0;"><strong>Édition SUR MESURE</strong> : attendre la photo du client (en réponse à sa confirmation), puis créer le livre d'après photo.</p>`
+      : `<p style="margin:16px 0 0;">Commande à lancer : <code>python livre.py ${c.combo_id} --prenoms "${c.prenom1},${c.prenom2}"</code></p>`}`;
   return envoyer(NOTIF, `🧸 Commande : ${c.prenom1} & ${c.prenom2} (${c.combo_id})`, gabarit(contenu));
 }

@@ -24,7 +24,10 @@ export default async function Succes({
         message = "Le paiement n'a pas été confirmé. Aucun montant n'a été débité.";
       } else {
         const m = session.metadata ?? {};
-        if (m.prenom1 && m.prenom2) {
+        if (m.combo_id === "sur-mesure") {
+          titre = "Merci ! Plus qu'une étape";
+          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée. Répondez à l'e-mail de confirmation avec une photo claire de vos deux enfants : nous dessinons leurs personnages, vous validez, nous imprimons.`;
+        } else if (m.prenom1 && m.prenom2) {
           message = `Le livre de ${m.prenom1} & ${m.prenom2} est en préparation. Nous validons les illustrations puis il est imprimé et expédié chez vous.`;
         }
       }

@@ -148,24 +148,31 @@ export default function Configurateur({
           <div className="book book-preview">
             <div className="book-cover">
               <div className="couv-titre">Deux comme&nbsp;nous</div>
-              <div className="couv-fiches">
+              <div className="couv-scene">
                 {([1, 2] as const).map((j) => {
                   const a = fiche(choix[j]);
-                  return (
-                    <div className="couv-fiche" key={j}>
-                      {a ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={a.fiche} alt="" />
-                      ) : (
-                        <span className="vide">Enfant {j}</span>
-                      )}
-                    </div>
+                  return a ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={j}
+                      src={a.fiche}
+                      alt=""
+                      className={`couv-perso perso-${j}`}
+                    />
+                  ) : (
+                    <span key={j} className={`couv-vide perso-${j}`}>
+                      Enfant {j}
+                    </span>
                   );
                 })}
               </div>
               <div className="couv-prenoms">{texteCouv}</div>
             </div>
           </div>
+          <p className="note-apercu">
+            Aperçu indicatif — sur la couverture imprimée, vos deux héros sont
+            illustrés ensemble dans une scène complète.
+          </p>
 
           {memeArchetype && (
             <div className="distinctif">

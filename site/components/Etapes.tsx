@@ -9,8 +9,8 @@ export default function Etapes() {
           <span className="etape-num">1</span>
           <h3>Vous composez</h3>
           <p>
-            Un personnage et un prénom pour chaque enfant. La couverture prend
-            vie sous vos yeux, en direct.
+            Un personnage et un prénom pour chaque enfant. Votre duo et leurs
+            prénoms s&apos;affichent en direct dans l&apos;aperçu.
           </p>
         </div>
         <div className="etape">
