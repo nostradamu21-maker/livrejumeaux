@@ -1,6 +1,4 @@
 // Informations juridiques de l'éditeur — utilisées par les pages légales.
-// ⚠️ ADRESSE : à compléter par Simon (adresse du siège, obligatoire dans
-// les mentions légales).
 
 export const ENTREPRISE = {
   nom: "Simon Stoll (STOLL SIMON)",
@@ -9,7 +7,7 @@ export const ENTREPRISE = {
   siret: "827 511 551 00034",
   rcs: "827 511 551 R.C.S. Dijon (inscrit le 12/03/2025)",
   tva: "FR85827511551",
-  adresse: "[Adresse du siège à compléter]",
+  adresse: "31 rue Diderot, 21000 Dijon, France",
   email: "bonjour@gemellite.com",
   site: "https://boutique.gemellite.com",
 };
