@@ -73,7 +73,7 @@ export default function SurMesure({ l }: { l: Locale }) {
   const [envoi, setEnvoi] = useState(false);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
 
-  const prix = reutilisation ? "99,01 €" : "129 €";
+  const prix = reutilisation ? "99 €" : "129 €";
   const pret = !!(
     prenoms[1] &&
     prenoms[2] &&

@@ -11,7 +11,7 @@ export const PRIX_CENTIMES = Number(process.env.PRIX_CENTIMES ?? 4490);
 export const LIVRAISON_CENTIMES = Number(process.env.LIVRAISON_CENTIMES ?? 499);
 // Édition sur mesure (personnages dessinés d'après photo).
 export const PRIX_SUR_MESURE_CENTIMES = Number(process.env.PRIX_SUR_MESURE_CENTIMES ?? 12900);
-export const REDUC_REUTILISATION_CENTIMES = Number(process.env.REDUC_REUTILISATION_CENTIMES ?? 2999);
+export const REDUC_REUTILISATION_CENTIMES = Number(process.env.REDUC_REUTILISATION_CENTIMES ?? 3000);
 export const DEVISE = "eur";
 export const PRODUIT_NOM = "Deux comme nous, livre personnalisé";
 
