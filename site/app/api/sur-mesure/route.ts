@@ -8,29 +8,59 @@ import {
   DEVISE,
   PAYS_LIVRAISON,
 } from "@/lib/stripe";
-import { enregistrerCommande } from "@/lib/supabase";
+import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 
-interface Corps {
-  email?: string;
-  prenom1?: string;
-  prenom2?: string;
-  reutilisation?: boolean;
-}
+const TAILLE_MAX = 4 * 1024 * 1024; // la photo est réduite côté navigateur
+const TYPES_OK = new Set(["image/jpeg", "image/png"]);
 
-// Paiement de l'édition sur mesure : le client paie d'abord, puis envoie sa
-// photo en répondant à l'e-mail de confirmation (aucun upload sur le site).
+// Édition sur mesure : le client téléverse sa photo puis paie. La photo est
+// stockée dans un bucket privé et supprimée après génération du livre (RGPD).
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => ({}))) as Corps;
-  const email = (body.email ?? "").trim();
-  const p1 = (body.prenom1 ?? "").trim();
-  const p2 = (body.prenom2 ?? "").trim();
-  const reutilisation = !!body.reutilisation;
+  const form = await req.formData().catch(() => null);
+  if (!form) {
+    return NextResponse.json({ ok: false, erreur: "Requête invalide." }, { status: 400 });
+  }
+  const p1 = String(form.get("prenom1") ?? "").trim();
+  const p2 = String(form.get("prenom2") ?? "").trim();
+  const email = String(form.get("email") ?? "").trim();
+  const reutilisation = form.get("reutilisation") === "1";
+  const photo = form.get("photo");
 
   if (!p1 || !p2) {
     return NextResponse.json(
       { ok: false, erreur: "Les deux prénoms sont requis." },
       { status: 400 },
     );
+  }
+  if (!(photo instanceof File) || photo.size === 0) {
+    return NextResponse.json(
+      { ok: false, erreur: "Ajoutez une photo de vos enfants." },
+      { status: 400 },
+    );
+  }
+  if (!TYPES_OK.has(photo.type)) {
+    return NextResponse.json(
+      { ok: false, erreur: "Format d'image non pris en charge (JPEG ou PNG)." },
+      { status: 400 },
+    );
+  }
+  if (photo.size > TAILLE_MAX) {
+    return NextResponse.json(
+      { ok: false, erreur: "Photo trop lourde. Réessayez avec une autre image." },
+      { status: 400 },
+    );
+  }
+
+  // Stockage de la photo AVANT le paiement (bucket privé « sur-mesure »).
+  let cheminPhoto: string | null = null;
+  if (supabaseActif) {
+    cheminPhoto = await uploaderPhotoSurMesure(await photo.arrayBuffer(), photo.type);
+    if (!cheminPhoto) {
+      return NextResponse.json(
+        { ok: false, erreur: "Impossible d'enregistrer la photo. Réessayez." },
+        { status: 500 },
+      );
+    }
   }
 
   const prix = reutilisation
@@ -43,6 +73,7 @@ export async function POST(req: Request) {
     archetype2: reutilisation ? "reutilisation-ok" : "sans-reutilisation",
     prenom1: p1,
     prenom2: p2,
+    photo: cheminPhoto ?? "",
   };
 
   if (stripeActif && stripe) {
@@ -91,13 +122,12 @@ export async function POST(req: Request) {
     email: email || null,
     statut: "a_produire",
     paiement: "simulé",
-    ref: null,
+    ref: cheminPhoto,
     montant_centimes: prix + LIVRAISON_CENTIMES,
   });
   return NextResponse.json({
     ok: true,
     mock: true,
-    message:
-      "Commande sur mesure enregistrée. Envoyez votre photo en réponse à l'e-mail de confirmation.",
+    message: "Commande sur mesure enregistrée, photo bien reçue.",
   });
 }

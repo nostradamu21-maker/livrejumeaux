@@ -28,6 +28,7 @@ export interface InfosCommande {
   ref: string | null;
   adresse: string | null; // adresse de livraison, texte multi-lignes
   statut: string; // "cache" | "a_produire"
+  photoUrl?: string | null; // sur-mesure : lien temporaire vers la photo
 }
 
 async function envoyer(to: string, subject: string, html: string): Promise<boolean> {
@@ -72,7 +73,7 @@ export async function emailConfirmationClient(c: InfosCommande): Promise<boolean
   if (!c.email) return false;
   const surMesure = c.combo_id === "sur-mesure";
   const delai = surMesure
-    ? "<strong>Important : répondez à cet e-mail avec une photo claire de vos deux enfants</strong> (visages bien visibles). Nous dessinons leurs personnages, vous validez les illustrations, puis votre livre part à l'impression. Votre photo est supprimée dès la génération du livre."
+    ? "<strong>Votre photo est bien reçue.</strong> Nous dessinons les personnages de vos enfants, vous validez les illustrations par e-mail, puis votre livre part à l'impression. Votre photo est supprimée dès la génération du livre."
     : c.statut === "cache"
       ? "Votre livre part très vite à l'impression."
       : "Cette combinaison de personnages est créée pour la première fois : nos illustrations sont vérifiées une à une à la main (1 à 2 jours), puis votre livre part à l'impression.";
@@ -112,7 +113,7 @@ export async function emailNotifInterne(c: InfosCommande): Promise<boolean> {
     <p style="margin:14px 0 6px;color:#6f5d51;">Adresse de livraison :</p>
     <pre style="margin:0;background:#fbf5ec;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;">${c.adresse ?? "non transmise"}</pre>
     ${c.combo_id === "sur-mesure"
-      ? `<p style="margin:16px 0 0;"><strong>Édition SUR MESURE</strong> : attendre la photo du client (en réponse à sa confirmation), puis créer le livre d'après photo.</p>`
+      ? `<p style="margin:16px 0 0;"><strong>Édition SUR MESURE</strong> : ${c.photoUrl ? `<a href="${c.photoUrl}">télécharger la photo du client</a> (lien valable 30 jours)` : "photo indisponible — contacter le client"}. Créer le livre d'après photo, puis supprimer la photo du bucket.</p>`
       : `<p style="margin:16px 0 0;">Commande à lancer : <code>python livre.py ${c.combo_id} --prenoms "${c.prenom1},${c.prenom2}"</code></p>`}`;
   return envoyer(NOTIF, `🧸 Commande : ${c.prenom1} & ${c.prenom2} (${c.combo_id})`, gabarit(contenu));
 }

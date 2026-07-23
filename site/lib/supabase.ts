@@ -46,3 +46,38 @@ export async function comboEnCache(comboId: string): Promise<boolean> {
   if (error) return false;
   return !!data;
 }
+
+// ---------------- Photos du sur-mesure (Storage, bucket privé) ----------------
+
+const BUCKET_PHOTOS = "sur-mesure";
+
+/** Stocke la photo du sur-mesure. Renvoie son chemin, ou null si indisponible. */
+export async function uploaderPhotoSurMesure(
+  contenu: ArrayBuffer,
+  contentType: string,
+): Promise<string | null> {
+  if (!supabaseAdmin) return null;
+  const ext = contentType === "image/png" ? "png" : "jpg";
+  const chemin = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${ext}`;
+  const { error } = await supabaseAdmin.storage
+    .from(BUCKET_PHOTOS)
+    .upload(chemin, contenu, { contentType, upsert: false });
+  if (error) {
+    console.error("Supabase upload photo:", error.message);
+    return null;
+  }
+  return chemin;
+}
+
+/** Lien de téléchargement temporaire (30 jours) vers une photo stockée. */
+export async function lienPhotoSurMesure(chemin: string): Promise<string | null> {
+  if (!supabaseAdmin) return null;
+  const { data, error } = await supabaseAdmin.storage
+    .from(BUCKET_PHOTOS)
+    .createSignedUrl(chemin, 60 * 60 * 24 * 30);
+  if (error) {
+    console.error("Supabase lien photo:", error.message);
+    return null;
+  }
+  return data.signedUrl;
+}

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { stripe, stripeActif, PRIX_CENTIMES, LIVRAISON_CENTIMES } from "@/lib/stripe";
-import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
+import { comboEnCache, enregistrerCommande, lienPhotoSurMesure } from "@/lib/supabase";
 import { emailConfirmationClient, emailNotifInterne } from "@/lib/email";
 
 /** Adresse de livraison en texte multi-lignes (selon la version de l'API
@@ -60,6 +60,7 @@ export async function POST(req: Request) {
       const complement = {
         nomClient: session.customer_details?.name ?? null,
         adresse: adresseLivraison(session),
+        photoUrl: m.photo ? await lienPhotoSurMesure(m.photo).catch(() => null) : null,
       };
       try {
         await emailConfirmationClient({ ...infos, ...complement });

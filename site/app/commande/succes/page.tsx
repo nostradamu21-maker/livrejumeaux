@@ -25,8 +25,8 @@ export default async function Succes({
       } else {
         const m = session.metadata ?? {};
         if (m.combo_id === "sur-mesure") {
-          titre = "Merci ! Plus qu'une étape";
-          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée. Répondez à l'e-mail de confirmation avec une photo claire de vos deux enfants : nous dessinons leurs personnages, vous validez, nous imprimons.`;
+          titre = "Merci ! Photo bien reçue";
+          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée et votre photo est bien reçue. Nous dessinons leurs personnages, vous validez les illustrations par e-mail, puis votre livre est imprimé et expédié chez vous.`;
         } else if (m.prenom1 && m.prenom2) {
           message = `Le livre de ${m.prenom1} & ${m.prenom2} est en préparation. Nous validons les illustrations puis il est imprimé et expédié chez vous.`;
         }

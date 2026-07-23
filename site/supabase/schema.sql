@@ -34,3 +34,9 @@ alter table public.commandes add column if not exists traitee_le timestamptz;
 -- Row Level Security : accès uniquement via la clé service_role (côté serveur).
 alter table public.commandes enable row level security;
 alter table public.combos enable row level security;
+
+-- Bucket PRIVÉ pour les photos de l'édition sur mesure (supprimées après
+-- génération du livre). Accès uniquement via la clé service_role.
+insert into storage.buckets (id, name, public)
+values ('sur-mesure', 'sur-mesure', false)
+on conflict (id) do nothing;

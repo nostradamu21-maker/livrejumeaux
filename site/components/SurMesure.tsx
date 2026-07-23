@@ -1,32 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+/** Réduit la photo côté navigateur (max 1600 px, JPEG) : upload léger. */
+async function reduirePhoto(fichier: File): Promise<Blob> {
+  const bitmap = await createImageBitmap(fichier);
+  const MAX = 1600;
+  const ratio = Math.min(1, MAX / Math.max(bitmap.width, bitmap.height));
+  if (ratio === 1 && fichier.size < 2 * 1024 * 1024) return fichier;
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * ratio);
+  canvas.height = Math.round(bitmap.height * ratio);
+  canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  return new Promise((res, rej) =>
+    canvas.toBlob(
+      (b) => (b ? res(b) : rej(new Error("conversion"))),
+      "image/jpeg",
+      0.87,
+    ),
+  );
+}
 
 export default function SurMesure() {
   const [prenoms, setPrenoms] = useState({ 1: "", 2: "" });
   const [email, setEmail] = useState("");
   const [reutilisation, setReutilisation] = useState(false);
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [apercu, setApercu] = useState<string | null>(null);
   const [envoi, setEnvoi] = useState(false);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
+  const fichierRef = useRef<HTMLInputElement>(null);
 
-  const prix = reutilisation ? "114 €" : "129 €";
-  const pret = !!(prenoms[1] && prenoms[2]);
+  const prix = reutilisation ? "114 €" : "129 €";
+  const pret = !!(prenoms[1] && prenoms[2] && photo);
+
+  function choisirPhoto(f: File | undefined) {
+    if (!f) return;
+    if (!f.type.startsWith("image/")) {
+      setStatut({ txt: "Choisissez une image (JPEG ou PNG).", cls: "erreur" });
+      return;
+    }
+    setPhoto(f);
+    setApercu(URL.createObjectURL(f));
+    setStatut({ txt: "", cls: "" });
+  }
 
   async function commander(e: React.FormEvent) {
     e.preventDefault();
+    if (!photo) return;
     setEnvoi(true);
-    setStatut({ txt: "Traitement…", cls: "" });
+    setStatut({ txt: "Envoi de la photo…", cls: "" });
     try {
-      const r = await fetch("/api/sur-mesure", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prenom1: prenoms[1],
-          prenom2: prenoms[2],
-          email: email.trim(),
-          reutilisation,
-        }),
-      });
+      const reduite = await reduirePhoto(photo);
+      const form = new FormData();
+      form.set("prenom1", prenoms[1]);
+      form.set("prenom2", prenoms[2]);
+      form.set("email", email.trim());
+      form.set("reutilisation", reutilisation ? "1" : "0");
+      form.set("photo", reduite, "photo.jpg");
+      setStatut({ txt: "Traitement…", cls: "" });
+      const r = await fetch("/api/sur-mesure", { method: "POST", body: form });
       const data = await r.json();
       if (data.ok && data.url) {
         setStatut({ txt: "Redirection vers le paiement sécurisé…", cls: "ok" });
@@ -66,9 +99,8 @@ export default function SurMesure() {
             </li>
           </ul>
           <p className="sm-comment">
-            Comment ça marche&nbsp;? Vous payez en ligne, puis vous envoyez
-            votre photo en répondant simplement à l&apos;e-mail de
-            confirmation. Nous dessinons, vous validez, nous imprimons.
+            Comment ça marche&nbsp;? Vous ajoutez une photo et payez en ligne.
+            Nous dessinons, vous validez par e-mail, nous imprimons.
           </p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
@@ -98,6 +130,32 @@ export default function SurMesure() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <input
+            ref={fichierRef}
+            type="file"
+            accept="image/jpeg,image/png"
+            className="sm-fichier"
+            onChange={(e) => choisirPhoto(e.target.files?.[0])}
+          />
+          <button
+            type="button"
+            className="sm-photo-btn"
+            onClick={() => fichierRef.current?.click()}
+          >
+            {apercu ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={apercu} alt="Photo choisie" className="sm-photo-apercu" />
+                <span>Changer de photo</span>
+              </>
+            ) : (
+              <span>📷 Ajouter la photo de vos enfants</span>
+            )}
+          </button>
+          <span className="sm-photo-note">
+            Visages bien visibles, JPEG ou PNG. Photo supprimée après création
+            du livre.
+          </span>
           <label className="sm-option">
             <input
               type="checkbox"
