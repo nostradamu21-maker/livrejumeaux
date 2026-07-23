@@ -1,108 +1,11 @@
 import type { Archetype, ArchetypePublic } from "./types";
+import catalogue from "./catalogue.json";
 
-// Catalogue des 12 archétypes — porté depuis archetypes.yaml (source de vérité
-// du pipeline Python). Le texte du livre reste ÉPICÈNE : `genre` ne sert qu'à
-// la présentation visuelle, jamais à accorder le texte.
-export const ARCHETYPES: Archetype[] = [
-  // ---- Garçons ----
-  {
-    id: "g1-chatain-clair",
-    genre: "garçon",
-    label: "Châtain, cheveux courts",
-    description: "garçon aux cheveux châtains courts, peau claire",
-    tenue: "t-shirt jaune, short bleu, baskets blanches",
-    distinctif: "le second porte une petite casquette bleue",
-  },
-  {
-    id: "g2-brun-mat",
-    genre: "garçon",
-    label: "Brun, cheveux courts",
-    description: "garçon aux cheveux bruns foncés courts, peau mate",
-    tenue: "t-shirt vert d'eau, short beige, baskets blanches",
-    distinctif: "le second porte un bracelet tressé au poignet",
-  },
-  {
-    id: "g3-blond-clair",
-    genre: "garçon",
-    label: "Blond, cheveux courts",
-    description: "garçon aux cheveux blonds courts, peau claire",
-    tenue: "pull rayé bleu et blanc, short rouge, baskets blanches",
-    distinctif: "le second porte de petites lunettes rondes",
-  },
-  {
-    id: "g4-noir-fonce",
-    genre: "garçon",
-    label: "Cheveux noirs courts",
-    description: "garçon aux cheveux noirs très courts, peau foncée",
-    tenue: "t-shirt orange, short bleu marine, baskets blanches",
-    distinctif: "le second porte une casquette verte",
-  },
-  {
-    id: "g5-roux-clair",
-    genre: "garçon",
-    label: "Roux, taches de rousseur",
-    description: "garçon aux cheveux roux avec des taches de rousseur, peau claire",
-    tenue: "salopette en jean sur t-shirt blanc, baskets blanches",
-    distinctif: "le second porte un nœud papillon rouge",
-  },
-  {
-    id: "g6-asiatique",
-    genre: "garçon",
-    label: "Brun, frange lisse",
-    description: "garçon d'origine asiatique, cheveux noirs lisses avec une frange, peau claire",
-    tenue: "t-shirt bleu, short gris, baskets blanches",
-    distinctif: "le second porte un petit sac à dos jaune",
-  },
-  // ---- Filles ----
-  {
-    id: "f1-natte-brune",
-    genre: "fille",
-    label: "Une natte brune",
-    description: "fille aux cheveux bruns coiffés en une seule natte tombant sur une épaule, peau claire",
-    tenue: "robe vert d'eau à petite tête de koala grise, chaussures blanches",
-    distinctif: "le second porte un serre-tête à fleur",
-  },
-  {
-    id: "f2-nattes-brune",
-    genre: "fille",
-    label: "Deux nattes brunes",
-    description: "fille aux cheveux bruns coiffés en deux nattes, une de chaque côté, peau claire",
-    tenue: "robe corail à petite tête de chien beige, chaussures blanches",
-    distinctif: "le second porte un nœud dans les cheveux",
-  },
-  {
-    id: "f3-blonde-claire",
-    genre: "fille",
-    label: "Blonde, mi-longs",
-    description: "fille aux cheveux blonds mi-longs, peau claire",
-    tenue: "robe lilas, chaussures blanches",
-    distinctif: "le second porte un serre-tête doré",
-  },
-  {
-    id: "f4-bouclee-mate",
-    genre: "fille",
-    label: "Bouclée, brune",
-    description: "fille aux cheveux bruns bouclés, peau mate",
-    tenue: "robe jaune à pois blancs, chaussures blanches",
-    distinctif: "le second porte deux petites barrettes colorées",
-  },
-  {
-    id: "f5-tressee-fonce",
-    genre: "fille",
-    label: "Tresses à perles",
-    description: "fille aux cheveux noirs coiffés en petites tresses ornées de perles, peau foncée",
-    tenue: "robe turquoise, chaussures blanches",
-    distinctif: "le second porte un foulard coloré dans les cheveux",
-  },
-  {
-    id: "f6-asiatique",
-    genre: "fille",
-    label: "Carré brun, frange",
-    description: "fille d'origine asiatique, cheveux noirs coupés au carré avec une frange, peau claire",
-    tenue: "robe rose poudré, chaussures blanches",
-    distinctif: "le second porte une fleur dans les cheveux",
-  },
-];
+// Catalogue des archétypes — source de données : catalogue.json (miroir de
+// archetypes.yaml du pipeline Python). S'enrichit via `promouvoir_archetype.py`
+// (option −30 € : un personnage sur-mesure validé devient un archétype public).
+// Le texte du livre reste ÉPICÈNE : `genre` ne sert qu'à la présentation.
+export const ARCHETYPES = catalogue as unknown as Archetype[];
 
 const PAR_ID = new Map(ARCHETYPES.map((a) => [a.id, a]));
 
@@ -122,6 +25,6 @@ export function cataloguePublic(): ArchetypePublic[] {
     genre: a.genre,
     label: a.label,
     fiche: `/fiches/${a.id}.png`,
-    disponible: true, // les 12 fiches sont validées et présentes dans /public/fiches
+    disponible: true, // fiches validées présentes dans /public/fiches
   }));
 }
