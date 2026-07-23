@@ -80,7 +80,7 @@ export async function emailConfirmationClient(c: InfosCommande): Promise<boolean
     ? `https://boutique.gemellite.com/commande/variantes?session_id=${c.ref}`
     : "";
   const delai = surMesure
-    ? `<strong>Vos photos sont bien reçues.</strong> Prochaine étape : <a href="${lienVariantes}">choisissez les personnages de vos enfants</a> parmi les propositions dessinées d'après vos photos. Nous créons ensuite le livre, vous validez, puis il part à l'impression. Vos photos sont supprimées dès la génération du livre.`
+    ? `<strong>Vos photos sont bien reçues.</strong> Dernière étape : <a href="${lienVariantes}">choisissez les personnages de vos enfants</a> parmi les propositions dessinées d'après vos photos. C'est tout ce que nous attendons de vous : ensuite, nous créons le livre à leur image et il part à l'impression. Vos photos sont supprimées dès la génération du livre.`
     : c.statut === "cache"
       ? "Votre livre part très vite à l'impression."
       : "Cette combinaison de personnages est créée pour la première fois : nos illustrations sont vérifiées une à une à la main (1 à 2 jours), puis votre livre part à l'impression.";
