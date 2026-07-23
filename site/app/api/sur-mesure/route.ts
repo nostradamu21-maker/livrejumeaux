@@ -129,7 +129,7 @@ export async function POST(req: Request) {
             product_data: {
               name: "Deux comme nous, édition sur mesure",
               description: reutilisation
-                ? `${p1} & ${p2}, d'après vos photos (option réutilisation −15 €)`
+                ? `${p1} & ${p2}, d'après vos photos (option réutilisation −29,99 €)`
                 : `${p1} & ${p2}, d'après vos photos`,
             },
           },
