@@ -223,13 +223,13 @@ export default function SurMesure() {
             </div>
           )}
           <BoutonPhoto
-            libelle={monozygote ? "Ajouter la photo de vos enfants" : `Photo de ${prenoms[1] || "l'aîné·e"}`}
+            libelle={monozygote ? "Ajouter la photo de vos enfants" : `Photo de ${prenoms[1] || "votre premier enfant"}`}
             apercu={apercus[1]}
             onChoisir={(f) => choisirPhoto(1, f)}
           />
           {!monozygote && (
             <BoutonPhoto
-              libelle={`Photo de ${prenoms[2] || "l'autre enfant"}`}
+              libelle={`Photo de ${prenoms[2] || "votre second enfant"}`}
               apercu={apercus[2]}
               onChoisir={(f) => choisirPhoto(2, f)}
             />
