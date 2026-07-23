@@ -209,6 +209,8 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .btn-commander { background: var(--terracotta); color: #fff; border: none; border-radius: 999px; padding: 0.9rem; font-family: "Nunito", sans-serif; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(217, 143, 99, 0.35); transition: transform 0.15s, background 0.15s; }
 .btn-commander:hover:not(:disabled) { transform: translateY(-2px); background: var(--terracotta-f); }
 .btn-commander:disabled { background: #e2d3c1; box-shadow: none; cursor: not-allowed; }
+.mention-cgv { font-size: 0.72rem; color: var(--encre-doux); opacity: 0.8; margin: 0; }
+.mention-cgv a { color: var(--terracotta-f); }
 .statut { font-size: 0.9rem; margin: 0; min-height: 1em; }
 .statut.ok { color: var(--vert-f); font-weight: 700; }
 .statut.erreur { color: #c0553c; font-weight: 700; }
@@ -285,6 +287,19 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .pied-nav a:hover { color: var(--terracotta-f); }
 .pied-seo { max-width: 62ch; margin: 1.4rem auto 0 !important; font-size: 0.82rem; line-height: 1.6; opacity: 0.75; }
 .pied-fin { margin-top: 1.2rem; font-style: italic; }
+.pied-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-top: 1.1rem; }
+.pied-legal a { color: var(--encre-doux); font-size: 0.8rem; text-decoration: none; opacity: 0.8; }
+.pied-legal a:hover { color: var(--terracotta-f); }
+
+/* ---------------------- PAGES LÉGALES ---------------------- */
+.legale { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) clamp(1.2rem, 4vw, 2rem) 4rem; }
+.legale h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 0.4rem; }
+.legale h2 { font-size: 1.25rem; margin: 1.8rem 0 0.5rem; }
+.legale p, .legale li { color: var(--encre-doux); font-size: 0.98rem; line-height: 1.65; }
+.legale ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+.legale a { color: var(--terracotta-f); font-weight: 600; }
+.legale-retour { display: inline-block; margin-bottom: 1.6rem; text-decoration: none; font-weight: 700; font-size: 0.92rem; }
+.legale-maj { font-size: 0.85rem !important; opacity: 0.7; margin-bottom: 1rem; }
 
 /* ---------------------- BARRE MOBILE ---------------------- */
 .barre-mobile {

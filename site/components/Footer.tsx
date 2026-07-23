@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="pied">
@@ -24,6 +26,11 @@ export default function Footer() {
         Par les créateurs de Jumelio &amp; Gemellite.com, des parents de
         jumeaux, pour des parents de jumeaux. 💛
       </p>
+      <nav className="pied-legal">
+        <Link href="/mentions-legales">Mentions légales</Link>
+        <Link href="/cgv">CGV</Link>
+        <Link href="/confidentialite">Confidentialité</Link>
+      </nav>
     </footer>
   );
 }

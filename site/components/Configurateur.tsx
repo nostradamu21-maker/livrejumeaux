@@ -212,6 +212,10 @@ export default function Configurateur({
             <button type="submit" className="btn-commander" disabled={!pret || envoi}>
               Commander notre livre
             </button>
+            <p className="mention-cgv">
+              Livre personnalisé&nbsp;: pas de droit de rétractation
+              (art.&nbsp;L221-28) — <a href="/cgv">CGV</a>
+            </p>
             <p className={`statut ${statut.cls}`}>{statut.txt}</p>
           </form>
         </aside>
