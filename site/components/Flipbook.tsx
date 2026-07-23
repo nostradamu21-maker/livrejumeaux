@@ -1,38 +1,40 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { t, type Locale } from "@/lib/i18n";
+import exemples from "@/lib/exemples.json";
 
-// Couverture d'abord, puis un choix de pages intérieures (exemplaire réel).
-const FLIP_IMAGES = [
-  "/apercus/test-filles/couverture.jpg",
-  "/apercus/test-filles/page-01.jpg",
-  "/apercus/test-filles/page-02.jpg",
-  "/apercus/test-filles/page-05.jpg",
-  "/apercus/test-filles/page-08.jpg",
-  "/apercus/test-filles/page-11.jpg",
-  "/apercus/test-filles/page-14.jpg",
-  "/apercus/test-filles/page-17.jpg",
-  "/apercus/test-filles/page-20.jpg",
-  "/apercus/test-filles/page-27.jpg",
-];
-
-// Regroupe les images en feuilles (recto/verso).
-const LEAVES: [string, string | null][] = [];
-for (let i = 0; i < FLIP_IMAGES.length; i += 2) {
-  LEAVES.push([FLIP_IMAGES[i], FLIP_IMAGES[i + 1] ?? null]);
+interface Exemple {
+  id: string;
+  dossier: string;
+  prenoms: [string, string] | string[];
+  pages: string[];
 }
-const N = LEAVES.length;
-const MAX = Math.max(0, N - 1); // la dernière feuille garde une page à droite
+
+const EXEMPLES = exemples as Exemple[];
 
 export default function Flipbook({ l }: { l: Locale }) {
   const d = t(l);
+  const [exIdx, setExIdx] = useState(0);
   const [turned, setTurned] = useState(0);
   const [prenom, setPrenom] = useState(0);
   const [swap, setSwap] = useState(false);
   const bookRef = useRef<HTMLDivElement>(null);
 
-  // Défilé de prénoms pour montrer la personnalisation.
+  const ex = EXEMPLES[exIdx] ?? EXEMPLES[0];
+
+  // Feuilles (recto/verso) construites depuis l'exemple courant.
+  const { leaves, n, max } = useMemo(() => {
+    const imgs = [
+      `${ex.dossier}/couverture.jpg`,
+      ...ex.pages.map((p) => `${ex.dossier}/page-${p}.jpg`),
+    ];
+    const lv: [string, string | null][] = [];
+    for (let i = 0; i < imgs.length; i += 2) lv.push([imgs[i], imgs[i + 1] ?? null]);
+    return { leaves: lv, n: lv.length, max: Math.max(0, lv.length - 1) };
+  }, [ex]);
+
+  // Défilé de prénoms pour montrer la personnalisation (« dans le vôtre… »).
   useEffect(() => {
     const id = setInterval(() => {
       setSwap(true);
@@ -44,8 +46,12 @@ export default function Flipbook({ l }: { l: Locale }) {
     return () => clearInterval(id);
   }, [d.flip.prenoms.length]);
 
-  const suivant = () => setTurned((x) => Math.min(x + 1, MAX));
+  const suivant = () => setTurned((x) => Math.min(x + 1, max));
   const precedent = () => setTurned((x) => Math.max(x - 1, 0));
+  const choisirExemple = (i: number) => {
+    setExIdx(i);
+    setTurned(0);
+  };
 
   const clicLivre = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = bookRef.current?.getBoundingClientRect();
@@ -55,6 +61,7 @@ export default function Flipbook({ l }: { l: Locale }) {
   };
 
   const [a, b] = d.flip.prenoms[prenom];
+  const [ep1, ep2] = ex.prenoms;
 
   return (
     <section id="livre" className="livre-flip">
@@ -63,15 +70,31 @@ export default function Flipbook({ l }: { l: Locale }) {
         <p className="section-sub">{d.flip.sub}</p>
       </div>
 
+      {EXEMPLES.length > 1 && (
+        <div className="fb-exemples" role="tablist">
+          {EXEMPLES.map((e, i) => (
+            <button
+              key={e.id}
+              role="tab"
+              aria-selected={i === exIdx}
+              className={`fb-onglet${i === exIdx ? " actif" : ""}`}
+              onClick={() => choisirExemple(i)}
+            >
+              {e.prenoms[0]} &amp; {e.prenoms[1]}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="fb">
         <div className="fb-book" ref={bookRef} onClick={clicLivre}>
-          {LEAVES.map(([front, back], k) => {
+          {leaves.map(([front, back], k) => {
             const estTourne = k < turned;
             return (
               <div
-                key={k}
+                key={`${ex.id}-${k}`}
                 className={`fb-leaf${estTourne ? " turned" : ""}`}
-                style={{ zIndex: estTourne ? k + 1 : N - k }}
+                style={{ zIndex: estTourne ? k + 1 : n - k }}
               >
                 <div className={`fb-face fb-front${k === 0 ? " is-cover" : ""}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -102,7 +125,7 @@ export default function Flipbook({ l }: { l: Locale }) {
         <button
           className="fb-btn"
           onClick={suivant}
-          disabled={turned >= MAX}
+          disabled={turned >= max}
           aria-label={d.visionneuse.suivante}
         >
           ›
@@ -110,7 +133,7 @@ export default function Flipbook({ l }: { l: Locale }) {
       </div>
 
       <p className="fb-perso">
-        {d.flip.exA} <b>Elia</b> &amp; <b>Luna</b>. {d.flip.exB}{" "}
+        {d.flip.exA} <b>{ep1}</b> &amp; <b>{ep2}</b>. {d.flip.exB}{" "}
         <span className="perso-noms">
           <span className={`perso-a${swap ? " perso-swap" : ""}`}>{a}</span> &amp;{" "}
           <span className={`perso-b${swap ? " perso-swap" : ""}`}>{b}</span>
