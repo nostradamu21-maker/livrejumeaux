@@ -239,6 +239,10 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-offre .champ-email { width: 100%; }
 .sm-option { display: flex; gap: 0.55rem; align-items: flex-start; text-align: left; font-size: 0.82rem; color: var(--encre); line-height: 1.45; background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 12px; padding: 0.65rem 0.8rem; cursor: pointer; }
 .sm-option input { margin-top: 0.15rem; accent-color: var(--vert-f); }
+.sm-zygote { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; }
+.sm-zy { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.sm-zy small { font-weight: 600; font-size: 0.68rem; color: var(--encre-doux); }
+.sm-zy.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .sm-fichier { display: none; }
 .sm-photo-btn { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%; padding: 0.85rem; border: 2px dashed var(--terracotta); border-radius: 14px; background: rgba(217, 143, 99, 0.06); color: var(--terracotta-f); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }
 .sm-photo-btn:hover { background: rgba(217, 143, 99, 0.12); }
@@ -312,6 +316,23 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .legale a { color: var(--terracotta-f); font-weight: 600; }
 .legale-retour { display: inline-block; margin-bottom: 1.6rem; text-decoration: none; font-weight: 700; font-size: 0.92rem; }
 .legale-maj { font-size: 0.85rem !important; opacity: 0.7; margin-bottom: 1rem; }
+
+/* ------------------- CHOIX DES VARIANTES (sur-mesure) ------------------- */
+.variantes { max-width: 860px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) clamp(1.2rem, 4vw, 2rem) 4rem; text-align: center; }
+.variantes h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 0.6rem; }
+.v-intro { color: var(--encre-doux); max-width: 52ch; margin: 0 auto 1.6rem; line-height: 1.6; }
+.v-groupe { margin: 2rem 0; padding: 0; }
+.v-groupe h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+.v-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; max-width: 640px; margin: 0 auto; }
+.v-carte { border: 2.5px solid transparent; border-radius: 16px; background: #fff; padding: 0.5rem 0.5rem 0.6rem; cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: "Nunito", sans-serif; display: flex; flex-direction: column; gap: 0.4rem; }
+.v-carte:hover { transform: translateY(-3px); box-shadow: var(--ombre-m); }
+.v-carte.actif { border-color: var(--terracotta); box-shadow: 0 0 0 4px rgba(217, 143, 99, 0.18), var(--ombre-m); }
+.v-carte img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 10px; background: #f0e7da; }
+.v-carte span { font-size: 0.8rem; font-weight: 700; color: var(--encre-doux); }
+.v-carte.actif span { color: var(--terracotta-f); }
+.v-attente { color: var(--encre-doux); background: #fff; border-radius: 14px; padding: 1.4rem; box-shadow: var(--ombre-s); max-width: 440px; margin: 0 auto; }
+.v-valider { margin-top: 1rem; }
+.v-valider:disabled { opacity: 0.45; pointer-events: none; }
 
 /* ---------------------- BARRE MOBILE ---------------------- */
 .barre-mobile {

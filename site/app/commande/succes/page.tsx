@@ -14,6 +14,7 @@ export default async function Succes({
   let titre = "Merci ! Commande confirmée";
   let message =
     "Votre commande est bien enregistrée. Nous préparons votre livre et vous tenons informé par e-mail.";
+  let lienVariantes = "";
 
   if (stripeActif && stripe && session_id) {
     try {
@@ -25,8 +26,9 @@ export default async function Succes({
       } else {
         const m = session.metadata ?? {};
         if (m.combo_id === "sur-mesure") {
-          titre = "Merci ! Photo bien reçue";
-          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée et votre photo est bien reçue. Nous dessinons leurs personnages, vous validez les illustrations par e-mail, puis votre livre est imprimé et expédié chez vous.`;
+          titre = "Merci ! Une dernière étape amusante";
+          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée et vos photos sont bien reçues. Choisissez maintenant vos personnages préférés parmi nos propositions dessinées d'après vos photos.`;
+          lienVariantes = `/commande/variantes?session_id=${encodeURIComponent(session_id)}`;
         } else if (m.prenom1 && m.prenom2) {
           message = `Le livre de ${m.prenom1} & ${m.prenom2} est en préparation. Nous validons les illustrations puis il est imprimé et expédié chez vous.`;
         }
@@ -76,9 +78,19 @@ export default async function Succes({
         </div>
         <h1 style={{ fontSize: "1.7rem", marginBottom: ".8rem" }}>{titre}</h1>
         <p style={{ color: "var(--encre-doux)", lineHeight: 1.65 }}>{message}</p>
-        <Link href="/" className="btn btn-primary" style={{ marginTop: "1.6rem" }}>
-          Revenir à l&apos;accueil
-        </Link>
+        {lienVariantes ? (
+          <Link
+            href={lienVariantes}
+            className="btn btn-primary"
+            style={{ marginTop: "1.6rem" }}
+          >
+            Choisir nos personnages
+          </Link>
+        ) : (
+          <Link href="/" className="btn btn-primary" style={{ marginTop: "1.6rem" }}>
+            Revenir à l&apos;accueil
+          </Link>
+        )}
       </div>
     </main>
   );

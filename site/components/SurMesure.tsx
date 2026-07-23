@@ -21,43 +21,80 @@ async function reduirePhoto(fichier: File): Promise<Blob> {
   );
 }
 
+function BoutonPhoto({
+  libelle,
+  apercu,
+  onChoisir,
+}: {
+  libelle: string;
+  apercu: string | null;
+  onChoisir: (f: File | undefined) => void;
+}) {
+  const ref = useRef<HTMLInputElement>(null);
+  return (
+    <>
+      <input
+        ref={ref}
+        type="file"
+        accept="image/jpeg,image/png"
+        className="sm-fichier"
+        onChange={(e) => onChoisir(e.target.files?.[0])}
+      />
+      <button type="button" className="sm-photo-btn" onClick={() => ref.current?.click()}>
+        {apercu ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={apercu} alt="Photo choisie" className="sm-photo-apercu" />
+            <span>Changer de photo</span>
+          </>
+        ) : (
+          <span>📷 {libelle}</span>
+        )}
+      </button>
+    </>
+  );
+}
+
 export default function SurMesure() {
   const [prenoms, setPrenoms] = useState({ 1: "", 2: "" });
   const [email, setEmail] = useState("");
   const [reutilisation, setReutilisation] = useState(false);
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [apercu, setApercu] = useState<string | null>(null);
+  const [monozygote, setMonozygote] = useState(true);
+  const [photos, setPhotos] = useState<{ 1: File | null; 2: File | null }>({ 1: null, 2: null });
+  const [apercus, setApercus] = useState<{ 1: string | null; 2: string | null }>({ 1: null, 2: null });
   const [envoi, setEnvoi] = useState(false);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
-  const fichierRef = useRef<HTMLInputElement>(null);
 
   const prix = reutilisation ? "114 €" : "129 €";
-  const pret = !!(prenoms[1] && prenoms[2] && photo);
+  const pret = !!(prenoms[1] && prenoms[2] && photos[1] && (monozygote || photos[2]));
 
-  function choisirPhoto(f: File | undefined) {
+  function choisirPhoto(n: 1 | 2, f: File | undefined) {
     if (!f) return;
     if (!f.type.startsWith("image/")) {
       setStatut({ txt: "Choisissez une image (JPEG ou PNG).", cls: "erreur" });
       return;
     }
-    setPhoto(f);
-    setApercu(URL.createObjectURL(f));
+    setPhotos((p) => ({ ...p, [n]: f }));
+    setApercus((a) => ({ ...a, [n]: URL.createObjectURL(f) }));
     setStatut({ txt: "", cls: "" });
   }
 
   async function commander(e: React.FormEvent) {
     e.preventDefault();
-    if (!photo) return;
+    if (!photos[1]) return;
     setEnvoi(true);
-    setStatut({ txt: "Envoi de la photo…", cls: "" });
+    setStatut({ txt: "Envoi des photos…", cls: "" });
     try {
-      const reduite = await reduirePhoto(photo);
       const form = new FormData();
       form.set("prenom1", prenoms[1]);
       form.set("prenom2", prenoms[2]);
       form.set("email", email.trim());
       form.set("reutilisation", reutilisation ? "1" : "0");
-      form.set("photo", reduite, "photo.jpg");
+      form.set("monozygote", monozygote ? "1" : "0");
+      form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
+      if (!monozygote && photos[2]) {
+        form.set("photo2", await reduirePhoto(photos[2]), "photo2.jpg");
+      }
       setStatut({ txt: "Traitement…", cls: "" });
       const r = await fetch("/api/sur-mesure", { method: "POST", body: form });
       const data = await r.json();
@@ -90,17 +127,22 @@ export default function SurMesure() {
             leur image, à partir d&apos;une simple photo.
           </p>
           <ul className="sm-points">
-            <li>Personnages dessinés d&apos;après votre photo</li>
-            <li>Validation des illustrations avant impression</li>
+            <li>Personnages dessinés d&apos;après vos photos</li>
+            <li>
+              <strong>Vous choisissez</strong> parmi 3 propositions par enfant,
+              juste après la commande
+            </li>
             <li>Même livre relié 20×20&nbsp;cm (+ 4,99&nbsp;€ de livraison)</li>
             <li>
-              <strong>Votre photo n&apos;est jamais conservée</strong>&nbsp;:
-              elle est supprimée automatiquement dès que le livre est généré.
+              <strong>Vos photos ne sont jamais conservées</strong>&nbsp;:
+              supprimées automatiquement dès que le livre est généré.
             </li>
           </ul>
           <p className="sm-comment">
-            Comment ça marche&nbsp;? Vous ajoutez une photo et payez en ligne.
-            Nous dessinons, vous validez par e-mail, nous imprimons.
+            Comment ça marche&nbsp;? Vous ajoutez la ou les photos et payez en
+            ligne. Dans la minute, vous choisissez vos personnages préférés
+            parmi nos propositions. Nous créons le livre, vous validez, nous
+            imprimons.
           </p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
@@ -130,30 +172,38 @@ export default function SurMesure() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            ref={fichierRef}
-            type="file"
-            accept="image/jpeg,image/png"
-            className="sm-fichier"
-            onChange={(e) => choisirPhoto(e.target.files?.[0])}
+          <div className="sm-zygote" role="radiogroup" aria-label="Vos jumeaux">
+            <button
+              type="button"
+              className={`sm-zy${monozygote ? " actif" : ""}`}
+              onClick={() => setMonozygote(true)}
+            >
+              Identiques
+              <small>une seule photo suffit</small>
+            </button>
+            <button
+              type="button"
+              className={`sm-zy${!monozygote ? " actif" : ""}`}
+              onClick={() => setMonozygote(false)}
+            >
+              Différents
+              <small>une photo par enfant</small>
+            </button>
+          </div>
+          <BoutonPhoto
+            libelle={monozygote ? "Ajouter la photo de vos enfants" : `Photo de ${prenoms[1] || "l'aîné·e"}`}
+            apercu={apercus[1]}
+            onChoisir={(f) => choisirPhoto(1, f)}
           />
-          <button
-            type="button"
-            className="sm-photo-btn"
-            onClick={() => fichierRef.current?.click()}
-          >
-            {apercu ? (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={apercu} alt="Photo choisie" className="sm-photo-apercu" />
-                <span>Changer de photo</span>
-              </>
-            ) : (
-              <span>📷 Ajouter la photo de vos enfants</span>
-            )}
-          </button>
+          {!monozygote && (
+            <BoutonPhoto
+              libelle={`Photo de ${prenoms[2] || "l'autre enfant"}`}
+              apercu={apercus[2]}
+              onChoisir={(f) => choisirPhoto(2, f)}
+            />
+          )}
           <span className="sm-photo-note">
-            Visages bien visibles, JPEG ou PNG. Photo supprimée après création
+            Visages bien visibles, JPEG ou PNG. Photos supprimées après création
             du livre.
           </span>
           <label className="sm-option">

@@ -40,3 +40,17 @@ alter table public.combos enable row level security;
 insert into storage.buckets (id, name, public)
 values ('sur-mesure', 'sur-mesure', false)
 on conflict (id) do nothing;
+
+-- Suivi de l'édition sur mesure : photos du client, variantes de personnages
+-- générées après paiement, et choix du client.
+create table if not exists public.sur_mesure (
+  ref         text primary key,          -- id de session Stripe
+  cree_le     timestamptz not null default now(),
+  monozygote  boolean not null default true,
+  prenom1     text not null default '',
+  prenom2     text not null default '',
+  photos      jsonb not null default '[]',  -- chemins bucket
+  variantes   jsonb,                        -- {"1": [chemins], "2": [...]}
+  choix       jsonb                         -- {"1": chemin retenu, "2": ...}
+);
+alter table public.sur_mesure enable row level security;

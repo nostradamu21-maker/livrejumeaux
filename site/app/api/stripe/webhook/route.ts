@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { stripe, stripeActif, PRIX_CENTIMES, LIVRAISON_CENTIMES } from "@/lib/stripe";
-import { comboEnCache, enregistrerCommande, lienPhotoSurMesure } from "@/lib/supabase";
+import {
+  comboEnCache,
+  enregistrerCommande,
+  lienPhotoSurMesure,
+  creerSurMesure,
+} from "@/lib/supabase";
 import { emailConfirmationClient, emailNotifInterne } from "@/lib/email";
 
 /** Adresse de livraison en texte multi-lignes (selon la version de l'API
@@ -56,11 +61,25 @@ export async function POST(req: Request) {
         montant_centimes: session.amount_total ?? PRIX_CENTIMES + LIVRAISON_CENTIMES,
       };
       await enregistrerCommande(infos);
+      // Suivi sur-mesure : photos + choix de variantes par le client.
+      if (cid === "sur-mesure") {
+        await creerSurMesure({
+          ref: session.id,
+          monozygote: m.monozygote === "1",
+          prenom1: m.prenom1 ?? "",
+          prenom2: m.prenom2 ?? "",
+          photos: [m.photo, m.photo2].filter(Boolean) as string[],
+          variantes: null,
+          choix: null,
+        }).catch((e) => console.error("sur_mesure:", e));
+      }
       // Emails (client + interne) : ne doivent jamais faire échouer le webhook.
       const complement = {
         nomClient: session.customer_details?.name ?? null,
         adresse: adresseLivraison(session),
+        monozygote: m.monozygote === "1",
         photoUrl: m.photo ? await lienPhotoSurMesure(m.photo).catch(() => null) : null,
+        photoUrl2: m.photo2 ? await lienPhotoSurMesure(m.photo2).catch(() => null) : null,
       };
       try {
         await emailConfirmationClient({ ...infos, ...complement });

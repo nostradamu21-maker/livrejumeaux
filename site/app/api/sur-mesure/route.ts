@@ -10,11 +10,17 @@ import {
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 
-const TAILLE_MAX = 4 * 1024 * 1024; // la photo est réduite côté navigateur
+const TAILLE_MAX = 4 * 1024 * 1024; // les photos sont réduites côté navigateur
 const TYPES_OK = new Set(["image/jpeg", "image/png"]);
 
-// Édition sur mesure : le client téléverse sa photo puis paie. La photo est
-// stockée dans un bucket privé et supprimée après génération du livre (RGPD).
+function photoValide(p: unknown): p is File {
+  return p instanceof File && p.size > 0 && p.size <= TAILLE_MAX && TYPES_OK.has(p.type);
+}
+
+// Édition sur mesure : monozygotes = 1 photo (les deux se ressemblent),
+// dizygotes = 1 photo PAR enfant. Les photos sont stockées dans un bucket
+// privé puis supprimées après génération du livre (RGPD). Après paiement, le
+// client choisit ses variantes de personnages sur /commande/variantes.
 export async function POST(req: Request) {
   const form = await req.formData().catch(() => null);
   if (!form) {
@@ -24,7 +30,9 @@ export async function POST(req: Request) {
   const p2 = String(form.get("prenom2") ?? "").trim();
   const email = String(form.get("email") ?? "").trim();
   const reutilisation = form.get("reutilisation") === "1";
-  const photo = form.get("photo");
+  const monozygote = form.get("monozygote") === "1";
+  const photo1 = form.get("photo1");
+  const photo2 = form.get("photo2");
 
   if (!p1 || !p2) {
     return NextResponse.json(
@@ -32,34 +40,32 @@ export async function POST(req: Request) {
       { status: 400 },
     );
   }
-  if (!(photo instanceof File) || photo.size === 0) {
+  if (!photoValide(photo1)) {
     return NextResponse.json(
-      { ok: false, erreur: "Ajoutez une photo de vos enfants." },
+      { ok: false, erreur: "Ajoutez une photo (JPEG ou PNG)." },
       { status: 400 },
     );
   }
-  if (!TYPES_OK.has(photo.type)) {
+  if (!monozygote && !photoValide(photo2)) {
     return NextResponse.json(
-      { ok: false, erreur: "Format d'image non pris en charge (JPEG ou PNG)." },
-      { status: 400 },
-    );
-  }
-  if (photo.size > TAILLE_MAX) {
-    return NextResponse.json(
-      { ok: false, erreur: "Photo trop lourde. Réessayez avec une autre image." },
+      { ok: false, erreur: `Ajoutez aussi la photo de ${p2} (jumeaux différents).` },
       { status: 400 },
     );
   }
 
-  // Stockage de la photo AVANT le paiement (bucket privé « sur-mesure »).
-  let cheminPhoto: string | null = null;
+  // Stockage des photos AVANT le paiement (bucket privé « sur-mesure »).
+  const chemins: string[] = [];
   if (supabaseActif) {
-    cheminPhoto = await uploaderPhotoSurMesure(await photo.arrayBuffer(), photo.type);
-    if (!cheminPhoto) {
-      return NextResponse.json(
-        { ok: false, erreur: "Impossible d'enregistrer la photo. Réessayez." },
-        { status: 500 },
-      );
+    const fichiers = monozygote ? [photo1] : [photo1, photo2 as File];
+    for (const f of fichiers) {
+      const chemin = await uploaderPhotoSurMesure(await f.arrayBuffer(), f.type);
+      if (!chemin) {
+        return NextResponse.json(
+          { ok: false, erreur: "Impossible d'enregistrer la photo. Réessayez." },
+          { status: 500 },
+        );
+      }
+      chemins.push(chemin);
     }
   }
 
@@ -73,7 +79,9 @@ export async function POST(req: Request) {
     archetype2: reutilisation ? "reutilisation-ok" : "sans-reutilisation",
     prenom1: p1,
     prenom2: p2,
-    photo: cheminPhoto ?? "",
+    monozygote: monozygote ? "1" : "0",
+    photo: chemins[0] ?? "",
+    photo2: chemins[1] ?? "",
   };
 
   if (stripeActif && stripe) {
@@ -88,8 +96,8 @@ export async function POST(req: Request) {
             product_data: {
               name: "Deux comme nous, édition sur mesure",
               description: reutilisation
-                ? `${p1} & ${p2}, d'après votre photo (option réutilisation −15 €)`
-                : `${p1} & ${p2}, d'après votre photo`,
+                ? `${p1} & ${p2}, d'après vos photos (option réutilisation −15 €)`
+                : `${p1} & ${p2}, d'après vos photos`,
             },
           },
         },
@@ -122,12 +130,12 @@ export async function POST(req: Request) {
     email: email || null,
     statut: "a_produire",
     paiement: "simulé",
-    ref: cheminPhoto,
+    ref: chemins.join(","),
     montant_centimes: prix + LIVRAISON_CENTIMES,
   });
   return NextResponse.json({
     ok: true,
     mock: true,
-    message: "Commande sur mesure enregistrée, photo bien reçue.",
+    message: "Commande sur mesure enregistrée, photos bien reçues.",
   });
 }
