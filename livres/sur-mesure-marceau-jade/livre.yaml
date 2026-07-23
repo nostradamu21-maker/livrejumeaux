@@ -1,0 +1,43 @@
+id: sur-mesure-marceau-jade
+description: Sur-mesure — Marceau & Jade (ref cs_live_a1vly5BdUUel8nS1KQuVn51lfA523tXIJhFTLRZICEitrzMdJrrLr1iG9a)
+references:
+- livres/sur-mesure-marceau-jade/perso-1.png
+- livres/sur-mesure-marceau-jade/perso-2.png
+prenoms_defaut:
+- Marceau
+- Jade
+monozygote: false
+langue: fr
+description_paire: La PREMIÈRE image de référence est Marceau, la SECONDE est Jade.
+  Reproduire fidèlement ces deux personnages (visage, coiffure, tenue, couleurs),
+  entièrement stylisés aquarelle douce.
+selections:
+  couv: v2
+  '01': v2
+  '02': v1
+  '03': v2
+  '04': v1
+  '05': v1
+  '06': v1
+  '07': v2
+  09: v2
+  '10': v2
+  '11': v1
+  '12': v1
+  '13': v1
+  '14': v2
+  '15': v2
+  '16': v2
+  '17': v2
+  '19': v2
+  '21': v2
+  '22': v1
+  '23': v2
+  '24': v2
+  '25': v2
+  '26': v1
+  '27': v2
+  '28': v1
+  08: v1
+  '18': v1
+  '20': v1

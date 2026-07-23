@@ -256,6 +256,14 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
             if p.get("tenue"):
                 prompt_parts.append(f"Pour cette scène uniquement, les enfants portent : "
                                     f"{p['tenue']}.")
+            # Cast FERMÉ : uniquement les deux jumeaux, jamais un 3ᵉ personnage.
+            prompt_parts.append(
+                "IMPÉRATIF DE CASTING : l'image ne montre QUE ces deux enfants (les "
+                "jumeaux) et absolument personne d'autre — aucun troisième enfant, aucun "
+                "bébé, aucun adulte, aucun visage ni aucune silhouette supplémentaire, y "
+                "compris au fond, dans un autre lit, à une fenêtre, dans un miroir ou un "
+                "cadre. Exactement DEUX enfants au total. Tout lit, chaise, siège ou "
+                "espace non occupé par l'un des deux jumeaux reste vide.")
         prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
         out = variantes_dir(dossier, num)
         out.mkdir(parents=True, exist_ok=True)

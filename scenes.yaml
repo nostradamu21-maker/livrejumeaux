@@ -53,6 +53,8 @@ pages:
     ancre: backgrounds/chambre.png
     scene: 'Un jumeau dort profondément bordé sous sa couette, seule la tête dépasse ; l''autre,
       debout près du lit sur la pointe des pieds, un doigt sur la bouche, sourit tendrement.
+      L''autre lit de la chambre, celui de l''enfant déjà réveillé, est VIDE et bien fait :
+      personne dedans.
 
       '
     texte: 'Chut… {prenom2} dort encore un petit peu.
