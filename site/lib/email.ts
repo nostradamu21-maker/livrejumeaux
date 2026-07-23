@@ -31,6 +31,7 @@ export interface InfosCommande {
   photoUrl?: string | null; // sur-mesure : lien temporaire vers la photo 1
   photoUrl2?: string | null; // sur-mesure dizygote : photo du 2e enfant
   monozygote?: boolean; // sur-mesure : jumeaux identiques (1 photo)
+  relation?: string | null; // sur-mesure : lien du demandeur avec les enfants
 }
 
 async function envoyer(to: string, subject: string, html: string): Promise<boolean> {
@@ -118,7 +119,7 @@ export async function emailNotifInterne(c: InfosCommande): Promise<boolean> {
     <p style="margin:14px 0 6px;color:#6f5d51;">Adresse de livraison :</p>
     <pre style="margin:0;background:#fbf5ec;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;">${c.adresse ?? "non transmise"}</pre>
     ${c.combo_id === "sur-mesure"
-      ? `<p style="margin:16px 0 0;"><strong>Édition SUR MESURE</strong> (${c.monozygote ? "monozygotes, 1 photo" : "dizygotes, 2 photos"}) :
+      ? `<p style="margin:16px 0 0;"><strong>Édition SUR MESURE</strong> (${c.monozygote ? "monozygotes, 1 photo" : "dizygotes, 2 photos"}${c.relation ? ` · demandeur : ${c.relation}, majeur, autorisation photo certifiée` : ""}) :
          ${c.photoUrl ? `<a href="${c.photoUrl}">photo ${c.monozygote ? "des enfants" : `de ${c.prenom1}`}</a>` : "photo indisponible"}
          ${c.photoUrl2 ? ` · <a href="${c.photoUrl2}">photo de ${c.prenom2}</a>` : ""}
          (liens valables 30 jours). Le client choisit ses variantes de personnages en ligne — un e-mail suivra avec son choix. Supprimer les photos du bucket après génération.</p>`

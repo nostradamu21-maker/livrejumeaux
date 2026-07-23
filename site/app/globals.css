@@ -251,6 +251,9 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-zy small { font-weight: 600; font-size: 0.68rem; color: var(--encre-doux); }
 .sm-zy.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .sm-fichier { display: none; }
+.sm-relation { display: flex; align-items: center; gap: 0.6rem; width: 100%; font-size: 0.85rem; font-weight: 700; color: var(--encre-doux); }
+.sm-relation select { flex: 1; font-family: "Nunito", sans-serif; font-size: 0.92rem; padding: 0.55rem 0.7rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); }
+.sm-relation select:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.25); }
 .sm-distinctif { width: 100%; text-align: left; }
 .sm-distinctif-tete { font-size: 0.82rem; color: var(--encre-doux); margin: 0 0 0.5rem; line-height: 1.4; }
 .sm-photo-btn { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%; padding: 0.85rem; border: 2px dashed var(--terracotta); border-radius: 14px; background: rgba(217, 143, 99, 0.06); color: var(--terracotta-f); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }

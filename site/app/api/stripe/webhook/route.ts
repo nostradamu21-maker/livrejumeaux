@@ -67,6 +67,8 @@ export async function POST(req: Request) {
           ref: session.id,
           monozygote: m.monozygote === "1",
           accessoire: m.accessoire || null,
+          relation: m.relation || null,
+          consentement: m.consentement === "1",
           prenom1: m.prenom1 ?? "",
           prenom2: m.prenom2 ?? "",
           photos: [m.photo, m.photo2].filter(Boolean) as string[],
@@ -79,6 +81,7 @@ export async function POST(req: Request) {
         nomClient: session.customer_details?.name ?? null,
         adresse: adresseLivraison(session),
         monozygote: m.monozygote === "1",
+        relation: m.relation || null,
         photoUrl: m.photo ? await lienPhotoSurMesure(m.photo).catch(() => null) : null,
         photoUrl2: m.photo2 ? await lienPhotoSurMesure(m.photo2).catch(() => null) : null,
       };

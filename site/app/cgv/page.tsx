@@ -49,6 +49,13 @@ export default function Cgv() {
         confirmation est envoyé au client. Le vendeur se réserve le droit de
         refuser toute personnalisation contraire à la loi ou aux bonnes mœurs.
       </p>
+      <p>
+        <strong>Édition sur mesure (photos)</strong>&nbsp;: en transmettant une
+        photo, le client certifie être majeur et disposer des autorisations
+        nécessaires (autorité parentale ou accord des représentants légaux des
+        enfants) pour son utilisation aux fins de création du livre. Cette
+        certification est enregistrée avec la commande.
+      </p>
 
       <h2>5. Fabrication et livraison</h2>
       <p>

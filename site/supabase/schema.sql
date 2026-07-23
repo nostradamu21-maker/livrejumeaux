@@ -48,6 +48,8 @@ create table if not exists public.sur_mesure (
   cree_le     timestamptz not null default now(),
   monozygote  boolean not null default true,
   accessoire  text,                          -- signe distinctif du 2e (monozygotes)
+  relation    text,                          -- lien du demandeur avec les enfants
+  consentement boolean not null default false, -- majeur + autorisation photo certifiés
   prenom1     text not null default '',
   prenom2     text not null default '',
   photos      jsonb not null default '[]',  -- chemins bucket

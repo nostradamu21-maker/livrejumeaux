@@ -42,6 +42,23 @@ export async function POST(req: Request) {
     : "";
   const photo1 = form.get("photo1");
   const photo2 = form.get("photo2");
+  const RELATIONS = new Set(["parent", "grand-parent", "oncle-tante", "parrain-marraine", "proche"]);
+  const relBrut = String(form.get("relation") ?? "");
+  const relation = RELATIONS.has(relBrut) ? relBrut : "parent";
+  const consentement = form.get("consentement") === "1";
+
+  // Droit à l'image de mineurs : certification obligatoire (majeur +
+  // autorisation parentale pour la photo).
+  if (!consentement) {
+    return NextResponse.json(
+      {
+        ok: false,
+        erreur:
+          "Merci de certifier être majeur et autorisé à utiliser cette photo.",
+      },
+      { status: 400 },
+    );
+  }
 
   if (!p1 || !p2) {
     return NextResponse.json(
@@ -90,6 +107,8 @@ export async function POST(req: Request) {
     prenom2: p2,
     monozygote: monozygote ? "1" : "0",
     accessoire,
+    relation,
+    consentement: "1",
     photo: chemins[0] ?? "",
     photo2: chemins[1] ?? "",
   };

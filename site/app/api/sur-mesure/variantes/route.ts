@@ -39,6 +39,8 @@ async function ligne(sessionId: string) {
     ref: sessionId,
     monozygote: m.monozygote === "1",
     accessoire: m.accessoire || null,
+    relation: m.relation || null,
+    consentement: m.consentement === "1",
     prenom1: m.prenom1 ?? "",
     prenom2: m.prenom2 ?? "",
     photos: [m.photo, m.photo2].filter(Boolean) as string[],

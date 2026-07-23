@@ -62,13 +62,21 @@ export default function SurMesure() {
   const [reutilisation, setReutilisation] = useState(false);
   const [monozygote, setMonozygote] = useState(true);
   const [accessoire, setAccessoire] = useState<string>(ACCESSOIRE_DEFAUT);
+  const [relation, setRelation] = useState("parent");
+  const [consentement, setConsentement] = useState(false);
   const [photos, setPhotos] = useState<{ 1: File | null; 2: File | null }>({ 1: null, 2: null });
   const [apercus, setApercus] = useState<{ 1: string | null; 2: string | null }>({ 1: null, 2: null });
   const [envoi, setEnvoi] = useState(false);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
 
   const prix = reutilisation ? "114 €" : "129 €";
-  const pret = !!(prenoms[1] && prenoms[2] && photos[1] && (monozygote || photos[2]));
+  const pret = !!(
+    prenoms[1] &&
+    prenoms[2] &&
+    photos[1] &&
+    (monozygote || photos[2]) &&
+    consentement
+  );
 
   function choisirPhoto(n: 1 | 2, f: File | undefined) {
     if (!f) return;
@@ -94,6 +102,8 @@ export default function SurMesure() {
       form.set("reutilisation", reutilisation ? "1" : "0");
       form.set("monozygote", monozygote ? "1" : "0");
       if (monozygote) form.set("accessoire", accessoire);
+      form.set("relation", relation);
+      form.set("consentement", consentement ? "1" : "0");
       form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
       if (!monozygote && photos[2]) {
         form.set("photo2", await reduirePhoto(photos[2]), "photo2.jpg");
@@ -238,6 +248,28 @@ export default function SurMesure() {
             Visages bien visibles, JPEG ou PNG. Photos supprimées après création
             du livre.
           </span>
+          <label className="sm-relation">
+            <span>Vous êtes&nbsp;:</span>
+            <select value={relation} onChange={(e) => setRelation(e.target.value)}>
+              <option value="parent">Parent des enfants</option>
+              <option value="grand-parent">Grand-parent</option>
+              <option value="oncle-tante">Oncle / tante</option>
+              <option value="parrain-marraine">Parrain / marraine</option>
+              <option value="proche">Autre proche de la famille</option>
+            </select>
+          </label>
+          <label className="sm-option">
+            <input
+              type="checkbox"
+              checked={consentement}
+              onChange={(e) => setConsentement(e.target.checked)}
+            />
+            <span>
+              Je certifie avoir plus de 18&nbsp;ans et disposer de
+              l&apos;autorisation des parents (ou représentants légaux) des
+              enfants pour l&apos;utilisation de cette photo. <em>Obligatoire.</em>
+            </span>
+          </label>
           <label className="sm-option">
             <input
               type="checkbox"
