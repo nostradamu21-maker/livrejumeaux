@@ -11,7 +11,8 @@ interface Etat {
   prenoms?: [string, string];
   nEnfants?: number;
   libelles?: string[];
-  variantes?: Record<string, string[]>;
+  variantes?: Record<string, string[]>; // URLs signées (affichage)
+  chemins?: Record<string, string[]>; // chemins bucket (renvoyés au choix)
   choix?: Record<string, string>;
   erreur?: string;
 }
@@ -55,7 +56,11 @@ export default function ChoixVariantes({ l }: { l: Locale }) {
         if (d.ok && d.urls) {
           setEtat((e) =>
             e
-              ? { ...e, variantes: { ...(e.variantes ?? {}), [String(manquant)]: d.urls } }
+              ? {
+                  ...e,
+                  variantes: { ...(e.variantes ?? {}), [String(manquant)]: d.urls },
+                  chemins: { ...(e.chemins ?? {}), [String(manquant)]: d.chemins ?? [] },
+                }
               : e,
           );
         } else if (d.repli) {
@@ -70,10 +75,22 @@ export default function ChoixVariantes({ l }: { l: Locale }) {
 
   async function validerChoix() {
     setErreur("");
+    // On envoie les CHEMINS retenus (source de vérité, sans dépendre de la
+    // relecture DB) + les index en repli.
+    const cheminsChoisis: Record<string, string> = {};
+    for (const [enfant, idx] of Object.entries(selection)) {
+      const c = etat?.chemins?.[enfant]?.[idx];
+      if (c) cheminsChoisis[enfant] = c;
+    }
     const r = await fetch("/api/sur-mesure/variantes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ session_id: sessionId, action: "choix", choix: selection }),
+      body: JSON.stringify({
+        session_id: sessionId,
+        action: "choix",
+        choix: selection,
+        chemins: cheminsChoisis,
+      }),
     }).then((x) => x.json()).catch(() => ({ ok: false }));
     if (r.ok) setValide(true);
     else setErreur(r.erreur || t(l).config.stErreur);

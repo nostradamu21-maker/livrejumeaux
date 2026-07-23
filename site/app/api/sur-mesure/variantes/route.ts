@@ -87,8 +87,10 @@ export async function GET(req: Request) {
     return NextResponse.json({ ok: false, erreur: "Commande introuvable." }, { status: 404 });
   }
   const variantes: Record<string, string[]> = {};
-  for (const [enfant, chemins] of Object.entries(row.variantes ?? {})) {
-    variantes[enfant] = await signer(chemins);
+  const chemins: Record<string, string[]> = {};
+  for (const [enfant, chs] of Object.entries(row.variantes ?? {})) {
+    variantes[enfant] = await signer(chs);
+    chemins[enfant] = chs; // chemins bruts : le client les renverra au choix
   }
   const listeJeux = jeux(row);
   return NextResponse.json({
@@ -99,15 +101,21 @@ export async function GET(req: Request) {
     nEnfants: listeJeux.length,
     libelles: listeJeux.map((j) => j.libelle),
     variantes,
+    chemins,
     choix: row.choix ?? {},
   });
 }
+
+// Un chemin de variante valide : "variantes/<uuid>.png" (empêche l'injection
+// de chemins arbitraires dans le bucket).
+const CHEMIN_VARIANTE = /^variantes\/[A-Za-z0-9._-]+\.png$/;
 
 interface Corps {
   session_id?: string;
   action?: "generer" | "choix";
   enfant?: number; // 1 ou 2
-  choix?: Record<string, number>; // index de la variante retenue par enfant
+  choix?: Record<string, number>; // index de la variante retenue par enfant (repli)
+  chemins?: Record<string, string>; // chemin bucket retenu par enfant (source de vérité)
 }
 
 export async function POST(req: Request) {
@@ -159,20 +167,26 @@ export async function POST(req: Request) {
     }
     const variantes = { ...(row.variantes ?? {}), [String(enfant)]: chemins };
     await majSurMesure(sessionId, { variantes });
-    return NextResponse.json({ ok: true, urls: await signer(chemins) });
+    return NextResponse.json({ ok: true, urls: await signer(chemins), chemins });
   }
 
   if (body.action === "choix") {
-    const variantes = row.variantes ?? {};
+    const variantesDb = row.variantes ?? {};
     const listeJeux = jeux(row);
     const choix: Record<string, string> = {};
     const libelles: string[] = [];
     const chemins: string[] = [];
     for (const j of listeJeux) {
-      const idx = body.choix?.[String(j.enfant)];
-      const chemin = idx !== undefined ? variantes[String(j.enfant)]?.[idx] : undefined;
-      if (chemin) {
-        choix[String(j.enfant)] = chemin;
+      const cle = String(j.enfant);
+      // Source de vérité : le chemin renvoyé par le client (ne dépend pas de
+      // la relecture DB, qui peut être en retard). Repli : index en base.
+      let chemin = body.chemins?.[cle];
+      if (!chemin || !CHEMIN_VARIANTE.test(chemin)) {
+        const idx = body.choix?.[cle];
+        chemin = idx !== undefined ? variantesDb[cle]?.[idx] : undefined;
+      }
+      if (chemin && CHEMIN_VARIANTE.test(chemin)) {
+        choix[cle] = chemin;
         libelles.push(j.libelle);
         chemins.push(chemin);
       }
@@ -180,6 +194,8 @@ export async function POST(req: Request) {
     if (!Object.keys(choix).length) {
       return NextResponse.json({ ok: false, erreur: "Aucun choix reçu." }, { status: 400 });
     }
+    // Enregistre le choix (best effort : l'email interne suffit à produire
+    // même si la table sur_mesure n'est pas encore présente).
     await majSurMesure(sessionId, { choix });
     const liens = await Promise.all(chemins.map((c) => lienPhotoSurMesure(c)));
     await emailChoixVariantes({
