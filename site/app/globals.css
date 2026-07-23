@@ -92,6 +92,9 @@ body::after {
 .nav-links a:hover { color: var(--encre); }
 .nav-cta { background: var(--vert); color: #fff !important; padding: 0.5rem 1.1rem; border-radius: 999px; }
 .nav-cta:hover { background: var(--vert-f); }
+.nav-langues { display: flex; gap: 0.45rem; margin: 0 0.3rem; }
+.nav-langues a { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; color: var(--encre-doux); opacity: 0.7; }
+.nav-langues a.actif { color: var(--terracotta-f); opacity: 1; border-bottom: 2px solid var(--terracotta); }
 
 /* ---------------------------- HERO ---------------------------- */
 .hero {

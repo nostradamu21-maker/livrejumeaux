@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { ApercuCombo } from "@/lib/apercus";
 import { TEXTES_PAGES } from "@/lib/textes-livre";
+import { t, type Locale } from "@/lib/i18n";
 
 /** Injecte les prénoms dans un texte du livre. */
 function texteAvecPrenoms(gabarit: string, p1: string, p2: string): string[] {
@@ -22,13 +23,16 @@ export default function ApercuLivre({
   apercu,
   prenom1,
   prenom2,
+  l,
   onClose,
 }: {
   apercu: ApercuCombo;
   prenom1: string;
   prenom2: string;
+  l: Locale;
   onClose: () => void;
 }) {
+  const d = t(l);
   // Diapo 0 = couverture, puis les pages.
   const [idx, setIdx] = useState(0);
   const total = apercu.pages.length + 1;
@@ -54,7 +58,7 @@ export default function ApercuLivre({
   return (
     <div className="al-fond" onClick={onClose} role="dialog" aria-modal="true">
       <div className="al-cadre" onClick={(e) => e.stopPropagation()}>
-        <button className="al-fermer" onClick={onClose} aria-label="Fermer">
+        <button className="al-fermer" onClick={onClose} aria-label={d.visionneuse.fermer}>
           ×
         </button>
         <div className="al-page">
@@ -84,21 +88,17 @@ export default function ApercuLivre({
           )}
         </div>
         <div className="al-controles">
-          <button onClick={precedent} disabled={idx === 0} aria-label="Page précédente">
+          <button onClick={precedent} disabled={idx === 0} aria-label={d.visionneuse.precedente}>
             ‹
           </button>
           <span>
-            {estCouv ? "Couverture" : `Page ${numPage}`} · {idx + 1}/{total}
+            {estCouv ? d.visionneuse.couverture : `${d.flip.page} ${numPage}`} · {idx + 1}/{total}
           </span>
-          <button onClick={suivant} disabled={idx === total - 1} aria-label="Page suivante">
+          <button onClick={suivant} disabled={idx === total - 1} aria-label={d.visionneuse.suivante}>
             ›
           </button>
         </div>
-        <p className="al-note">
-          Extrait de quelques pages seulement&nbsp;: le livre complet compte
-          30&nbsp;pages. Vraies pages d&apos;un exemplaire imprimé, avec vos
-          prénoms&nbsp;; votre livre est vérifié page à page avant impression.
-        </p>
+        <p className="al-note">{d.visionneuse.note}</p>
       </div>
     </div>
   );

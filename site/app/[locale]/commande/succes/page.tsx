@@ -1,19 +1,24 @@
 import Link from "next/link";
 import { stripe, stripeActif } from "@/lib/stripe";
+import { estLocale, t, type Locale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
 export default async function Succes({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ session_id?: string }>;
 }) {
+  const { locale } = await params;
+  const l: Locale = estLocale(locale) ? locale : "fr";
+  const d = t(l);
   const { session_id } = await searchParams;
 
   let ok = true;
-  let titre = "Merci ! Commande confirmée";
-  let message =
-    "Votre commande est bien enregistrée. Nous préparons votre livre et vous tenons informé par e-mail.";
+  let titre = d.succes.merciTitre;
+  let message = d.succes.merciMsg;
   let lienVariantes = "";
 
   if (stripeActif && stripe && session_id) {
@@ -21,22 +26,22 @@ export default async function Succes({
       const session = await stripe.checkout.sessions.retrieve(session_id);
       if (session.payment_status !== "paid") {
         ok = false;
-        titre = "Paiement non finalisé";
-        message = "Le paiement n'a pas été confirmé. Aucun montant n'a été débité.";
+        titre = d.succes.nonFinal;
+        message = d.succes.nonFinalMsg;
       } else {
         const m = session.metadata ?? {};
         if (m.combo_id === "sur-mesure") {
-          titre = "Merci ! Une dernière étape amusante";
-          message = `Votre édition sur mesure pour ${m.prenom1} & ${m.prenom2} est confirmée et vos photos sont bien reçues. Choisissez maintenant vos personnages préférés parmi nos propositions dessinées d'après vos photos.`;
+          titre = d.succes.smTitre;
+          message = d.succes.smMsg(m.prenom1 ?? "", m.prenom2 ?? "");
           lienVariantes = `/commande/variantes?session_id=${encodeURIComponent(session_id)}`;
         } else if (m.prenom1 && m.prenom2) {
-          message = `Le livre de ${m.prenom1} & ${m.prenom2} est en préparation. Nous validons les illustrations puis il est imprimé et expédié chez vous.`;
+          message = d.succes.livreMsg(m.prenom1, m.prenom2);
         }
       }
     } catch {
       ok = false;
-      titre = "Paiement introuvable";
-      message = "Nous n'avons pas pu retrouver votre paiement.";
+      titre = d.succes.introuvable;
+      message = d.succes.introuvableMsg;
     }
   }
 
@@ -84,11 +89,11 @@ export default async function Succes({
             className="btn btn-primary"
             style={{ marginTop: "1.6rem" }}
           >
-            Choisir nos personnages
+            {d.succes.choisir}
           </Link>
         ) : (
           <Link href="/" className="btn btn-primary" style={{ marginTop: "1.6rem" }}>
-            Revenir à l&apos;accueil
+            {d.succes.retour}
           </Link>
         )}
       </div>

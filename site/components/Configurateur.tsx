@@ -5,18 +5,22 @@ import type { ArchetypePublic } from "@/lib/types";
 import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
 import { comboId } from "@/lib/combo";
 import { apercuPourCombo } from "@/lib/apercus";
+import { t, type Locale } from "@/lib/i18n";
 import ApercuLivre from "@/components/ApercuLivre";
 
-const PRIX = "44,90\u00A0€";
+const PRIX = "44,90 €";
 
 type Choix = { 1: string | null; 2: string | null };
 type Prenoms = { 1: string; 2: string };
 
 export default function Configurateur({
   archetypes,
+  l,
 }: {
   archetypes: ArchetypePublic[];
+  l: Locale;
 }) {
+  const d = t(l);
   const [choix, setChoix] = useState<Choix>({ 1: null, 2: null });
   const [prenoms, setPrenoms] = useState<Prenoms>({ 1: "", 2: "" });
   const [filtre, setFiltre] = useState<"tous" | "garçon" | "fille">("tous");
@@ -48,13 +52,13 @@ export default function Configurateur({
   const texteCouv = (() => {
     if (prenoms[1] && prenoms[2]) return `${prenoms[1]} & ${prenoms[2]}`;
     if (prenoms[1] || prenoms[2]) return prenoms[1] || prenoms[2];
-    return choix[1] && choix[2] ? "Ajoutez les prénoms" : "Choisissez deux archétypes";
+    return choix[1] && choix[2] ? d.config.couvAjouter : d.config.couvChoisir;
   })();
 
   async function commander(e: React.FormEvent) {
     e.preventDefault();
     setEnvoi(true);
-    setStatut({ txt: "Traitement…", cls: "" });
+    setStatut({ txt: d.config.stTraitement, cls: "" });
     try {
       const r = await fetch("/api/commander", {
         method: "POST",
@@ -70,18 +74,18 @@ export default function Configurateur({
       });
       const data = await r.json();
       if (data.ok && data.url) {
-        setStatut({ txt: "Redirection vers le paiement sécurisé…", cls: "ok" });
+        setStatut({ txt: d.config.stRedirection, cls: "ok" });
         window.location.href = data.url;
         return;
       }
       if (data.ok) {
         setStatut({ txt: data.message, cls: "ok" });
       } else {
-        setStatut({ txt: data.erreur || "Une erreur est survenue.", cls: "erreur" });
+        setStatut({ txt: data.erreur || d.config.stErreur, cls: "erreur" });
         setEnvoi(false);
       }
     } catch {
-      setStatut({ txt: "Serveur injoignable.", cls: "erreur" });
+      setStatut({ txt: d.config.stServeur, cls: "erreur" });
       setEnvoi(false);
     }
   }
@@ -108,24 +112,25 @@ export default function Configurateur({
   return (
     <section id="creer" className="creer">
       <div className="section-tete">
-        <h2>Composez le livre de vos jumeaux</h2>
-        <p className="section-sub">
-          Choisissez un personnage pour chacun, ajoutez leurs prénoms, et voyez
-          la couverture de leur livre personnalisé prendre vie.
-        </p>
+        <h2>{d.config.h2}</h2>
+        <p className="section-sub">{d.config.sub}</p>
       </div>
 
       <div className="configurateur">
         <div className="choix">
           <div className="filtres">
-            <span>Afficher :</span>
-            {(["tous", "garçon", "fille"] as const).map((g) => (
+            <span>{d.config.afficher}</span>
+            {([
+              ["tous", d.config.filtreTous],
+              ["garçon", d.config.filtreGarcons],
+              ["fille", d.config.filtreFilles],
+            ] as const).map(([g, label]) => (
               <button
                 key={g}
                 className={`filtre${filtre === g ? " actif" : ""}`}
                 onClick={() => setFiltre(g)}
               >
-                {g === "tous" ? "Tous" : g === "garçon" ? "Garçons" : "Filles"}
+                {label}
               </button>
             ))}
           </div>
@@ -135,12 +140,12 @@ export default function Configurateur({
               <div className="jumeau-tete">
                 <span className="pastille">{j}</span>
                 <label>
-                  {j === 1 ? "Premier enfant" : "Second enfant"}
+                  {j === 1 ? d.config.premier : d.config.second}
                   <input
                     type="text"
                     className="prenom"
                     maxLength={18}
-                    placeholder="Son prénom"
+                    placeholder={d.config.phPrenom}
                     autoComplete="off"
                     value={prenoms[j]}
                     onChange={(e) =>
@@ -167,7 +172,7 @@ export default function Configurateur({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={a.fiche} alt="" />
                       ) : (
-                        <span className="vide">Enfant {j}</span>
+                        <span className="vide">{d.config.enfant} {j}</span>
                       )}
                     </div>
                   );
@@ -177,8 +182,8 @@ export default function Configurateur({
             </div>
           </div>
           <p className="note-apercu">
-            Aperçu indicatif — sur la couverture imprimée, vos deux héros sont
-            illustrés ensemble dans une scène complète.
+            {d.config.noteApercu}
+            {d.config.noteLangue && <> {d.config.noteLangue}</>}
           </p>
           {apercuDispo && (
             <button
@@ -187,10 +192,8 @@ export default function Configurateur({
               disabled={!prenoms[1] || !prenoms[2]}
               onClick={() => setApercuOuvert(true)}
             >
-              ✨ Feuilleter de vraies pages avec vos prénoms
-              {(!prenoms[1] || !prenoms[2]) && (
-                <small>ajoutez d&apos;abord les deux prénoms</small>
-              )}
+              {d.config.btnApercu}
+              {(!prenoms[1] || !prenoms[2]) && <small>{d.config.btnApercuHint}</small>}
             </button>
           )}
           {apercuOuvert && apercuDispo && (
@@ -198,16 +201,14 @@ export default function Configurateur({
               apercu={apercuDispo}
               prenom1={prenoms[1]}
               prenom2={prenoms[2]}
+              l={l}
               onClose={() => setApercuOuvert(false)}
             />
           )}
 
           {memeArchetype && (
             <div className="distinctif">
-              <p className="distinctif-tete">
-                Jumeaux monozygotes&nbsp;: choisissez un petit détail pour
-                distinguer le second.
-              </p>
+              <p className="distinctif-tete">{d.config.distinctifTete}</p>
               <div className="distinctif-choix">
                 {ACCESSOIRES.map((a) => (
                   <button
@@ -224,7 +225,7 @@ export default function Configurateur({
                       alt=""
                       loading="lazy"
                     />
-                    <span className="acc-label">{a.label}</span>
+                    <span className="acc-label">{d.accessoires[a.id] ?? a.label}</span>
                   </button>
                 ))}
               </div>
@@ -234,22 +235,21 @@ export default function Configurateur({
           <form className="commande" onSubmit={commander}>
             <div className="prix-ligne">
               <span className="prix">{PRIX}</span>
-              <span className="prix-note">+ 4,99&nbsp;€ de livraison suivie</span>
+              <span className="prix-note">{d.config.prixNote}</span>
             </div>
             <input
               type="email"
               className="champ-email"
-              placeholder="Votre e-mail (facultatif)"
+              placeholder={d.config.phEmail}
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button type="submit" className="btn-commander" disabled={!pret || envoi}>
-              Commander notre livre
+              {d.config.cta}
             </button>
             <p className="mention-cgv">
-              Livre personnalisé&nbsp;: pas de droit de rétractation
-              (art.&nbsp;L221-28) — <a href="/cgv">CGV</a>
+              {d.config.mentionCgv} — <a href="/cgv">{d.config.cgv}</a>
             </p>
             <p className={`statut ${statut.cls}`}>{statut.txt}</p>
           </form>

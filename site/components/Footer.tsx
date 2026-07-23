@@ -1,35 +1,25 @@
 import Link from "next/link";
+import { t, type Locale } from "@/lib/i18n";
 
-export default function Footer() {
+export default function Footer({ l }: { l: Locale }) {
+  const d = t(l);
   return (
     <footer className="pied">
       <p className="pied-titre">Deux comme nous</p>
-      <p>
-        Le livre personnalisé des jumeaux et des jumelles&nbsp;: deux héros,
-        une histoire.
-      </p>
+      <p>{d.footer.tagline}</p>
       <nav className="pied-nav">
-        <a href="#livre">Le livre</a>
-        <a href="#pourquoi">Pourquoi</a>
-        <a href="#creer">Créer le vôtre</a>
-        <a href="#sur-mesure">Sur mesure</a>
-        <a href="#faq">Questions</a>
+        <a href="#livre">{d.nav.livre}</a>
+        <a href="#pourquoi">{d.nav.pourquoi}</a>
+        <a href="#creer">{d.nav.cta}</a>
+        <a href="#faq">{d.nav.questions}</a>
       </nav>
-      <p className="pied-seo">
-        «&nbsp;Deux comme nous&nbsp;» est le cadeau pour jumeaux et jumelles
-        imaginé par des parents de jumeaux&nbsp;: un livre personnalisé avec
-        leurs prénoms, à offrir à la naissance, pour un anniversaire ou à
-        Noël. Une idée cadeau originale pour des jumeaux, expédiée en France,
-        en Belgique, en Suisse et au-delà.
-      </p>
-      <p className="pied-fin">
-        Par les créateurs de Jumelio &amp; Gemellite.com, des parents de
-        jumeaux, pour des parents de jumeaux. 💛
-      </p>
+      <p className="pied-seo">{d.footer.seo}</p>
+      <p className="pied-fin">{d.footer.fin}</p>
       <nav className="pied-legal">
-        <Link href="/mentions-legales">Mentions légales</Link>
-        <Link href="/cgv">CGV</Link>
-        <Link href="/confidentialite">Confidentialité</Link>
+        {/* Pages légales servies en français (langue du contrat). */}
+        <Link href="/mentions-legales">{d.footer.mentions}</Link>
+        <Link href="/cgv">{d.footer.cgv}</Link>
+        <Link href="/confidentialite">{d.footer.conf}</Link>
       </nav>
     </footer>
   );

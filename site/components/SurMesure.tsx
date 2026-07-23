@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
+import { t, type Locale } from "@/lib/i18n";
 
 /** Réduit la photo côté navigateur (max 1600 px, JPEG) : upload léger. */
 async function reduirePhoto(fichier: File): Promise<Blob> {
@@ -24,10 +25,12 @@ async function reduirePhoto(fichier: File): Promise<Blob> {
 
 function BoutonPhoto({
   libelle,
+  changer,
   apercu,
   onChoisir,
 }: {
   libelle: string;
+  changer: string;
   apercu: string | null;
   onChoisir: (f: File | undefined) => void;
 }) {
@@ -45,8 +48,8 @@ function BoutonPhoto({
         {apercu ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={apercu} alt="Photo choisie" className="sm-photo-apercu" />
-            <span>Changer de photo</span>
+            <img src={apercu} alt="" className="sm-photo-apercu" />
+            <span>{changer}</span>
           </>
         ) : (
           <span>📷 {libelle}</span>
@@ -56,7 +59,8 @@ function BoutonPhoto({
   );
 }
 
-export default function SurMesure() {
+export default function SurMesure({ l }: { l: Locale }) {
+  const d = t(l);
   const [prenoms, setPrenoms] = useState({ 1: "", 2: "" });
   const [email, setEmail] = useState("");
   const [reutilisation, setReutilisation] = useState(false);
@@ -78,10 +82,12 @@ export default function SurMesure() {
     consentement
   );
 
+  const changer = { fr: "Changer de photo", en: "Change photo", es: "Cambiar la foto", de: "Foto ändern" }[l];
+
   function choisirPhoto(n: 1 | 2, f: File | undefined) {
     if (!f) return;
     if (!f.type.startsWith("image/")) {
-      setStatut({ txt: "Choisissez une image (JPEG ou PNG).", cls: "erreur" });
+      setStatut({ txt: "JPEG / PNG", cls: "erreur" });
       return;
     }
     setPhotos((p) => ({ ...p, [n]: f }));
@@ -93,7 +99,7 @@ export default function SurMesure() {
     e.preventDefault();
     if (!photos[1]) return;
     setEnvoi(true);
-    setStatut({ txt: "Envoi des photos…", cls: "" });
+    setStatut({ txt: d.config.stTraitement, cls: "" });
     try {
       const form = new FormData();
       form.set("prenom1", prenoms[1]);
@@ -108,22 +114,21 @@ export default function SurMesure() {
       if (!monozygote && photos[2]) {
         form.set("photo2", await reduirePhoto(photos[2]), "photo2.jpg");
       }
-      setStatut({ txt: "Traitement…", cls: "" });
       const r = await fetch("/api/sur-mesure", { method: "POST", body: form });
       const data = await r.json();
       if (data.ok && data.url) {
-        setStatut({ txt: "Redirection vers le paiement sécurisé…", cls: "ok" });
+        setStatut({ txt: d.config.stRedirection, cls: "ok" });
         window.location.href = data.url;
         return;
       }
       if (data.ok) {
         setStatut({ txt: data.message, cls: "ok" });
       } else {
-        setStatut({ txt: data.erreur || "Une erreur est survenue.", cls: "erreur" });
+        setStatut({ txt: data.erreur || d.config.stErreur, cls: "erreur" });
         setEnvoi(false);
       }
     } catch {
-      setStatut({ txt: "Serveur injoignable.", cls: "erreur" });
+      setStatut({ txt: d.config.stServeur, cls: "erreur" });
       setEnvoi(false);
     }
   }
@@ -132,39 +137,23 @@ export default function SurMesure() {
     <section id="sur-mesure" className="sur-mesure">
       <div className="sm-carte">
         <div className="sm-texte">
-          <span className="sm-eyebrow">Édition sur mesure</span>
-          <h2>Vous ne trouvez pas de ressemblance&nbsp;?</h2>
-          <p>
-            Nos douze personnages ne ressemblent pas assez à vos enfants&nbsp;?
-            Nous créons leur livre entièrement <strong>sur mesure</strong>, à
-            leur image, à partir d&apos;une simple photo.
-          </p>
+          <span className="sm-eyebrow">{d.sm.eyebrow}</span>
+          <h2>{d.sm.h2}</h2>
+          <p>{d.sm.intro}</p>
           <ul className="sm-points">
-            <li>Personnages dessinés d&apos;après vos photos</li>
-            <li>
-              <strong>Vous choisissez</strong> parmi 3 propositions par enfant,
-              juste après la commande
-            </li>
-            <li>Même livre relié 20×20&nbsp;cm (+ 4,99&nbsp;€ de livraison)</li>
-            <li>
-              <strong>Vos photos ne sont jamais conservées</strong>&nbsp;:
-              supprimées automatiquement dès que le livre est généré.
-            </li>
+            {d.sm.points.map((p) => (
+              <li key={p}>{p}</li>
+            ))}
           </ul>
-          <p className="sm-comment">
-            Comment ça marche&nbsp;? Vous ajoutez la ou les photos et payez en
-            ligne. Dans la minute, vous choisissez vos personnages préférés
-            parmi nos propositions. Nous créons le livre, vous validez, nous
-            imprimons.
-          </p>
+          <p className="sm-comment">{d.sm.comment}</p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
           <span className="sm-prix">{prix}</span>
-          <span className="sm-prix-note">livre sur mesure, à partir d&apos;une photo</span>
+          <span className="sm-prix-note">{d.sm.prixNote}</span>
           <input
             type="text"
             className="champ-email"
-            placeholder="Prénom du premier enfant"
+            placeholder={d.sm.phP1}
             maxLength={18}
             value={prenoms[1]}
             onChange={(e) => setPrenoms((p) => ({ ...p, 1: e.target.value.trim() }))}
@@ -172,7 +161,7 @@ export default function SurMesure() {
           <input
             type="text"
             className="champ-email"
-            placeholder="Prénom du second enfant"
+            placeholder={d.sm.phP2}
             maxLength={18}
             value={prenoms[2]}
             onChange={(e) => setPrenoms((p) => ({ ...p, 2: e.target.value.trim() }))}
@@ -180,35 +169,35 @@ export default function SurMesure() {
           <input
             type="email"
             className="champ-email"
-            placeholder="Votre e-mail (facultatif)"
+            placeholder={d.sm.phEmail}
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="sm-zygote" role="radiogroup" aria-label="Vos jumeaux">
+          <div className="sm-zygote" role="radiogroup">
             <button
               type="button"
               className={`sm-zy${monozygote ? " actif" : ""}`}
               onClick={() => setMonozygote(true)}
             >
-              Identiques
-              <small>une seule photo suffit</small>
+              {d.sm.zyIdent}
+              <small>{d.sm.zyIdentSub}</small>
             </button>
             <button
               type="button"
               className={`sm-zy${!monozygote ? " actif" : ""}`}
               onClick={() => setMonozygote(false)}
             >
-              Différents
-              <small>une photo par enfant</small>
+              {d.sm.zyDiff}
+              <small>{d.sm.zyDiffSub}</small>
             </button>
           </div>
           {monozygote && (
             <div className="sm-distinctif">
               <p className="sm-distinctif-tete">
-                Un petit détail pour distinguer{" "}
-                {prenoms[2] ? <strong>{prenoms[2]}</strong> : "le second"} dans
-                le livre&nbsp;:
+                {d.sm.distinctifAvant}{" "}
+                {prenoms[2] ? <strong>{prenoms[2]}</strong> : d.sm.leSecond}{" "}
+                {d.sm.distinctifApres}
               </p>
               <div className="distinctif-choix">
                 {ACCESSOIRES.map((a) => (
@@ -226,36 +215,35 @@ export default function SurMesure() {
                       alt=""
                       loading="lazy"
                     />
-                    <span className="acc-label">{a.label}</span>
+                    <span className="acc-label">{d.accessoires[a.id] ?? a.label}</span>
                   </button>
                 ))}
               </div>
             </div>
           )}
           <BoutonPhoto
-            libelle={monozygote ? "Ajouter la photo de vos enfants" : `Photo de ${prenoms[1] || "votre premier enfant"}`}
+            libelle={monozygote ? d.sm.photoMono : `${d.sm.photoDe} ${prenoms[1] || d.sm.premierEnfant}`}
+            changer={changer}
             apercu={apercus[1]}
             onChoisir={(f) => choisirPhoto(1, f)}
           />
           {!monozygote && (
             <BoutonPhoto
-              libelle={`Photo de ${prenoms[2] || "votre second enfant"}`}
+              libelle={`${d.sm.photoDe} ${prenoms[2] || d.sm.secondEnfant}`}
+              changer={changer}
               apercu={apercus[2]}
               onChoisir={(f) => choisirPhoto(2, f)}
             />
           )}
-          <span className="sm-photo-note">
-            Visages bien visibles, JPEG ou PNG. Photos supprimées après création
-            du livre.
-          </span>
+          <span className="sm-photo-note">{d.sm.photoNote}</span>
           <label className="sm-relation">
-            <span>Vous êtes&nbsp;:</span>
+            <span>{d.sm.vousEtes}</span>
             <select value={relation} onChange={(e) => setRelation(e.target.value)}>
-              <option value="parent">Parent des enfants</option>
-              <option value="grand-parent">Grand-parent</option>
-              <option value="oncle-tante">Oncle / tante</option>
-              <option value="parrain-marraine">Parrain / marraine</option>
-              <option value="proche">Autre proche de la famille</option>
+              <option value="parent">{d.sm.relParent}</option>
+              <option value="grand-parent">{d.sm.relGrandParent}</option>
+              <option value="oncle-tante">{d.sm.relOncleTante}</option>
+              <option value="parrain-marraine">{d.sm.relParrain}</option>
+              <option value="proche">{d.sm.relProche}</option>
             </select>
           </label>
           <label className="sm-option">
@@ -265,9 +253,7 @@ export default function SurMesure() {
               onChange={(e) => setConsentement(e.target.checked)}
             />
             <span>
-              Je certifie avoir plus de 18&nbsp;ans et disposer de
-              l&apos;autorisation des parents (ou représentants légaux) des
-              enfants pour l&apos;utilisation de cette photo. <em>Obligatoire.</em>
+              {d.sm.consentement} <em>{d.sm.obligatoire}</em>
             </span>
           </label>
           <label className="sm-option">
@@ -276,22 +262,18 @@ export default function SurMesure() {
               checked={reutilisation}
               onChange={(e) => setReutilisation(e.target.checked)}
             />
-            <span>
-              <strong>−15&nbsp;€</strong>&nbsp;: j&apos;accepte que le
-              personnage dessiné (jamais la photo) soit conservé pour de
-              futures créations.
-            </span>
+            <span>{d.sm.option15}</span>
           </label>
           <button type="submit" className="sm-cta" disabled={!pret || envoi}>
-            Commander mon livre sur mesure
+            {d.sm.cta}
           </button>
           <p className={`statut ${statut.cls}`}>{statut.txt}</p>
           <span className="sm-note">
-            Une question d&apos;abord&nbsp;?{" "}
-            <a href="mailto:bonjour@gemellite.com?subject=Livre%20sur%20mesure">
-              Écrivez-nous
+            {d.sm.question}{" "}
+            <a href="mailto:contact@jumelio.com?subject=Deux%20comme%20nous">
+              {d.sm.ecrivez}
             </a>
-            , réponse sous 48&nbsp;h.
+            , {d.sm.reponse}
           </span>
         </form>
       </div>

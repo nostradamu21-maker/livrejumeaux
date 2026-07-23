@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { t, type Locale } from "@/lib/i18n";
 
 // Couverture d'abord, puis un choix de pages intérieures (exemplaire réel).
 const FLIP_IMAGES = [
@@ -16,15 +17,6 @@ const FLIP_IMAGES = [
   "/apercus/test-filles/page-27.jpg",
 ];
 
-const PRENOMS = [
-  ["Léo", "Emma"],
-  ["Jade", "Tom"],
-  ["Noah", "Lina"],
-  ["Gabin", "Rose"],
-  ["Sacha", "Alix"],
-  ["Maël", "Nina"],
-];
-
 // Regroupe les images en feuilles (recto/verso).
 const LEAVES: [string, string | null][] = [];
 for (let i = 0; i < FLIP_IMAGES.length; i += 2) {
@@ -33,7 +25,8 @@ for (let i = 0; i < FLIP_IMAGES.length; i += 2) {
 const N = LEAVES.length;
 const MAX = Math.max(0, N - 1); // la dernière feuille garde une page à droite
 
-export default function Flipbook() {
+export default function Flipbook({ l }: { l: Locale }) {
+  const d = t(l);
   const [turned, setTurned] = useState(0);
   const [prenom, setPrenom] = useState(0);
   const [swap, setSwap] = useState(false);
@@ -44,15 +37,15 @@ export default function Flipbook() {
     const id = setInterval(() => {
       setSwap(true);
       setTimeout(() => {
-        setPrenom((p) => (p + 1) % PRENOMS.length);
+        setPrenom((p) => (p + 1) % d.flip.prenoms.length);
         setSwap(false);
       }, 350);
     }, 2200);
     return () => clearInterval(id);
-  }, []);
+  }, [d.flip.prenoms.length]);
 
-  const suivant = () => setTurned((t) => Math.min(t + 1, MAX));
-  const precedent = () => setTurned((t) => Math.max(t - 1, 0));
+  const suivant = () => setTurned((x) => Math.min(x + 1, MAX));
+  const precedent = () => setTurned((x) => Math.max(x - 1, 0));
 
   const clicLivre = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = bookRef.current?.getBoundingClientRect();
@@ -61,17 +54,13 @@ export default function Flipbook() {
     else precedent();
   };
 
-  const [a, b] = PRENOMS[prenom];
+  const [a, b] = d.flip.prenoms[prenom];
 
   return (
     <section id="livre" className="livre-flip">
       <div className="section-tete">
-        <h2>Feuilletez un exemplaire réel</h2>
-        <p className="section-sub">
-          Voici le livre personnalisé d&apos;Elia &amp; Luna&nbsp;: tournez les
-          pages pour découvrir les illustrations douces à l&apos;aquarelle.
-          Extrait de quelques pages, le livre complet en compte 30.
-        </p>
+        <h2>{d.flip.h2}</h2>
+        <p className="section-sub">{d.flip.sub}</p>
       </div>
 
       <div className="fb">
@@ -103,31 +92,30 @@ export default function Flipbook() {
           className="fb-btn"
           onClick={precedent}
           disabled={turned === 0}
-          aria-label="Page précédente"
+          aria-label={d.visionneuse.precedente}
         >
           ‹
         </button>
         <span className="fb-hint">
-          {turned === 0 ? "Cliquez pour tourner les pages" : `Page ${turned * 2}`}
+          {turned === 0 ? d.flip.hintClic : `${d.flip.page} ${turned * 2}`}
         </span>
         <button
           className="fb-btn"
           onClick={suivant}
           disabled={turned >= MAX}
-          aria-label="Page suivante"
+          aria-label={d.visionneuse.suivante}
         >
           ›
         </button>
       </div>
 
       <p className="fb-perso">
-        Dans cet exemplaire, les héroïnes s&apos;appellent <b>Elia</b> &amp;{" "}
-        <b>Luna</b>. Dans le vôtre, ce sont{" "}
+        {d.flip.exA} <b>Elia</b> &amp; <b>Luna</b>. {d.flip.exB}{" "}
         <span className="perso-noms">
           <span className={`perso-a${swap ? " perso-swap" : ""}`}>{a}</span> &amp;{" "}
           <span className={`perso-b${swap ? " perso-swap" : ""}`}>{b}</span>
         </span>
-        . Vos prénoms, sur chaque page.
+        . {d.flip.exC}
       </p>
     </section>
   );

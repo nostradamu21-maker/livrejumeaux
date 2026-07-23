@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { t, type Locale } from "@/lib/i18n";
 
 interface Etat {
   ok: boolean;
@@ -15,7 +16,8 @@ interface Etat {
   erreur?: string;
 }
 
-export default function ChoixVariantes() {
+export default function ChoixVariantes({ l }: { l: Locale }) {
+  const d = t(l);
   const sessionId = useSearchParams().get("session_id") ?? "";
   const [etat, setEtat] = useState<Etat | null>(null);
   const [enCours, setEnCours] = useState<number | null>(null);
@@ -31,7 +33,7 @@ export default function ChoixVariantes() {
         setEtat(d);
         if (d.ok && d.choix && Object.keys(d.choix).length) setValide(true);
       })
-      .catch(() => setEtat({ ok: false, erreur: "Serveur injoignable." }));
+      .catch(() => setEtat({ ok: false, erreur: t(l).config.stServeur }));
   }, [sessionId]);
 
   // Lance la génération des variantes manquantes, enfant par enfant.
@@ -59,10 +61,10 @@ export default function ChoixVariantes() {
         } else if (d.repli) {
           setEtat((e) => (e ? { ...e, actif: false } : e));
         } else {
-          setErreur(d.erreur || "La génération a échoué, réessayez dans un instant.");
+          setErreur(d.erreur || t(l).config.stErreur);
         }
       })
-      .catch(() => setErreur("Serveur injoignable."))
+      .catch(() => setErreur(t(l).config.stServeur))
       .finally(() => setEnCours(null));
   }, [etat, enCours, sessionId, valide]);
 
@@ -74,12 +76,12 @@ export default function ChoixVariantes() {
       body: JSON.stringify({ session_id: sessionId, action: "choix", choix: selection }),
     }).then((x) => x.json()).catch(() => ({ ok: false }));
     if (r.ok) setValide(true);
-    else setErreur(r.erreur || "Impossible d'enregistrer votre choix.");
+    else setErreur(r.erreur || t(l).config.stErreur);
   }
 
-  if (!sessionId) return <main className="variantes"><p>Lien invalide.</p></main>;
-  if (!etat) return <main className="variantes"><p className="v-attente">Chargement…</p></main>;
-  if (!etat.ok) return <main className="variantes"><p>{etat.erreur ?? "Commande introuvable."}</p></main>;
+  if (!sessionId) return <main className="variantes"><p>{d.variantes.lienInvalide}</p></main>;
+  if (!etat) return <main className="variantes"><p className="v-attente">{d.variantes.chargement}</p></main>;
+  if (!etat.ok) return <main className="variantes"><p>{etat.erreur ?? d.variantes.introuvable}</p></main>;
 
   const n = etat.nEnfants ?? 1;
   const [p1, p2] = etat.prenoms ?? ["", ""];
@@ -89,12 +91,8 @@ export default function ChoixVariantes() {
   if (valide) {
     return (
       <main className="variantes">
-        <h1>Merci ! 💛</h1>
-        <p className="v-intro">
-          Vos personnages sont choisis. Nous créons maintenant le livre de{" "}
-          <strong>{p1} &amp; {p2}</strong>, vous validez les illustrations par
-          e-mail, puis il part à l&apos;impression.
-        </p>
+        <h1>{d.variantes.merci}</h1>
+        <p className="v-intro">{d.variantes.merciMsg(p1, p2)}</p>
       </main>
     );
   }
@@ -102,28 +100,21 @@ export default function ChoixVariantes() {
   if (etat.actif === false) {
     return (
       <main className="variantes">
-        <h1>Vos photos sont bien reçues</h1>
-        <p className="v-intro">
-          Nous préparons les personnages de {p1} &amp; {p2} et vous les
-          proposerons par e-mail sous 24&nbsp;h pour validation.
-        </p>
+        <h1>{d.variantes.photosRecues}</h1>
+        <p className="v-intro">{d.variantes.photosRecuesMsg(p1, p2)}</p>
       </main>
     );
   }
 
   return (
     <main className="variantes">
-      <h1>Choisissez vos personnages</h1>
-      <p className="v-intro">
-        Voici les personnages dessinés d&apos;après {n === 1 ? "votre photo" : "vos photos"}.
-        Choisissez votre préféré{n > 1 ? " pour chaque enfant" : ""} : il servira
-        de référence pour tout le livre.
-      </p>
+      <h1>{d.variantes.titre}</h1>
+      <p className="v-intro">{n === 1 ? d.variantes.intro1 : d.variantes.introN}</p>
       {Array.from({ length: n }, (_, i) => i + 1).map((enfant) => {
         const urls = etat.variantes?.[String(enfant)] ?? [];
         const titre =
           etat.libelles?.[enfant - 1] ??
-          `Le personnage de ${etat.monozygote ? `${p1} & ${p2}` : enfant === 1 ? p1 : p2}`;
+          `${d.variantes.persoDe} ${etat.monozygote ? `${p1} & ${p2}` : enfant === 1 ? p1 : p2}`;
         return (
           <section key={enfant} className="v-groupe">
             <h2>{titre}</h2>
@@ -137,16 +128,13 @@ export default function ChoixVariantes() {
                     onClick={() => setSelection((s) => ({ ...s, [String(enfant)]: idx }))}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={u} alt={`Proposition ${idx + 1}`} />
-                    <span>Proposition {idx + 1}</span>
+                    <img src={u} alt={`${d.variantes.proposition} ${idx + 1}`} />
+                    <span>{d.variantes.proposition} {idx + 1}</span>
                   </button>
                 ))}
               </div>
             ) : (
-              <p className="v-attente">
-                🎨 Nous dessinons les propositions… environ une minute, la page
-                se met à jour toute seule.
-              </p>
+              <p className="v-attente">{d.variantes.attente}</p>
             )}
           </section>
         );
@@ -157,7 +145,7 @@ export default function ChoixVariantes() {
         disabled={!tousChoisis}
         onClick={validerChoix}
       >
-        Valider mon choix
+        {d.variantes.valider}
       </button>
       {erreur && <p className="statut erreur">{erreur}</p>}
     </main>
