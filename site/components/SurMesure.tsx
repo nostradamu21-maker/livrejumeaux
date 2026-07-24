@@ -151,7 +151,7 @@ export default function SurMesure({ l }: { l: Locale }) {
               {photoOk ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src="/avant-apres/jade.png"
+                  src="/avant-apres/jade.jpg"
                   alt=""
                   loading="lazy"
                   onError={() => setPhotoOk(false)}
