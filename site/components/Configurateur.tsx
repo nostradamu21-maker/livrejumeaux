@@ -112,6 +112,7 @@ export default function Configurateur({
   return (
     <section id="creer" className="creer">
       <div className="section-tete">
+        <span className="config-eyebrow">{d.config.eyebrow}</span>
         <h2>{d.config.h2}</h2>
         <p className="section-sub">{d.config.sub}</p>
         <p className="note-catalogue">{d.config.noteCatalogue}</p>

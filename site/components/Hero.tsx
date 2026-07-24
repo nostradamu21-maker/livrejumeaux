@@ -21,7 +21,7 @@ export default function Hero({ l }: { l: Locale }) {
         </h1>
         <p className="lead">{d.hero.lead}</p>
         <div className="hero-actions">
-          <a href="#creer" className="btn btn-primary">
+          <a href="#sur-mesure" className="btn btn-primary">
             {d.hero.ctaCreer}
           </a>
           <a href="#livre" className="btn btn-ghost">

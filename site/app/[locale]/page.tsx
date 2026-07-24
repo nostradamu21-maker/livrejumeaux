@@ -39,9 +39,10 @@ export default async function Page({
       <Hero l={locale} />
       <Flipbook l={locale} />
       <Pourquoi l={locale} />
-      <Etapes l={locale} />
-      <Configurateur archetypes={archetypes} l={locale} />
+      {/* Sur-mesure = produit phare, mis en avant avant le configurateur */}
       <SurMesure l={locale} />
+      <Configurateur archetypes={archetypes} l={locale} />
+      <Etapes l={locale} />
       <Cadeau l={locale} />
       <Faq l={locale} />
       <Footer l={locale} />

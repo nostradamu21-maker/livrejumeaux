@@ -58,6 +58,7 @@ export interface Dict {
   };
   etapes: { h2: string; liste: { t: string; p: string }[]; cta: string };
   config: {
+    eyebrow: string;
     h2: string;
     sub: string;
     prixLivre: string;
@@ -241,6 +242,7 @@ const FR: Dict = {
     cta: "Créer leur livre",
   },
   config: {
+    eyebrow: "Sans photo · dès 44,90 €",
     h2: "Composez le livre de vos jumeaux",
     sub: "Choisissez un personnage pour chacun, ajoutez leurs prénoms, et voyez la couverture de leur livre personnalisé prendre vie.",
     prixLivre: "44,90 €",
@@ -280,8 +282,8 @@ const FR: Dict = {
     prixReduit: "69 €",
     prixBarre: "129 €",
     lancement: "offre de lancement",
-    h2: "Vous ne trouvez pas de ressemblance ?",
-    intro: "Nos personnages ne ressemblent pas assez à vos enfants ? Nous créons leur livre entièrement sur mesure, à leur image, à partir d'une simple photo.",
+    h2: "Vos enfants, dessinés d'après leur photo",
+    intro: "À partir d'une simple photo, nous dessinons vos jumeaux et créons leur livre entièrement à leur image : leurs vrais visages, héros de leur propre histoire.",
     points: [
       "Personnages dessinés d'après vos photos",
       "Vous choisissez parmi 3 propositions par enfant, juste après la commande",
@@ -425,6 +427,7 @@ const EN: Dict = {
     cta: "Create their book",
   },
   config: {
+    eyebrow: "No photo · from €44.90",
     h2: "Compose your twins' book",
     sub: "Pick a character for each child, add their names, and watch the cover of their personalized book come to life.",
     prixLivre: "€44.90",
@@ -464,8 +467,8 @@ const EN: Dict = {
     prixReduit: "€69",
     prixBarre: "€129",
     lancement: "launch offer",
-    h2: "No character looks quite like them?",
-    intro: "None of our characters look quite like your children? We create their book fully custom, in their likeness, from a simple photo.",
+    h2: "Your children, drawn from their photo",
+    intro: "From a single photo, we draw your twins and create their book entirely in their likeness: their real faces, heroes of their very own story.",
     points: [
       "Characters drawn from your photos",
       "You choose among 3 proposals per child, right after ordering",
@@ -627,6 +630,7 @@ const ES: Dict = {
     cta: "Crear su libro",
   },
   config: {
+    eyebrow: "Sin foto · desde 44,90 €",
     h2: "Compón el libro de tus gemelos",
     sub: "Elige un personaje para cada uno, añade sus nombres y mira cómo cobra vida la portada de su libro personalizado.",
     prixLivre: "44,90 €",
@@ -666,8 +670,8 @@ const ES: Dict = {
     prixReduit: "69 €",
     prixBarre: "129 €",
     lancement: "oferta de lanzamiento",
-    h2: "¿Ningún personaje se les parece?",
-    intro: "¿Ninguno de nuestros personajes se parece a tus hijos? Creamos su libro totalmente a medida, a su imagen, a partir de una simple foto.",
+    h2: "Tus hijos, dibujados a partir de su foto",
+    intro: "A partir de una simple foto, dibujamos a tus gemelos y creamos su libro totalmente a su imagen: sus caras reales, protagonistas de su propia historia.",
     points: [
       "Personajes dibujados a partir de tus fotos",
       "Eliges entre 3 propuestas por niño, justo después del pedido",
@@ -829,6 +833,7 @@ const DE: Dict = {
     cta: "Ihr Buch gestalten",
   },
   config: {
+    eyebrow: "Ohne Foto · ab 44,90 €",
     h2: "Gestalten Sie das Buch Ihrer Zwillinge",
     sub: "Wählen Sie für jedes Kind eine Figur, fügen Sie die Namen hinzu und sehen Sie zu, wie das Cover ihres personalisierten Buchs entsteht.",
     prixLivre: "44,90 €",
@@ -868,8 +873,8 @@ const DE: Dict = {
     prixReduit: "69 €",
     prixBarre: "129 €",
     lancement: "Einführungsangebot",
-    h2: "Keine Figur sieht ihnen ähnlich?",
-    intro: "Keine unserer Figuren ähnelt Ihren Kindern genug? Wir gestalten ihr Buch komplett nach Maß, nach ihrem Vorbild, aus einem einfachen Foto.",
+    h2: "Ihre Kinder, gezeichnet nach ihrem Foto",
+    intro: "Aus einem einzigen Foto zeichnen wir Ihre Zwillinge und gestalten ihr Buch ganz nach ihrem Vorbild: ihre echten Gesichter, Helden ihrer eigenen Geschichte.",
     points: [
       "Figuren, gezeichnet nach Ihren Fotos",
       "Sie wählen aus 3 Vorschlägen pro Kind, direkt nach der Bestellung",
