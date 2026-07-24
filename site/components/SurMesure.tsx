@@ -72,6 +72,8 @@ export default function SurMesure({ l }: { l: Locale }) {
   const [apercus, setApercus] = useState<{ 1: string | null; 2: string | null }>({ 1: null, 2: null });
   const [envoi, setEnvoi] = useState(false);
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
+  // Photo réelle « avant » (Jade) si présente, sinon repli sur le cadre placeholder.
+  const [photoOk, setPhotoOk] = useState(true);
 
   const prix = reutilisation ? d.sm.prixReduit : d.sm.prix;
   const pret = !!(
@@ -145,8 +147,18 @@ export default function SurMesure({ l }: { l: Locale }) {
               personnage dessiné (Jade). Le placeholder évite d'exposer une
               photo d'enfant réelle. */}
           <div className="aa">
-            <figure className="aa-carte aa-photo">
-              <span className="aa-cam" aria-hidden="true">📷</span>
+            <figure className={`aa-carte ${photoOk ? "aa-photo-reelle" : "aa-photo"}`}>
+              {photoOk ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src="/avant-apres/jade.jpg"
+                  alt=""
+                  loading="lazy"
+                  onError={() => setPhotoOk(false)}
+                />
+              ) : (
+                <span className="aa-cam" aria-hidden="true">📷</span>
+              )}
               <figcaption>{d.sm.aaPhoto}</figcaption>
             </figure>
             <span className="aa-fleche" aria-hidden="true">→</span>
