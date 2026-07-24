@@ -102,6 +102,9 @@ export interface Dict {
     prixBarre: string;
     lancement: string;
     h2: string;
+    aaPhoto: string;
+    aaPerso: string;
+    aaLegende: string;
     intro: string;
     points: [string, string, string, string];
     comment: string;
@@ -283,6 +286,9 @@ const FR: Dict = {
     prixBarre: "129 €",
     lancement: "offre de lancement",
     h2: "Vos enfants, dessinés d'après leur photo",
+    aaPhoto: "Votre photo",
+    aaPerso: "Son personnage",
+    aaLegende: "D'une simple photo à un personnage aquarelle fidèle : c'est ça, le sur-mesure.",
     intro: "À partir d'une simple photo, nous dessinons vos jumeaux et créons leur livre entièrement à leur image : leurs vrais visages, héros de leur propre histoire.",
     points: [
       "Personnages dessinés d'après vos photos",
@@ -468,6 +474,9 @@ const EN: Dict = {
     prixBarre: "€129",
     lancement: "launch offer",
     h2: "Your children, drawn from their photo",
+    aaPhoto: "Your photo",
+    aaPerso: "Their character",
+    aaLegende: "From a simple photo to a faithful watercolor character: that's what custom means.",
     intro: "From a single photo, we draw your twins and create their book entirely in their likeness: their real faces, heroes of their very own story.",
     points: [
       "Characters drawn from your photos",
@@ -671,6 +680,9 @@ const ES: Dict = {
     prixBarre: "129 €",
     lancement: "oferta de lanzamiento",
     h2: "Tus hijos, dibujados a partir de su foto",
+    aaPhoto: "Tu foto",
+    aaPerso: "Su personaje",
+    aaLegende: "De una simple foto a un personaje en acuarela fiel: eso es la edición a medida.",
     intro: "A partir de una simple foto, dibujamos a tus gemelos y creamos su libro totalmente a su imagen: sus caras reales, protagonistas de su propia historia.",
     points: [
       "Personajes dibujados a partir de tus fotos",
@@ -874,6 +886,9 @@ const DE: Dict = {
     prixBarre: "129 €",
     lancement: "Einführungsangebot",
     h2: "Ihre Kinder, gezeichnet nach ihrem Foto",
+    aaPhoto: "Ihr Foto",
+    aaPerso: "Ihre Figur",
+    aaLegende: "Von einem einfachen Foto zu einer originalgetreuen Aquarellfigur: das ist die Maßanfertigung.",
     intro: "Aus einem einzigen Foto zeichnen wir Ihre Zwillinge und gestalten ihr Buch ganz nach ihrem Vorbild: ihre echten Gesichter, Helden ihrer eigenen Geschichte.",
     points: [
       "Figuren, gezeichnet nach Ihren Fotos",

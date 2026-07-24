@@ -141,6 +141,22 @@ export default function SurMesure({ l }: { l: Locale }) {
           <span className="sm-eyebrow">{d.sm.eyebrow}</span>
           <h2>{d.sm.h2}</h2>
           <p>{d.sm.intro}</p>
+          {/* Avant → après : cadre photo (invitation) qui devient un vrai
+              personnage dessiné (Jade). Le placeholder évite d'exposer une
+              photo d'enfant réelle. */}
+          <div className="aa">
+            <figure className="aa-carte aa-photo">
+              <span className="aa-cam" aria-hidden="true">📷</span>
+              <figcaption>{d.sm.aaPhoto}</figcaption>
+            </figure>
+            <span className="aa-fleche" aria-hidden="true">→</span>
+            <figure className="aa-carte aa-perso">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/fiches/f7-jade.png" alt="" loading="lazy" />
+              <figcaption>{d.sm.aaPerso}</figcaption>
+            </figure>
+          </div>
+          <p className="aa-legende">{d.sm.aaLegende}</p>
           <ul className="sm-points">
             {d.sm.points.map((p) => (
               <li key={p}>{p}</li>
