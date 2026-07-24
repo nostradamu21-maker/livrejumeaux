@@ -98,6 +98,8 @@ export interface Dict {
     eyebrow: string;
     prix: string;
     prixReduit: string;
+    prixBarre: string;
+    lancement: string;
     h2: string;
     intro: string;
     points: [string, string, string, string];
@@ -274,8 +276,10 @@ const FR: Dict = {
   },
   sm: {
     eyebrow: "Édition sur mesure",
-    prix: "129 €",
-    prixReduit: "99 €",
+    prix: "79 €",
+    prixReduit: "69 €",
+    prixBarre: "129 €",
+    lancement: "offre de lancement",
     h2: "Vous ne trouvez pas de ressemblance ?",
     intro: "Nos personnages ne ressemblent pas assez à vos enfants ? Nous créons leur livre entièrement sur mesure, à leur image, à partir d'une simple photo.",
     points: [
@@ -303,7 +307,7 @@ const FR: Dict = {
     relParrain: "Parrain / marraine", relProche: "Autre proche de la famille",
     consentement: "Je certifie avoir plus de 18 ans et disposer de l'autorisation des parents (ou représentants légaux) des enfants pour l'utilisation de cette photo.",
     obligatoire: "Obligatoire.",
-    option15: "−30 € : j'accepte que le personnage dessiné (jamais la photo) soit conservé pour de futures créations.",
+    option15: "−10 € : j'accepte que le personnage dessiné (jamais la photo) soit conservé pour de futures créations.",
     cta: "Commander mon livre sur mesure",
     question: "Une question d'abord ?", ecrivez: "Écrivez-nous", reponse: "réponse sous 48 h.",
   },
@@ -456,8 +460,10 @@ const EN: Dict = {
   },
   sm: {
     eyebrow: "Custom edition",
-    prix: "€129",
-    prixReduit: "€99",
+    prix: "€79",
+    prixReduit: "€69",
+    prixBarre: "€129",
+    lancement: "launch offer",
     h2: "No character looks quite like them?",
     intro: "None of our characters look quite like your children? We create their book fully custom, in their likeness, from a simple photo.",
     points: [
@@ -485,7 +491,7 @@ const EN: Dict = {
     relParrain: "Godparent", relProche: "Another close relative",
     consentement: "I certify that I am over 18 and have the authorization of the children's parents (or legal guardians) to use this photo.",
     obligatoire: "Required.",
-    option15: "−€30: I agree that the drawn character (never the photo) may be kept for future creations.",
+    option15: "−€10: I agree that the drawn character (never the photo) may be kept for future creations.",
     cta: "Order my custom book",
     question: "A question first?", ecrivez: "Write to us", reponse: "reply within 48 h.",
   },
@@ -656,8 +662,10 @@ const ES: Dict = {
   },
   sm: {
     eyebrow: "Edición a medida",
-    prix: "129 €",
-    prixReduit: "99 €",
+    prix: "79 €",
+    prixReduit: "69 €",
+    prixBarre: "129 €",
+    lancement: "oferta de lanzamiento",
     h2: "¿Ningún personaje se les parece?",
     intro: "¿Ninguno de nuestros personajes se parece a tus hijos? Creamos su libro totalmente a medida, a su imagen, a partir de una simple foto.",
     points: [
@@ -685,7 +693,7 @@ const ES: Dict = {
     relParrain: "Padrino/madrina", relProche: "Otro familiar cercano",
     consentement: "Certifico ser mayor de 18 años y contar con la autorización de los padres (o tutores legales) de los niños para el uso de esta foto.",
     obligatoire: "Obligatorio.",
-    option15: "−30 €: acepto que el personaje dibujado (nunca la foto) se conserve para futuras creaciones.",
+    option15: "−10 €: acepto que el personaje dibujado (nunca la foto) se conserve para futuras creaciones.",
     cta: "Pedir mi libro a medida",
     question: "¿Una pregunta antes?", ecrivez: "Escríbenos", reponse: "respuesta en 48 h.",
   },
@@ -856,8 +864,10 @@ const DE: Dict = {
   },
   sm: {
     eyebrow: "Maßanfertigung",
-    prix: "129 €",
-    prixReduit: "99 €",
+    prix: "79 €",
+    prixReduit: "69 €",
+    prixBarre: "129 €",
+    lancement: "Einführungsangebot",
     h2: "Keine Figur sieht ihnen ähnlich?",
     intro: "Keine unserer Figuren ähnelt Ihren Kindern genug? Wir gestalten ihr Buch komplett nach Maß, nach ihrem Vorbild, aus einem einfachen Foto.",
     points: [
@@ -885,7 +895,7 @@ const DE: Dict = {
     relParrain: "Pate / Patin", relProche: "Andere nahestehende Person",
     consentement: "Ich bestätige, über 18 Jahre alt zu sein und die Erlaubnis der Eltern (oder Erziehungsberechtigten) der Kinder zur Verwendung dieses Fotos zu haben.",
     obligatoire: "Erforderlich.",
-    option15: "−30 €: Ich bin einverstanden, dass die gezeichnete Figur (nie das Foto) für künftige Kreationen aufbewahrt wird.",
+    option15: "−10 €: Ich bin einverstanden, dass die gezeichnete Figur (nie das Foto) für künftige Kreationen aufbewahrt wird.",
     cta: "Mein Buch nach Maß bestellen",
     question: "Erst eine Frage?", ecrivez: "Schreiben Sie uns", reponse: "Antwort innerhalb von 48 h.",
   },

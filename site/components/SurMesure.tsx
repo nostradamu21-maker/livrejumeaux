@@ -149,7 +149,11 @@ export default function SurMesure({ l }: { l: Locale }) {
           <p className="sm-comment">{d.sm.comment}</p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
-          <span className="sm-prix">{prix}</span>
+          <span className="sm-lancement">{d.sm.lancement}</span>
+          <span className="sm-prix-ligne">
+            <span className="sm-prix-barre">{d.sm.prixBarre}</span>
+            <span className="sm-prix">{prix}</span>
+          </span>
           <span className="sm-prix-note">{d.sm.prixNote}</span>
           <input
             type="text"
