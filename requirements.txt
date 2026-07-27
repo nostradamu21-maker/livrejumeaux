@@ -19,3 +19,6 @@ reportlab>=4.0       # PDF avec texte vectoriel + police embarquée
 # Front-end de commande (phase 1) — configurateur local
 Flask>=3.0           # serveur du configurateur (serveur.py)
 stripe>=9.0          # paiement Stripe Checkout (repli simulé si clé absente)
+
+# Expédition Gelato automatisée (expedier.py)
+pypdf>=4.0           # scinde le PDF d'impression (couverture / intérieur)

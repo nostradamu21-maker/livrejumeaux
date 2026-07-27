@@ -83,15 +83,28 @@ redéploiement Vercel, les personnages sont dans le configurateur.
 
 ---
 
-## 4. Commande Gelato (impression + expédition) — MANUEL pour l'instant
+## 4. Commande Gelato (impression + expédition) — AUTOMATISÉE (`expedier.py`)
 
-Après le PDF (`livres/<id>/impression-*.pdf`) :
-1. Dashboard Gelato → créer une commande (produit photobook 200×200).
-2. Coller l'**adresse du client** (dans l'e-mail de commande / Supabase) + son e-mail.
-3. Uploader le PDF, valider (tu paies ~23 €, le client t'a déjà payé via Stripe).
+Prérequis UNE FOIS :
+1. Supabase → SQL Editor → relancer `site/supabase/schema.sql` (colonnes
+   `adresse`/`telephone`/`gelato_id`/`expedie_le` + bucket `impressions`).
+2. `.env` : ajouter `GELATO_PRODUCT_UID` (uid du photobook 200×200, couverture
+   rigide, 170 g soyeux, pelliculage mat). Pour le trouver :
+   `python gelato.py catalogue` → chercher dans `livres/gelato-catalogue.json`.
+3. `pip install pypdf`.
 
-Gelato imprime, expédie directement chez le client et lui envoie le suivi.
-*(L'automatisation de cette étape reste à faire — dis-moi quand tu veux.)*
+Ensuite, après le PDF (`livres/<id>/impression-*.pdf`) :
+```bash
+python expedier.py --liste        # état de chaque commande payée
+python expedier.py <ref>          # BROUILLON Gelato (rien ne s'imprime)
+#   → vérifier fichiers + adresse dans le dashboard Gelato, puis :
+python expedier.py <ref> --imprimer   # commande réelle (impression + débit ~23 €)
+```
+Le script scinde le PDF (couverture/intérieur), héberge les fichiers (liens
+signés 7 j), reprend l'**adresse client collectée par Stripe** et écrit le
+`gelato_id` dans Supabase. Gelato imprime, expédie chez le client et envoie le suivi.
+⚠️ Les commandes passées AVANT cette mise à jour n'ont pas d'adresse en base :
+pour elles, reprendre l'adresse dans l'e-mail interne (ou dashboard Stripe).
 
 ---
 
@@ -124,7 +137,9 @@ push, Vercel redéploie tout seul.
 | `livre.py <id>` | Moteur d'un livre (génération + tri + PDF) — appelé par les autres |
 | `combo.py` | Prépare le `livre.yaml` d'une paire d'archétypes — appelé par `commandes.py` |
 | `archetypes.py` | Génère les fiches de référence d'archétypes |
-| `gelato.py` | Client API Gelato (catalogue, cotes ; commande auto à venir) |
+| `expedier.py` | **Expédie une commande chez Gelato** (PDF scindé → brouillon → impression) |
+| `gelato.py` | Client API Gelato (catalogue, cotes, création de commande) — utilisé par `expedier.py` |
 
 **Règle simple :** commande normale → `commandes.py` · commande sur-mesure →
-`sur_mesure.py` · option −30 € → `promouvoir_archetype.py` · puis **Gelato à la main**.
+`sur_mesure.py` · option −30 € → `promouvoir_archetype.py` · puis
+**`expedier.py <ref>`** (brouillon) et **`expedier.py <ref> --imprimer`**.

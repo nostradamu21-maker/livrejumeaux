@@ -23,6 +23,17 @@ export interface CommandeRow {
   ref: string | null;      // id de session Stripe
   langue?: string;         // "fr" | "en" | "es" | "de" (langue du texte du livre)
   montant_centimes: number;
+  // Expédition Gelato (expedier.py) : adresse structurée collectée au paiement.
+  adresse?: {
+    name: string;
+    line1: string;
+    line2: string | null;
+    postCode: string;
+    city: string;
+    state: string | null;
+    country: string;
+  } | null;
+  telephone?: string | null;
 }
 
 /** Insère une commande. Renvoie true si écrite, false si Supabase absent. */

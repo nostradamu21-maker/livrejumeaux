@@ -33,6 +33,13 @@ create index if not exists commandes_combo_idx on public.commandes (combo_id);
 alter table public.commandes add column if not exists traitee_le timestamptz;
 alter table public.commandes add column if not exists langue text not null default 'fr';
 
+-- Expédition Gelato automatisée (expedier.py) : adresse structurée collectée
+-- au paiement Stripe, référence de la commande Gelato et date d'envoi.
+alter table public.commandes add column if not exists adresse jsonb;      -- {name,line1,line2,postCode,city,state,country}
+alter table public.commandes add column if not exists telephone text;
+alter table public.commandes add column if not exists gelato_id text;     -- id de commande Gelato (draft ou réelle)
+alter table public.commandes add column if not exists expedie_le timestamptz;
+
 -- Row Level Security : accès uniquement via la clé service_role (côté serveur).
 alter table public.commandes enable row level security;
 alter table public.combos enable row level security;
@@ -41,6 +48,12 @@ alter table public.combos enable row level security;
 -- génération du livre). Accès uniquement via la clé service_role.
 insert into storage.buckets (id, name, public)
 values ('sur-mesure', 'sur-mesure', false)
+on conflict (id) do nothing;
+
+-- Bucket PRIVÉ pour les PDF d'impression transmis à Gelato via liens signés
+-- (expedier.py). Nettoyable après expédition.
+insert into storage.buckets (id, name, public)
+values ('impressions', 'impressions', false)
 on conflict (id) do nothing;
 
 -- Suivi de l'édition sur mesure : photos du client, variantes de personnages

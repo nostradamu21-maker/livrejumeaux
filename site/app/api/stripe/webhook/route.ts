@@ -6,6 +6,7 @@ import {
   enregistrerCommande,
   lienPhotoSurMesure,
   creerSurMesure,
+  type CommandeRow,
 } from "@/lib/supabase";
 import { emailConfirmationClient, emailNotifInterne } from "@/lib/email";
 
@@ -23,6 +24,27 @@ function adresseLivraison(session: Stripe.Checkout.Session): string | null {
   return [s?.name, a.line1, a.line2, `${a.postal_code ?? ""} ${a.city ?? ""}`.trim(), a.country]
     .filter(Boolean)
     .join("\n");
+}
+
+/** Même adresse, structurée pour la commande d'impression Gelato (expedier.py). */
+function adresseStructuree(session: Stripe.Checkout.Session): CommandeRow["adresse"] {
+  const s =
+    (session as unknown as { shipping_details?: { name?: string; address?: Stripe.Address } })
+      .shipping_details ??
+    (session as unknown as {
+      collected_information?: { shipping_details?: { name?: string; address?: Stripe.Address } };
+    }).collected_information?.shipping_details;
+  const a = s?.address;
+  if (!a?.line1 || !a.city || !a.postal_code || !a.country) return null;
+  return {
+    name: s?.name ?? session.customer_details?.name ?? "",
+    line1: a.line1,
+    line2: a.line2 ?? null,
+    postCode: a.postal_code,
+    city: a.city,
+    state: a.state ?? null,
+    country: a.country,
+  };
 }
 
 // Le webhook doit lire le corps BRUT pour vérifier la signature Stripe.
@@ -60,6 +82,8 @@ export async function POST(req: Request) {
         ref: session.id,
         langue: m.langue || "fr",
         montant_centimes: session.amount_total ?? PRIX_CENTIMES + LIVRAISON_CENTIMES,
+        adresse: adresseStructuree(session),
+        telephone: session.customer_details?.phone ?? null,
       };
       await enregistrerCommande(infos);
       // Suivi sur-mesure : photos + choix de variantes par le client.
