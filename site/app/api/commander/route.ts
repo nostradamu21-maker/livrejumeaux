@@ -63,24 +63,33 @@ export async function POST(req: Request) {
 
   // --- Paiement réel via Stripe si configuré ---
   if (stripeActif && stripe) {
+   try {
     // Réduction montrée comme une ligne dédiée dans le récapitulatif Stripe.
-    const discounts = [];
+    // Si la création du coupon échoue, on applique la remise directement sur le
+    // prix (la vente passe quand même). Nom limité à 40 car. (contrainte Stripe).
+    let unitAmount = PRIX_CENTIMES;
+    const discounts: { coupon: string }[] = [];
     if (remise > 0) {
-      const coupon = await stripe.coupons.create({
-        amount_off: remise,
-        currency: DEVISE,
-        duration: "once",
-        name: `Code ${CODE_PROMO}`,
-      });
-      discounts.push({ coupon: coupon.id });
+      try {
+        const coupon = await stripe.coupons.create({
+          amount_off: remise,
+          currency: DEVISE,
+          duration: "once",
+          name: `Code ${CODE_PROMO}`.slice(0, 40),
+        });
+        discounts.push({ coupon: coupon.id });
+      } catch (e) {
+        console.error("Coupon (commander):", e);
+        unitAmount = PRIX_CENTIMES - remise;
+      }
     }
     // Produit Stripe du catalogue si configuré (suivi propre), sinon produit
     // à la volée avec les prénoms/personnages en description.
     const priceData = PRODUIT_LIVRE_ID
-      ? { currency: DEVISE, unit_amount: PRIX_CENTIMES, product: PRODUIT_LIVRE_ID }
+      ? { currency: DEVISE, unit_amount: unitAmount, product: PRODUIT_LIVRE_ID }
       : {
           currency: DEVISE,
-          unit_amount: PRIX_CENTIMES,
+          unit_amount: unitAmount,
           product_data: {
             name: PRODUIT_NOM,
             // Libellés clients uniquement (jamais les ids techniques des
@@ -110,6 +119,11 @@ export async function POST(req: Request) {
       metadata: { combo_id: cid, archetype1: a1, archetype2: a2, prenom1: p1, prenom2: p2, langue },
     });
     return NextResponse.json({ ok: true, url: session.url });
+   } catch (e) {
+     console.error("Stripe checkout (commander):", e);
+     const msg = e instanceof Error ? e.message : "Erreur Stripe";
+     return NextResponse.json({ ok: false, erreur: msg }, { status: 502 });
+   }
   }
 
   // --- Repli : paiement simulé (aucune clé Stripe) ---

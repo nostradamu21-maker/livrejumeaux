@@ -139,21 +139,30 @@ export async function POST(req: Request) {
   };
 
   if (stripeActif && stripe) {
-    const discounts = [];
+   try {
+    // Remise en ligne dédiée ; repli sur le prix si le coupon échoue. Nom du
+    // coupon limité à 40 car. (contrainte Stripe).
+    let unitAmount = PRIX_SUR_MESURE_CENTIMES;
+    const discounts: { coupon: string }[] = [];
     if (remise > 0) {
-      const coupon = await stripe.coupons.create({
-        amount_off: remise,
-        currency: DEVISE,
-        duration: "once",
-        name: `Remise (${partsRemise.join(" + ")})`,
-      });
-      discounts.push({ coupon: coupon.id });
+      try {
+        const coupon = await stripe.coupons.create({
+          amount_off: remise,
+          currency: DEVISE,
+          duration: "once",
+          name: `Remise (${partsRemise.join(" + ")})`.slice(0, 40),
+        });
+        discounts.push({ coupon: coupon.id });
+      } catch (e) {
+        console.error("Coupon (sur-mesure):", e);
+        unitAmount = PRIX_SUR_MESURE_CENTIMES - remise;
+      }
     }
     const priceData = PRODUIT_SUR_MESURE_ID
-      ? { currency: DEVISE, unit_amount: PRIX_SUR_MESURE_CENTIMES, product: PRODUIT_SUR_MESURE_ID }
+      ? { currency: DEVISE, unit_amount: unitAmount, product: PRODUIT_SUR_MESURE_ID }
       : {
           currency: DEVISE,
-          unit_amount: PRIX_SUR_MESURE_CENTIMES,
+          unit_amount: unitAmount,
           product_data: {
             name: "Deux comme nous, édition sur mesure",
             description: `${p1} & ${p2}, d'après vos photos`,
@@ -179,6 +188,11 @@ export async function POST(req: Request) {
       metadata,
     });
     return NextResponse.json({ ok: true, url: session.url });
+   } catch (e) {
+     console.error("Stripe checkout (sur-mesure):", e);
+     const msg = e instanceof Error ? e.message : "Erreur Stripe";
+     return NextResponse.json({ ok: false, erreur: msg }, { status: 502 });
+   }
   }
 
   // --- Repli : paiement simulé (aucune clé Stripe) ---
