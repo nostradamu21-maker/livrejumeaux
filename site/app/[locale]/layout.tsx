@@ -33,7 +33,14 @@ export async function generateMetadata({
       siteName: NOM_SITE,
       locale: { fr: "fr_FR", en: "en_US", es: "es_ES", de: "de_DE" }[l],
       type: "website",
-      images: [{ url: "/apercus/test-filles/couverture.jpg" }],
+      images: [
+        {
+          url: "/apercus/test-filles/couverture.jpg",
+          width: 1600,
+          height: 859,
+          alt: d.meta.ogTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
