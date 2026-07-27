@@ -178,6 +178,9 @@ export async function POST(req: Request) {
       line_items: [{ quantity: 1, price_data: priceData }],
       customer_email: email || undefined,
       shipping_address_collection: { allowed_countries: [...PAYS_LIVRAISON] },
+      // Téléphone requis (Gelato le veut pour la livraison) : collecté aussi
+      // via Apple Pay / Link, remonte dans customer_details.phone au webhook.
+      phone_number_collection: { enabled: true },
       shipping_options: [
         {
           shipping_rate_data: {
