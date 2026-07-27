@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import { LOCALES, estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import { URL_SITE, NOM_SITE } from "@/lib/seo";
 import "../globals.css";
@@ -74,7 +75,10 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body id="top">{children}</body>
+      <body id="top">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
