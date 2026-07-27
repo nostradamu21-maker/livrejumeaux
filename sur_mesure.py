@@ -37,9 +37,9 @@ BUCKET = "sur-mesure"
 
 # Signe distinctif du 2ᵉ jumeau (monozygotes) — aligné sur site/lib/accessoires.ts.
 ACCESSOIRES = {
-    "doudou-lapin": "tient un doudou lapin tout doux dans les bras",
-    "doudou-ours": "tient un doudou ours tout doux dans les bras",
-    "doudou-chat": "tient un doudou chat tout doux dans les bras",
+    "doudou-lapin": "tient un doudou lapin tout doux serré dans une main, bien visible",
+    "doudou-ours": "tient un doudou ours tout doux serré dans une main, bien visible",
+    "doudou-chat": "tient un doudou chat tout doux serré dans une main, bien visible",
     "lunettes": "porte de petites lunettes rondes",
     "casquette": "porte une petite casquette",
     "foulard": "porte un foulard léger noué au cou",

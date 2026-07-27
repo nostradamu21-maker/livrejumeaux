@@ -7,7 +7,11 @@ jumeaux: 'Les DEUX enfants sont le même personnage de référence (jumeaux iden
 
   '
 contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
-  Pas de texte ni de logo dans l''image. Mains bien formées.
+  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque enfant a exactement
+  DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
+  accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
+  devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène
+  décrit les deux jumeaux, les DEUX enfants sont visibles en entier dans l''image.
 
   '
 pages:
@@ -256,9 +260,10 @@ pages:
       « On joue ensemble ? — Oh oui ! »'
   '24':
     tenue: pyjamas assortis doux (exception du soir)
-    scene: 'Dans une salle de bain douce et chaleureuse, les deux jumeaux en pyjama se brossent
-      les dents côte à côte devant le lavabo, l''un debout sur un petit marchepied, se souriant
-      dans le miroir.
+    scene: 'Dans une salle de bain douce et chaleureuse, les DEUX jumeaux (deux enfants
+      distincts, tous les deux entièrement visibles côte à côte) en pyjama se brossent les
+      dents devant le lavabo, chacun sa brosse à dents, l''un debout sur un petit marchepied.
+      Bien montrer DEUX enfants dans la pièce.
 
       '
     texte: 'Le soir, c''est deux pyjamas, deux bisous, deux doudous.

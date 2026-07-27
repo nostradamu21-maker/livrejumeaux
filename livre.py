@@ -640,12 +640,23 @@ def main() -> None:
     ap.add_argument("--tri-web", action="store_true",
                     help="tri depuis le téléphone via le site (tri_web.py) au lieu "
                          "du navigateur local — mode worker/VPS")
+    ap.add_argument("--refaire",
+                    help='pages à regénérer même déjà triées, ex. "10,21,24,27" '
+                         "(ou couv, ref-2) : variantes supprimées + sélection annulée")
     args = ap.parse_args()
 
     livre, scenes, dossier = charger(args.livre)
     # Langue du texte : priorité au flag, sinon champ du livre.yaml, sinon fr.
     langue = (args.langue or livre.get("langue") or "fr").lower()
     appliquer_langue(scenes, langue)
+
+    if args.refaire:
+        # Annule des pages déjà triées (ratées) : elles repartent en génération.
+        for num in [n.strip() for n in args.refaire.split(",") if n.strip()]:
+            shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
+            livre["selections"].pop(num, None)
+            print(f"  {num} : à regénérer")
+        sauver(livre, dossier)
 
     if args.prenoms:
         p1, p2 = [s.strip() for s in args.prenoms.split(",")]

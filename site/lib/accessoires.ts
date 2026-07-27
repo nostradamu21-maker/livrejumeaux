@@ -16,19 +16,19 @@ export const ACCESSOIRES: Accessoire[] = [
     id: "doudou-lapin",
     label: "Doudou lapin",
     emoji: "🐰",
-    distinctif: "le second tient un doudou lapin tout doux dans les bras",
+    distinctif: "le second tient un doudou lapin tout doux serré dans une main, bien visible",
   },
   {
     id: "doudou-ours",
     label: "Doudou ours",
     emoji: "🧸",
-    distinctif: "le second tient un doudou ours tout doux dans les bras",
+    distinctif: "le second tient un doudou ours tout doux serré dans une main, bien visible",
   },
   {
     id: "doudou-chat",
     label: "Doudou chat",
     emoji: "🐱",
-    distinctif: "le second tient un doudou chat tout doux dans les bras",
+    distinctif: "le second tient un doudou chat tout doux serré dans une main, bien visible",
   },
   {
     id: "lunettes",
