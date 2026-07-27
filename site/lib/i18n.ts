@@ -212,7 +212,7 @@ const FR: Dict = {
     ctaFeuilleter: "Feuilleter un exemple",
     points: [
       "Deux héros à leur image",
-      "Relié 20×20 cm, vérifié à la main",
+      "Relié 20×20 cm, 30 pages, dès 3 ans",
       "Par les créateurs de Jumelio & Gemellite.com",
     ],
     alt: "Livre personnalisé pour jumelles : couverture avec les deux enfants, cadeau pour jumeaux et jumelles",
@@ -338,7 +338,7 @@ const FR: Dict = {
     titre: "Vos questions",
     items: [
       { q: "Quel cadeau offrir à des jumeaux ou à des parents de jumeaux ?", r: "Un cadeau que les parents de jumeaux n'ont jamais reçu deux fois : un livre personnalisé où leurs deux enfants sont les héros de la même histoire. Contrairement aux cadeaux de naissance classiques (achetés en double), « Deux comme nous » célèbre ce que ces enfants ont d'unique : être deux. Il suffit de connaître leurs prénoms pour l'offrir, à la naissance, à un anniversaire ou à Noël." },
-      { q: "Pour quel âge est-ce adapté ?", r: "De la naissance à 6 ans environ. Offert à la naissance, c'est un souvenir qui grandit avec eux ; vers 2-3 ans, c'est l'histoire du soir qu'ils réclament : celle où les héros portent leurs prénoms." },
+      { q: "Pour quel âge est-ce adapté ?", r: "Idéal de 3 à 6 ans : l'âge où ils adorent l'histoire du soir et reconnaissent fièrement leurs prénoms. C'est aussi un très beau cadeau de naissance, un souvenir qui les attend et grandit avec eux." },
       { q: "Ça marche pour un garçon et une fille ?", r: "Oui ! Toutes les combinaisons sont possibles : deux garçons, deux filles (un cadeau de jumelles très demandé), ou un garçon et une fille. Le texte est écrit pour fonctionner naturellement dans tous les cas." },
       { q: "Nos jumeaux sont identiques… comment les distinguer dans le livre ?", r: "C'est prévu : si vous choisissez le même personnage pour les deux, vous sélectionnez un petit détail (doudou, lunettes, casquette, foulard) que porte le second sur toutes les pages. Chacun se reconnaît au premier coup d'œil." },
       { q: "Quels sont les délais et frais de livraison ?", r: "Chaque livre est imprimé à la demande puis expédié directement chez vous en livraison suivie (4,99 €). Comptez environ une semaine en tout. Si votre combinaison de personnages est créée pour la première fois, nous ajoutons 1 à 2 jours pour vérifier chaque illustration à la main." },
@@ -407,7 +407,7 @@ const EN: Dict = {
     lead: "The personalized book made for twins: their names, their looks, their bond. Together on every page, from the first hug to the last goodnight kiss.",
     ctaCreer: "Create their book",
     ctaFeuilleter: "Browse a sample",
-    points: ["Two heroes in their likeness", "8×8\" hardcover, checked by hand", "By the creators of Jumelio & Gemellite.com"],
+    points: ["Two heroes in their likeness", "8×8\" hardcover, 30 pages, from age 3", "By the creators of Jumelio & Gemellite.com"],
     alt: "Personalized book for twin girls: cover with both children, a gift for twins",
   },
   flip: {
@@ -530,7 +530,7 @@ const EN: Dict = {
     items: [
       { q: "Which language is the book printed in?", r: "The one you are reading: choose English and your children's book is printed in English. The website and the book are also available in French, Spanish and German — just switch language at the top of the page." },
       { q: "What gift should I give to twins or twin parents?", r: "A gift twin parents have never received twice: a personalized book where both children are the heroes of the same story. Unlike classic baby gifts (bought in duplicate), \"Deux comme nous\" celebrates what makes these children unique: being two. All you need is their names, for a birth, a birthday or Christmas." },
-      { q: "What age is it suitable for?", r: "From birth to about 6 years old. Given at birth, it's a keepsake that grows with them; around 2-3, it becomes the bedtime story they ask for: the one where the heroes bear their names." },
+      { q: "What age is it suitable for?", r: "Best from 3 to 6 years: the age when they love the bedtime story and proudly recognise their own names. It also makes a lovely new-baby gift, a keepsake that waits for them and grows with them." },
       { q: "Does it work for a boy and a girl?", r: "Yes! All combinations are possible: two boys, two girls, or a boy and a girl. The text is written to work naturally in every case." },
       { q: "Our twins are identical… how do we tell them apart in the book?", r: "It's built in: if you choose the same character for both, you pick a small detail (plush toy, glasses, cap, scarf) worn by the second twin on every page. Each child recognizes themselves at a glance." },
       { q: "What about delivery times and costs?", r: "Each book is printed on demand then shipped to your door with tracked delivery (€4.99). Allow about a week in total. If your character combination is created for the first time, we add 1-2 days to check every illustration by hand." },
@@ -616,7 +616,7 @@ const ES: Dict = {
     lead: "El libro personalizado pensado para gemelos: sus nombres, su aspecto, su complicidad. Juntos en cada página, del primer abrazo al último beso de buenas noches.",
     ctaCreer: "Crear su libro",
     ctaFeuilleter: "Hojear un ejemplo",
-    points: ["Dos héroes a su imagen", "Tapa dura 20×20 cm, revisado a mano", "Por los creadores de Jumelio & Gemellite.com"],
+    points: ["Dos héroes a su imagen", "Tapa dura 20×20 cm, 30 páginas, desde 3 años", "Por los creadores de Jumelio & Gemellite.com"],
     alt: "Libro personalizado para gemelas: portada con los dos niños, regalo para gemelos",
   },
   flip: {
@@ -739,7 +739,7 @@ const ES: Dict = {
     items: [
       { q: "¿En qué idioma está impreso el libro?", r: "En el que estás leyendo: elige español y el libro de tus hijos se imprime en español. La web y el libro también están disponibles en francés, inglés y alemán — solo tienes que cambiar de idioma arriba en la página." },
       { q: "¿Qué regalar a unos gemelos o a padres de gemelos?", r: "Un regalo que los padres de gemelos nunca han recibido dos veces: un libro personalizado donde sus dos hijos son los héroes de la misma historia. A diferencia de los regalos clásicos (comprados por duplicado), «Deux comme nous» celebra lo que hace únicos a estos niños: ser dos. Solo necesitas sus nombres, para un nacimiento, un cumpleaños o Navidad." },
-      { q: "¿Para qué edad es adecuado?", r: "Desde el nacimiento hasta los 6 años aproximadamente. Regalado al nacer, es un recuerdo que crece con ellos; hacia los 2-3 años, es el cuento de buenas noches que piden: aquel donde los héroes llevan sus nombres." },
+      { q: "¿Para qué edad es adecuado?", r: "Ideal de 3 a 6 años: la edad en que adoran el cuento de buenas noches y reconocen con orgullo sus nombres. También es un precioso regalo de nacimiento, un recuerdo que los espera y crece con ellos." },
       { q: "¿Funciona para un niño y una niña?", r: "¡Sí! Todas las combinaciones son posibles: dos niños, dos niñas o un niño y una niña. El texto está escrito para funcionar con naturalidad en todos los casos." },
       { q: "Nuestros gemelos son idénticos… ¿cómo distinguirlos en el libro?", r: "Está previsto: si eliges el mismo personaje para los dos, seleccionas un pequeño detalle (peluche, gafas, gorra, pañuelo) que lleva el segundo en todas las páginas. Cada uno se reconoce al primer vistazo." },
       { q: "¿Plazos y gastos de envío?", r: "Cada libro se imprime bajo demanda y se envía a casa con seguimiento (4,99 €). Cuenta con una semana aproximadamente. Si tu combinación de personajes se crea por primera vez, añadimos 1-2 días para revisar cada ilustración a mano." },
@@ -825,7 +825,7 @@ const DE: Dict = {
     lead: "Das personalisierte Buch für Zwillinge: ihre Namen, ihr Aussehen, ihre Verbundenheit. Gemeinsam auf jeder Seite, von der ersten Umarmung bis zum letzten Gutenachtkuss.",
     ctaCreer: "Ihr Buch gestalten",
     ctaFeuilleter: "Beispiel durchblättern",
-    points: ["Zwei Helden nach ihrem Vorbild", "Hardcover 20×20 cm, von Hand geprüft", "Von den Machern von Jumelio & Gemellite.com"],
+    points: ["Zwei Helden nach ihrem Vorbild", "Hardcover 20×20 cm, 30 Seiten, ab 3 Jahren", "Von den Machern von Jumelio & Gemellite.com"],
     alt: "Personalisiertes Buch für Zwillingsmädchen: Cover mit beiden Kindern, ein Geschenk für Zwillinge",
   },
   flip: {
@@ -948,7 +948,7 @@ const DE: Dict = {
     items: [
       { q: "In welcher Sprache wird das Buch gedruckt?", r: "In der, die Sie gerade lesen: Wählen Sie Deutsch und das Buch Ihrer Kinder wird auf Deutsch gedruckt. Website und Buch gibt es auch auf Französisch, Englisch und Spanisch — einfach oben auf der Seite die Sprache wechseln." },
       { q: "Was schenkt man Zwillingen oder Zwillingseltern?", r: "Ein Geschenk, das Zwillingseltern noch nie doppelt bekommen haben: ein personalisiertes Buch, in dem beide Kinder die Helden derselben Geschichte sind. Anders als klassische Geschenke (doppelt gekauft) feiert „Deux comme nous“ das, was diese Kinder einzigartig macht: zu zweit zu sein. Sie brauchen nur die Namen, zur Geburt, zum Geburtstag oder zu Weihnachten." },
-      { q: "Für welches Alter ist es geeignet?", r: "Von der Geburt bis etwa 6 Jahre. Zur Geburt geschenkt, ist es ein Andenken, das mitwächst; mit 2-3 Jahren wird es die Gutenachtgeschichte, die sie sich wünschen: die, in der die Helden ihre Namen tragen." },
+      { q: "Für welches Alter ist es geeignet?", r: "Ideal von 3 bis 6 Jahren: das Alter, in dem sie die Gutenachtgeschichte lieben und stolz ihre eigenen Namen erkennen. Es ist auch ein wunderschönes Geschenk zur Geburt, ein Andenken, das auf sie wartet und mitwächst." },
       { q: "Funktioniert es für einen Jungen und ein Mädchen?", r: "Ja! Alle Kombinationen sind möglich: zwei Jungen, zwei Mädchen oder Junge und Mädchen. Der Text ist so geschrieben, dass er in jedem Fall natürlich funktioniert." },
       { q: "Unsere Zwillinge sind eineiig… wie unterscheidet man sie im Buch?", r: "Dafür ist gesorgt: Wenn Sie für beide dieselbe Figur wählen, bestimmen Sie ein kleines Detail (Kuscheltier, Brille, Mütze, Halstuch), das das zweite Kind auf allen Seiten trägt. Jedes Kind erkennt sich auf den ersten Blick." },
       { q: "Wie sind Lieferzeiten und -kosten?", r: "Jedes Buch wird auf Bestellung gedruckt und versichert nach Hause geliefert (4,99 €). Rechnen Sie mit etwa einer Woche insgesamt. Wird Ihre Figurenkombination zum ersten Mal erstellt, kommen 1-2 Tage hinzu, um jede Illustration von Hand zu prüfen." },
