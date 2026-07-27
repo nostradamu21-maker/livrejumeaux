@@ -101,6 +101,9 @@ pages:
     texte: '{prenom2} malt {prenom1}. {prenom1} malt {prenom2}.
 
       Zwei Porträts, zwei Künstler!'
+    texte_feminin: '{prenom2} malt {prenom1}. {prenom1} malt {prenom2}.
+
+      Zwei Porträts, zwei Künstlerinnen!'
   '21':
     texte: '{prenom1} klatscht in die Hände, {prenom2} dreht sich und springt.
 

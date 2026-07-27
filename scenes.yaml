@@ -60,6 +60,9 @@ pages:
     texte: 'Chut… {prenom2} dort encore un petit peu.
 
       Chacun se réveille à sa façon.'
+    texte_feminin: 'Chut… {prenom2} dort encore un petit peu.
+
+      Chacune se réveille à sa façon.'
   '06':
     scene: Dans une cuisine chaleureuse au petit matin, les deux jumeaux attablés côte à côte
       devant deux bols fumants et des tartines, l'un trempe sa tartine, l'autre lève son bol,
@@ -85,6 +88,11 @@ pages:
     texte_dizygote: 'On n''a pas le même sourire, ni les mêmes yeux…
 
       mais on a commencé la vie ensemble, tous les deux.
+
+      Ça, ça ne se voit pas : ça se sent.'
+    texte_dizygote_feminin: 'On n''a pas le même sourire, ni les mêmes yeux…
+
+      mais on a commencé la vie ensemble, toutes les deux.
 
       Ça, ça ne se voit pas : ça se sent.'
   08:
@@ -131,6 +139,9 @@ pages:
     texte: '{prenom1} court sans s''arrêter, {prenom2} lit sous l''arbre.
 
       Chacun son rythme !'
+    texte_feminin: '{prenom1} court sans s''arrêter, {prenom2} lit sous l''arbre.
+
+      Chacune son rythme !'
   '12':
     ancre: backgrounds/parc.png
     scene: 'Un jumeau allongé dans l''herbe regarde les nuages en rêvant, mains derrière la
@@ -149,6 +160,11 @@ pages:
       mains sur les yeux ; l''autre, complice avec le lecteur, se faufile derrière un buisson
       en souriant, un doigt sur la bouche.'
     texte: 'Un, deux, trois… caché !
+
+      {prenom1} compte, {prenom2} se faufile.
+
+      Le parc devient une cachette géante.'
+    texte_feminin: 'Un, deux, trois… cachée !
 
       {prenom1} compte, {prenom2} se faufile.
 
@@ -232,6 +248,9 @@ pages:
     texte: 'Des fois, chacun joue de son côté.
 
       C''est bien aussi, d''être un peu tranquille.'
+    texte_feminin: 'Des fois, chacune joue de son côté.
+
+      C''est bien aussi, d''être un peu tranquille.'
   '23':
     scene: 'Dans un jardin ensoleillé, les deux jumeaux courent joyeusement l''un vers l''autre
       bras ouverts, sur le point de se retrouver, herbe et fleurs autour.
@@ -250,6 +269,9 @@ pages:
     texte: 'Le soir, c''est deux pyjamas, deux bisous, deux doudous.
 
       Un pour chacun, et beaucoup d''amour pour deux.'
+    texte_feminin: 'Le soir, c''est deux pyjamas, deux bisous, deux doudous.
+
+      Un pour chacune, et beaucoup d''amour pour deux.'
   '25':
     ancre: backgrounds/chambre.png
     tenue: pyjamas assortis doux (exception du soir)
@@ -269,6 +291,9 @@ pages:
     texte: 'Bonne nuit {prenom1}. Bonne nuit {prenom2}.
 
       Les rêves arrivent… un pour chacun.'
+    texte_feminin: 'Bonne nuit {prenom1}. Bonne nuit {prenom2}.
+
+      Les rêves arrivent… un pour chacune.'
   '27':
     ancre: backgrounds/parc.png
     scene: 'Lumière dorée de fin de journée dans le parc : les deux jumeaux marchent bras
@@ -276,6 +301,9 @@ pages:
 
       '
     texte: 'Des ressemblances, des différences… ensemble, et chacun soi.
+
+      Deux comme nous, c''est deux fois plus d''amour !'
+    texte_feminin: 'Des ressemblances, des différences… ensemble, et chacune soi.
 
       Deux comme nous, c''est deux fois plus d''amour !'
   '28':

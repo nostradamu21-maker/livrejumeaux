@@ -7,13 +7,16 @@ sont toujours présentées comme une richesse, jamais comme un défaut.
 
 ## Règles d'écriture (à respecter dans toute adaptation)
 
-- **Texte épicène** : les phrases fonctionnent quel que soit le sexe de chaque jumeau
-  (archétypes garçon/fille librement combinés). Aucun adjectif accordé au masculin ou au
-  féminin ne doit se rapporter à `{prenom1}` ou `{prenom2}`. On écrit « en premier »
-  (invariable) et pas « le premier » ; « chacun joue de son côté » et pas « il joue tout seul » ;
-  « le chagrin est moins lourd » et pas « on est moins triste(s) ». Le mot « jumeaux » lui-même
-  n'apparaît jamais dans le texte des pages (il genrerait le duo) — seulement « deux », « à deux »,
-  « ensemble ».
+- **Texte épicène (base) + variante féminine** : le texte de base reste épicène et sert de
+  défaut pour « 2 garçons » et « mixte » (le masculin l'emporte). On continue d'écrire
+  « en premier » (invariable) et pas « le premier » ; « le chagrin est moins lourd » et pas
+  « on est moins triste(s) » ; le mot « jumeaux » n'apparaît jamais dans le texte des pages.
+  MAIS depuis juillet 2026, une paire de **DEUX FILLES** reçoit un jeu de variantes féminines
+  (clé `texte_feminin` dans `scenes.yaml`) sur les rares phrases où le féminin diffère —
+  « chacune » au lieu de « chacun », « toutes les deux », « cachée », « une pour chacune ».
+  Le choix est automatique (flag `sexe_paire` = `ff` → `champ_page()` prend `texte_feminin`).
+  Donc : quand tu ajoutes/édites une page, si une phrase contient un accord qui changerait au
+  féminin, ajoute aussi sa variante `texte_feminin` (et la traduction ES/DE si concernée).
 - **Variables** : `{prenom1}` et `{prenom2}` uniquement. Alterner qui mène l'action :
   ni l'un ni l'autre n'est « le héros » (comptage actuel : chacun mène ~la moitié des pages).
 - **Longueur** : 1 à 3 phrases courtes par page, vocabulaire de 4 ans, sons répétés,

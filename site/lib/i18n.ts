@@ -124,6 +124,11 @@ export interface Dict {
     premierEnfant: string;
     secondEnfant: string;
     photoNote: string;
+    sexeTitre: string; // pour accorder le texte du livre
+    sexeGarcon: string;
+    sexeFille: string;
+    sexeGarcons: string; // monozygotes : « deux garçons »
+    sexeFilles: string; // monozygotes : « deux filles »
     vousEtes: string;
     relParent: string;
     relGrandParent: string;
@@ -310,6 +315,9 @@ const FR: Dict = {
     premierEnfant: "votre premier enfant",
     secondEnfant: "votre second enfant",
     photoNote: "Visages bien visibles, JPEG ou PNG. Photos supprimées après création du livre.",
+    sexeTitre: "Pour accorder joliment le texte du livre :",
+    sexeGarcon: "Garçon", sexeFille: "Fille",
+    sexeGarcons: "Deux garçons", sexeFilles: "Deux filles",
     vousEtes: "Vous êtes :",
     relParent: "Parent des enfants", relGrandParent: "Grand-parent", relOncleTante: "Oncle / tante",
     relParrain: "Parrain / marraine", relProche: "Autre proche de la famille",
@@ -498,6 +506,9 @@ const EN: Dict = {
     premierEnfant: "your first child",
     secondEnfant: "your second child",
     photoNote: "Faces clearly visible, JPEG or PNG. Photos deleted after the book is created.",
+    sexeTitre: "So the book's wording matches:",
+    sexeGarcon: "Boy", sexeFille: "Girl",
+    sexeGarcons: "Two boys", sexeFilles: "Two girls",
     vousEtes: "You are:",
     relParent: "The children's parent", relGrandParent: "Grandparent", relOncleTante: "Uncle / aunt",
     relParrain: "Godparent", relProche: "Another close relative",
@@ -704,6 +715,9 @@ const ES: Dict = {
     premierEnfant: "tu primer hijo",
     secondEnfant: "tu segundo hijo",
     photoNote: "Caras bien visibles, JPEG o PNG. Fotos eliminadas tras crear el libro.",
+    sexeTitre: "Para concordar bien el texto del libro:",
+    sexeGarcon: "Niño", sexeFille: "Niña",
+    sexeGarcons: "Dos niños", sexeFilles: "Dos niñas",
     vousEtes: "Eres:",
     relParent: "Padre/madre de los niños", relGrandParent: "Abuelo/a", relOncleTante: "Tío/tía",
     relParrain: "Padrino/madrina", relProche: "Otro familiar cercano",
@@ -910,6 +924,9 @@ const DE: Dict = {
     premierEnfant: "Ihrem ersten Kind",
     secondEnfant: "Ihrem zweiten Kind",
     photoNote: "Gesichter gut sichtbar, JPEG oder PNG. Fotos werden nach Erstellung des Buchs gelöscht.",
+    sexeTitre: "Damit der Buchtext passend formuliert ist:",
+    sexeGarcon: "Junge", sexeFille: "Mädchen",
+    sexeGarcons: "Zwei Jungen", sexeFilles: "Zwei Mädchen",
     vousEtes: "Sie sind:",
     relParent: "Elternteil der Kinder", relGrandParent: "Großelternteil", relOncleTante: "Onkel / Tante",
     relParrain: "Pate / Patin", relProche: "Andere nahestehende Person",

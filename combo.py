@@ -118,6 +118,18 @@ def predicat_distinctif(b: dict, accessoire_id: str | None) -> str:
     return d
 
 
+def sexe_paire(a: dict, b: dict) -> str:
+    """Sexe de la paire pour le choix des accords du texte (voir champ_page dans
+    livre.py) : "ff" = deux filles → texte féminin ; "mm" = deux garçons ;
+    "mixte" = un de chaque → texte de base (le masculin l'emporte)."""
+    g1, g2 = a.get("genre"), b.get("genre")
+    if g1 == "fille" and g2 == "fille":
+        return "ff"
+    if g1 == "garçon" and g2 == "garçon":
+        return "mm"
+    return "mixte"
+
+
 def description_paire(a: dict, b: dict, identique: bool,
                       predicat: str | None = None) -> str:
     if identique:
@@ -209,6 +221,7 @@ def construire(aid1: str, aid2: str, prenoms: list[str] | None, force: bool,
         "description": f"Combo — {libelle}",
         "archetypes": [a_id, b_id],
         "monozygote": identique,
+        "sexe_paire": sexe_paire(a, b),
         "personnages": personnages,
         "description_paire": description_paire(a, b, identique, predicat),
         "prenoms_defaut": prenoms,

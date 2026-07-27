@@ -103,13 +103,22 @@ def ancre_de(scenes: dict, livre: dict, dossier: Path, num: str):
 
 
 def champ_page(p: dict, livre: dict, cle: str) -> str:
-    """Retourne la variante `<cle>_dizygote` d'un champ de page si les jumeaux ne
-    sont PAS monozygotes et que la variante existe, sinon le champ standard.
-    (Livres existants sans flag → monozygotes par défaut, texte inchangé.)"""
-    if not livre.get("monozygote", True):
-        alt = p.get(f"{cle}_dizygote")
-        if alt:
-            return alt
+    """Retourne la variante la plus spécifique d'un champ de page selon deux axes :
+      - zygotie : suffixe `_dizygote` si les jumeaux ne sont PAS monozygotes
+        (flag `monozygote`, défaut True) ;
+      - sexe de la paire : suffixe `_feminin` si les deux enfants sont des filles,
+        `_masculin` si les deux sont des garçons (flag `sexe_paire` : "ff"/"mm"/"mixte").
+    En français comme en espagnol le masculin l'emporte : « 2 garçons » et « mixte »
+    reprennent donc le texte de base ; en pratique seules les variantes `_feminin`
+    existent. On essaie du plus spécifique au plus général et on retombe sur le champ
+    standard. (Livres sans flags → monozygotes, sexe non précisé → texte de base.)"""
+    zygo = "" if livre.get("monozygote", True) else "_dizygote"
+    sexe = str(livre.get("sexe_paire", "") or "").lower()
+    sx = "_feminin" if sexe == "ff" else ("_masculin" if sexe == "mm" else "")
+    for suff in (zygo + sx, zygo, sx, ""):
+        v = p.get(f"{cle}{suff}") if suff else p.get(cle)
+        if v:
+            return v
     return p[cle]
 
 
@@ -134,7 +143,9 @@ def appliquer_langue(scenes: dict, langue: str) -> None:
         cible = scenes["pages"].get(str(num))
         if not cible:
             continue
-        for cle in ("titre", "texte", "texte_dizygote"):
+        for cle in ("titre", "texte", "texte_dizygote",
+                    "texte_feminin", "texte_dizygote_feminin",
+                    "texte_masculin", "texte_dizygote_masculin"):
             if cle in champs:
                 cible[cle] = champs[cle]
 

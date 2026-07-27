@@ -70,6 +70,8 @@ export async function POST(req: Request) {
           accessoire: m.accessoire || null,
           relation: m.relation || null,
           consentement: m.consentement === "1",
+          sexe1: m.sexe1 || null,
+          sexe2: m.sexe2 || null,
           prenom1: m.prenom1 ?? "",
           prenom2: m.prenom2 ?? "",
           photos: [m.photo, m.photo2].filter(Boolean) as string[],

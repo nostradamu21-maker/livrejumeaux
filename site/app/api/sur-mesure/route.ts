@@ -46,6 +46,13 @@ export async function POST(req: Request) {
   const relBrut = String(form.get("relation") ?? "");
   const relation = RELATIONS.has(relBrut) ? relBrut : "parent";
   const consentement = form.get("consentement") === "1";
+  // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
+  // 2 garçons = masculin, mixte = épicène). Monozygotes : même sexe pour les deux.
+  const SEXES = new Set(["garcon", "fille"]);
+  const sx1 = String(form.get("sexe1") ?? "");
+  const sx2 = String(form.get("sexe2") ?? "");
+  const sexe1 = SEXES.has(sx1) ? sx1 : "";
+  const sexe2 = monozygote ? sexe1 : SEXES.has(sx2) ? sx2 : "";
   const LANGUES = new Set(["fr", "en", "es", "de"]);
   const langueBrut = String(form.get("langue") ?? "");
   const langue = LANGUES.has(langueBrut) ? langueBrut : "fr";
@@ -117,6 +124,8 @@ export async function POST(req: Request) {
     accessoire,
     relation,
     consentement: "1",
+    sexe1,
+    sexe2,
     langue,
     photo: chemins[0] ?? "",
     photo2: chemins[1] ?? "",

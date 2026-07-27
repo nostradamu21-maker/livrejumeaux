@@ -278,6 +278,13 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-zy { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .sm-zy small { font-weight: 600; font-size: 0.68rem; color: var(--encre-doux); }
 .sm-zy.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
+.sm-sexe { display: flex; flex-direction: column; gap: 0.4rem; width: 100%; }
+.sm-sexe-titre { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.8rem; color: var(--encre-doux); }
+.sm-sexe-enfant { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.sm-sexe-nom { font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--encre); }
+.sm-sexe-choix { display: flex; gap: 0.4rem; }
+.sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.sm-sx.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .sm-fichier { display: none; }
 .sm-relation { display: flex; align-items: center; gap: 0.6rem; width: 100%; font-size: 0.85rem; font-weight: 700; color: var(--encre-doux); }
 .sm-relation select { flex: 1; font-family: "Nunito", sans-serif; font-size: 0.92rem; padding: 0.55rem 0.7rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); }

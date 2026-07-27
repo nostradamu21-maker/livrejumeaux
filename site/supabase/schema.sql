@@ -52,6 +52,8 @@ create table if not exists public.sur_mesure (
   accessoire  text,                          -- signe distinctif du 2e (monozygotes)
   relation    text,                          -- lien du demandeur avec les enfants
   consentement boolean not null default false, -- majeur + autorisation photo certifiés
+  sexe1       text,                          -- 'garcon' | 'fille' → accords du texte
+  sexe2       text,                          -- monozygotes : identique à sexe1
   prenom1     text not null default '',
   prenom2     text not null default '',
   photos      jsonb not null default '[]',  -- chemins bucket
@@ -65,4 +67,6 @@ create table if not exists public.sur_mesure (
 alter table public.sur_mesure add column if not exists accessoire   text;
 alter table public.sur_mesure add column if not exists relation     text;
 alter table public.sur_mesure add column if not exists consentement boolean not null default false;
+alter table public.sur_mesure add column if not exists sexe1        text;
+alter table public.sur_mesure add column if not exists sexe2        text;
 alter table public.sur_mesure enable row level security;

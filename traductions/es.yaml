@@ -21,10 +21,16 @@ pages:
     texte: 'Chss… {prenom2} duerme todavía un poquito.
 
       Cada uno se despierta a su manera.'
+    texte_feminin: 'Chss… {prenom2} duerme todavía un poquito.
+
+      Cada una se despierta a su manera.'
   '06':
     texte: 'Dos tazones, dos tostadas… y un chocolate humeante.
 
       ¡Buen provecho, vosotros dos!'
+    texte_feminin: 'Dos tazones, dos tostadas… y un chocolate humeante.
+
+      ¡Buen provecho, vosotras dos!'
   '07':
     texte: 'Dos narices, dos sonrisas que se parecen…
 
@@ -34,6 +40,11 @@ pages:
     texte_dizygote: 'No tenemos la misma sonrisa, ni los mismos ojos…
 
       pero empezamos la vida juntos, los dos.
+
+      Eso no se ve: se siente.'
+    texte_dizygote_feminin: 'No tenemos la misma sonrisa, ni los mismos ojos…
+
+      pero empezamos la vida juntas, las dos.
 
       Eso no se ve: se siente.'
   08:
@@ -59,6 +70,9 @@ pages:
     texte: '{prenom1} corre sin parar, {prenom2} lee bajo el árbol.
 
       ¡Cada uno a su ritmo!'
+    texte_feminin: '{prenom1} corre sin parar, {prenom2} lee bajo el árbol.
+
+      ¡Cada una a su ritmo!'
   '12':
     texte: 'A {prenom2} le encantan los cuentos de dragones.
 
@@ -67,6 +81,11 @@ pages:
       ¡Y está muy bien así!'
   '13':
     texte: 'Uno, dos, tres… ¡escondido!
+
+      {prenom1} cuenta, {prenom2} se escabulle.
+
+      El parque se vuelve un escondite gigante.'
+    texte_feminin: 'Uno, dos, tres… ¡escondida!
 
       {prenom1} cuenta, {prenom2} se escabulle.
 
@@ -109,14 +128,23 @@ pages:
     texte: 'A veces, cada uno juega por su lado.
 
       También está bien estar un poco tranquilo.'
+    texte_feminin: 'A veces, cada una juega por su lado.
+
+      También está bien estar un poco tranquila.'
   '23':
     texte: 'Y después… ¡qué alegría reencontrarse!
 
       «¿Jugamos juntos? — ¡Oh, sí!»'
+    texte_feminin: 'Y después… ¡qué alegría reencontrarse!
+
+      «¿Jugamos juntas? — ¡Oh, sí!»'
   '24':
     texte: 'Por la noche: dos pijamas, dos besos, dos peluches.
 
       Uno para cada uno, y mucho amor para dos.'
+    texte_feminin: 'Por la noche: dos pijamas, dos besos, dos peluches.
+
+      Uno para cada una, y mucho amor para dos.'
   '25':
     texte: 'Un cuento para dos, bajo la misma manta.
 
@@ -125,14 +153,23 @@ pages:
     texte: 'Buenas noches {prenom1}. Buenas noches {prenom2}.
 
       Llegan los sueños… uno para cada uno.'
+    texte_feminin: 'Buenas noches {prenom1}. Buenas noches {prenom2}.
+
+      Llegan los sueños… uno para cada una.'
   '27':
     texte: 'Parecidos, diferencias… juntos, y cada uno uno mismo.
 
       ¡Dos como nosotros es el doble de amor!'
+    texte_feminin: 'Parecidas, diferencias… juntas, y cada una una misma.
+
+      ¡Dos como nosotras es el doble de amor!'
   '28':
     texte: 'Este libro es de {prenom1} y {prenom2}.
 
       ¡Dos como vosotros no hay otros!'
+    texte_feminin: 'Este libro es de {prenom1} y {prenom2}.
+
+      ¡Dos como vosotras no hay otras!'
   '29':
     titre: Unas palabras para vosotros, los padres
     texte: 'Este pequeño libro cuenta una gran aventura: la de ser dos.

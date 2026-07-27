@@ -105,6 +105,8 @@ export interface SurMesureRow {
   accessoire: string | null; // monozygotes : signe distinctif du 2e jumeau
   relation: string | null; // lien du demandeur avec les enfants
   consentement: boolean; // certifié majeur + autorisation photo (preuve)
+  sexe1: string | null; // "garcon" | "fille" → accords du texte imprimé
+  sexe2: string | null; // monozygotes : identique à sexe1
   prenom1: string;
   prenom2: string;
   photos: string[]; // chemins bucket (1 si monozygote, 2 sinon)

@@ -65,6 +65,9 @@ export default function SurMesure({ l }: { l: Locale }) {
   const [email, setEmail] = useState("");
   const [reutilisation, setReutilisation] = useState(false);
   const [monozygote, setMonozygote] = useState(true);
+  // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
+  // 2 garçons = masculin, mixte = épicène). Monozygotes : un seul choix.
+  const [sexes, setSexes] = useState<{ 1: string; 2: string }>({ 1: "", 2: "" });
   const [accessoire, setAccessoire] = useState<string>(ACCESSOIRE_DEFAUT);
   const [relation, setRelation] = useState("parent");
   const [consentement, setConsentement] = useState(false);
@@ -81,6 +84,8 @@ export default function SurMesure({ l }: { l: Locale }) {
     prenoms[2] &&
     photos[1] &&
     (monozygote || photos[2]) &&
+    sexes[1] &&
+    (monozygote || sexes[2]) &&
     consentement
   );
 
@@ -110,6 +115,8 @@ export default function SurMesure({ l }: { l: Locale }) {
       form.set("reutilisation", reutilisation ? "1" : "0");
       form.set("monozygote", monozygote ? "1" : "0");
       if (monozygote) form.set("accessoire", accessoire);
+      form.set("sexe1", sexes[1]);
+      form.set("sexe2", monozygote ? sexes[1] : sexes[2]);
       form.set("relation", relation);
       form.set("consentement", consentement ? "1" : "0");
       form.set("langue", l);
@@ -224,6 +231,55 @@ export default function SurMesure({ l }: { l: Locale }) {
               {d.sm.zyDiff}
               <small>{d.sm.zyDiffSub}</small>
             </button>
+          </div>
+          <div className="sm-sexe">
+            <span className="sm-sexe-titre">{d.sm.sexeTitre}</span>
+            {monozygote ? (
+              <div className="sm-sexe-choix">
+                <button
+                  type="button"
+                  className={`sm-sx${sexes[1] === "garcon" ? " actif" : ""}`}
+                  onClick={() => setSexes({ 1: "garcon", 2: "garcon" })}
+                  aria-pressed={sexes[1] === "garcon"}
+                >
+                  {d.sm.sexeGarcons}
+                </button>
+                <button
+                  type="button"
+                  className={`sm-sx${sexes[1] === "fille" ? " actif" : ""}`}
+                  onClick={() => setSexes({ 1: "fille", 2: "fille" })}
+                  aria-pressed={sexes[1] === "fille"}
+                >
+                  {d.sm.sexeFilles}
+                </button>
+              </div>
+            ) : (
+              ([1, 2] as const).map((n) => (
+                <div className="sm-sexe-enfant" key={n}>
+                  <span className="sm-sexe-nom">
+                    {prenoms[n] || (n === 1 ? d.sm.premierEnfant : d.sm.secondEnfant)}
+                  </span>
+                  <div className="sm-sexe-choix">
+                    <button
+                      type="button"
+                      className={`sm-sx${sexes[n] === "garcon" ? " actif" : ""}`}
+                      onClick={() => setSexes((s) => ({ ...s, [n]: "garcon" }))}
+                      aria-pressed={sexes[n] === "garcon"}
+                    >
+                      {d.sm.sexeGarcon}
+                    </button>
+                    <button
+                      type="button"
+                      className={`sm-sx${sexes[n] === "fille" ? " actif" : ""}`}
+                      onClick={() => setSexes((s) => ({ ...s, [n]: "fille" }))}
+                      aria-pressed={sexes[n] === "fille"}
+                    >
+                      {d.sm.sexeFille}
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
           {monozygote && (
             <div className="sm-distinctif">

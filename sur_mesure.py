@@ -97,6 +97,24 @@ def langue_commande(ref: str) -> str:
 
 # ------------------------------- Utilitaires -------------------------------
 
+_FILLES = {"fille", "f", "girl", "filles"}
+_GARCONS = {"garcon", "garçon", "g", "boy", "garcons", "garçons"}
+
+
+def sexe_paire(cmd: dict, mono: bool) -> str:
+    """Sexe de la paire pour les accords du texte (voir champ_page dans livre.py).
+    "ff" = deux filles → texte féminin ; "mm" = deux garçons ; "mixte" = un de
+    chaque (ou sexe non renseigné) → texte de base. Pour des monozygotes (une seule
+    photo, même sexe), le sexe du 2ᵉ enfant reprend celui du 1ᵉ."""
+    s1 = (cmd.get("sexe1") or "").strip().lower()
+    s2 = (cmd.get("sexe2") or (s1 if mono else "")).strip().lower()
+    if s1 in _FILLES and s2 in _FILLES:
+        return "ff"
+    if s1 in _GARCONS and s2 in _GARCONS:
+        return "mm"
+    return "mixte"
+
+
 def slug(txt: str) -> str:
     # Translittère les accents (Léo → leo, Éléa → elea) avant de nettoyer.
     base = unicodedata.normalize("NFKD", txt or "").encode("ascii", "ignore").decode()
@@ -148,6 +166,7 @@ def preparer(ref: str) -> str:
         "references": refs_rel,
         "prenoms_defaut": [p1, p2],
         "monozygote": mono,
+        "sexe_paire": sexe_paire(cmd, mono),
         "langue": langue,
         "description_paire": desc,
         "selections": {},
