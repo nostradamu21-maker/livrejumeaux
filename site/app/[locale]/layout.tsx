@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
+import FacebookPixel from "@/components/FacebookPixel";
 import { LOCALES, estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import { URL_SITE, NOM_SITE } from "@/lib/seo";
 import "../globals.css";
@@ -78,6 +79,7 @@ export default async function RootLayout({
       <body id="top">
         {children}
         <Analytics />
+        <FacebookPixel />
       </body>
     </html>
   );

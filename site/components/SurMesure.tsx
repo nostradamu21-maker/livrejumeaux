@@ -131,6 +131,7 @@ export default function SurMesure({ l }: { l: Locale }) {
       const data = await r.json();
       if (data.ok && data.url) {
         setStatut({ txt: d.config.stRedirection, cls: "ok" });
+        window.fbq?.("track", "InitiateCheckout");
         window.location.href = data.url;
         return;
       }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { stripe, stripeActif } from "@/lib/stripe";
 import { estLocale, t, type Locale } from "@/lib/i18n";
+import PurchaseEvent from "@/components/PurchaseEvent";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,9 @@ export default async function Succes({
   let titre = d.succes.merciTitre;
   let message = d.succes.merciMsg;
   let lienVariantes = "";
+  let paye = false;
+  let montant = 0;
+  let devise = "EUR";
 
   if (stripeActif && stripe && session_id) {
     try {
@@ -29,6 +33,9 @@ export default async function Succes({
         titre = d.succes.nonFinal;
         message = d.succes.nonFinalMsg;
       } else {
+        paye = true;
+        montant = (session.amount_total ?? 0) / 100;
+        devise = (session.currency ?? "eur").toUpperCase();
         const m = session.metadata ?? {};
         if (m.combo_id === "sur-mesure") {
           titre = d.succes.smTitre;
@@ -97,6 +104,9 @@ export default async function Succes({
           </Link>
         )}
       </div>
+      {paye && session_id && (
+        <PurchaseEvent value={montant} currency={devise} id={session_id} />
+      )}
     </main>
   );
 }
