@@ -11,6 +11,7 @@ import {
   PRODUIT_NOM,
   PAYS_LIVRAISON,
   remisePromo,
+  CODE_PROMO,
 } from "@/lib/stripe";
 import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
 
@@ -54,19 +55,33 @@ export async function POST(req: Request) {
 
   const cid = comboId(a1, a2, acc);
   const origin = new URL(req.url).origin;
-  // Code promo communauté (-10 €) ; garde-fou minimum Stripe (0,50 €).
-  const prix = Math.max(50, PRIX_CENTIMES - remisePromo(body.code));
+  // Code promo communauté : affiché comme une ligne « Réduction » au checkout
+  // (coupon Stripe). Plafonné pour garder au moins 0,50 € (minimum Stripe).
+  const remise = Math.min(remisePromo(body.code), PRIX_CENTIMES - 50);
+  const prix = PRIX_CENTIMES - remise; // pour le repli sans Stripe
 
   // --- Paiement réel via Stripe si configuré ---
   if (stripeActif && stripe) {
+    // Réduction montrée comme une ligne dédiée dans le récapitulatif Stripe.
+    const discounts = [];
+    if (remise > 0) {
+      const coupon = await stripe.coupons.create({
+        amount_off: remise,
+        currency: DEVISE,
+        duration: "once",
+        name: `Code ${CODE_PROMO}`,
+      });
+      discounts.push({ coupon: coupon.id });
+    }
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      discounts,
       line_items: [
         {
           quantity: 1,
           price_data: {
             currency: DEVISE,
-            unit_amount: prix,
+            unit_amount: PRIX_CENTIMES,
             product_data: {
               name: PRODUIT_NOM,
               // Libellés clients uniquement (jamais les ids techniques des

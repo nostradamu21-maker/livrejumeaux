@@ -371,7 +371,7 @@ export default function SurMesure({ l }: { l: Locale }) {
           <p className={`statut ${statut.cls}`}>{statut.txt}</p>
           <span className="sm-note">
             {d.sm.question}{" "}
-            <a href="mailto:contact@jumelio.com?subject=Deux%20comme%20nous">
+            <a href={l === "fr" ? "/contact" : `/${l}/contact`}>
               {d.sm.ecrivez}
             </a>
             , {d.sm.reponse}

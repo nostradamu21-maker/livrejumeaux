@@ -285,6 +285,11 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-sexe-choix { display: flex; gap: 0.4rem; }
 .sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
 .sm-sx.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
+.contact-page { max-width: 620px; }
+.contact-form { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.4rem; }
+.champ-message { width: 100%; font-family: "Nunito", sans-serif; font-size: 1rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.8rem 1rem; resize: vertical; min-height: 140px; }
+.champ-message:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); }
+.contact-form .btn { align-self: flex-start; }
 .champ-code { text-transform: uppercase; letter-spacing: 0.08em; }
 .champ-code::placeholder { text-transform: none; letter-spacing: normal; }
 .sm-fichier { display: none; }

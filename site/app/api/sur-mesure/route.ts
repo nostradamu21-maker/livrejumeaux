@@ -8,6 +8,7 @@ import {
   DEVISE,
   PAYS_LIVRAISON,
   remisePromo,
+  CODE_PROMO,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 import { accessoireExiste, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
@@ -109,12 +110,15 @@ export async function POST(req: Request) {
 
   // Minimum Stripe (0,50 €) : garde-fou contre un prix de test très bas
   // combiné à la remise réutilisation (éviterait un montant négatif).
-  const prix = Math.max(
-    50,
-    (reutilisation
-      ? PRIX_SUR_MESURE_CENTIMES - REDUC_REUTILISATION_CENTIMES
-      : PRIX_SUR_MESURE_CENTIMES) - remisePromo(codePromo),
-  );
+  // Réductions cumulables (réutilisation + code promo), montrées comme UNE
+  // ligne « Remise » au checkout (Stripe n'accepte qu'un coupon par session).
+  const reducReuse = reutilisation ? REDUC_REUTILISATION_CENTIMES : 0;
+  const reducPromo = remisePromo(codePromo);
+  const remise = Math.min(reducReuse + reducPromo, PRIX_SUR_MESURE_CENTIMES - 50);
+  const partsRemise: string[] = [];
+  if (reducReuse) partsRemise.push("réutilisation du personnage");
+  if (reducPromo) partsRemise.push(`code ${CODE_PROMO}`);
+  const prix = PRIX_SUR_MESURE_CENTIMES - remise; // pour le repli sans Stripe
   const origin = new URL(req.url).origin;
   const metadata = {
     combo_id: "sur-mesure",
@@ -134,19 +138,28 @@ export async function POST(req: Request) {
   };
 
   if (stripeActif && stripe) {
+    const discounts = [];
+    if (remise > 0) {
+      const coupon = await stripe.coupons.create({
+        amount_off: remise,
+        currency: DEVISE,
+        duration: "once",
+        name: `Remise (${partsRemise.join(" + ")})`,
+      });
+      discounts.push({ coupon: coupon.id });
+    }
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      discounts,
       line_items: [
         {
           quantity: 1,
           price_data: {
             currency: DEVISE,
-            unit_amount: prix,
+            unit_amount: PRIX_SUR_MESURE_CENTIMES,
             product_data: {
               name: "Deux comme nous, édition sur mesure",
-              description: reutilisation
-                ? `${p1} & ${p2}, d'après vos photos (option réutilisation −10 €)`
-                : `${p1} & ${p2}, d'après vos photos`,
+              description: `${p1} & ${p2}, d'après vos photos`,
             },
           },
         },

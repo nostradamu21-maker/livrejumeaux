@@ -35,24 +35,40 @@ export interface InfosCommande {
   langue?: string; // langue du texte du livre à produire
 }
 
-async function envoyer(to: string, subject: string, html: string): Promise<boolean> {
+async function envoyer(
+  to: string,
+  subject: string,
+  html: string,
+  replyTo?: string,
+): Promise<boolean> {
   if (!emailActif) {
     console.log(`[email désactivé] à=${to} sujet=${subject}`);
     return false;
   }
+  const payload: Record<string, unknown> = { from: FROM, to: [to], subject, html };
+  if (replyTo) payload.reply_to = replyTo;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from: FROM, to: [to], subject, html }),
+    body: JSON.stringify(payload),
   });
   if (!r.ok) {
     console.error("Resend:", r.status, await r.text().catch(() => ""));
     return false;
   }
   return true;
+}
+
+/** Échappe le texte utilisateur avant insertion dans le HTML de l'email. */
+function echap(s: string): string {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 const euros = (c: number) =>
@@ -151,4 +167,26 @@ export async function emailChoixVariantes(c: {
     `🎨 Variantes choisies : ${c.prenom1} & ${c.prenom2}`,
     gabarit(contenu),
   );
+}
+
+/** Message envoyé depuis le formulaire de contact du site. Destinataire : l'adresse
+ *  interne (EMAIL_NOTIF) ou contact@jumelio.com par défaut ; reply-to = le visiteur,
+ *  pour répondre directement. Renvoie false si Resend n'est pas configuré. */
+export async function emailContact(msg: {
+  nom: string;
+  email: string;
+  message: string;
+  langue?: string;
+}): Promise<boolean> {
+  const dest = NOTIF || "contact@jumelio.com";
+  const contenu = `
+    <p style="margin:0 0 14px;"><strong>Nouveau message via le formulaire de contact ✉️</strong></p>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <tr><td style="padding:4px 0;color:#6f5d51;">Nom</td><td style="text-align:right;">${echap(msg.nom)}</td></tr>
+      <tr><td style="padding:4px 0;color:#6f5d51;">E-mail</td><td style="text-align:right;">${echap(msg.email)}</td></tr>
+      ${msg.langue ? `<tr><td style="padding:4px 0;color:#6f5d51;">Langue</td><td style="text-align:right;">${echap(msg.langue).toUpperCase()}</td></tr>` : ""}
+    </table>
+    <p style="margin:14px 0 6px;color:#6f5d51;">Message :</p>
+    <pre style="margin:0;background:#fbf5ec;border-radius:10px;padding:12px;font-size:14px;white-space:pre-wrap;font-family:Verdana,Arial,sans-serif;">${echap(msg.message)}</pre>`;
+  return envoyer(dest, `✉️ Contact — ${msg.nom}`, gabarit(contenu), msg.email);
 }

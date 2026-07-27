@@ -16,7 +16,8 @@ export default function Footer({ l }: { l: Locale }) {
       <p className="pied-seo">{d.footer.seo}</p>
       <p className="pied-fin">{d.footer.fin}</p>
       <nav className="pied-legal">
-        {/* Pages légales servies en français (langue du contrat). */}
+        {/* Contact localisé ; pages légales servies en français (langue du contrat). */}
+        <Link href={l === "fr" ? "/contact" : `/${l}/contact`}>{d.contact.lien}</Link>
         <Link href="/mentions-legales">{d.footer.mentions}</Link>
         <Link href="/cgv">{d.footer.cgv}</Link>
         <Link href="/confidentialite">{d.footer.conf}</Link>

@@ -151,6 +151,20 @@ export interface Dict {
     cta: string;
   };
   faq: { titre: string; items: QA[] };
+  contact: {
+    titre: string;
+    intro: string;
+    phNom: string;
+    phEmail: string;
+    phMessage: string;
+    envoyer: string;
+    envoi: string;
+    ok: string;
+    erreur: string;
+    requis: string;
+    retour: string;
+    lien: string; // libellé du lien « Contact » (nav/footer)
+  };
   footer: { tagline: string; seo: string; fin: string; mentions: string; cgv: string; conf: string };
   barre: { note: string; cta: string };
   succes: {
@@ -346,6 +360,20 @@ const FR: Dict = {
       { q: "Et si aucun personnage ne leur ressemble ?", r: "Nous proposons une édition sur mesure : envoyez-nous une photo et nous dessinons leurs personnages à leur image. Votre photo est supprimée dès le livre créé." },
     ],
   },
+  contact: {
+    titre: "Écrivez-nous",
+    intro: "Une question sur le livre, une commande ou le sur-mesure ? On vous répond sous 48 h.",
+    phNom: "Votre nom",
+    phEmail: "Votre e-mail",
+    phMessage: "Votre message",
+    envoyer: "Envoyer le message",
+    envoi: "Envoi…",
+    ok: "Merci ! Votre message est bien parti, on vous répond très vite.",
+    erreur: "L'envoi a échoué. Réessayez ou écrivez à contact@jumelio.com.",
+    requis: "Merci d'indiquer votre e-mail et votre message.",
+    retour: "← Retour à la boutique",
+    lien: "Contact",
+  },
   footer: {
     tagline: "Le livre personnalisé des jumeaux et des jumelles : deux héros, une histoire.",
     seo: "« Deux comme nous » est le cadeau pour jumeaux et jumelles imaginé par des parents de jumeaux : un livre personnalisé avec leurs prénoms, à offrir à la naissance, pour un anniversaire ou à Noël. Une idée cadeau originale pour des jumeaux, expédiée en France, en Belgique, en Suisse et au-delà.",
@@ -537,6 +565,20 @@ const EN: Dict = {
       { q: "What is the quality of the book?", r: "A real hardbound book: square 8×8\" (20×20 cm) format, hardcover with matte lamination, thick 170 gsm silk paper, 30 pages. Made to be read, re-read, chewed on and passed down." },
       { q: "What if no character looks like them?", r: "We offer a custom edition: send us a photo and we draw their characters in their likeness. Your photo is deleted as soon as the book is created." },
     ],
+  },
+  contact: {
+    titre: "Write to us",
+    intro: "A question about the book, an order or the custom edition? We reply within 48 h.",
+    phNom: "Your name",
+    phEmail: "Your email",
+    phMessage: "Your message",
+    envoyer: "Send message",
+    envoi: "Sending…",
+    ok: "Thank you! Your message is on its way, we'll reply very soon.",
+    erreur: "Sending failed. Please try again or email contact@jumelio.com.",
+    requis: "Please enter your email and your message.",
+    retour: "← Back to the shop",
+    lien: "Contact",
   },
   footer: {
     tagline: "The personalized book for twins: two heroes, one story.",
@@ -747,6 +789,20 @@ const ES: Dict = {
       { q: "¿Y si ningún personaje se les parece?", r: "Ofrecemos una edición a medida: envíanos una foto y dibujamos sus personajes a su imagen. Tu foto se elimina en cuanto se crea el libro." },
     ],
   },
+  contact: {
+    titre: "Escríbenos",
+    intro: "¿Una pregunta sobre el libro, un pedido o la edición personalizada? Respondemos en 48 h.",
+    phNom: "Tu nombre",
+    phEmail: "Tu correo",
+    phMessage: "Tu mensaje",
+    envoyer: "Enviar mensaje",
+    envoi: "Enviando…",
+    ok: "¡Gracias! Tu mensaje está en camino, te respondemos muy pronto.",
+    erreur: "El envío falló. Inténtalo de nuevo o escribe a contact@jumelio.com.",
+    requis: "Por favor indica tu correo y tu mensaje.",
+    retour: "← Volver a la tienda",
+    lien: "Contacto",
+  },
   footer: {
     tagline: "El libro personalizado de los gemelos y mellizos: dos héroes, una historia.",
     seo: "«Deux comme nous» es el regalo para gemelos y mellizos imaginado por padres de gemelos: un libro personalizado con sus nombres, para regalar en un nacimiento, un cumpleaños o en Navidad. Una idea de regalo original para gemelos, con envío a España y toda Europa.",
@@ -955,6 +1011,20 @@ const DE: Dict = {
       { q: "Welche Qualität hat das Buch?", r: "Ein echtes gebundenes Buch: quadratisches Format 20×20 cm, Hardcover mit matter Laminierung, dickes 170-g-Seidenpapier, 30 Seiten. Gemacht, um gelesen, wiedergelesen, angeknabbert und weitergegeben zu werden." },
       { q: "Und wenn keine Figur ihnen ähnelt?", r: "Wir bieten eine Maßanfertigung: Schicken Sie uns ein Foto und wir zeichnen die Figuren nach ihrem Vorbild. Ihr Foto wird gelöscht, sobald das Buch erstellt ist." },
     ],
+  },
+  contact: {
+    titre: "Schreiben Sie uns",
+    intro: "Eine Frage zum Buch, zu einer Bestellung oder zur Sonderausgabe? Wir antworten innerhalb von 48 Std.",
+    phNom: "Ihr Name",
+    phEmail: "Ihre E-Mail",
+    phMessage: "Ihre Nachricht",
+    envoyer: "Nachricht senden",
+    envoi: "Senden…",
+    ok: "Danke! Ihre Nachricht ist unterwegs, wir antworten sehr bald.",
+    erreur: "Senden fehlgeschlagen. Bitte erneut versuchen oder an contact@jumelio.com schreiben.",
+    requis: "Bitte geben Sie Ihre E-Mail und Ihre Nachricht ein.",
+    retour: "← Zurück zum Shop",
+    lien: "Kontakt",
   },
   footer: {
     tagline: "Das personalisierte Buch für Zwillinge: zwei Helden, eine Geschichte.",
