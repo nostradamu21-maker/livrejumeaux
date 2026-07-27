@@ -80,12 +80,7 @@ pages:
 
       ¡Y está muy bien así!'
   '13':
-    texte: 'Uno, dos, tres… ¡escondido!
-
-      {prenom1} cuenta, {prenom2} se escabulle.
-
-      El parque se vuelve un escondite gigante.'
-    texte_feminin: 'Uno, dos, tres… ¡escondida!
+    texte: 'Uno, dos, tres… ¡a esconderse!
 
       {prenom1} cuenta, {prenom2} se escabulle.
 
@@ -152,15 +147,12 @@ pages:
   '26':
     texte: 'Buenas noches {prenom1}. Buenas noches {prenom2}.
 
-      Llegan los sueños… uno para cada uno.'
-    texte_feminin: 'Buenas noches {prenom1}. Buenas noches {prenom2}.
-
-      Llegan los sueños… uno para cada una.'
+      Los sueños llegan de puntillas.'
   '27':
-    texte: 'Parecidos, diferencias… juntos, y cada uno uno mismo.
+    texte: 'Parecidos, diferencias… juntos, y plenamente uno mismo.
 
       ¡Dos como nosotros es el doble de amor!'
-    texte_feminin: 'Parecidas, diferencias… juntas, y cada una una misma.
+    texte_feminin: 'Parecidas, diferencias… juntas, y plenamente una misma.
 
       ¡Dos como nosotras es el doble de amor!'
   '28':

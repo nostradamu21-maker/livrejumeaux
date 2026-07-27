@@ -66,7 +66,7 @@ pages:
 
       And that''s perfectly fine!'
   '13':
-    texte: 'One, two, three… hide!
+    texte: 'One, two, three… hide and seek!
 
       {prenom1} counts, {prenom2} slips away.
 
@@ -124,7 +124,7 @@ pages:
   '26':
     texte: 'Goodnight {prenom1}. Goodnight {prenom2}.
 
-      Dreams are coming… one for each.'
+      Sweet dreams come tiptoeing in.'
   '27':
     texte: 'Likenesses, differences… together, and each themselves.
 

@@ -159,12 +159,7 @@ pages:
     scene: 'Partie de cache-cache dans le parc : un jumeau compte contre le grand arbre, les
       mains sur les yeux ; l''autre, complice avec le lecteur, se faufile derrière un buisson
       en souriant, un doigt sur la bouche.'
-    texte: 'Un, deux, trois… caché !
-
-      {prenom1} compte, {prenom2} se faufile.
-
-      Le parc devient une cachette géante.'
-    texte_feminin: 'Un, deux, trois… cachée !
+    texte: 'Un, deux, trois… cache-cache !
 
       {prenom1} compte, {prenom2} se faufile.
 
@@ -290,20 +285,14 @@ pages:
       '
     texte: 'Bonne nuit {prenom1}. Bonne nuit {prenom2}.
 
-      Les rêves arrivent… un pour chacun.'
-    texte_feminin: 'Bonne nuit {prenom1}. Bonne nuit {prenom2}.
-
-      Les rêves arrivent… un pour chacune.'
+      Les beaux rêves arrivent sur la pointe des pieds.'
   '27':
     ancre: backgrounds/parc.png
     scene: 'Lumière dorée de fin de journée dans le parc : les deux jumeaux marchent bras
       dessus bras dessous vers l''horizon en se souriant, vus de trois quarts arrière, complices.
 
       '
-    texte: 'Des ressemblances, des différences… ensemble, et chacun soi.
-
-      Deux comme nous, c''est deux fois plus d''amour !'
-    texte_feminin: 'Des ressemblances, des différences… ensemble, et chacune soi.
+    texte: 'Des ressemblances, des différences… ensemble, et pleinement soi.
 
       Deux comme nous, c''est deux fois plus d''amour !'
   '28':

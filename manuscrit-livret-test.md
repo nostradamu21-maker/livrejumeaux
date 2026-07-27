@@ -13,7 +13,7 @@ sont toujours présentées comme une richesse, jamais comme un défaut.
   « on est moins triste(s) » ; le mot « jumeaux » n'apparaît jamais dans le texte des pages.
   MAIS depuis juillet 2026, une paire de **DEUX FILLES** reçoit un jeu de variantes féminines
   (clé `texte_feminin` dans `scenes.yaml`) sur les rares phrases où le féminin diffère —
-  « chacune » au lieu de « chacun », « toutes les deux », « cachée », « une pour chacune ».
+  « chacune » au lieu de « chacun », « toutes les deux ».
   Le choix est automatique (flag `sexe_paire` = `ff` → `champ_page()` prend `texte_feminin`).
   Donc : quand tu ajoutes/édites une page, si une phrase contient un accord qui changerait au
   féminin, ajoute aussi sa variante `texte_feminin` (et la traduction ES/DE si concernée).
