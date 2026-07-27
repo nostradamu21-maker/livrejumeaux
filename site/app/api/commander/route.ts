@@ -11,7 +11,9 @@ import {
   PRODUIT_NOM,
   PAYS_LIVRAISON,
   remisePromo,
+  estCodeTest,
   CODE_PROMO,
+  CODE_TEST,
   PRODUIT_LIVRE_ID,
 } from "@/lib/stripe";
 import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
@@ -58,7 +60,10 @@ export async function POST(req: Request) {
   const origin = new URL(req.url).origin;
   // Code promo communauté : affiché comme une ligne « Réduction » au checkout
   // (coupon Stripe). Plafonné pour garder au moins 0,50 € (minimum Stripe).
+  // Code de TEST interne : livre à 0,50 € et livraison offerte.
+  const test = estCodeTest(body.code);
   const remise = Math.min(remisePromo(body.code), PRIX_CENTIMES - 50);
+  const livraison = test ? 0 : LIVRAISON_CENTIMES;
   const prix = PRIX_CENTIMES - remise; // pour le repli sans Stripe
 
   // --- Paiement réel via Stripe si configuré ---
@@ -75,7 +80,7 @@ export async function POST(req: Request) {
           amount_off: remise,
           currency: DEVISE,
           duration: "once",
-          name: `Code ${CODE_PROMO}`.slice(0, 40),
+          name: (test ? `Code ${CODE_TEST}` : `Code ${CODE_PROMO}`).slice(0, 40),
         });
         discounts.push({ coupon: coupon.id });
       } catch (e) {
@@ -110,7 +115,7 @@ export async function POST(req: Request) {
           shipping_rate_data: {
             display_name: "Livraison suivie",
             type: "fixed_amount",
-            fixed_amount: { amount: LIVRAISON_CENTIMES, currency: DEVISE },
+            fixed_amount: { amount: livraison, currency: DEVISE },
           },
         },
       ],
@@ -140,7 +145,7 @@ export async function POST(req: Request) {
     paiement: "simulé",
     ref: null,
     langue,
-    montant_centimes: prix + LIVRAISON_CENTIMES,
+    montant_centimes: prix + livraison,
   });
 
   const message = cache

@@ -17,9 +17,23 @@ export const REDUC_REUTILISATION_CENTIMES = Number(process.env.REDUC_REUTILISATI
 export const CODE_PROMO = (process.env.CODE_PROMO ?? "JUMEAUX10").trim().toUpperCase();
 export const REDUC_PROMO_CENTIMES = Number(process.env.REDUC_PROMO_CENTIMES ?? 1000);
 
+// Code de TEST caché (jamais communiqué publiquement) : ramène le livre au
+// minimum Stripe (0,50 €) et la livraison à 0 € pour tester le tunnel complet
+// en conditions réelles. Changeable via CODE_TEST dans les variables Vercel.
+export const CODE_TEST = (process.env.CODE_TEST ?? "JUMELIO-TEST-77").trim().toUpperCase();
+
+/** Vrai si le code saisi est le code de test interne. */
+export function estCodeTest(code: unknown): boolean {
+  const c = String(code ?? "").trim().toUpperCase();
+  return !!c && c === CODE_TEST;
+}
+
 /** Remise (en centimes) accordée pour un code promo saisi par le client.
- *  Comparaison insensible à la casse/aux espaces ; 0 si le code ne correspond pas. */
+ *  Comparaison insensible à la casse/aux espaces ; 0 si le code ne correspond pas.
+ *  Le code de test renvoie une remise « infinie », plafonnée ensuite par les
+ *  routes au minimum Stripe (0,50 €). */
 export function remisePromo(code: unknown): number {
+  if (estCodeTest(code)) return 9_999_900;
   const c = String(code ?? "").trim().toUpperCase();
   return c && c === CODE_PROMO ? REDUC_PROMO_CENTIMES : 0;
 }

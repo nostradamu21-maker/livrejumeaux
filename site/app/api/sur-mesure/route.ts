@@ -8,7 +8,9 @@ import {
   DEVISE,
   PAYS_LIVRAISON,
   remisePromo,
+  estCodeTest,
   CODE_PROMO,
+  CODE_TEST,
   PRODUIT_SUR_MESURE_ID,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
@@ -113,12 +115,14 @@ export async function POST(req: Request) {
   // combiné à la remise réutilisation (éviterait un montant négatif).
   // Réductions cumulables (réutilisation + code promo), montrées comme UNE
   // ligne « Remise » au checkout (Stripe n'accepte qu'un coupon par session).
+  const test = estCodeTest(codePromo);
   const reducReuse = reutilisation ? REDUC_REUTILISATION_CENTIMES : 0;
   const reducPromo = remisePromo(codePromo);
   const remise = Math.min(reducReuse + reducPromo, PRIX_SUR_MESURE_CENTIMES - 50);
+  const livraison = test ? 0 : LIVRAISON_CENTIMES;
   const partsRemise: string[] = [];
   if (reducReuse) partsRemise.push("réutilisation du personnage");
-  if (reducPromo) partsRemise.push(`code ${CODE_PROMO}`);
+  if (reducPromo) partsRemise.push(`code ${test ? CODE_TEST : CODE_PROMO}`);
   const prix = PRIX_SUR_MESURE_CENTIMES - remise; // pour le repli sans Stripe
   const origin = new URL(req.url).origin;
   const metadata = {
@@ -179,7 +183,7 @@ export async function POST(req: Request) {
           shipping_rate_data: {
             display_name: "Livraison suivie",
             type: "fixed_amount",
-            fixed_amount: { amount: LIVRAISON_CENTIMES, currency: DEVISE },
+            fixed_amount: { amount: livraison, currency: DEVISE },
           },
         },
       ],
@@ -207,7 +211,7 @@ export async function POST(req: Request) {
     paiement: "simulé",
     ref: chemins.join(","),
     langue,
-    montant_centimes: prix + LIVRAISON_CENTIMES,
+    montant_centimes: prix + livraison,
   });
   return NextResponse.json({
     ok: true,
