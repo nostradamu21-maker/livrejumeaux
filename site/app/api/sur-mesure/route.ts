@@ -9,6 +9,7 @@ import {
   PAYS_LIVRAISON,
   remisePromo,
   CODE_PROMO,
+  PRODUIT_SUR_MESURE_ID,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 import { accessoireExiste, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
@@ -148,22 +149,20 @@ export async function POST(req: Request) {
       });
       discounts.push({ coupon: coupon.id });
     }
+    const priceData = PRODUIT_SUR_MESURE_ID
+      ? { currency: DEVISE, unit_amount: PRIX_SUR_MESURE_CENTIMES, product: PRODUIT_SUR_MESURE_ID }
+      : {
+          currency: DEVISE,
+          unit_amount: PRIX_SUR_MESURE_CENTIMES,
+          product_data: {
+            name: "Deux comme nous, édition sur mesure",
+            description: `${p1} & ${p2}, d'après vos photos`,
+          },
+        };
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       discounts,
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: DEVISE,
-            unit_amount: PRIX_SUR_MESURE_CENTIMES,
-            product_data: {
-              name: "Deux comme nous, édition sur mesure",
-              description: `${p1} & ${p2}, d'après vos photos`,
-            },
-          },
-        },
-      ],
+      line_items: [{ quantity: 1, price_data: priceData }],
       customer_email: email || undefined,
       shipping_address_collection: { allowed_countries: [...PAYS_LIVRAISON] },
       shipping_options: [

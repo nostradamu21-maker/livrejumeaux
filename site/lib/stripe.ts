@@ -27,6 +27,13 @@ export function remisePromo(code: unknown): number {
 export const DEVISE = "eur";
 export const PRODUIT_NOM = "Deux comme nous, livre personnalisé";
 
+// Vrais produits du catalogue Stripe (créés une fois dans le dashboard) : toutes
+// les ventes s'y rattachent → suivi propre par produit / CA par produit. On garde
+// le prix côté code (unit_amount), seul le PRODUIT est référencé. Si l'ID n'est pas
+// fourni, repli sur un product_data à la volée (comportement historique).
+export const PRODUIT_LIVRE_ID = process.env.STRIPE_PRODUIT_LIVRE?.trim() || "";
+export const PRODUIT_SUR_MESURE_ID = process.env.STRIPE_PRODUIT_SUR_MESURE?.trim() || "";
+
 // Pays de livraison proposés au checkout (Gelato livre bien au-delà ;
 // on ouvre d'abord la zone francophone et ses voisins).
 export const PAYS_LIVRAISON = [

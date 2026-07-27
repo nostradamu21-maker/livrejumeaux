@@ -12,6 +12,7 @@ import {
   PAYS_LIVRAISON,
   remisePromo,
   CODE_PROMO,
+  PRODUIT_LIVRE_ID,
 } from "@/lib/stripe";
 import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
 
@@ -73,24 +74,24 @@ export async function POST(req: Request) {
       });
       discounts.push({ coupon: coupon.id });
     }
+    // Produit Stripe du catalogue si configuré (suivi propre), sinon produit
+    // à la volée avec les prénoms/personnages en description.
+    const priceData = PRODUIT_LIVRE_ID
+      ? { currency: DEVISE, unit_amount: PRIX_CENTIMES, product: PRODUIT_LIVRE_ID }
+      : {
+          currency: DEVISE,
+          unit_amount: PRIX_CENTIMES,
+          product_data: {
+            name: PRODUIT_NOM,
+            // Libellés clients uniquement (jamais les ids techniques des
+            // archétypes, qui décrivent la carnation).
+            description: `${p1} (${archetypeParId(a1)?.label ?? ""}) & ${p2} (${archetypeParId(a2)?.label ?? ""})`,
+          },
+        };
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       discounts,
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: DEVISE,
-            unit_amount: PRIX_CENTIMES,
-            product_data: {
-              name: PRODUIT_NOM,
-              // Libellés clients uniquement (jamais les ids techniques des
-              // archétypes, qui décrivent la carnation).
-              description: `${p1} (${archetypeParId(a1)?.label ?? ""}) & ${p2} (${archetypeParId(a2)?.label ?? ""})`,
-            },
-          },
-        },
-      ],
+      line_items: [{ quantity: 1, price_data: priceData }],
       customer_email: email || undefined,
       // Adresse indispensable pour l'impression à la demande (Gelato expédie
       // directement chez le client).
