@@ -88,6 +88,20 @@ def chemins_references(livre: dict, dossier: Path) -> list[Path]:
     return [ROOT / r for r in livre["references"]]
 
 
+def invalider(livre: dict, scenes: dict, dossier: Path, num: str) -> list[str]:
+    """Marque une unité « à regénérer » : variantes supprimées + sélection retirée.
+    Si c'est une page SOURCE d'ancrage (ex. 07 pour 08, 17 pour 18/20), ses pages
+    dépendantes sont invalidées AUSSI (leur décor doit suivre le nouveau).
+    Renvoie la liste complète des unités invalidées."""
+    faites = [num]
+    shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
+    livre["selections"].pop(num, None)
+    for n, p in scenes.get("pages", {}).items():
+        if p.get("ancre") == f"page:{num}":
+            faites += invalider(livre, scenes, dossier, n)
+    return faites
+
+
 def ancre_de(scenes: dict, livre: dict, dossier: Path, num: str):
     """Chemin de l'image d'ancrage décor, ou None, ou 'attente' si la page sœur
     n'est pas encore triée."""
@@ -184,7 +198,10 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
         return False
 
     cout = len(a_generer) * N_VARIANTES * PRIX_IMAGE
-    print(f"À générer : {len(a_generer)} page(s) × {N_VARIANTES} variantes ≈ {cout:.2f} $")
+    print(f"À générer : {', '.join(map(str, a_generer))} "
+          f"({len(a_generer)} × {N_VARIANTES} variante(s) ≈ {cout:.2f} $)")
+    if en_attente:
+        print(f"(en attente d'un tri de page sœur : {', '.join(map(str, en_attente))})")
     if input("Continuer ? [o/N] ").strip().lower() not in ("o", "oui", "y"):
         sys.exit("Annulé.")
 
@@ -351,13 +368,15 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
                 self.end_headers()
                 return
             if self.path.startswith("/refaire/"):
-                # Variante(s) refusée(s) : suppression → regénérée à la
-                # prochaine passe de la machine à états (coût annoncé).
+                # Variante(s) refusée(s) : suppression (+ pages ancrées dessus)
+                # → regénérées à la prochaine passe (coût annoncé).
                 num = self.path.split("/")[2]
-                shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
-                livre["selections"].pop(num, None)
+                faites = invalider(livre, scenes, dossier, num)
                 sauver(livre, dossier)
-                restantes.remove(num)
+                for f in faites:
+                    if f in restantes:
+                        restantes.remove(f)
+                print(f"  à refaire : {', '.join(faites)}")
                 self.send_response(302)
                 self.send_header("Location", "/fin" if not restantes else "/")
                 self.end_headers()
@@ -652,10 +671,10 @@ def main() -> None:
 
     if args.refaire:
         # Annule des pages déjà triées (ratées) : elles repartent en génération.
+        # Les pages ancrées sur une page refaite sont invalidées en cascade.
         for num in [n.strip() for n in args.refaire.split(",") if n.strip()]:
-            shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
-            livre["selections"].pop(num, None)
-            print(f"  {num} : à regénérer")
+            faites = invalider(livre, scenes, dossier, num)
+            print(f"  à regénérer : {', '.join(faites)}")
         sauver(livre, dossier)
 
     if args.prenoms:

@@ -148,7 +148,7 @@ def envoyer(livre_id: str) -> bool:
 
 def rapatrier(livre_id: str) -> bool:
     """Applique les choix web dans livre.yaml. True si le tri était terminé."""
-    livre, _, dossier = moteur.charger(livre_id)
+    livre, scenes, dossier = moteur.charger(livre_id)
     lignes = _rest(f"tris?livre_id=eq.{livre_id}&select=*")
     if not lignes:
         print("Aucun tri web en cours pour ce livre.")
@@ -164,11 +164,14 @@ def rapatrier(livre_id: str) -> bool:
     regen = []
     for unite, v in choix.items():
         if v == "regen":
-            shutil.rmtree(moteur.variantes_dir(dossier, unite), ignore_errors=True)
-            livre["selections"].pop(unite, None)
-            regen.append(unite)
+            # Invalide aussi les pages ancrées sur celle-ci (décor à refaire).
+            regen += moteur.invalider(livre, scenes, dossier, unite)
         else:
             livre["selections"][unite] = v
+    # Une page peut avoir été invalidée en cascade APRÈS avoir reçu un choix :
+    # l'invalidation prime (sa sélection a été retirée par invalider()).
+    for unite in regen:
+        livre["selections"].pop(unite, None)
     moteur.sauver(livre, dossier)
     _rest(f"tris?livre_id=eq.{livre_id}", "DELETE")
     _supprimer_objets(livre_id)
