@@ -129,7 +129,19 @@ def _lancer(args: list[str]) -> None:
         raise SystemExit(f"Échec de : {' '.join(args)} (code {r.returncode})")
 
 
-def produire(cmd: dict) -> None:
+def _signature(cid: str) -> tuple:
+    """Empreinte de l'avancement d'une combo (pages générées + sélections) :
+    sert à détecter qu'une passe de livre.py n'a rien fait avancer."""
+    dossier = LIVRES / cid
+    fy = dossier / "livre.yaml"
+    selections = {}
+    if fy.exists():
+        selections = (yaml.safe_load(fy.read_text(encoding="utf-8")) or {}).get("selections") or {}
+    generees = sorted(p.parent.name for p in dossier.glob("variantes/page-*/v1.png"))
+    return (tuple(sorted(map(str, selections))), tuple(generees))
+
+
+def produire(cmd: dict, tri_web: bool = False) -> None:
     cid = cmd["combo_id"]
     a1, a2 = cmd["archetype1"], cmd["archetype2"]
     p1, p2 = cmd["prenom1"], cmd["prenom2"]
@@ -142,9 +154,20 @@ def produire(cmd: dict) -> None:
             args += ["--accessoire", acc]
         _lancer(args)
 
-    if etat != "cache":
-        # Génération (coût annoncé + confirmation par livre.py) puis TRI navigateur.
-        _lancer(["livre.py", cid])
+    # livre.py est une MACHINE À ÉTATS : chaque passe fait l'étape suivante
+    # (références → tri → pages → tri → pages ancrées → tri → PDF). On boucle
+    # jusqu'à ce que la combo soit complète, en s'arrêtant si une passe ne fait
+    # plus avancer (ex. génération refusée) pour ne pas tourner en rond.
+    for _ in range(15):
+        etat, _ = etat_combo(cid)
+        if etat == "cache":
+            break
+        avant = _signature(cid)
+        _lancer(["livre.py", cid] + (["--tri-web"] if tri_web else []))
+        if _signature(cid) == avant:
+            raise SystemExit(
+                f"La production de {cid} n'avance plus (génération refusée ? tri "
+                "interrompu ?). Relance : python commandes.py")
 
     # PDF client dans la langue de la commande (le texte est vectoriel ; une
     # combo en cache sert toutes les langues).
@@ -163,6 +186,7 @@ def produire(cmd: dict) -> None:
 
 def main() -> None:
     liste_seulement = "--liste" in sys.argv
+    tri_web = "--tri-web" in sys.argv
 
     toutes = commandes_a_traiter()
     # Les commandes SUR-MESURE (personnages dessinés d'après photo) ne sont pas
@@ -210,7 +234,7 @@ def main() -> None:
 
     for c in cmds:
         print(f"\n──── {c['prenom1']} & {c['prenom2']} · {c['combo_id']} ────")
-        produire(c)
+        produire(c, tri_web=tri_web)
 
     print("\n🎉 Toutes les commandes sont traitées.")
     print("Prochaine étape : vérifier les PDF puis passer les commandes Gelato "
