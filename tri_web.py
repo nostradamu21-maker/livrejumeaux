@@ -161,13 +161,22 @@ def rapatrier(livre_id: str) -> bool:
         print(f"Tri incomplet ({faits}/{total}) — retente plus tard ou finis-le : "
               f"{SITE}/admin/tri/{livre_id}?cle={_secret()}")
         return False
+    notes = ligne.get("notes") or {}
     regen = []
     for unite, v in choix.items():
         if v == "regen":
-            # Invalide aussi les pages ancrées sur celle-ci (décor à refaire).
+            # Consigne de correction de Simon → injectée dans le prompt de
+            # regénération (livre.yaml retouches). Invalide aussi les pages
+            # ancrées sur celle-ci (décor à refaire).
+            note = str(notes.get(unite) or "").strip()[:300]
+            if note:
+                livre.setdefault("retouches", {})[unite] = note
+                print(f"  correction demandée ({unite}) : {note}")
             regen += moteur.invalider(livre, scenes, dossier, unite)
         else:
             livre["selections"][unite] = v
+            # page validée → la consigne de retouche a fait son travail
+            (livre.get("retouches") or {}).pop(unite, None)
     # Une page peut avoir été invalidée en cascade APRÈS avoir reçu un choix :
     # l'invalidation prime (sa sélection a été retirée par invalider()).
     for unite in regen:

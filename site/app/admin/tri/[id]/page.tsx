@@ -26,6 +26,7 @@ export default function TriPage({ params }: { params: Promise<{ id: string }> })
   );
   const [unites, setUnites] = useState<Unite[] | null>(null);
   const [choix, setChoix] = useState<Record<string, string>>({});
+  const [notes, setNotes] = useState<Record<string, string>>({});
   const [erreur, setErreur] = useState("");
   const [enregistre, setEnregistre] = useState(true);
 
@@ -43,18 +44,19 @@ export default function TriPage({ params }: { params: Promise<{ id: string }> })
         }
         setUnites(d.unites);
         setChoix(d.choix ?? {});
+        setNotes(d.notes ?? {});
       })
       .catch(() => setErreur("Serveur injoignable."));
   }, [id, cle]);
 
   const enregistrer = useCallback(
-    async (nouveaux: Record<string, string>) => {
+    async (nouveaux: Record<string, string>, nouvellesNotes: Record<string, string>) => {
       setEnregistre(false);
       try {
         const r = await fetch(`/api/tri?cle=${encodeURIComponent(cle)}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, choix: nouveaux }),
+          body: JSON.stringify({ id, choix: nouveaux, notes: nouvellesNotes }),
         });
         const d = await r.json();
         if (d.ok) setEnregistre(true);
@@ -69,7 +71,11 @@ export default function TriPage({ params }: { params: Promise<{ id: string }> })
     const nouveaux = { ...choix, [unite]: choix[unite] === v ? "" : v };
     if (!nouveaux[unite]) delete nouveaux[unite];
     setChoix(nouveaux);
-    void enregistrer(nouveaux);
+    void enregistrer(nouveaux, notes);
+  }
+
+  function noter(unite: string, texte: string) {
+    setNotes((n) => ({ ...n, [unite]: texte }));
   }
 
   if (erreur) {
@@ -135,6 +141,17 @@ export default function TriPage({ params }: { params: Promise<{ id: string }> })
           >
             🔁 Aucune ne va, à refaire
           </button>
+          {choix[u.unite] === "regen" && (
+            <textarea
+              className="tri-note"
+              rows={2}
+              maxLength={300}
+              placeholder="Qu'est-ce qu'il faut corriger ? (optionnel) ex. : le doudou doit être dans sa main, pas dans le dos"
+              value={notes[u.unite] ?? ""}
+              onChange={(e) => noter(u.unite, e.target.value)}
+              onBlur={() => enregistrer(choix, notes)}
+            />
+          )}
         </section>
       ))}
       <footer className="tri-pied">

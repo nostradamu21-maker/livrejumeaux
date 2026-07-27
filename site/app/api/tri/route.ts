@@ -50,6 +50,7 @@ export async function GET(req: Request) {
     livre_id: data.livre_id,
     unites: signees,
     choix: data.choix ?? {},
+    notes: data.notes ?? {},
     termine: data.termine ?? false,
   });
 }
@@ -64,6 +65,7 @@ export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as {
     id?: string;
     choix?: Record<string, string>;
+    notes?: Record<string, string>;
   };
   const id = body.id ?? "";
   const brut = body.choix ?? {};
@@ -73,6 +75,12 @@ export async function POST(req: Request) {
     if (/^(v[1-9]|regen)$/.test(v) && /^[A-Za-z0-9_-]{1,32}$/.test(unite)) {
       choix[unite] = v;
     }
+  }
+  // Consignes de correction (texte libre borné) pour les unités « à refaire ».
+  const notes: Record<string, string> = {};
+  for (const [unite, n] of Object.entries(body.notes ?? {})) {
+    const txt = String(n ?? "").trim().slice(0, 300);
+    if (txt && /^[A-Za-z0-9_-]{1,32}$/.test(unite)) notes[unite] = txt;
   }
   const { data: ligne } = await supabaseAdmin
     .from("tris")
@@ -86,7 +94,7 @@ export async function POST(req: Request) {
   const termine = attendues.every((u) => choix[u]);
   const { error } = await supabaseAdmin
     .from("tris")
-    .update({ choix, termine })
+    .update({ choix, notes, termine })
     .eq("livre_id", id);
   if (error) {
     return NextResponse.json({ ok: false, erreur: error.message }, { status: 500 });

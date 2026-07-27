@@ -68,8 +68,10 @@ create table if not exists public.tris (
   cree_le   timestamptz not null default now(),
   unites    jsonb not null default '[]',  -- [{unite, apercu?, variantes: [chemins bucket]}]
   choix     jsonb,                        -- {unite: 'v1' | 'v2' | 'regen'}
+  notes     jsonb,                        -- {unite: consigne de correction (regen)}
   termine   boolean not null default false
 );
+alter table public.tris add column if not exists notes jsonb;
 alter table public.tris enable row level security;
 
 -- Suivi de l'édition sur mesure : photos du client, variantes de personnages

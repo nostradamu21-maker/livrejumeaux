@@ -213,6 +213,16 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
     provider = build_provider("openai", api_key=key)
 
     style, contraintes = scenes["style"].strip(), scenes["contraintes"].strip()
+
+    def correction(num) -> str:
+        """Instruction de retouche donnée par Simon au moment du « à refaire »
+        (livre.yaml → retouches). Injectée dans le prompt de regénération."""
+        note = (livre.get("retouches") or {}).get(str(num), "").strip()
+        if not note:
+            return ""
+        return (" CORRECTION IMPÉRATIVE — la tentative précédente avait ce défaut, "
+                f"corrige-le absolument : {note}.")
+
     total = 0.0
     for num in a_generer:
         if num.startswith("ref-"):
@@ -227,7 +237,7 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
                               "style aquarelle, même pose de character sheet, fond uni gris "
                               "clair — et modifie UNIQUEMENT ceci : "
                               f"{perso['modifications']}. Tout le reste doit rester "
-                              "strictement identique. Pas de texte dans l'image.")
+                              "strictement identique. Pas de texte dans l'image." + correction(num))
                 src_img = dossier / perso["base"]
             else:
                 print(f"  {num} : création du personnage depuis la photo…")
@@ -236,7 +246,7 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
                               "entier, face au lecteur, grand sourire, fond uni gris clair. "
                               "Fidèle à l'enfant réel (visage, coiffure, couleur des cheveux "
                               "et des yeux) mais entièrement stylisé aquarelle douce. "
-                              f"Tenue : {perso['tenue']}. Pas de texte dans l'image.")
+                              f"Tenue : {perso['tenue']}. Pas de texte dans l'image." + correction(num))
                 src_img = dossier / perso["photo"]
             res = provider.generate(
                 reference_image=src_img,
@@ -264,7 +274,7 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
                         "main dans la main vers le lecteur en souriant ; la MOITIÉ GAUCHE "
                         "reste un paysage calme (collines, grand arbre, ciel) SANS "
                         "personnage. Tiers supérieur droit dégagé et calme pour accueillir "
-                        "le titre. Pas de texte dans l'image."),
+                        "le titre. Pas de texte dans l'image." + correction("couv")),
                 n=N_VARIANTES, size="1536x1024", quality="high")
             for j, img in enumerate(res.images, 1):
                 (out / f"v{j}.png").write_bytes(img)
@@ -294,6 +304,8 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
                 "cadre. Exactement DEUX enfants au total. Tout lit, chaise, siège ou "
                 "espace non occupé par l'un des deux jumeaux reste vide.")
         prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
+        if correction(num):
+            prompt_parts.append(correction(num).strip())
         out = variantes_dir(dossier, num)
         out.mkdir(parents=True, exist_ok=True)
         print(f"  page {num} : génération…")
@@ -346,8 +358,15 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
                         f"<a href='/choisir/{num}/v{i}'>"
                         f"<img src='/img/{num}/v{i}.png' style='width:23%;margin:0.5%'></a>")
                 html.append(
-                    f"</div><p><a href='/refaire/{num}' style='color:#f0b46a'>"
-                    "🔁 Aucune ne va, à refaire (regénérée à la prochaine passe)</a></p>")
+                    f"</div><form action='/refaire/{num}' method='get' "
+                    "style='margin:0.4em 0 1.2em'>"
+                    "<input name='note' size='60' placeholder=\"ce qu'il faut corriger "
+                    "(optionnel), ex. : le doudou doit être dans sa main\" "
+                    "style='padding:0.4em;border-radius:8px;border:1px solid #555;"
+                    "background:#2a2a2a;color:#eee'> "
+                    "<button style='padding:0.4em 0.9em;border-radius:8px;"
+                    "border:1px solid #f0b46a;background:none;color:#f0b46a;"
+                    "cursor:pointer'>🔁 À refaire</button></form>")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
@@ -361,6 +380,8 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
             if self.path.startswith("/choisir/"):
                 _, _, num, v = self.path.split("/")
                 livre["selections"][num] = v
+                # page validée → la consigne de retouche a fait son travail
+                (livre.get("retouches") or {}).pop(num, None)
                 sauver(livre, dossier)
                 restantes.remove(num)
                 self.send_response(302)
@@ -369,8 +390,15 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
                 return
             if self.path.startswith("/refaire/"):
                 # Variante(s) refusée(s) : suppression (+ pages ancrées dessus)
-                # → regénérées à la prochaine passe (coût annoncé).
-                num = self.path.split("/")[2]
+                # → regénérées à la prochaine passe (coût annoncé), avec la
+                # consigne de correction éventuelle injectée dans le prompt.
+                from urllib.parse import urlparse, parse_qs, unquote
+                u = urlparse(self.path)
+                num = u.path.split("/")[2]
+                note = (parse_qs(u.query).get("note") or [""])[0].strip()[:300]
+                if note:
+                    livre.setdefault("retouches", {})[num] = note
+                    print(f"  correction demandée ({num}) : {note}")
                 faites = invalider(livre, scenes, dossier, num)
                 sauver(livre, dossier)
                 for f in faites:
@@ -662,6 +690,9 @@ def main() -> None:
     ap.add_argument("--refaire",
                     help='pages à regénérer même déjà triées, ex. "10,21,24,27" '
                          "(ou couv, ref-2) : variantes supprimées + sélection annulée")
+    ap.add_argument("--note",
+                    help="avec --refaire : consigne de correction injectée dans le "
+                         'prompt de regénération, ex. "le doudou doit être dans sa main"')
     args = ap.parse_args()
 
     livre, scenes, dossier = charger(args.livre)
@@ -673,8 +704,11 @@ def main() -> None:
         # Annule des pages déjà triées (ratées) : elles repartent en génération.
         # Les pages ancrées sur une page refaite sont invalidées en cascade.
         for num in [n.strip() for n in args.refaire.split(",") if n.strip()]:
+            if args.note:
+                livre.setdefault("retouches", {})[num] = args.note.strip()[:300]
             faites = invalider(livre, scenes, dossier, num)
-            print(f"  à regénérer : {', '.join(faites)}")
+            print(f"  à regénérer : {', '.join(faites)}"
+                  + (f" (consigne : {args.note.strip()})" if args.note else ""))
         sauver(livre, dossier)
 
     if args.prenoms:
