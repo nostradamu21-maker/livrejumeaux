@@ -10,7 +10,7 @@ export const stripe = stripeActif ? new Stripe(key) : null;
 export const PRIX_CENTIMES = Number(process.env.PRIX_CENTIMES ?? 4490);
 export const LIVRAISON_CENTIMES = Number(process.env.LIVRAISON_CENTIMES ?? 499);
 // Édition sur mesure (personnages dessinés d'après photo).
-export const PRIX_SUR_MESURE_CENTIMES = Number(process.env.PRIX_SUR_MESURE_CENTIMES ?? 7900);
+export const PRIX_SUR_MESURE_CENTIMES = Number(process.env.PRIX_SUR_MESURE_CENTIMES ?? 6499);
 export const REDUC_REUTILISATION_CENTIMES = Number(process.env.REDUC_REUTILISATION_CENTIMES ?? 1000);
 // Code promo communauté (posté dans le groupe Gémellité) : -10 € sur toute
 // commande. Modifiable via les variables d'env CODE_PROMO / REDUC_PROMO_CENTIMES.
