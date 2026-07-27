@@ -622,6 +622,9 @@ def main() -> None:
     ap.add_argument("--prenoms", help='"Prenom1,Prenom2" — commande client (combo validée)')
     ap.add_argument("--langue", default="fr",
                     help="langue du TEXTE du livre : fr (défaut), en, es, de")
+    ap.add_argument("--tri-web", action="store_true",
+                    help="tri depuis le téléphone via le site (tri_web.py) au lieu "
+                         "du navigateur local — mode worker/VPS")
     args = ap.parse_args()
 
     livre, scenes, dossier = charger(args.livre)
@@ -639,6 +642,13 @@ def main() -> None:
     if etape_generation(livre, scenes, dossier):
         print("\n→ Relance livre.command pour passer au tri.")
         return
+    if args.tri_web:
+        # Tri distant (téléphone) : envoie les variantes, attend les choix,
+        # les applique, puis recharge le livre et poursuit la machine à états.
+        import tri_web
+        tri_web.attendre(args.livre)
+        livre, scenes, dossier = charger(args.livre)
+        appliquer_langue(scenes, langue)
     if etape_tri(livre, scenes, dossier):
         # des pages ancrées sont peut-être devenues générables
         if etape_generation(livre, scenes, dossier):

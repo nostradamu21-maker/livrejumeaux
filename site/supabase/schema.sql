@@ -56,6 +56,22 @@ insert into storage.buckets (id, name, public)
 values ('impressions', 'impressions', false)
 on conflict (id) do nothing;
 
+-- TRI WEB MOBILE (tri_web.py + /admin/tri) : les variantes générées d'un livre
+-- sont téléversées dans le bucket privé `tri`, Simon choisit depuis son
+-- téléphone, le pipeline rapatrie les choix dans livre.yaml.
+insert into storage.buckets (id, name, public)
+values ('tri', 'tri', false)
+on conflict (id) do nothing;
+
+create table if not exists public.tris (
+  livre_id  text primary key,
+  cree_le   timestamptz not null default now(),
+  unites    jsonb not null default '[]',  -- [{unite, apercu?, variantes: [chemins bucket]}]
+  choix     jsonb,                        -- {unite: 'v1' | 'v2' | 'regen'}
+  termine   boolean not null default false
+);
+alter table public.tris enable row level security;
+
 -- Suivi de l'édition sur mesure : photos du client, variantes de personnages
 -- générées après paiement, et choix du client.
 create table if not exists public.sur_mesure (

@@ -26,6 +26,7 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Tout sauf les API, les fichiers Next et les fichiers statiques (avec extension).
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  // Tout sauf les API, l'admin (tri), les fichiers Next et les fichiers
+  // statiques (avec extension).
+  matcher: ["/((?!api|admin|_next|.*\\..*).*)"],
 };

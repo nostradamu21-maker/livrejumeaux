@@ -111,6 +111,29 @@ pour elles, reprendre l'adresse dans l'e-mail interne (ou dashboard Stripe).
 
 ---
 
+## 4 bis. Trier depuis ton TÉLÉPHONE (tri web mobile)
+
+Prérequis UNE FOIS :
+1. Supabase → SQL Editor → relancer `site/supabase/schema.sql` (table `tris` + bucket `tri`).
+2. Choisir un secret : `openssl rand -hex 24`, puis le mettre AUX DEUX endroits :
+   - `.env` (Mac/VPS) : `ADMIN_TRI_SECRET=<secret>`
+   - Vercel → Environment Variables : `ADMIN_TRI_SECRET=<secret>` + Redeploy.
+
+Ensuite, deux façons :
+```bash
+python livre.py <id> --tri-web    # la machine à états utilise le tri web :
+                                  # elle envoie les variantes, affiche l'URL,
+                                  # attend tes choix (téléphone), puis continue
+# ou, à la main :
+python tri_web.py <id>            # envoie + URL du tri
+python tri_web.py <id> --rapatrier  # applique les choix quand tu as fini
+```
+Sur la page (URL affichée, ouvre-la sur ton téléphone) : un tap = un choix,
+« 🔁 Aucune ne va, à refaire » = l'unité sera regénérée à la prochaine passe.
+Tout s'enregistre tout seul ; les fichiers du bucket sont nettoyés à la fin.
+
+---
+
 ## 5. Enrichir le site (optionnel, quand tu veux)
 
 - **Aperçu « vraies pages » d'une combo produite** (le configurateur propose
@@ -141,6 +164,7 @@ push, Vercel redéploie tout seul.
 | `combo.py` | Prépare le `livre.yaml` d'une paire d'archétypes — appelé par `commandes.py` |
 | `archetypes.py` | Génère les fiches de référence d'archétypes |
 | `expedier.py` | **Expédie une commande chez Gelato** (PDF scindé → brouillon → impression) |
+| `tri_web.py` | **Tri depuis le téléphone** (envoi des variantes → page /admin/tri → rapatriement) |
 | `gelato.py` | Client API Gelato (catalogue, cotes, création de commande) — utilisé par `expedier.py` |
 
 **Règle simple :** commande normale → `commandes.py` · commande sur-mesure →

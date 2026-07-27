@@ -285,6 +285,26 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-sexe-choix { display: flex; gap: 0.4rem; }
 .sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
 .sm-sx.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
+/* ---- Tri web mobile (admin) ---- */
+.tri-ecran { min-height: 100vh; background: #221d1a; color: #f2ece4; padding: 0 0 4rem; font-family: "Nunito", sans-serif; }
+.tri-tete { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1rem; background: rgba(34, 29, 26, 0.94); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.95rem; }
+.tri-tete .tri-ok { color: #9fd3ae; font-weight: 800; }
+.tri-fini { margin: 0.9rem 1rem; padding: 0.9rem 1rem; background: #2e4436; color: #cdeeda; border-radius: 14px; font-size: 0.92rem; line-height: 1.5; }
+.tri-fini code { font-size: 0.8rem; }
+.tri-unite { padding: 1rem 1rem 0.4rem; }
+.tri-unite h2 { font-size: 1rem; margin: 0 0 0.6rem; font-weight: 800; }
+.tri-unite h2 em { color: #f0b46a; font-style: normal; font-weight: 700; }
+.tri-variantes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.tri-choix { position: relative; padding: 0; border: 3px solid transparent; border-radius: 14px; overflow: hidden; background: #141110; cursor: pointer; }
+.tri-choix img { display: block; width: 100%; height: auto; }
+.tri-choix.actif { border-color: #7fa98d; }
+.tri-coche { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; display: grid; place-items: center; background: #7fa98d; color: #fff; font-weight: 900; border-radius: 50%; font-size: 1rem; }
+.tri-regen { margin-top: 0.55rem; width: 100%; padding: 0.6rem; border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, 0.22); background: transparent; color: #d8cfc6; font-family: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+.tri-regen.actif { border-color: #f0b46a; color: #f0b46a; background: rgba(240, 180, 106, 0.12); }
+.tri-pied { text-align: center; padding: 1.4rem 1rem 0; color: #a99d92; font-size: 0.8rem; }
+.tri-carte-msg { display: grid; place-items: center; min-height: 60vh; font-size: 1.05rem; padding: 2rem; text-align: center; }
+@media (min-width: 700px) { .tri-unite { max-width: 720px; margin: 0 auto; } .tri-fini { max-width: 720px; margin-left: auto; margin-right: auto; } }
+
 .contact-page { max-width: 620px; }
 .contact-form { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.4rem; }
 .champ-message { width: 100%; font-family: "Nunito", sans-serif; font-size: 1rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.8rem 1rem; resize: vertical; min-height: 140px; }
