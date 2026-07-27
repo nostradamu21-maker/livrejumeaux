@@ -29,9 +29,8 @@ from dotenv import dotenv_values
 ROOT = Path(__file__).resolve().parent
 LIVRES = ROOT / "livres"
 
-# Mêmes hypothèses de coût que livre.py.
-N_VARIANTES = 2
-PRIX_IMAGE = 0.175  # $ / image en qualité haute
+# Mêmes hypothèses de coût que livre.py (source unique).
+from livre import N_VARIANTES, PRIX_IMAGE
 
 
 # ----------------------------- Supabase (REST) -----------------------------

@@ -35,7 +35,8 @@ import yaml
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-N_VARIANTES = 2  # 2 variantes par page (choix de Simon : coûts au minimum)
+N_VARIANTES = 1  # 1 variante par page (Simon, juillet 2026) : on accepte ou on
+                 # fait refaire (« à refaire » du tri web) — coût minimal ~5 $/livre
 PRIX_IMAGE = 0.175  # $ par image 1024×1024 qualité haute (estimation)
 
 

@@ -37,8 +37,8 @@ CATALOGUE = ROOT / "archetypes.yaml"
 FICHES = ROOT / "archetypes"
 LIVRES = ROOT / "livres"
 
-# Doit rester aligné avec livre.py (nombre de variantes attendues par page).
-N_VARIANTES = 2
+# Nombre de variantes par page : source unique dans livre.py.
+from livre import N_VARIANTES
 
 PRENOMS_DEFAUT = ["Alix", "Sacha"]  # épicènes, pour l'aperçu uniquement
 
