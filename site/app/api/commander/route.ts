@@ -10,6 +10,7 @@ import {
   DEVISE,
   PRODUIT_NOM,
   PAYS_LIVRAISON,
+  remisePromo,
 } from "@/lib/stripe";
 import { comboEnCache, enregistrerCommande } from "@/lib/supabase";
 
@@ -21,6 +22,7 @@ interface Corps {
   email?: string;
   accessoire?: string | null;
   langue?: string;
+  code?: string;
 }
 
 const LANGUES = new Set(["fr", "en", "es", "de"]);
@@ -52,6 +54,8 @@ export async function POST(req: Request) {
 
   const cid = comboId(a1, a2, acc);
   const origin = new URL(req.url).origin;
+  // Code promo communauté (-10 €) ; garde-fou minimum Stripe (0,50 €).
+  const prix = Math.max(50, PRIX_CENTIMES - remisePromo(body.code));
 
   // --- Paiement réel via Stripe si configuré ---
   if (stripeActif && stripe) {
@@ -62,7 +66,7 @@ export async function POST(req: Request) {
           quantity: 1,
           price_data: {
             currency: DEVISE,
-            unit_amount: PRIX_CENTIMES,
+            unit_amount: prix,
             product_data: {
               name: PRODUIT_NOM,
               // Libellés clients uniquement (jamais les ids techniques des
@@ -106,7 +110,7 @@ export async function POST(req: Request) {
     paiement: "simulé",
     ref: null,
     langue,
-    montant_centimes: PRIX_CENTIMES + LIVRAISON_CENTIMES,
+    montant_centimes: prix + LIVRAISON_CENTIMES,
   });
 
   const message = cache

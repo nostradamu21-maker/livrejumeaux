@@ -285,6 +285,8 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-sexe-choix { display: flex; gap: 0.4rem; }
 .sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
 .sm-sx.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
+.champ-code { text-transform: uppercase; letter-spacing: 0.08em; }
+.champ-code::placeholder { text-transform: none; letter-spacing: normal; }
 .sm-fichier { display: none; }
 .sm-relation { display: flex; align-items: center; gap: 0.6rem; width: 100%; font-size: 0.85rem; font-weight: 700; color: var(--encre-doux); }
 .sm-relation select { flex: 1; font-family: "Nunito", sans-serif; font-size: 0.92rem; padding: 0.55rem 0.7rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); }

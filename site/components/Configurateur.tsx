@@ -24,7 +24,9 @@ export default function Configurateur({
   const [prenoms, setPrenoms] = useState<Prenoms>({ 1: "", 2: "" });
   const [filtre, setFiltre] = useState<"tous" | "garçon" | "fille">("tous");
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const [accessoire, setAccessoire] = useState<string>(ACCESSOIRE_DEFAUT);
+  const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
   const [envoi, setEnvoi] = useState(false);
 
@@ -70,6 +72,7 @@ export default function Configurateur({
           email: email.trim(),
           accessoire: memeArchetype ? accessoire : null,
           langue: l,
+          code: code.trim(),
         }),
       });
       const data = await r.json();
@@ -246,6 +249,15 @@ export default function Configurateur({
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              className="champ-email champ-code"
+              placeholder={phCode}
+              autoComplete="off"
+              maxLength={24}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
             />
             <button type="submit" className="btn-commander" disabled={!pret || envoi}>
               {d.config.cta}

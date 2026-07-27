@@ -7,6 +7,7 @@ import {
   LIVRAISON_CENTIMES,
   DEVISE,
   PAYS_LIVRAISON,
+  remisePromo,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 import { accessoireExiste, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
   const relBrut = String(form.get("relation") ?? "");
   const relation = RELATIONS.has(relBrut) ? relBrut : "parent";
   const consentement = form.get("consentement") === "1";
+  const codePromo = String(form.get("code") ?? "");
   // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
   // 2 garçons = masculin, mixte = épicène). Monozygotes : même sexe pour les deux.
   const SEXES = new Set(["garcon", "fille"]);
@@ -109,9 +111,9 @@ export async function POST(req: Request) {
   // combiné à la remise réutilisation (éviterait un montant négatif).
   const prix = Math.max(
     50,
-    reutilisation
+    (reutilisation
       ? PRIX_SUR_MESURE_CENTIMES - REDUC_REUTILISATION_CENTIMES
-      : PRIX_SUR_MESURE_CENTIMES,
+      : PRIX_SUR_MESURE_CENTIMES) - remisePromo(codePromo),
   );
   const origin = new URL(req.url).origin;
   const metadata = {

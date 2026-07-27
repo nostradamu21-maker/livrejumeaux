@@ -63,6 +63,8 @@ export default function SurMesure({ l }: { l: Locale }) {
   const d = t(l);
   const [prenoms, setPrenoms] = useState({ 1: "", 2: "" });
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
   const [reutilisation, setReutilisation] = useState(false);
   const [monozygote, setMonozygote] = useState(true);
   // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
@@ -119,6 +121,7 @@ export default function SurMesure({ l }: { l: Locale }) {
       form.set("sexe2", monozygote ? sexes[1] : sexes[2]);
       form.set("relation", relation);
       form.set("consentement", consentement ? "1" : "0");
+      form.set("code", code.trim());
       form.set("langue", l);
       form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
       if (!monozygote && photos[2]) {
@@ -213,6 +216,15 @@ export default function SurMesure({ l }: { l: Locale }) {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            className="champ-email champ-code"
+            placeholder={phCode}
+            autoComplete="off"
+            maxLength={24}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
           />
           <div className="sm-zygote" role="radiogroup">
             <button
