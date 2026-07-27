@@ -41,7 +41,7 @@ export default function Hero({ l }: { l: Locale }) {
         <span className="hero-deco deco-3" aria-hidden="true">💛</span>
         <div className="book book-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/apercus/test-filles/couverture.jpg" alt={d.hero.alt} />
+          <img src="/lifestyle/jumelles-lecture.jpg" alt={d.hero.alt} />
         </div>
       </div>
     </header>

@@ -141,7 +141,7 @@ body::after {
 .book.book-vide img { display: none; }
 .book.book-vide .book-fallback { display: grid; place-items: center; min-height: 320px; }
 .book-hero { width: min(100%, 400px); aspect-ratio: 1 / 1; transform: rotate(2deg); transition: transform 0.4s; }
-.book-hero img { object-position: 100% center; }
+.book-hero img { object-position: center; }
 .book-hero:hover { transform: rotate(0deg) scale(1.02); }
 
 /* -------------------------- SECTIONS -------------------------- */
