@@ -41,6 +41,18 @@ JOURNAL = LIVRES / "gelato-journal.txt"
 
 ENV = dotenv_values(ROOT / ".env")
 
+# Produit du livre test validé physiquement (Elia & Luna) : photobook 20×20 cm,
+# couverture rigide, papier 170 g couché soyeux, pelliculage mat, reliure collée.
+# Surchargeable via GELATO_PRODUCT_UID dans .env si le produit change.
+PRODUCT_UID_DEFAUT = (
+    "photobooks-hardcover_pf_200x200-mm-8x8-inch_pt_170-gsm-65lb-coated-silk"
+    "_cl_4-4_ccl_4-4_bt_glued-left_ct_matt-lamination_prt_1-0"
+    "_cpt_130-gsm-65-lb-cover-coated-silk_ver"
+)
+# Nombre de pages intérieures du produit (commande test : 30). Les gardes
+# vierges du PDF client n'en font pas partie (Gelato pose les siennes).
+PAGES_PRODUIT = int(ENV.get("GELATO_PAGE_COUNT") or 30)
+
 
 def _journal(msg: str) -> None:
     with JOURNAL.open("a", encoding="utf-8") as f:
@@ -127,8 +139,11 @@ def trouver_pdf(cmd: dict) -> Path:
 
 
 def scinder(pdf: Path, dossier_tmp: Path) -> tuple[Path, Path, int]:
-    """Page 1 = couverture intégrale, le reste = intérieur. Renvoie
-    (couverture, interieur, nb_pages_interieur)."""
+    """Page 1 = couverture intégrale ; intérieur = les pages de CONTENU.
+    Le PDF client contient une garde vierge après la couverture et une autre en
+    dernière page (confort de lecture) : elles sont retirées quand le compte
+    retombe ainsi sur PAGES_PRODUIT (30), car le produit Gelato pose ses propres
+    gardes à la reliure. Renvoie (couverture, interieur, nb_pages_interieur)."""
     try:
         from pypdf import PdfReader, PdfWriter
     except ImportError:
@@ -137,9 +152,16 @@ def scinder(pdf: Path, dossier_tmp: Path) -> tuple[Path, Path, int]:
     if len(lecteur.pages) < 2:
         raise SystemExit(f"PDF inattendu ({len(lecteur.pages)} page) : {pdf}")
     dossier_tmp.mkdir(parents=True, exist_ok=True)
+    pages_int = list(lecteur.pages[1:])
+    if len(pages_int) == PAGES_PRODUIT + 2:
+        pages_int = pages_int[1:-1]  # retire les 2 gardes vierges
+        print(f"Gardes vierges retirées → {len(pages_int)} pages de contenu")
+    elif len(pages_int) != PAGES_PRODUIT:
+        print(f"⚠️ Intérieur de {len(pages_int)} pages (produit : {PAGES_PRODUIT}) "
+              "— vérifie le brouillon Gelato avant d'imprimer.")
     couv, interieur = PdfWriter(), PdfWriter()
     couv.add_page(lecteur.pages[0])
-    for page in lecteur.pages[1:]:
+    for page in pages_int:
         interieur.add_page(page)
     p_couv = dossier_tmp / "couverture.pdf"
     p_int = dossier_tmp / "interieur.pdf"
@@ -147,17 +169,12 @@ def scinder(pdf: Path, dossier_tmp: Path) -> tuple[Path, Path, int]:
         couv.write(f)
     with p_int.open("wb") as f:
         interieur.write(f)
-    return p_couv, p_int, len(lecteur.pages) - 1
+    return p_couv, p_int, len(pages_int)
 
 
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
                    imprimer: bool) -> dict:
-    produit = ENV.get("GELATO_PRODUCT_UID") or ""
-    if not produit:
-        raise SystemExit(
-            "GELATO_PRODUCT_UID manquant dans .env.\n"
-            "Trouve l'uid du photobook 200x200 (couverture rigide, 170 g soyeux, "
-            "pelliculage mat) : python gelato.py catalogue → livres/gelato-catalogue.json")
+    produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
     a = cmd.get("adresse") or {}
     if not a.get("line1"):
         raise SystemExit(

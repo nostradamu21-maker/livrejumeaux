@@ -88,10 +88,13 @@ redéploiement Vercel, les personnages sont dans le configurateur.
 Prérequis UNE FOIS :
 1. Supabase → SQL Editor → relancer `site/supabase/schema.sql` (colonnes
    `adresse`/`telephone`/`gelato_id`/`expedie_le` + bucket `impressions`).
-2. `.env` : ajouter `GELATO_PRODUCT_UID` (uid du photobook 200×200, couverture
-   rigide, 170 g soyeux, pelliculage mat). Pour le trouver :
-   `python gelato.py catalogue` → chercher dans `livres/gelato-catalogue.json`.
-3. `pip install pypdf`.
+2. `pip install pypdf`.
+
+Le produit est celui du livre test validé (photobook 20×20, couverture rigide,
+170 g soyeux, pelliculage mat, 30 pages) : uid en dur dans `expedier.py`,
+surchargeable via `GELATO_PRODUCT_UID` / `GELATO_PAGE_COUNT` dans `.env`.
+Les gardes vierges du PDF client sont retirées automatiquement (intérieur = 30
+pages de contenu, comme la commande test).
 
 Ensuite, après le PDF (`livres/<id>/impression-*.pdf`) :
 ```bash
