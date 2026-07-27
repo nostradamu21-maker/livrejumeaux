@@ -328,7 +328,9 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
                     html.append(
                         f"<a href='/choisir/{num}/v{i}'>"
                         f"<img src='/img/{num}/v{i}.png' style='width:23%;margin:0.5%'></a>")
-                html.append("</div>")
+                html.append(
+                    f"</div><p><a href='/refaire/{num}' style='color:#f0b46a'>"
+                    "🔁 Aucune ne va, à refaire (regénérée à la prochaine passe)</a></p>")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
@@ -342,6 +344,18 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
             if self.path.startswith("/choisir/"):
                 _, _, num, v = self.path.split("/")
                 livre["selections"][num] = v
+                sauver(livre, dossier)
+                restantes.remove(num)
+                self.send_response(302)
+                self.send_header("Location", "/fin" if not restantes else "/")
+                self.end_headers()
+                return
+            if self.path.startswith("/refaire/"):
+                # Variante(s) refusée(s) : suppression → regénérée à la
+                # prochaine passe de la machine à états (coût annoncé).
+                num = self.path.split("/")[2]
+                shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
+                livre["selections"].pop(num, None)
                 sauver(livre, dossier)
                 restantes.remove(num)
                 self.send_response(302)
