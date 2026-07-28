@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ACCESSOIRES, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
 import { t, type Locale } from "@/lib/i18n";
 
@@ -69,6 +69,16 @@ export default function SurMesure({ l }: { l: Locale }) {
   // Produit : livre sur mesure (défaut) ou affiche seule (poster d'après photo).
   const [produit, setProduit] = useState<"livre" | "affiche">("livre");
   const [taille, setTaille] = useState("30x40");
+  // Pré-sélection « affiche » : depuis la section affiche (événement) ou un
+  // lien direct /?produit=affiche#sur-mesure.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("produit") === "affiche") {
+      setProduit("affiche");
+    }
+    const basculer = () => setProduit("affiche");
+    window.addEventListener("dcn:produit-affiche", basculer);
+    return () => window.removeEventListener("dcn:produit-affiche", basculer);
+  }, []);
   const [monozygote, setMonozygote] = useState(true);
   // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
   // 2 garçons = masculin, mixte = épicène). Monozygotes : un seul choix.

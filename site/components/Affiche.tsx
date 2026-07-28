@@ -102,6 +102,17 @@ export default function Affiche({
           <h2>{d.affiche.h2}</h2>
           <p className="affiche-intro">{d.affiche.intro}</p>
           {smRef && <p className="affiche-sm-badge">{d.affiche.smBadge}</p>}
+          {!smRef && (
+            <a
+              href="#sur-mesure"
+              className="affiche-vers-sm"
+              onClick={() => window.dispatchEvent(new CustomEvent("dcn:produit-affiche"))}
+            >
+              <strong>{d.affiche.smCta}</strong>
+              <span>{d.affiche.smSub}</span>
+            </a>
+          )}
+          {!smRef && <p className="affiche-taille-titre">{d.affiche.ouCatalogue}</p>}
           {!smRef && ([1, 2] as const).map((j) => (
             <div className="affiche-enfant" key={j}>
               <select

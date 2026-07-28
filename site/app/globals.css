@@ -329,6 +329,10 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .affiche-tl span { font-size: 0.78rem; color: var(--encre-doux); font-weight: 700; }
 .affiche-tl.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .affiche-note { font-size: 0.78rem; color: var(--encre-doux); text-align: center; }
+.affiche-vers-sm { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.9rem 1.1rem; background: var(--terracotta); color: #fff; border-radius: 16px; text-decoration: none; box-shadow: 0 10px 26px rgba(217, 143, 99, 0.4); transition: transform 0.15s, background 0.15s; }
+.affiche-vers-sm:hover { transform: translateY(-2px); background: var(--terracotta-f); }
+.affiche-vers-sm strong { font-family: "Nunito", sans-serif; font-size: 1.02rem; font-weight: 800; }
+.affiche-vers-sm span { font-size: 0.82rem; opacity: 0.92; }
 .affiche-sm-badge { margin: 0; padding: 0.65rem 0.9rem; background: rgba(127, 169, 141, 0.14); border: 1.5px solid var(--vert); border-radius: 12px; font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--encre); }
 @media (max-width: 860px) { .affiche-carte { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.6rem; } .affiche-tailles { grid-template-columns: repeat(2, 1fr); } }
 
