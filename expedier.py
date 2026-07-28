@@ -210,6 +210,44 @@ def analyser_dpi(pdf: Path, seuil: int = 250) -> bool:
     return tout_bon
 
 
+def planche_contact(pdf: Path) -> Path:
+    """Rastérise chaque page du PDF d'impression en vignette et assemble une
+    planche contact (grille avec liseré) : on voit d'un coup d'œil si chaque
+    illustration couvre TOUTE la surface de la page (fond perdu compris)."""
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        raise SystemExit("PyMuPDF manquant : pip install pymupdf")
+    from PIL import Image
+    doc = fitz.open(str(pdf))
+    TAILLE = 420  # px par vignette
+    COLS = 6
+    vignettes = []
+    for page in doc:
+        zoom = TAILLE / max(page.rect.width, page.rect.height)
+        pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom))
+        img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+        vignettes.append(img)
+    doc.close()
+    lignes = (len(vignettes) + COLS - 1) // COLS
+    MARGE = 14
+    planche = Image.new("RGB", (COLS * (TAILLE + MARGE) + MARGE,
+                                lignes * (TAILLE + MARGE) + MARGE), (40, 36, 33))
+    for i, v in enumerate(vignettes):
+        x = MARGE + (i % COLS) * (TAILLE + MARGE)
+        y = MARGE + (i // COLS) * (TAILLE + MARGE)
+        # fond blanc sous la vignette : toute zone non couverte par l'image
+        # de la page ressort en blanc → défaut de pleine surface visible.
+        planche.paste((255, 255, 255), (x, y, x + TAILLE, y + TAILLE))
+        planche.paste(v, (x + (TAILLE - v.width) // 2, y + (TAILLE - v.height) // 2))
+    dest = pdf.with_name(pdf.stem + "-planche.jpg")
+    planche.save(dest, "JPEG", quality=88)
+    print(f"🖼️ Planche contact : {dest}")
+    if sys.platform == "darwin":
+        subprocess.run(["open", str(dest)], check=False)
+    return dest
+
+
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
                    imprimer: bool) -> dict:
     produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
@@ -409,12 +447,16 @@ def main() -> None:
     if "--etat" in args:
         etat_gelato(args[0])
         return
-    if "--dpi" in args:
+    if "--dpi" in args or "--planche" in args:
         cmd = lire_commande(args[0])
         pdf = trouver_pdf(cmd)
         p_couv, p_int, _ = scinder(pdf, pdf.parent / "gelato-tmp")
-        analyser_dpi(p_couv)
-        analyser_dpi(p_int)
+        if "--dpi" in args:
+            analyser_dpi(p_couv)
+            analyser_dpi(p_int)
+        if "--planche" in args:
+            planche_contact(p_couv)
+            planche_contact(p_int)
         return
     expedier(args[0], "--imprimer" in args)
 

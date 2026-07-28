@@ -22,3 +22,4 @@ stripe>=9.0          # paiement Stripe Checkout (repli simulé si clé absente)
 
 # Expédition Gelato automatisée (expedier.py)
 pypdf>=4.0           # scinde le PDF d'impression (couverture / intérieur)
+pymupdf>=1.24        # planche contact de vérification (--planche)
