@@ -325,15 +325,28 @@ def etat_gelato(ref: str) -> None:
     _journal(f"ETAT {ref} → {json.dumps(data)[:2000]}")
     print(f"\nRéponse complète journalisée dans {JOURNAL}")
     if apercu_url:
-        # Télécharge le rendu Gelato du livre (couverture + toutes les pages,
-        # tel qu'il sera imprimé) et l'ouvre pour vérification visuelle.
-        dest = LIVRES / f"gelato-apercu-{gid[:8]}.pdf"
-        p = subprocess.run(["curl", "-sS", "--fail", "-o", str(dest), apercu_url],
+        # Télécharge le rendu Gelato du livre et l'ouvre. Le format varie
+        # (PDF ou image) : on détecte le vrai type avant de nommer le fichier.
+        brut = LIVRES / f"gelato-apercu-{gid[:8]}.tmp"
+        p = subprocess.run(["curl", "-sSL", "--fail", "-o", str(brut), apercu_url],
                            capture_output=True, text=True, timeout=180)
-        if p.returncode == 0 and dest.exists() and dest.stat().st_size > 0:
-            print(f"\n📖 Aperçu du rendu Gelato téléchargé : {dest}")
-            if sys.platform == "darwin":
-                subprocess.run(["open", str(dest)], check=False)
+        if p.returncode == 0 and brut.exists() and brut.stat().st_size > 0:
+            tete = brut.read_bytes()[:8]
+            ext = (".pdf" if tete.startswith(b"%PDF") else
+                   ".png" if tete.startswith(b"\x89PNG") else
+                   ".jpg" if tete.startswith(b"\xff\xd8") else "")
+            if ext:
+                dest = brut.with_suffix(ext)
+                brut.replace(dest)
+                print(f"\n📖 Aperçu du rendu Gelato : {dest}")
+                if sys.platform == "darwin":
+                    subprocess.run(["open", str(dest)], check=False)
+            else:
+                contenu = brut.read_bytes()[:200]
+                brut.unlink(missing_ok=True)
+                print("\nAperçu au format inattendu (lien expiré ?) — début de la "
+                      f"réponse : {contenu!r}\nRelance --etat pour un lien frais, "
+                      f"ou ouvre l'URL :\n{apercu_url}")
         else:
             print(f"\nAperçu non téléchargeable automatiquement — URL complète :\n{apercu_url}")
 
