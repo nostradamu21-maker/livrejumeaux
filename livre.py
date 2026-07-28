@@ -182,6 +182,12 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
             en_attente.append("couv")
         else:
             a_generer.append("couv")
+    # Unité « affiche » (produit cadre) : seulement si le livre la demande.
+    if livre.get("affiche") and not page_generee(dossier, "affiche"):
+        if unites_references(livre) and not references_pretes(livre):
+            en_attente.append("affiche")
+        else:
+            a_generer.append("affiche")
     for num in scenes["pages"]:
         if scenes["pages"][num].get("texte_seul"):
             continue  # pages texte seul : aucune image à générer
@@ -258,6 +264,24 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
             if res.cost_usd:
                 total += res.cost_usd
             continue
+        if num == "affiche":
+            refs = chemins_references(livre, dossier)
+            out = variantes_dir(dossier, "affiche")
+            out.mkdir(parents=True, exist_ok=True)
+            print("  affiche : illustration portrait pour le cadre…")
+            paire = livre.get("description_paire", scenes["jumeaux"]).strip()
+            res = provider.generate(
+                reference_image=refs[0],
+                style_images=list(refs[1:]) + [ROOT / "style1.png", ROOT / "style2.png"],
+                prompt=(scenes["style"].strip() + ". " + paire + " "
+                        + scenes["affiche"]["scene"].strip() + " " + contraintes
+                        + correction("affiche")),
+                n=N_VARIANTES, size="1024x1536", quality="high")
+            for j, img in enumerate(res.images, 1):
+                (out / f"v{j}.png").write_bytes(img)
+            if res.cost_usd:
+                total += res.cost_usd
+            continue
         if num == "couv":
             refs = chemins_references(livre, dossier)
             out = variantes_dir(dossier, "couv")
@@ -326,7 +350,8 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
 
 
 def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
-    restantes = [n for n in unites_references(livre) + ["couv"] + list(scenes["pages"])
+    extras = ["couv"] + (["affiche"] if livre.get("affiche") else [])
+    restantes = [n for n in unites_references(livre) + extras + list(scenes["pages"])
                  if page_generee(dossier, n) and n not in livre["selections"]]
     if not restantes:
         return False

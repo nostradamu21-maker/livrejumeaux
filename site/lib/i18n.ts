@@ -29,7 +29,7 @@ export interface Dict {
     ogTitle: string;
     ogDesc: string;
   };
-  nav: { livre: string; pourquoi: string; offrir: string; questions: string; cta: string };
+  nav: { livre: string; pourquoi: string; offrir: string; questions: string; cadre: string; cta: string };
   hero: {
     eyebrow: string;
     h1a: string; // avant le mot en italique
@@ -151,6 +151,19 @@ export interface Dict {
     cta: string;
   };
   faq: { titre: string; items: QA[] };
+  affiche: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    enfant1: string;
+    enfant2: string;
+    phPrenom: string;
+    phEmail: string;
+    tailleTitre: string;
+    prix: Record<string, string>;
+    cta: string;
+    note: string;
+  };
   contact: {
     titre: string;
     intro: string;
@@ -179,6 +192,8 @@ export interface Dict {
     livreMsg: (p1: string, p2: string) => string;
     choisir: string;
     retour: string;
+    upsell: string;
+    upsellCta: string;
   };
   variantes: {
     titre: string;
@@ -215,7 +230,7 @@ const FR: Dict = {
     ogDesc:
       "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et expédié chez vous. Le cadeau préféré des parents de jumeaux.",
   },
-  nav: { livre: "Le livre", pourquoi: "Pourquoi", offrir: "Offrir", questions: "Questions", cta: "Créer le vôtre" },
+  nav: { livre: "Le livre", pourquoi: "Pourquoi", offrir: "Offrir", questions: "Questions", cadre: "L'affiche", cta: "Créer le vôtre" },
   hero: {
     eyebrow: "Le cadeau des parents de jumeaux",
     h1a: "Enfin une histoire",
@@ -360,6 +375,17 @@ const FR: Dict = {
       { q: "Et si aucun personnage ne leur ressemble ?", r: "Nous proposons une édition sur mesure : envoyez-nous une photo et nous dessinons leurs personnages à leur image. Votre photo est supprimée dès le livre créé." },
     ],
   },
+  affiche: {
+    eyebrow: "Nouveau · L'affiche des jumeaux",
+    h2: "Leur duo, en grand sur le mur",
+    intro: "La même magie que le livre, en poster : une illustration aquarelle de vos deux enfants avec leurs prénoms, imprimée sur papier premium et livrée roulée, prête à encadrer.",
+    enfant1: "Premier enfant", enfant2: "Second enfant",
+    phPrenom: "Son prénom", phEmail: "Votre e-mail (facultatif)",
+    tailleTitre: "Choisissez la taille :",
+    prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
+    cta: "Commander l'affiche",
+    note: "Papier affiche premium mat, livrée roulée dans un tube. Livraison suivie 4,99 €.",
+  },
   contact: {
     titre: "Écrivez-nous",
     intro: "Une question sur le livre, une commande ou le sur-mesure ? On vous répond sous 48 h.",
@@ -393,6 +419,8 @@ const FR: Dict = {
     livreMsg: (p1, p2) => `Le livre de ${p1} & ${p2} est en préparation. Nous validons les illustrations puis il est imprimé et expédié chez vous.`,
     choisir: "Choisir nos personnages",
     retour: "Revenir à l'accueil",
+    upsell: "Envie de prolonger la magie ? Leur duo existe aussi en grande affiche aquarelle, prête à encadrer.",
+    upsellCta: "Découvrir le cadre",
   },
   variantes: {
     titre: "Choisissez vos personnages",
@@ -427,7 +455,7 @@ const EN: Dict = {
     ogTitle: "Twin gift: the personalized book Deux comme nous",
     ogDesc: "At last, a story where they are two: the personalized book that celebrates your twins' bond, hardbound and shipped to your door.",
   },
-  nav: { livre: "The book", pourquoi: "Why", offrir: "Gift it", questions: "FAQ", cta: "Create yours" },
+  nav: { livre: "The book", pourquoi: "Why", offrir: "Gift it", questions: "FAQ", cadre: "The poster", cta: "Create yours" },
   hero: {
     eyebrow: "The gift for twin parents",
     h1a: "At last, a story",
@@ -566,6 +594,17 @@ const EN: Dict = {
       { q: "What if no character looks like them?", r: "We offer a custom edition: send us a photo and we draw their characters in their likeness. Your photo is deleted as soon as the book is created." },
     ],
   },
+  affiche: {
+    eyebrow: "New · The twins poster",
+    h2: "Their duo, big on the wall",
+    intro: "The same magic as the book, as a poster: a watercolor illustration of your two children with their names, printed on premium paper and delivered rolled, ready to frame.",
+    enfant1: "First child", enfant2: "Second child",
+    phPrenom: "Their name", phEmail: "Your email (optional)",
+    tailleTitre: "Choose a size:",
+    prix: { "21x30": "€19.90", "30x40": "€24.90", "40x50": "€29.90", "50x70": "€34.90" },
+    cta: "Order the poster",
+    note: "Premium matte poster paper, delivered rolled in a tube. Tracked delivery €4.99.",
+  },
   contact: {
     titre: "Write to us",
     intro: "A question about the book, an order or the custom edition? We reply within 48 h.",
@@ -599,6 +638,8 @@ const EN: Dict = {
     livreMsg: (p1, p2) => `${p1} & ${p2}'s book is in preparation. We check the illustrations, then it is printed and shipped to your door.`,
     choisir: "Choose our characters",
     retour: "Back to home",
+    upsell: "Want to keep the magic going? Their duo also comes as a large watercolor poster, ready to frame.",
+    upsellCta: "Discover the frame",
   },
   variantes: {
     titre: "Choose your characters",
@@ -650,7 +691,7 @@ const ES: Dict = {
     ogTitle: "Regalo para gemelos: el libro personalizado Deux comme nous",
     ogDesc: "Por fin una historia donde son dos: el libro personalizado que celebra el vínculo de tus gemelos, encuadernado y enviado a casa.",
   },
-  nav: { livre: "El libro", pourquoi: "Por qué", offrir: "Regalar", questions: "Preguntas", cta: "Crear el vuestro" },
+  nav: { livre: "El libro", pourquoi: "Por qué", offrir: "Regalar", questions: "Preguntas", cadre: "El póster", cta: "Crear el vuestro" },
   hero: {
     eyebrow: "El regalo de los padres de gemelos",
     h1a: "Por fin una historia",
@@ -789,6 +830,17 @@ const ES: Dict = {
       { q: "¿Y si ningún personaje se les parece?", r: "Ofrecemos una edición a medida: envíanos una foto y dibujamos sus personajes a su imagen. Tu foto se elimina en cuanto se crea el libro." },
     ],
   },
+  affiche: {
+    eyebrow: "Nuevo · El póster de los gemelos",
+    h2: "Su dúo, en grande en la pared",
+    intro: "La misma magia que el libro, en póster: una ilustración en acuarela de tus dos hijos con sus nombres, impresa en papel premium y entregada enrollada, lista para enmarcar.",
+    enfant1: "Primer hijo", enfant2: "Segundo hijo",
+    phPrenom: "Su nombre", phEmail: "Tu correo (opcional)",
+    tailleTitre: "Elige el tamaño:",
+    prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
+    cta: "Pedir el póster",
+    note: "Papel de póster premium mate, entregado enrollado en un tubo. Envío con seguimiento 4,99 €.",
+  },
   contact: {
     titre: "Escríbenos",
     intro: "¿Una pregunta sobre el libro, un pedido o la edición personalizada? Respondemos en 48 h.",
@@ -822,6 +874,8 @@ const ES: Dict = {
     livreMsg: (p1, p2) => `El libro de ${p1} & ${p2} está en preparación. Validamos las ilustraciones y después se imprime y se envía a tu casa.`,
     choisir: "Elegir nuestros personajes",
     retour: "Volver al inicio",
+    upsell: "¿Quieres prolongar la magia? Su dúo también existe como gran póster en acuarela, listo para enmarcar.",
+    upsellCta: "Descubrir el cuadro",
   },
   variantes: {
     titre: "Elige vuestros personajes",
@@ -873,7 +927,7 @@ const DE: Dict = {
     ogTitle: "Zwillingsgeschenk: das personalisierte Buch Deux comme nous",
     ogDesc: "Endlich eine Geschichte, in der sie zu zweit sind: das personalisierte Buch, das die Verbundenheit Ihrer Zwillinge feiert, gebunden und nach Hause geliefert.",
   },
-  nav: { livre: "Das Buch", pourquoi: "Warum", offrir: "Verschenken", questions: "Fragen", cta: "Jetzt gestalten" },
+  nav: { livre: "Das Buch", pourquoi: "Warum", offrir: "Verschenken", questions: "Fragen", cadre: "Das Poster", cta: "Jetzt gestalten" },
   hero: {
     eyebrow: "Das Geschenk der Zwillingseltern",
     h1a: "Endlich eine Geschichte,",
@@ -1012,6 +1066,17 @@ const DE: Dict = {
       { q: "Und wenn keine Figur ihnen ähnelt?", r: "Wir bieten eine Maßanfertigung: Schicken Sie uns ein Foto und wir zeichnen die Figuren nach ihrem Vorbild. Ihr Foto wird gelöscht, sobald das Buch erstellt ist." },
     ],
   },
+  affiche: {
+    eyebrow: "Neu · Das Zwillingsposter",
+    h2: "Ihr Duo, groß an der Wand",
+    intro: "Dieselbe Magie wie das Buch, als Poster: eine Aquarell-Illustration Ihrer beiden Kinder mit ihren Namen, auf Premiumpapier gedruckt und gerollt geliefert, bereit zum Einrahmen.",
+    enfant1: "Erstes Kind", enfant2: "Zweites Kind",
+    phPrenom: "Sein Name", phEmail: "Ihre E-Mail (optional)",
+    tailleTitre: "Größe wählen:",
+    prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
+    cta: "Poster bestellen",
+    note: "Mattes Premium-Posterpapier, gerollt im Karton geliefert. Versand mit Sendungsverfolgung 4,99 €.",
+  },
   contact: {
     titre: "Schreiben Sie uns",
     intro: "Eine Frage zum Buch, zu einer Bestellung oder zur Sonderausgabe? Wir antworten innerhalb von 48 Std.",
@@ -1045,6 +1110,8 @@ const DE: Dict = {
     livreMsg: (p1, p2) => `Das Buch von ${p1} & ${p2} ist in Vorbereitung. Wir prüfen die Illustrationen, dann wird es gedruckt und zu Ihnen nach Hause geliefert.`,
     choisir: "Unsere Figuren wählen",
     retour: "Zurück zur Startseite",
+    upsell: "Lust auf mehr Magie? Ihr Duo gibt es auch als großes Aquarell-Poster, bereit zum Einrahmen.",
+    upsellCta: "Den Rahmen entdecken",
   },
   variantes: {
     titre: "Wählen Sie Ihre Figuren",

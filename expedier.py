@@ -54,6 +54,18 @@ PRODUCT_UID_DEFAUT = (
 # vierges du PDF client n'en font pas partie (Gelato pose les siennes).
 PAGES_PRODUIT = int(ENV.get("GELATO_PAGE_COUNT") or 30)
 
+# Produit AFFICHE (poster livré roulé) : uid Gelato PAR TAILLE, à renseigner
+# dans .env après repérage (`python gelato.py catalogue poster`) :
+#   GELATO_AFFICHE_21X30=..., GELATO_AFFICHE_30X40=..., etc.
+def affiche_uid(taille: str) -> str:
+    uid = ENV.get(f"GELATO_AFFICHE_{taille.replace('x', 'X')}") or ""
+    if not uid:
+        raise SystemExit(
+            f"GELATO_AFFICHE_{taille.replace('x', 'X')} manquant dans .env.\n"
+            "Trouve l'uid du poster de cette taille :\n"
+            "  python gelato.py catalogue poster   → livres/gelato-catalogue.json")
+    return uid
+
 
 def _journal(msg: str) -> None:
     with JOURNAL.open("a", encoding="utf-8") as f:
@@ -126,6 +138,16 @@ def trouver_pdf(cmd: dict) -> Path:
     p1, p2 = cmd["prenom1"], cmd["prenom2"]
     langue = (cmd.get("langue") or "fr").lower()
     suffixe = "" if langue == "fr" else f"-{langue}"
+    if cmd.get("produit") == "affiche":
+        taille = cmd.get("taille") or "30x40"
+        nom = f"affiche-{p1}-{p2}-{taille}.pdf".replace(" ", "_")
+        chemin = LIVRES / cmd["combo_id"] / nom
+        if chemin.exists():
+            return chemin
+        raise SystemExit(
+            f"PDF affiche introuvable : {nom}\n"
+            f"Produis-le : python affiche.py {cmd['combo_id']} "
+            f"--prenoms \"{p1},{p2}\" --taille {taille}")
     nom = f"impression-{p1}-{p2}{suffixe}.pdf".replace(" ", "_")
     if cmd["combo_id"] == "sur-mesure":
         candidats = sorted(LIVRES.glob(f"sur-mesure-*/{nom}"))
@@ -286,8 +308,9 @@ def fusionner(p_couv: Path, p_int: Path) -> Path:
 
 
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
-                   imprimer: bool, fichiers: list | None = None) -> dict:
-    produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
+                   imprimer: bool, fichiers: list | None = None,
+                   produit_uid: str | None = None) -> dict:
+    produit = produit_uid or ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
     a = cmd.get("adresse") or {}
     if not a.get("line1"):
         raise SystemExit(
@@ -303,9 +326,9 @@ def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
         "customerReferenceId": cmd.get("email") or cmd["ref"],
         "currency": "EUR",
         "items": [{
-            "itemReferenceId": f"{cmd['ref']}-livre",
+            "itemReferenceId": f"{cmd['ref']}-{'affiche' if cmd.get('produit') == 'affiche' else 'livre'}",
             "productUid": produit,
-            "pageCount": pages_int,
+            **({"pageCount": pages_int} if pages_int else {}),
             "quantity": 1,
             "files": fichiers or [
                 {"type": "cover", "url": url_couv},
@@ -344,6 +367,39 @@ def expedier(ref: str, imprimer: bool, aplatir: bool = False,
     else:
         pdf = trouver_pdf(cmd)
     print(f"PDF : {pdf.name} ({pdf.stat().st_size // 1024} Ko)")
+
+    if cmd.get("produit") == "affiche":
+        # Poster : PDF d'une seule page, envoyé tel quel.
+        taille = cmd.get("taille") or "30x40"
+        uid = affiche_uid(taille)
+        analyser_dpi(pdf)
+        prefixe = f"{ref}"
+        _upload(f"{prefixe}/affiche-{taille}.pdf", pdf)
+        url = _lien_signe(f"{prefixe}/affiche-{taille}.pdf")
+        print(f"PDF affiche téléversé :\n  {url}")
+        _journal(f"URLS {ref} affiche={url}")
+        corps = payload_gelato(cmd, "", "", 0, imprimer,
+                               fichiers=[{"type": "default", "url": url}],
+                               produit_uid=uid)
+        mode = "RÉELLE (impression + débit)" if imprimer else "BROUILLON"
+        a = cmd["adresse"]
+        print(f"\nCommande Gelato AFFICHE {taille} {mode}")
+        print(f"  Vers : {a['name']}, {a['line1']}, {a['postCode']} {a['city']}, {a['country']}")
+        if input("Envoyer à Gelato ? [o/N] ").strip().lower() not in ("o", "oui", "y"):
+            print("Annulé.")
+            return
+        reponse = gelato.creer_commande(corps)
+        gid = reponse.get("id") or reponse.get("orderId") or ""
+        if not gid:
+            _journal(f"ECHEC {ref} : {json.dumps(reponse)[:1500]}")
+            raise SystemExit(f"Réponse Gelato sans id — détails dans {JOURNAL}")
+        _journal(f"{'ORDER' if imprimer else 'DRAFT'} AFFICHE {ref} → {gid}")
+        maj: dict = {"gelato_id": gid}
+        if imprimer:
+            maj["expedie_le"] = datetime.now(timezone.utc).isoformat()
+        _rest(f"commandes?ref=eq.{ref}", "PATCH", maj)
+        print(f"\n✅ Commande Gelato affiche créée : {gid}")
+        return
 
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
     print(f"Scindé : couverture + {pages_int} pages intérieures")

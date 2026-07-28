@@ -307,6 +307,30 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .tri-carte-msg { display: grid; place-items: center; min-height: 60vh; font-size: 1.05rem; padding: 2rem; text-align: center; }
 @media (min-width: 700px) { .tri-unite { max-width: 720px; margin: 0 auto; } .tri-fini { max-width: 720px; margin-left: auto; margin-right: auto; } }
 
+/* ---- Affiche / poster des jumeaux ---- */
+.affiche-section { padding: 4.5rem 1.5rem; background: linear-gradient(180deg, var(--creme-2), var(--creme)); }
+.affiche-carte { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; background: #fff; border-radius: 26px; padding: 2.6rem; box-shadow: var(--ombre-m); }
+.affiche-visuel { display: flex; justify-content: center; }
+.affiche-mock { width: min(100%, 320px); background: #faf3e8; border: 10px solid #fff; outline: 1.5px solid var(--ligne); box-shadow: 0 18px 44px rgba(74, 58, 48, 0.18); display: flex; }
+.affiche-passe { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 1rem; }
+.affiche-persos { display: flex; gap: 0.4rem; justify-content: center; }
+.affiche-persos img { width: 88px; aspect-ratio: 3 / 4; object-fit: contain; background: transparent; }
+.affiche-vide { width: 88px; aspect-ratio: 3 / 4; display: grid; place-items: center; border: 2px dashed var(--ligne); border-radius: 10px; color: var(--encre-doux); font-size: 1.4rem; }
+.affiche-noms { font-family: "Fraunces", serif; font-weight: 600; color: var(--encre); font-size: 1.05rem; text-align: center; }
+.affiche-form { display: flex; flex-direction: column; gap: 0.7rem; }
+.affiche-form h2 { font-family: "Fraunces", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0.4rem 0 0; }
+.affiche-intro { color: var(--encre-doux); line-height: 1.6; margin: 0 0 0.4rem; }
+.affiche-enfant { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.5rem; }
+.affiche-enfant select { font-family: "Nunito", sans-serif; font-size: 0.95rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.75rem 0.9rem; }
+.affiche-taille-titre { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.85rem; color: var(--encre-doux); margin: 0.3rem 0 0; }
+.affiche-tailles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+.affiche-tl { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.55rem 0.3rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.affiche-tl strong { font-size: 0.82rem; color: var(--encre); }
+.affiche-tl span { font-size: 0.78rem; color: var(--encre-doux); font-weight: 700; }
+.affiche-tl.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
+.affiche-note { font-size: 0.78rem; color: var(--encre-doux); text-align: center; }
+@media (max-width: 860px) { .affiche-carte { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.6rem; } .affiche-tailles { grid-template-columns: repeat(2, 1fr); } }
+
 .contact-page { max-width: 620px; }
 .contact-form { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.4rem; }
 .champ-message { width: 100%; font-family: "Nunito", sans-serif; font-size: 1rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.8rem 1rem; resize: vertical; min-height: 140px; }

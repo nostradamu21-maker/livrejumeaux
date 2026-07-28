@@ -37,6 +37,8 @@ alter table public.commandes add column if not exists langue text not null defau
 -- au paiement Stripe, référence de la commande Gelato et date d'envoi.
 alter table public.commandes add column if not exists adresse jsonb;      -- {name,line1,line2,postCode,city,state,country}
 alter table public.commandes add column if not exists telephone text;
+alter table public.commandes add column if not exists produit text not null default 'livre'; -- 'livre' | 'affiche'
+alter table public.commandes add column if not exists taille text;        -- affiche : 21x30|30x40|40x50|50x70
 alter table public.commandes add column if not exists gelato_id text;     -- id de commande Gelato (draft ou réelle)
 alter table public.commandes add column if not exists expedie_le timestamptz;
 

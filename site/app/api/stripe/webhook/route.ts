@@ -84,6 +84,8 @@ export async function POST(req: Request) {
         montant_centimes: session.amount_total ?? PRIX_CENTIMES + LIVRAISON_CENTIMES,
         adresse: adresseStructuree(session),
         telephone: session.customer_details?.phone ?? null,
+        produit: m.produit || "livre",
+        taille: m.taille || null,
       };
       await enregistrerCommande(infos);
       // Suivi sur-mesure : photos + choix de variantes par le client.

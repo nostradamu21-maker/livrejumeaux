@@ -116,7 +116,8 @@ def _supprimer_objets(livre_id: str) -> None:
 # ------------------------------- Envoi --------------------------------------
 
 def unites_a_trier(livre: dict, scenes: dict, dossier: Path) -> list[str]:
-    return [n for n in moteur.unites_references(livre) + ["couv"] + list(scenes["pages"])
+    extras = ["couv"] + (["affiche"] if livre.get("affiche") else [])
+    return [n for n in moteur.unites_references(livre) + extras + list(scenes["pages"])
             if moteur.page_generee(dossier, n) and n not in livre["selections"]]
 
 

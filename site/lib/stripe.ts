@@ -48,6 +48,18 @@ export const PRODUIT_NOM = "Deux comme nous, livre personnalisé";
 export const PRODUIT_LIVRE_ID = process.env.STRIPE_PRODUIT_LIVRE?.trim() || "";
 export const PRODUIT_SUR_MESURE_ID = process.env.STRIPE_PRODUIT_SUR_MESURE?.trim() || "";
 
+// Produit AFFICHE (poster des jumeaux, livré roulé, à encadrer) : prix par
+// taille, en centimes, surchargeables via PRIX_AFFICHE_21X30 etc. sur Vercel.
+export const AFFICHE_TAILLES = ["21x30", "30x40", "40x50", "50x70"] as const;
+export type AfficheTaille = (typeof AFFICHE_TAILLES)[number];
+export const PRIX_AFFICHE_CENTIMES: Record<AfficheTaille, number> = {
+  "21x30": Number(process.env.PRIX_AFFICHE_21X30 ?? 1990),
+  "30x40": Number(process.env.PRIX_AFFICHE_30X40 ?? 2490),
+  "40x50": Number(process.env.PRIX_AFFICHE_40X50 ?? 2990),
+  "50x70": Number(process.env.PRIX_AFFICHE_50X70 ?? 3490),
+};
+export const PRODUIT_AFFICHE_ID = process.env.STRIPE_PRODUIT_AFFICHE?.trim() || "";
+
 // Pays de livraison proposés au checkout (Gelato livre bien au-delà ;
 // on ouvre d'abord la zone francophone et ses voisins).
 export const PAYS_LIVRAISON = [

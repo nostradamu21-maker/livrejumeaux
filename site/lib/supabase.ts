@@ -23,6 +23,8 @@ export interface CommandeRow {
   ref: string | null;      // id de session Stripe
   langue?: string;         // "fr" | "en" | "es" | "de" (langue du texte du livre)
   montant_centimes: number;
+  produit?: string;        // "livre" (défaut) | "affiche"
+  taille?: string | null;  // affiche : "21x30" | "30x40" | "40x50" | "50x70"
   // Expédition Gelato (expedier.py) : adresse structurée collectée au paiement.
   adresse?: {
     name: string;

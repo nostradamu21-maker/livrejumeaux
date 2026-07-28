@@ -6,6 +6,7 @@ import Pourquoi from "@/components/Pourquoi";
 import Etapes from "@/components/Etapes";
 import Configurateur from "@/components/Configurateur";
 import SurMesure from "@/components/SurMesure";
+import Affiche from "@/components/Affiche";
 import Cadeau from "@/components/Cadeau";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
@@ -42,6 +43,7 @@ export default async function Page({
       {/* Sur-mesure = produit phare, mis en avant avant le configurateur */}
       <SurMesure l={locale} />
       <Configurateur archetypes={archetypes} l={locale} />
+      <Affiche archetypes={archetypes} l={locale} />
       <Etapes l={locale} />
       <Cadeau l={locale} />
       <Faq l={locale} />

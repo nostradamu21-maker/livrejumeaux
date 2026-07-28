@@ -11,6 +11,7 @@ export default function Nav({ l }: { l: Locale }) {
         <a href="#livre">{d.nav.livre}</a>
         <a href="#pourquoi">{d.nav.pourquoi}</a>
         <a href="#cadeau">{d.nav.offrir}</a>
+        <a href="#affiche">{d.nav.cadre}</a>
         <a href="#faq">{d.nav.questions}</a>
         <div className="nav-langues">
           {LOCALES.map((loc) => (

@@ -103,6 +103,14 @@ export default async function Succes({
             {d.succes.retour}
           </Link>
         )}
+        {paye && !lienVariantes && (
+          <p style={{ marginTop: "1.4rem", fontSize: ".9rem", color: "var(--encre-doux)", lineHeight: 1.55 }}>
+            {d.succes.upsell}{" "}
+            <Link href="/#affiche" style={{ color: "var(--terracotta-f)", fontWeight: 700 }}>
+              {d.succes.upsellCta}
+            </Link>
+          </p>
+        )}
       </div>
       {paye && session_id && (
         <PurchaseEvent value={montant} currency={devise} id={session_id} />

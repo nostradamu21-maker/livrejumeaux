@@ -55,14 +55,14 @@ def catalogues() -> list:
     return data
 
 
-def produits_livres_photo() -> list[dict]:
-    """TOUS les produits des catalogues « photobook », bruts (filtrage fait après).
-    La première page brute de chaque réponse est journalisée pour diagnostic."""
+def produits_livres_photo(mot: str = "photobook") -> list[dict]:
+    """TOUS les produits des catalogues dont l'uid contient `mot` (photobook,
+    framed, poster…), bruts. Première page journalisée pour diagnostic."""
     log = ROOT / "livres" / "gelato-journal.txt"
     resultats = []
     for cat in catalogues():
         cid = cat.get("catalogUid", "") if isinstance(cat, dict) else str(cat)
-        if "photobook" not in cid:
+        if mot not in cid:
             continue
         offset = 0
         while True:
@@ -105,10 +105,11 @@ if __name__ == "__main__":
     log = ROOT / "livres" / "gelato-journal.txt"
     if len(sys.argv) > 1 and sys.argv[1] == "catalogue":
         try:
+            mot = sys.argv[2] if len(sys.argv) > 2 else "photobook"
             cats = catalogues()
             log.write_text("CATALOGUES:\n" + json.dumps(cats, indent=2)[:5000] + "\n\n",
                            encoding="utf-8")
-            prods = produits_livres_photo()
+            prods = produits_livres_photo(mot)
             out = ROOT / "livres" / "gelato-catalogue.json"
             out.write_text(json.dumps(prods, indent=2, ensure_ascii=False),
                            encoding="utf-8")
@@ -125,4 +126,4 @@ if __name__ == "__main__":
         print(json.dumps(cotes_couverture(sys.argv[2], int(sys.argv[3])),
                          indent=2, ensure_ascii=False))
     else:
-        print("Usage : python gelato.py catalogue | cotes <productUid> <pages>")
+        print("Usage : python gelato.py catalogue [photobook|framed|poster] | cotes <productUid> <pages>")

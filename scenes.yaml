@@ -14,6 +14,18 @@ contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour acc
   décrit les deux jumeaux, les DEUX enfants sont visibles en entier dans l''image.
 
   '
+# Illustration dédiée du CADRE (produit affiche encadrée) : composition portrait
+# pensée pour un mur, générée une fois par paire puis mise en cache (unité
+# « affiche » de livre.py, activée par le flag affiche: true du livre.yaml).
+affiche:
+  scene: 'Portrait tendre pour une affiche à encadrer : les deux jumeaux assis côte à
+    côte dans l''herbe d''un jardin fleuri baigné de lumière dorée, épaule contre
+    épaule, l''un passant un bras autour de l''autre, souriant doucement au lecteur.
+    Grand ciel crème lumineux et aéré au-dessus d''eux, quelques papillons et fleurs
+    des champs. Composition centrée, calme et intemporelle, pensée pour être accrochée
+    au mur d''une chambre d''enfant. Le tiers INFÉRIEUR de l''image reste doux et
+    dégagé (herbe claire, fleurs discrètes) pour accueillir les prénoms.'
+
 pages:
   '01':
     ancre: backgrounds/chambre.png

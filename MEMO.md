@@ -134,6 +134,23 @@ Tout s'enregistre tout seul ; les fichiers du bucket sont nettoyés à la fin.
 
 ---
 
+## 4 ter. Une commande d'AFFICHE (poster) arrive
+
+`python commandes.py` les liste à part. Production :
+```bash
+python affiche.py <combo>                       # génère + trie l'illustration (1 fois par paire, ~0,17 $)
+python affiche.py <combo> --prenoms "A,B" --taille 30x40   # PDF du poster (gratuit)
+python expedier.py <ref>                        # brouillon Gelato, puis --imprimer
+```
+Prérequis UNE FOIS : relancer `site/supabase/schema.sql` (colonnes `produit`/`taille`)
+et renseigner dans `.env` les uid Gelato des posters :
+`python gelato.py catalogue poster` puis `GELATO_AFFICHE_21X30=…`, `GELATO_AFFICHE_30X40=…`,
+`GELATO_AFFICHE_40X50=…`, `GELATO_AFFICHE_50X70=…`.
+Prix de vente par défaut : 19,90 / 24,90 / 29,90 / 34,90 € (variables Vercel
+`PRIX_AFFICHE_21X30` etc. pour ajuster).
+
+---
+
 ## 5. Enrichir le site (optionnel, quand tu veux)
 
 - **Aperçu « vraies pages » d'une combo produite** (le configurateur propose
@@ -163,7 +180,8 @@ push, Vercel redéploie tout seul.
 | `livre.py <id>` | Moteur d'un livre (génération + tri + PDF) — appelé par les autres |
 | `combo.py` | Prépare le `livre.yaml` d'une paire d'archétypes — appelé par `commandes.py` |
 | `archetypes.py` | Génère les fiches de référence d'archétypes |
-| `expedier.py` | **Expédie une commande chez Gelato** (PDF scindé → brouillon → impression) |
+| `expedier.py` | **Expédie une commande chez Gelato** (livre ou affiche → brouillon → impression) |
+| `affiche.py` | Produit l'**affiche/poster** d'une paire (illustration dédiée + prénoms, 4 tailles) |
 | `tri_web.py` | **Tri depuis le téléphone** (envoi des variantes → page /admin/tri → rapatriement) |
 | `gelato.py` | Client API Gelato (catalogue, cotes, création de commande) — utilisé par `expedier.py` |
 
