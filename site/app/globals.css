@@ -130,6 +130,30 @@ body::after {
 .lead { font-size: 1.15rem; color: var(--encre-doux); max-width: 34ch; margin: 1.2rem 0 1.8rem; }
 .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
+/* Galerie d'exemples réels dans la colonne gauche du sur-mesure. */
+.sm-galerie { margin: 1.8rem 0 0; }
+.sm-g-pages { display: flex; gap: 0.7rem; }
+.sm-g-pages img {
+  width: calc((100% - 1.4rem) / 3); aspect-ratio: 1; object-fit: cover;
+  border: 5px solid #fff; border-radius: 10px; box-shadow: var(--ombre-s);
+}
+.sm-g-pages img:nth-child(1) { transform: rotate(-2.2deg); }
+.sm-g-pages img:nth-child(2) { transform: rotate(1.4deg) translateY(-4px); }
+.sm-g-pages img:nth-child(3) { transform: rotate(-1deg); }
+.sm-g-affiche { width: min(100%, 250px); }
+.sm-g-cadre { position: relative; }
+.sm-g-cadre img {
+  display: block; width: 100%; border: 8px solid #fff;
+  outline: 1.5px solid var(--ligne); box-shadow: var(--ombre-m);
+}
+.sm-g-noms {
+  position: absolute; left: 0; right: 0; bottom: 9%; text-align: center;
+  font-family: "Amatic SC", "Fraunces", serif; font-weight: 700; font-size: 1.5rem;
+  color: #3a3230; line-height: 1;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.85);
+}
+.sm-g-legende { margin-top: 0.8rem; font-size: 0.85rem; color: var(--encre-doux); }
+
 /* Onglets du tunnel /affiche (photo / catalogue), au-dessus des formulaires. */
 .tunnel-tabs { max-width: 620px; margin: 1.8rem auto -1rem; padding: 0 1.2rem; }
 .tunnel-tabs .sm-zy { padding: 0.85rem 0.6rem; font-size: 0.98rem; background: #fff; }

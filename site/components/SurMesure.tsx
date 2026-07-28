@@ -212,6 +212,42 @@ export default function SurMesure({
             ))}
           </ul>
           <p className="sm-comment">{affiche ? d.sm.commentAffiche : d.sm.comment}</p>
+          {/* Galerie d'exemples réels selon le produit : pages du livre
+              d'Elia & Luna, ou son affiche. Images masquées une à une si
+              absentes (repli silencieux). */}
+          {affiche ? (
+            <figure className="sm-galerie sm-g-affiche">
+              <div className="sm-g-cadre">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/apercus/test-filles/affiche.jpg"
+                  alt=""
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget.closest(".sm-galerie") as HTMLElement).style.display = "none";
+                  }}
+                />
+                <span className="sm-g-noms" aria-hidden="true">Elia & Luna</span>
+              </div>
+              <figcaption className="sm-g-legende">{d.affiche.exLegende}</figcaption>
+            </figure>
+          ) : (
+            <figure className="sm-galerie sm-g-livre">
+              <div className="sm-g-pages">
+                {["page-05", "page-14", "page-21"].map((p) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={p}
+                    src={`/apercus/test-filles/${p}.jpg`}
+                    alt=""
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                ))}
+              </div>
+              <figcaption className="sm-g-legende">{d.sm.exPages}</figcaption>
+            </figure>
+          )}
         </div>
         <form className="sm-offre" onSubmit={commander}>
           <div className="sm-produits" role="radiogroup">

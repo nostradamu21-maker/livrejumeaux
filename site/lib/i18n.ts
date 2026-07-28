@@ -126,6 +126,7 @@ export interface Dict {
     commentAffiche: string;
     distinctifApresAffiche: string; // « … sur l'affiche : »
     photoNoteAffiche: string;
+    exPages: string; // légende de la galerie d'exemples (pages du livre)
     prixNote: string;
     phP1: string;
     phP2: string;
@@ -396,6 +397,7 @@ const FR: Dict = {
     commentAffiche: "Comment ça marche ? Vous ajoutez la ou les photos et payez en ligne. Dans la minute, vous choisissez vos personnages préférés parmi nos propositions — c'est votre seule décision. Ensuite, nous créons leur affiche et nous l'imprimons au format choisi.",
     distinctifApresAffiche: "sur l'affiche :",
     photoNoteAffiche: "Visages bien visibles, JPEG ou PNG. Photos supprimées après création de l'affiche.",
+    exPages: "De vraies pages imprimées : le livre d'Elia & Luna.",
     prixNote: "livre sur mesure, à partir d'une photo",
     phP1: "Prénom du premier enfant",
     phP2: "Prénom du second enfant",
@@ -658,6 +660,7 @@ const EN: Dict = {
     commentAffiche: "How does it work? Add the photo(s) and pay online. Within a minute, choose your favorite characters among our proposals — that's your only decision. Then we create their poster and print it in the chosen size.",
     distinctifApresAffiche: "on the poster:",
     photoNoteAffiche: "Faces clearly visible, JPEG or PNG. Photos deleted after the poster is created.",
+    exPages: "Real printed pages: Elia & Luna's book.",
     prixNote: "custom book, from a photo",
     phP1: "First child's name",
     phP2: "Second child's name",
@@ -938,6 +941,7 @@ const ES: Dict = {
     commentAffiche: "¿Cómo funciona? Añades la(s) foto(s) y pagas en línea. En un minuto, eliges tus personajes favoritos entre nuestras propuestas — es tu única decisión. Después creamos su póster y lo imprimimos en el tamaño elegido.",
     distinctifApresAffiche: "en el póster:",
     photoNoteAffiche: "Caras bien visibles, JPEG o PNG. Fotos eliminadas tras crear el póster.",
+    exPages: "Páginas reales impresas: el libro de Elia & Luna.",
     prixNote: "libro a medida, a partir de una foto",
     phP1: "Nombre del primer niño",
     phP2: "Nombre del segundo niño",
@@ -1218,6 +1222,7 @@ const DE: Dict = {
     commentAffiche: "Wie funktioniert es? Sie laden das Foto (oder die Fotos) hoch und zahlen online. Innerhalb einer Minute wählen Sie Ihre Lieblingsfiguren aus unseren Vorschlägen — das ist Ihre einzige Entscheidung. Danach erstellen wir ihr Poster und drucken es im gewählten Format.",
     distinctifApresAffiche: "auf dem Poster:",
     photoNoteAffiche: "Gesichter gut sichtbar, JPEG oder PNG. Fotos werden nach Erstellung des Posters gelöscht.",
+    exPages: "Echte gedruckte Seiten: das Buch von Elia & Luna.",
     prixNote: "Buch nach Maß, aus einem Foto",
     phP1: "Name des ersten Kindes",
     phP2: "Name des zweiten Kindes",
