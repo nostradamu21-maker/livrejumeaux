@@ -240,6 +240,8 @@ export interface Dict {
     titre: string;
     intro1: string;
     introN: string;
+    intro1Affiche: string; // mêmes textes quand la commande est une AFFICHE
+    introNAffiche: string;
     persoDe: string;
     avecSigne: string; // suffixe « avec son signe distinctif »
     proposition: string;
@@ -247,6 +249,7 @@ export interface Dict {
     valider: string;
     merci: string;
     merciMsg: (p1: string, p2: string) => string;
+    merciMsgAffiche: (p1: string, p2: string) => string;
     photosRecues: string;
     photosRecuesMsg: (p1: string, p2: string) => string;
     lienInvalide: string;
@@ -517,6 +520,8 @@ const FR: Dict = {
     titre: "Choisissez vos personnages",
     intro1: "Voici les personnages dessinés d'après votre photo. Choisissez votre préféré : il servira de référence pour tout le livre.",
     introN: "Voici les personnages dessinés d'après vos photos. Choisissez votre préféré pour chaque enfant : il servira de référence pour tout le livre.",
+    intro1Affiche: "Voici les personnages dessinés d'après votre photo. Choisissez votre préféré : c'est lui qui sera sur l'affiche.",
+    introNAffiche: "Voici les personnages dessinés d'après vos photos. Choisissez votre préféré pour chaque enfant : ce sont eux qui seront sur l'affiche.",
     persoDe: "Le personnage de",
     avecSigne: "avec son signe distinctif",
     proposition: "Proposition",
@@ -524,6 +529,7 @@ const FR: Dict = {
     valider: "Valider mon choix",
     merci: "Merci ! 💛",
     merciMsg: (p1, p2) => `Vos personnages sont choisis, c'est tout ce que nous attendions de vous. Nous créons maintenant le livre de ${p1} & ${p2} et il part à l'impression, expédié directement chez vous.`,
+    merciMsgAffiche: (p1, p2) => `Vos personnages sont choisis, c'est tout ce que nous attendions de vous. Nous créons maintenant l'affiche de ${p1} & ${p2} et elle part à l'impression, expédiée directement chez vous.`,
     photosRecues: "Vos photos sont bien reçues",
     photosRecuesMsg: (p1, p2) => `Nous préparons les personnages de ${p1} & ${p2} et vous les proposerons par e-mail sous 24 h pour validation.`,
     lienInvalide: "Lien invalide.",
@@ -786,6 +792,8 @@ const EN: Dict = {
     titre: "Choose your characters",
     intro1: "Here are the characters drawn from your photo. Pick your favorite: it will be the reference for the whole book.",
     introN: "Here are the characters drawn from your photos. Pick your favorite for each child: it will be the reference for the whole book.",
+    intro1Affiche: "Here are the characters drawn from your photo. Pick your favorite: this is the one that will be on the poster.",
+    introNAffiche: "Here are the characters drawn from your photos. Pick your favorite for each child: they will be the ones on the poster.",
     persoDe: "The character of",
     avecSigne: "with their distinctive detail",
     proposition: "Proposal",
@@ -793,6 +801,7 @@ const EN: Dict = {
     valider: "Confirm my choice",
     merci: "Thank you! 💛",
     merciMsg: (p1, p2) => `Your characters are chosen — that's all we needed from you. We are now creating ${p1} & ${p2}'s book and sending it to print, shipped straight to your door.`,
+    merciMsgAffiche: (p1, p2) => `Your characters are chosen — that's all we needed from you. We are now creating ${p1} & ${p2}'s poster and sending it to print, shipped straight to your door.`,
     photosRecues: "Your photos have been received",
     photosRecuesMsg: (p1, p2) => `We are preparing ${p1} & ${p2}'s characters and will send you proposals by email within 24 h for approval.`,
     lienInvalide: "Invalid link.",
@@ -1072,6 +1081,8 @@ const ES: Dict = {
     titre: "Elige vuestros personajes",
     intro1: "Aquí están los personajes dibujados a partir de tu foto. Elige tu favorito: será la referencia de todo el libro.",
     introN: "Aquí están los personajes dibujados a partir de tus fotos. Elige tu favorito para cada niño: será la referencia de todo el libro.",
+    intro1Affiche: "Aquí está los personajes dibujados a partir de tu foto. Elige tu favorito: será el que aparezca en el póster.",
+    introNAffiche: "Aquí están los personajes dibujados a partir de tus fotos. Elige tu favorito para cada niño: ellos aparecerán en el póster.",
     persoDe: "El personaje de",
     avecSigne: "con su detalle distintivo",
     proposition: "Propuesta",
@@ -1079,6 +1090,7 @@ const ES: Dict = {
     valider: "Confirmar mi elección",
     merci: "¡Gracias! 💛",
     merciMsg: (p1, p2) => `Vuestros personajes están elegidos, es todo lo que necesitábamos. Ahora creamos el libro de ${p1} & ${p2} y va a imprenta, enviado directamente a vuestra casa.`,
+    merciMsgAffiche: (p1, p2) => `Vuestros personajes están elegidos, es todo lo que necesitábamos. Ahora creamos el póster de ${p1} & ${p2} y se envía a imprimir, directo a vuestra casa.`,
     photosRecues: "Tus fotos se han recibido",
     photosRecuesMsg: (p1, p2) => `Estamos preparando los personajes de ${p1} & ${p2} y te enviaremos propuestas por correo en 24 h para su validación.`,
     lienInvalide: "Enlace no válido.",
@@ -1358,6 +1370,8 @@ const DE: Dict = {
     titre: "Wählen Sie Ihre Figuren",
     intro1: "Hier sind die nach Ihrem Foto gezeichneten Figuren. Wählen Sie Ihren Favoriten: Er dient als Referenz für das ganze Buch.",
     introN: "Hier sind die nach Ihren Fotos gezeichneten Figuren. Wählen Sie für jedes Kind Ihren Favoriten: Er dient als Referenz für das ganze Buch.",
+    intro1Affiche: "Hier ist die nach Ihrem Foto gezeichnete Figur in mehreren Varianten. Wählen Sie Ihren Favoriten: Er wird auf dem Poster zu sehen sein.",
+    introNAffiche: "Hier sind die nach Ihren Fotos gezeichneten Figuren. Wählen Sie für jedes Kind Ihren Favoriten: Sie werden auf dem Poster zu sehen sein.",
     persoDe: "Die Figur von",
     avecSigne: "mit dem Erkennungszeichen",
     proposition: "Vorschlag",
@@ -1365,6 +1379,7 @@ const DE: Dict = {
     valider: "Meine Wahl bestätigen",
     merci: "Danke! 💛",
     merciMsg: (p1, p2) => `Ihre Figuren sind gewählt — mehr brauchten wir nicht von Ihnen. Wir erstellen jetzt das Buch von ${p1} & ${p2} und geben es in den Druck, direkt zu Ihnen nach Hause geliefert.`,
+    merciMsgAffiche: (p1, p2) => `Ihre Figuren sind ausgewählt — mehr brauchten wir nicht. Wir erstellen jetzt das Poster von ${p1} & ${p2}, es geht in den Druck und wird direkt zu Ihnen geliefert.`,
     photosRecues: "Ihre Fotos sind eingegangen",
     photosRecuesMsg: (p1, p2) => `Wir bereiten die Figuren von ${p1} & ${p2} vor und senden Ihnen innerhalb von 24 h Vorschläge per E-Mail zur Freigabe.`,
     lienInvalide: "Ungültiger Link.",

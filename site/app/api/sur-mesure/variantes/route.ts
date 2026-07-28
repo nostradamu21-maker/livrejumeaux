@@ -81,7 +81,8 @@ async function signer(chemins: string[]): Promise<string[]> {
 /** État courant : prénoms, variantes déjà générées (URLs signées), choix. */
 export async function GET(req: Request) {
   const sessionId = new URL(req.url).searchParams.get("session_id") ?? "";
-  if (!(await sessionPayee(sessionId))) {
+  const session = await sessionPayee(sessionId);
+  if (!session) {
     return NextResponse.json({ ok: false, erreur: "Paiement introuvable." }, { status: 403 });
   }
   const row = await ligne(sessionId);
@@ -98,6 +99,8 @@ export async function GET(req: Request) {
   return NextResponse.json({
     ok: true,
     actif: generationActive && !!supabaseAdmin,
+    // Les textes de la page s'adaptent au produit commandé (livre ou affiche).
+    produit: session.metadata?.produit === "affiche" ? "affiche" : "livre",
     monozygote: row.monozygote,
     prenoms: [row.prenom1, row.prenom2],
     nEnfants: listeJeux.length,

@@ -7,6 +7,7 @@ import { t, type Locale } from "@/lib/i18n";
 interface Etat {
   ok: boolean;
   actif?: boolean;
+  produit?: "livre" | "affiche";
   monozygote?: boolean;
   prenoms?: [string, string];
   nEnfants?: number;
@@ -109,7 +110,11 @@ export default function ChoixVariantes({ l }: { l: Locale }) {
     return (
       <main className="variantes">
         <h1>{d.variantes.merci}</h1>
-        <p className="v-intro">{d.variantes.merciMsg(p1, p2)}</p>
+        <p className="v-intro">
+          {etat?.produit === "affiche"
+            ? d.variantes.merciMsgAffiche(p1, p2)
+            : d.variantes.merciMsg(p1, p2)}
+        </p>
       </main>
     );
   }
@@ -126,7 +131,15 @@ export default function ChoixVariantes({ l }: { l: Locale }) {
   return (
     <main className="variantes">
       <h1>{d.variantes.titre}</h1>
-      <p className="v-intro">{n === 1 ? d.variantes.intro1 : d.variantes.introN}</p>
+      <p className="v-intro">
+        {etat.produit === "affiche"
+          ? n === 1
+            ? d.variantes.intro1Affiche
+            : d.variantes.introNAffiche
+          : n === 1
+            ? d.variantes.intro1
+            : d.variantes.introN}
+      </p>
       {Array.from({ length: n }, (_, i) => i + 1).map((enfant) => {
         const urls = etat.variantes?.[String(enfant)] ?? [];
         const titre =
