@@ -59,6 +59,9 @@ export const PRIX_AFFICHE_CENTIMES: Record<AfficheTaille, number> = {
   "50x70": Number(process.env.PRIX_AFFICHE_50X70 ?? 3490),
 };
 export const PRODUIT_AFFICHE_ID = process.env.STRIPE_PRODUIT_AFFICHE?.trim() || "";
+// Affiche SUR MESURE seule (personnages dessinés d'après photo, sans livre) :
+// prix du poster + supplément couvrant la génération des personnages.
+export const AFFICHE_SM_SUPPLEMENT = Number(process.env.PRIX_AFFICHE_SM_SUPPLEMENT ?? 1500);
 
 // Pays de livraison proposés au checkout (Gelato livre bien au-delà ;
 // on ouvre d'abord la zone francophone et ses voisins).

@@ -145,6 +145,11 @@ python expedier.py <ref>                        # brouillon Gelato, puis --impri
 `<livre>` = la combo (ex. `combo-f1…__f2…`) OU le livre sur-mesure du client
 (ex. `sur-mesure-elia-luna`) : l'affiche SUR MESURE reprend ses personnages
 validés (upsell proposé après l'achat, lien `/?sm=<ref>#affiche`).
+**Affiche sur-mesure SEULE** (sans livre) : le client choisit « L'affiche seule »
+dans le formulaire sur-mesure (prix poster + supplément 15 €, env
+`PRIX_AFFICHE_SM_SUPPLEMENT`). Même tunnel photos → variantes → choix client,
+puis `python sur_mesure.py <ref>` détecte le produit et enchaîne affiche.py
+automatiquement.
 Prérequis UNE FOIS : relancer `site/supabase/schema.sql` (colonnes `produit`/`taille`)
 et renseigner dans `.env` les uid Gelato des posters :
 `python gelato.py catalogue poster` puis `GELATO_AFFICHE_21X30=…`, `GELATO_AFFICHE_30X40=…`,

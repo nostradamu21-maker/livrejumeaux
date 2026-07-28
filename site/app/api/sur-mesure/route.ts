@@ -12,6 +12,10 @@ import {
   CODE_PROMO,
   CODE_TEST,
   PRODUIT_SUR_MESURE_ID,
+  AFFICHE_TAILLES,
+  PRIX_AFFICHE_CENTIMES,
+  AFFICHE_SM_SUPPLEMENT,
+  type AfficheTaille,
 } from "@/lib/stripe";
 import { enregistrerCommande, uploaderPhotoSurMesure, supabaseActif } from "@/lib/supabase";
 import { accessoireExiste, ACCESSOIRE_DEFAUT } from "@/lib/accessoires";
@@ -52,6 +56,12 @@ export async function POST(req: Request) {
   const relation = RELATIONS.has(relBrut) ? relBrut : "parent";
   const consentement = form.get("consentement") === "1";
   const codePromo = String(form.get("code") ?? "");
+  // Produit : le LIVRE sur mesure (défaut) ou l'AFFICHE seule (poster d'après
+  // photo, sans livre) — même tunnel photos/variantes dans les deux cas.
+  const produit = form.get("produit") === "affiche" ? "affiche" : "livre";
+  const taille = (AFFICHE_TAILLES as readonly string[]).includes(String(form.get("taille")))
+    ? (String(form.get("taille")) as AfficheTaille)
+    : "30x40";
   // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
   // 2 garçons = masculin, mixte = épicène). Monozygotes : même sexe pour les deux.
   const SEXES = new Set(["garcon", "fille"]);
@@ -116,17 +126,22 @@ export async function POST(req: Request) {
   // Réductions cumulables (réutilisation + code promo), montrées comme UNE
   // ligne « Remise » au checkout (Stripe n'accepte qu'un coupon par session).
   const test = estCodeTest(codePromo);
+  const prixBase = produit === "affiche"
+    ? PRIX_AFFICHE_CENTIMES[taille] + AFFICHE_SM_SUPPLEMENT
+    : PRIX_SUR_MESURE_CENTIMES;
   const reducReuse = reutilisation ? REDUC_REUTILISATION_CENTIMES : 0;
   const reducPromo = remisePromo(codePromo);
-  const remise = Math.min(reducReuse + reducPromo, PRIX_SUR_MESURE_CENTIMES - 50);
+  const remise = Math.min(reducReuse + reducPromo, prixBase - 50);
   const livraison = test ? 0 : LIVRAISON_CENTIMES;
   const partsRemise: string[] = [];
   if (reducReuse) partsRemise.push("réutilisation du personnage");
   if (reducPromo) partsRemise.push(`code ${test ? CODE_TEST : CODE_PROMO}`);
-  const prix = PRIX_SUR_MESURE_CENTIMES - remise; // pour le repli sans Stripe
+  const prix = prixBase - remise; // pour le repli sans Stripe
   const origin = new URL(req.url).origin;
   const metadata = {
     combo_id: "sur-mesure",
+    produit,
+    ...(produit === "affiche" ? { taille } : {}),
     archetype1: "sur-mesure",
     archetype2: reutilisation ? "reutilisation-ok" : "sans-reutilisation",
     prenom1: p1,
@@ -146,7 +161,7 @@ export async function POST(req: Request) {
    try {
     // Remise en ligne dédiée ; repli sur le prix si le coupon échoue. Nom du
     // coupon limité à 40 car. (contrainte Stripe).
-    let unitAmount = PRIX_SUR_MESURE_CENTIMES;
+    let unitAmount = prixBase;
     const discounts: { coupon: string }[] = [];
     if (remise > 0) {
       try {
@@ -159,7 +174,7 @@ export async function POST(req: Request) {
         discounts.push({ coupon: coupon.id });
       } catch (e) {
         console.error("Coupon (sur-mesure):", e);
-        unitAmount = PRIX_SUR_MESURE_CENTIMES - remise;
+        unitAmount = prixBase - remise;
       }
     }
     const priceData = PRODUIT_SUR_MESURE_ID
@@ -168,7 +183,9 @@ export async function POST(req: Request) {
           currency: DEVISE,
           unit_amount: unitAmount,
           product_data: {
-            name: "Deux comme nous, édition sur mesure",
+            name: produit === "affiche"
+              ? `Deux comme nous, l'affiche sur mesure (${taille.replace("x", "×")} cm)`
+              : "Deux comme nous, édition sur mesure",
             description: `${p1} & ${p2}, d'après vos photos`,
           },
         };
@@ -215,6 +232,8 @@ export async function POST(req: Request) {
     ref: chemins.join(","),
     langue,
     montant_centimes: prix + livraison,
+    produit,
+    taille: produit === "affiche" ? taille : null,
   });
   return NextResponse.json({
     ok: true,

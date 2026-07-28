@@ -274,7 +274,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-offre .champ-email { width: 100%; }
 .sm-option { display: flex; gap: 0.55rem; align-items: flex-start; text-align: left; font-size: 0.82rem; color: var(--encre); line-height: 1.45; background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 12px; padding: 0.65rem 0.8rem; cursor: pointer; }
 .sm-option input { margin-top: 0.15rem; accent-color: var(--vert-f); }
-.sm-zygote { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; }
+.sm-zygote, .sm-produits { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; }
 .sm-zy { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .sm-zy small { font-weight: 600; font-size: 0.68rem; color: var(--encre-doux); }
 .sm-zy.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }

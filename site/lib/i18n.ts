@@ -112,6 +112,11 @@ export interface Dict {
     phP1: string;
     phP2: string;
     phEmail: string;
+    prodLivre: string;
+    prodLivreSub: string;
+    prodAffiche: string;
+    prodAfficheSub: string;
+    prixAffiche: Record<string, string>;
     zyIdent: string;
     zyIdentSub: string;
     zyDiff: string;
@@ -336,6 +341,9 @@ const FR: Dict = {
     phP1: "Prénom du premier enfant",
     phP2: "Prénom du second enfant",
     phEmail: "Votre e-mail (facultatif)",
+    prodLivre: "Le livre", prodLivreSub: "30 pages, relié",
+    prodAffiche: "L'affiche seule", prodAfficheSub: "poster à encadrer",
+    prixAffiche: { "21x30": "34,90 €", "30x40": "39,90 €", "40x50": "44,90 €", "50x70": "49,90 €" },
     zyIdent: "Identiques", zyIdentSub: "une seule photo suffit",
     zyDiff: "Différents", zyDiffSub: "une photo par enfant",
     distinctifAvant: "Un petit détail pour distinguer", distinctifApres: "dans le livre :",
@@ -555,6 +563,9 @@ const EN: Dict = {
     phP1: "First child's name",
     phP2: "Second child's name",
     phEmail: "Your email (optional)",
+    prodLivre: "The book", prodLivreSub: "30 pages, hardcover",
+    prodAffiche: "The poster only", prodAfficheSub: "print to frame",
+    prixAffiche: { "21x30": "€34.90", "30x40": "€39.90", "40x50": "€44.90", "50x70": "€49.90" },
     zyIdent: "Identical", zyIdentSub: "one photo is enough",
     zyDiff: "Fraternal", zyDiffSub: "one photo per child",
     distinctifAvant: "A small detail to tell", distinctifApres: "apart in the book:",
@@ -792,6 +803,9 @@ const ES: Dict = {
     phP1: "Nombre del primer niño",
     phP2: "Nombre del segundo niño",
     phEmail: "Tu correo (opcional)",
+    prodLivre: "El libro", prodLivreSub: "30 páginas, tapa dura",
+    prodAffiche: "Solo el póster", prodAfficheSub: "lámina para enmarcar",
+    prixAffiche: { "21x30": "34,90 €", "30x40": "39,90 €", "40x50": "44,90 €", "50x70": "49,90 €" },
     zyIdent: "Idénticos", zyIdentSub: "una sola foto basta",
     zyDiff: "Mellizos", zyDiffSub: "una foto por niño",
     distinctifAvant: "Un pequeño detalle para distinguir a", distinctifApres: "en el libro:",
@@ -1029,6 +1043,9 @@ const DE: Dict = {
     phP1: "Name des ersten Kindes",
     phP2: "Name des zweiten Kindes",
     phEmail: "Ihre E-Mail (optional)",
+    prodLivre: "Das Buch", prodLivreSub: "30 Seiten, Hardcover",
+    prodAffiche: "Nur das Poster", prodAfficheSub: "Druck zum Einrahmen",
+    prixAffiche: { "21x30": "34,90 €", "30x40": "39,90 €", "40x50": "44,90 €", "50x70": "49,90 €" },
     zyIdent: "Eineiig", zyIdentSub: "ein Foto genügt",
     zyDiff: "Zweieiig", zyDiffSub: "ein Foto pro Kind",
     distinctifAvant: "Ein kleines Detail, um", distinctifApres: "im Buch zu unterscheiden:",

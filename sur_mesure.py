@@ -90,9 +90,15 @@ def lire_sur_mesure(ref: str) -> dict:
     return data[0]
 
 
-def langue_commande(ref: str) -> str:
-    data = _rest(f"commandes?ref=eq.{ref}&select=langue")
-    return (data[0]["langue"] if data else "fr") or "fr"
+def infos_commande(ref: str) -> dict:
+    """Langue + produit (livre|affiche) + taille depuis la table commandes."""
+    data = _rest(f"commandes?ref=eq.{ref}&select=langue,produit,taille")
+    if not data:
+        return {"langue": "fr", "produit": "livre", "taille": None}
+    d = data[0]
+    return {"langue": (d.get("langue") or "fr"),
+            "produit": (d.get("produit") or "livre"),
+            "taille": d.get("taille")}
 
 
 # ------------------------------- Utilitaires -------------------------------
@@ -138,7 +144,8 @@ def preparer(ref: str) -> str:
     choix = cmd.get("choix") or {}
     if not choix.get("1") or not choix.get("2"):
         raise SystemExit("Le client n'a pas encore choisi ses deux personnages.")
-    langue = langue_commande(ref)
+    infos = infos_commande(ref)
+    langue = infos["langue"]
 
     book_id = f"sur-mesure-{slug(p1)}-{slug(p2)}"
     dossier = LIVRES / book_id
@@ -176,7 +183,8 @@ def preparer(ref: str) -> str:
 
     print(f"\n✅ Dossier prêt : livres/{book_id}/")
     print(f"   Personnages : perso-1.png ({p1}), perso-2.png ({p2})")
-    print(f"   {'Monozygotes' if mono else 'Dizygotes'} · langue {langue.upper()}")
+    print(f"   {'Monozygotes' if mono else 'Dizygotes'} · langue {langue.upper()}"
+          + (f" · AFFICHE seule {infos['taille'] or '30x40'}" if infos['produit'] == 'affiche' else ""))
     return book_id
 
 
@@ -205,6 +213,27 @@ def main() -> None:
         return
     ref = args[0]
     book_id = preparer(ref)
+    infos = infos_commande(ref)
+    if infos["produit"] == "affiche":
+        # AFFICHE seule : pas de livre à produire — illustration dédiée + PDF poster.
+        cmd_sm = lire_sur_mesure(ref)
+        p1 = cmd_sm.get("prenom1") or "Enfant1"
+        p2 = cmd_sm.get("prenom2") or "Enfant2"
+        taille = infos["taille"] or "30x40"
+        if "--preparer" in args:
+            print(f"\nQuand tu veux : python affiche.py {book_id} "
+                  f'--prenoms "{p1},{p2}" --taille {taille}')
+            return
+        if input("\nLancer la production de l'AFFICHE maintenant ? [o/N] ") \
+                .strip().lower() not in ("o", "oui", "y"):
+            print(f"OK. Plus tard : python affiche.py {book_id} "
+                  f'--prenoms "{p1},{p2}" --taille {taille}')
+            return
+        _lancer(["affiche.py", book_id])
+        _lancer(["affiche.py", book_id, "--prenoms", f"{p1},{p2}", "--taille", taille])
+        print(f"\n🎉 Affiche prête dans livres/{book_id}/ — expédie avec "
+              f"python expedier.py {ref}")
+        return
     if "--preparer" in args:
         print(f"\nQuand tu veux : python livre.py {book_id}")
         return

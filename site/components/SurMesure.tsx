@@ -66,6 +66,9 @@ export default function SurMesure({ l }: { l: Locale }) {
   const [code, setCode] = useState("");
   const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
   const [reutilisation, setReutilisation] = useState(false);
+  // Produit : livre sur mesure (défaut) ou affiche seule (poster d'après photo).
+  const [produit, setProduit] = useState<"livre" | "affiche">("livre");
+  const [taille, setTaille] = useState("30x40");
   const [monozygote, setMonozygote] = useState(true);
   // Sexe de chaque enfant → accords du texte imprimé (2 filles = féminin,
   // 2 garçons = masculin, mixte = épicène). Monozygotes : un seul choix.
@@ -80,7 +83,11 @@ export default function SurMesure({ l }: { l: Locale }) {
   // Photo réelle « avant » (Jade) si présente, sinon repli sur le cadre placeholder.
   const [photoOk, setPhotoOk] = useState(true);
 
-  const prix = reutilisation ? d.sm.prixReduit : d.sm.prix;
+  const prix = produit === "affiche"
+    ? d.sm.prixAffiche[taille]
+    : reutilisation
+      ? d.sm.prixReduit
+      : d.sm.prix;
   const pret = !!(
     prenoms[1] &&
     prenoms[2] &&
@@ -122,6 +129,8 @@ export default function SurMesure({ l }: { l: Locale }) {
       form.set("relation", relation);
       form.set("consentement", consentement ? "1" : "0");
       form.set("code", code.trim());
+      form.set("produit", produit);
+      if (produit === "affiche") form.set("taille", taille);
       form.set("langue", l);
       form.set("photo1", await reduirePhoto(photos[1]), "photo1.jpg");
       if (!monozygote && photos[2]) {
@@ -188,12 +197,46 @@ export default function SurMesure({ l }: { l: Locale }) {
           <p className="sm-comment">{d.sm.comment}</p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
-          <span className="sm-lancement">{d.sm.lancement}</span>
+          <div className="sm-produits" role="radiogroup">
+            <button
+              type="button"
+              className={`sm-zy${produit === "livre" ? " actif" : ""}`}
+              onClick={() => setProduit("livre")}
+            >
+              {d.sm.prodLivre}
+              <small>{d.sm.prodLivreSub}</small>
+            </button>
+            <button
+              type="button"
+              className={`sm-zy${produit === "affiche" ? " actif" : ""}`}
+              onClick={() => setProduit("affiche")}
+            >
+              {d.sm.prodAffiche}
+              <small>{d.sm.prodAfficheSub}</small>
+            </button>
+          </div>
+          {produit === "livre" && <span className="sm-lancement">{d.sm.lancement}</span>}
           <span className="sm-prix-ligne">
-            <span className="sm-prix-barre">{d.sm.prixBarre}</span>
+            {produit === "livre" && <span className="sm-prix-barre">{d.sm.prixBarre}</span>}
             <span className="sm-prix">{prix}</span>
           </span>
-          <span className="sm-prix-note">{d.sm.prixNote}</span>
+          {produit === "livre" && <span className="sm-prix-note">{d.sm.prixNote}</span>}
+          {produit === "affiche" && (
+            <div className="affiche-tailles">
+              {(["21x30", "30x40", "40x50", "50x70"] as const).map((tl) => (
+                <button
+                  key={tl}
+                  type="button"
+                  className={`affiche-tl${taille === tl ? " actif" : ""}`}
+                  onClick={() => setTaille(tl)}
+                  aria-pressed={taille === tl}
+                >
+                  <strong>{tl.replace("x", "×")} cm</strong>
+                  <span>{d.sm.prixAffiche[tl]}</span>
+                </button>
+              ))}
+            </div>
+          )}
           <input
             type="text"
             className="champ-email"
