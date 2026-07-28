@@ -248,6 +248,28 @@ def planche_contact(pdf: Path) -> Path:
     return dest
 
 
+def aplatir_pdf(src: Path, dpi: int = 300) -> Path:
+    """Rastérise chaque page en JPEG 300 dpi → PDF 100 % image, rendu identique
+    partout (visionneuse Gelato comprise). Le texte reste composé en vectoriel
+    dans le PDF maître ; seul l'export impression est aplati."""
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        raise SystemExit("PyMuPDF manquant : pip install pymupdf")
+    doc = fitz.open(str(src))
+    sortie = fitz.open()
+    for page in doc:
+        pix = page.get_pixmap(dpi=dpi, colorspace=fitz.csRGB)
+        neuve = sortie.new_page(width=page.rect.width, height=page.rect.height)
+        neuve.insert_image(neuve.rect, stream=pix.tobytes("jpeg", jpg_quality=92))
+    dest = src.with_name(src.stem + "-plat.pdf")
+    sortie.save(str(dest), garbage=3, deflate=True)
+    sortie.close()
+    doc.close()
+    print(f"Aplati (image {dpi} dpi) : {dest.name} ({dest.stat().st_size // 1_000_000} Mo)")
+    return dest
+
+
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
                    imprimer: bool) -> dict:
     produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
@@ -291,7 +313,7 @@ def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
     }
 
 
-def expedier(ref: str, imprimer: bool) -> None:
+def expedier(ref: str, imprimer: bool, aplatir: bool = False) -> None:
     cmd = lire_commande(ref)
     if cmd.get("gelato_id") and cmd.get("expedie_le"):
         print(f"Déjà expédiée (Gelato {cmd['gelato_id']} le {cmd['expedie_le']}).")
@@ -301,6 +323,11 @@ def expedier(ref: str, imprimer: bool) -> None:
 
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
     print(f"Scindé : couverture + {pages_int} pages intérieures")
+    if aplatir:
+        # PDF 100 % image : contourne les visionneuses qui rendent mal la
+        # couche vectorielle (pages blanches au dashboard Gelato).
+        p_couv = aplatir_pdf(p_couv)
+        p_int = aplatir_pdf(p_int)
     analyser_dpi(p_couv)
     analyser_dpi(p_int)
 
@@ -458,7 +485,7 @@ def main() -> None:
             planche_contact(p_couv)
             planche_contact(p_int)
         return
-    expedier(args[0], "--imprimer" in args)
+    expedier(args[0], "--imprimer" in args, aplatir="--aplatir" in args)
 
 
 if __name__ == "__main__":
