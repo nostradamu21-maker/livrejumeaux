@@ -37,6 +37,11 @@ export interface Dict {
     lead: string;
     ctaCreer: string;
     ctaFeuilleter: string;
+    // Sélecteur des deux produits de la boutique (cartes cliquables du hero).
+    produits: {
+      livre: { nom: string; sub: string; prix: string };
+      affiche: { nom: string; sub: string; prix: string };
+    };
     points: [string, string, string];
     alt: string;
   };
@@ -144,6 +149,7 @@ export interface Dict {
     obligatoire: string;
     option15: string;
     cta: string;
+    ctaAffiche: string; // libellé du bouton quand le produit choisi est l'affiche
     question: string;
     ecrivez: string;
     reponse: string;
@@ -248,6 +254,10 @@ const FR: Dict = {
       "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité. Ensemble sur chaque page, du premier câlin au dernier bisou du soir.",
     ctaCreer: "Créer leur livre",
     ctaFeuilleter: "Feuilleter un exemple",
+    produits: {
+      livre: { nom: "Le livre", sub: "Leur histoire, 30 pages illustrées", prix: "dès 44,90 €" },
+      affiche: { nom: "L'affiche", sub: "Leur portrait aquarelle, en grand sur le mur", prix: "dès 19,90 €" },
+    },
     points: [
       "Deux héros à leur image",
       "Relié 20×20 cm, 30 pages, dès 3 ans",
@@ -366,6 +376,7 @@ const FR: Dict = {
     obligatoire: "Obligatoire.",
     option15: "−10 € : j'accepte que le personnage dessiné (jamais la photo) soit conservé pour de futures créations.",
     cta: "Commander mon livre sur mesure",
+    ctaAffiche: "Commander mon affiche sur mesure",
     question: "Une question d'abord ?", ecrivez: "Écrivez-nous", reponse: "réponse sous 48 h.",
   },
   cadeau: {
@@ -479,6 +490,10 @@ const EN: Dict = {
     lead: "The personalized book made for twins: their names, their looks, their bond. Together on every page, from the first hug to the last goodnight kiss.",
     ctaCreer: "Create their book",
     ctaFeuilleter: "Browse a sample",
+    produits: {
+      livre: { nom: "The book", sub: "Their story, 30 illustrated pages", prix: "from €44.90" },
+      affiche: { nom: "The poster", sub: "Their watercolor portrait, big on the wall", prix: "from €19.90" },
+    },
     points: ["Two heroes in their likeness", "8×8\" hardcover, 30 pages, from age 3", "By the creators of Jumelio & Gemellite.com"],
     alt: "Personalized book for twin girls: cover with both children, a gift for twins",
   },
@@ -591,6 +606,7 @@ const EN: Dict = {
     obligatoire: "Required.",
     option15: "−€10: I agree that the drawn character (never the photo) may be kept for future creations.",
     cta: "Order my custom book",
+    ctaAffiche: "Order my custom poster",
     question: "A question first?", ecrivez: "Write to us", reponse: "reply within 48 h.",
   },
   cadeau: {
@@ -722,6 +738,10 @@ const ES: Dict = {
     lead: "El libro personalizado pensado para gemelos: sus nombres, su aspecto, su complicidad. Juntos en cada página, del primer abrazo al último beso de buenas noches.",
     ctaCreer: "Crear su libro",
     ctaFeuilleter: "Hojear un ejemplo",
+    produits: {
+      livre: { nom: "El libro", sub: "Su historia, 30 páginas ilustradas", prix: "desde 44,90 €" },
+      affiche: { nom: "El póster", sub: "Su retrato en acuarela, en grande en la pared", prix: "desde 19,90 €" },
+    },
     points: ["Dos héroes a su imagen", "Tapa dura 20×20 cm, 30 páginas, desde 3 años", "Por los creadores de Jumelio & Gemellite.com"],
     alt: "Libro personalizado para gemelas: portada con los dos niños, regalo para gemelos",
   },
@@ -834,6 +854,7 @@ const ES: Dict = {
     obligatoire: "Obligatorio.",
     option15: "−10 €: acepto que el personaje dibujado (nunca la foto) se conserve para futuras creaciones.",
     cta: "Pedir mi libro a medida",
+    ctaAffiche: "Pedir mi póster a medida",
     question: "¿Una pregunta antes?", ecrivez: "Escríbenos", reponse: "respuesta en 48 h.",
   },
   cadeau: {
@@ -965,6 +986,10 @@ const DE: Dict = {
     lead: "Das personalisierte Buch für Zwillinge: ihre Namen, ihr Aussehen, ihre Verbundenheit. Gemeinsam auf jeder Seite, von der ersten Umarmung bis zum letzten Gutenachtkuss.",
     ctaCreer: "Ihr Buch gestalten",
     ctaFeuilleter: "Beispiel durchblättern",
+    produits: {
+      livre: { nom: "Das Buch", sub: "Ihre Geschichte auf 30 illustrierten Seiten", prix: "ab 44,90 €" },
+      affiche: { nom: "Das Poster", sub: "Ihr Aquarell-Porträt, groß an der Wand", prix: "ab 19,90 €" },
+    },
     points: ["Zwei Helden nach ihrem Vorbild", "Hardcover 20×20 cm, 30 Seiten, ab 3 Jahren", "Von den Machern von Jumelio & Gemellite.com"],
     alt: "Personalisiertes Buch für Zwillingsmädchen: Cover mit beiden Kindern, ein Geschenk für Zwillinge",
   },
@@ -1077,6 +1102,7 @@ const DE: Dict = {
     obligatoire: "Erforderlich.",
     option15: "−10 €: Ich bin einverstanden, dass die gezeichnete Figur (nie das Foto) für künftige Kreationen aufbewahrt wird.",
     cta: "Mein Buch nach Maß bestellen",
+    ctaAffiche: "Mein Poster nach Maß bestellen",
     question: "Erst eine Frage?", ecrivez: "Schreiben Sie uns", reponse: "Antwort innerhalb von 48 h.",
   },
   cadeau: {

@@ -20,10 +20,28 @@ export default function Hero({ l }: { l: Locale }) {
           )}
         </h1>
         <p className="lead">{d.hero.lead}</p>
-        <div className="hero-actions">
-          <a href="#sur-mesure" className="btn btn-primary">
-            {d.hero.ctaCreer}
+        {/* Sélecteur des deux produits : le livre (produit phare) et l'affiche. */}
+        <div className="hero-produits">
+          <a href="#sur-mesure" className="hero-produit">
+            <span className="hp-icone" aria-hidden="true">📖</span>
+            <span className="hp-infos">
+              <strong>{d.hero.produits.livre.nom}</strong>
+              <small>{d.hero.produits.livre.sub}</small>
+            </span>
+            <span className="hp-prix">{d.hero.produits.livre.prix}</span>
+            <span className="hp-fleche" aria-hidden="true">›</span>
           </a>
+          <a href="#affiche" className="hero-produit">
+            <span className="hp-icone" aria-hidden="true">🖼️</span>
+            <span className="hp-infos">
+              <strong>{d.hero.produits.affiche.nom}</strong>
+              <small>{d.hero.produits.affiche.sub}</small>
+            </span>
+            <span className="hp-prix">{d.hero.produits.affiche.prix}</span>
+            <span className="hp-fleche" aria-hidden="true">›</span>
+          </a>
+        </div>
+        <div className="hero-actions">
           <a href="#livre" className="btn btn-ghost">
             {d.hero.ctaFeuilleter}
           </a>

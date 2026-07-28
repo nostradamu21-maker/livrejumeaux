@@ -420,7 +420,7 @@ export default function SurMesure({ l }: { l: Locale }) {
             <span>{d.sm.option15}</span>
           </label>
           <button type="submit" className="sm-cta" disabled={!pret || envoi}>
-            {d.sm.cta}
+            {produit === "affiche" ? d.sm.ctaAffiche : d.sm.cta}
           </button>
           <p className={`statut ${statut.cls}`}>{statut.txt}</p>
           <span className="sm-note">
