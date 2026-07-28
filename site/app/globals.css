@@ -569,8 +569,28 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
   .sm-galerie { margin-left: auto; margin-right: auto; }
   .sm-g-legende { text-align: center; }
 }
-@media (max-width: 560px) {
-  .nav-links a:not(.nav-cta) { display: none; }
+/* ------------------- NAV MOBILE (burger plein écran) ------------------- */
+.nav-burger { display: none; border: 0; background: none; font-size: 1.45rem; line-height: 1; color: var(--encre); cursor: pointer; padding: 0.35rem 0.55rem; border-radius: 10px; }
+@media (max-width: 860px) {
+  .nav-burger { display: block; }
+  /* Menu ouvert : le backdrop-filter ferait du panneau fixed un enfant de la
+     nav (containing block) → on le coupe et on opacifie la barre. */
+  .nav.nav-ouverte { backdrop-filter: none; background: var(--creme); }
+  /* Menu ouvert : la barre d'achat du bas se retire (doublon du CTA). */
+  body:has(.nav-links.ouvert) .barre-mobile { display: none; }
+  .nav-links { display: none; }
+  .nav-links.ouvert {
+    display: flex; flex-direction: column; align-items: stretch; gap: 0;
+    position: fixed; top: 62px; left: 0; right: 0; bottom: 0; z-index: 60;
+    background: var(--creme); padding: 1rem 1.4rem 2rem; overflow-y: auto;
+  }
+  .nav-links.ouvert > a:not(.nav-cta) {
+    font-size: 1.25rem; font-weight: 700; color: var(--encre);
+    padding: 1rem 0.3rem; border-bottom: 1.5px solid var(--ligne);
+  }
+  .nav-links.ouvert .nav-langues { justify-content: center; gap: 1.4rem; padding: 1.3rem 0; }
+  .nav-links.ouvert .nav-langues a { font-size: 1rem; }
+  .nav-links.ouvert .nav-cta { margin-top: 0.4rem; text-align: center; padding: 1rem; font-size: 1.05rem; }
 }
 @media (max-width: 700px) {
   .barre-mobile { display: flex; }
