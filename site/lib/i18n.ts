@@ -51,6 +51,12 @@ export interface Dict {
     livre: { metaTitle: string; metaDesc: string; h1: string; sub: string };
     affiche: { metaTitle: string; metaDesc: string; h1: string; sub: string };
   };
+  // Section vidéo de la home (spot avec musique, lecture au clic).
+  video: {
+    h2: string;
+    sub: string;
+    cta: string; // texte d'accessibilité du bouton lecture
+  };
   flip: {
     h2: string;
     sub: string;
@@ -301,6 +307,11 @@ const FR: Dict = {
       h1: "L'affiche de vos jumeaux",
       sub: "Leur duo en aquarelle avec leurs prénoms, imprimé grand format et livré roulé, prêt à encadrer.",
     },
+  },
+  video: {
+    h2: "Leur histoire prend vie",
+    sub: "Une minute pour comprendre pourquoi les parents de jumeaux craquent : regardez.",
+    cta: "Lancer la vidéo",
   },
   flip: {
     h2: "Feuilletez un exemplaire réel",
@@ -566,6 +577,11 @@ const EN: Dict = {
       h1: "Your twins' poster",
       sub: "Their duo in watercolor with their names, printed large and shipped rolled, ready to frame.",
     },
+  },
+  video: {
+    h2: "Their story comes to life",
+    sub: "One minute to see why twin parents fall for it: watch.",
+    cta: "Play the video",
   },
   flip: {
     h2: "Flip through a real copy",
@@ -848,6 +864,11 @@ const ES: Dict = {
       sub: "Su dúo en acuarela con sus nombres, impreso en gran formato y enviado enrollado, listo para enmarcar.",
     },
   },
+  video: {
+    h2: "Su historia cobra vida",
+    sub: "Un minuto para entender por qué los padres de gemelos se enamoran: mira.",
+    cta: "Ver el vídeo",
+  },
   flip: {
     h2: "Hojea un ejemplar real",
     sub: "Este es el libro personalizado de Elia & Luna: pasa las páginas y descubre las suaves ilustraciones en acuarela. Es un extracto; el libro completo tiene 30 páginas.",
@@ -1128,6 +1149,11 @@ const DE: Dict = {
       h1: "Das Poster Ihrer Zwillinge",
       sub: "Ihr Duo in Aquarell mit ihren Namen, groß gedruckt und gerollt geliefert, bereit zum Einrahmen.",
     },
+  },
+  video: {
+    h2: "Ihre Geschichte wird lebendig",
+    sub: "Eine Minute, um zu verstehen, warum Zwillingseltern begeistert sind: schauen Sie.",
+    cta: "Video abspielen",
   },
   flip: {
     h2: "Blättern Sie durch ein echtes Exemplar",

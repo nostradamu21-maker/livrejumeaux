@@ -590,3 +590,11 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
   .sm-g-pages { gap: 0.5rem; }
   .sm-g-pages img { width: calc((100% - 1rem) / 3); border-width: 4px; }
 }
+
+/* -------------------------- VIDÉO PUB -------------------------- */
+.video-pub { text-align: center; padding-top: 0; }
+.video-cadre { position: relative; max-width: 880px; margin: 0 auto; border-radius: 22px; overflow: hidden; box-shadow: 0 22px 60px rgba(74, 58, 48, 0.22); background: var(--creme-2); }
+.video-cadre video { display: block; width: 100%; height: auto; }
+.video-play { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; border: 0; cursor: pointer; background: linear-gradient(rgba(74, 58, 48, 0) 55%, rgba(74, 58, 48, 0.35)); }
+.video-play span { display: grid; place-items: center; width: clamp(64px, 9vw, 84px); height: clamp(64px, 9vw, 84px); border-radius: 50%; background: rgba(255, 252, 246, 0.94); color: var(--terracotta); font-size: clamp(1.5rem, 2.4vw, 2rem); padding-left: 6px; box-shadow: 0 10px 30px rgba(74, 58, 48, 0.3); transition: transform 0.25s; }
+.video-play:hover span { transform: scale(1.07); }

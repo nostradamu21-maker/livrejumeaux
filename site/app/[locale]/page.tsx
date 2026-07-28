@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import VideoPub from "@/components/VideoPub";
 import Flipbook from "@/components/Flipbook";
 import Pourquoi from "@/components/Pourquoi";
 import Etapes from "@/components/Etapes";
@@ -30,6 +31,7 @@ export default async function Page({
       />
       <Nav l={locale} />
       <Hero l={locale} />
+      <VideoPub l={locale} />
       <Flipbook l={locale} />
       <Pourquoi l={locale} />
       <Etapes l={locale} />
