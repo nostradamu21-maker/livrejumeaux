@@ -89,7 +89,6 @@ def composer(livre_id: str, prenoms: tuple[str, str], taille: str) -> Path:
     # esprit affiche de chambre d'enfant. Plus condensée qu'Andika → corps
     # augmenté en proportion (validé sur comparatif visuel).
     pdfmetrics.registerFont(TTFont("AffTitre", str(ROOT / "fonts/AmaticSC-Bold.ttf")))
-    pdfmetrics.registerFont(TTFont("AffTexte", str(ROOT / "fonts/AmaticSC-Regular.ttf")))
     c = canvas.Canvas(str(pdf_path), pagesize=(L * MM, H * MM))
     buf = io.BytesIO()
     art.save(buf, "JPEG", quality=92)
@@ -106,12 +105,11 @@ def composer(livre_id: str, prenoms: tuple[str, str], taille: str) -> Path:
         c.setFillColor(HexColor("#3a3230"))
         c.drawCentredString(x, y, txt)
 
-    # Prénoms dans le tiers bas (zone calme prévue par la scène), taille
-    # proportionnelle à l'affiche.
+    # Prénoms seuls dans le tiers bas (zone calme prévue par la scène), taille
+    # proportionnelle à l'affiche. Pas de mention « deux comme nous » (choix
+    # Simon : l'affiche reste un objet déco, sans marque).
     corps = H * MM * 0.080
-    _halo(L * MM / 2, H * MM * 0.118, f"{p1} & {p2}", "AffTitre", corps)
-    _halo(L * MM / 2, H * MM * 0.118 - corps * 0.60, "deux comme nous", "AffTexte",
-          corps * 0.42)
+    _halo(L * MM / 2, H * MM * 0.112, f"{p1} & {p2}", "AffTitre", corps)
     c.showPage()
     c.save()
 
