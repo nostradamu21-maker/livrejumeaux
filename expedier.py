@@ -9,8 +9,9 @@ Chaîne complète pour une commande dont le PDF client existe déjà
   1. lit la commande dans Supabase (adresse structurée écrite par le webhook Stripe) ;
   2. scinde le PDF d'impression : page 1 = couverture intégrale (gabarit Gelato),
      pages suivantes = intérieur ;
-  3. téléverse les deux PDF dans le bucket privé `impressions` et crée des liens
-     signés (7 jours) que Gelato télécharge ;
+  3. recompose UN PDF unique (couverture + 30 pages, gardes retirées), le
+     téléverse dans le bucket privé `impressions` (lien signé 7 jours) —
+     seul format que le dashboard Gelato prévisualise bien ;
   4. crée la commande Gelato (brouillon par défaut : rien ne part en impression
      tant que tu ne la valides pas dans le dashboard, ou relance avec --imprimer) ;
   5. enregistre `gelato_id` (+ `expedie_le` si réelle) dans la commande Supabase.
@@ -510,8 +511,11 @@ def main() -> None:
             planche_contact(p_couv)
             planche_contact(p_int)
         return
+    # PDF UNIQUE par défaut (couverture + intérieur) : c'est le seul format que
+    # la visionneuse du dashboard Gelato prévisualise correctement (validé le
+    # 28/07/2026). --deux-fichiers = ancien mapping cover/default si besoin.
     expedier(args[0], "--imprimer" in args, aplatir="--aplatir" in args,
-             un_fichier="--un-fichier" in args)
+             un_fichier="--deux-fichiers" not in args)
 
 
 if __name__ == "__main__":
