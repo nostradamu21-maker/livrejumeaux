@@ -606,3 +606,20 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 
 /* Guide des tailles de l'affiche : photo réelle des 4 formats cotés. */
 .affiche-guide { width: 100%; max-width: 560px; border-radius: var(--r); box-shadow: var(--ombre-m); display: block; }
+
+/* Sélecteur visuel de personnages du formulaire affiche (esprit configurateur). */
+.persel { margin: 0.9rem 0 1.1rem; }
+.persel-tete { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.55rem; }
+.persel-titre { font-weight: 800; font-size: 0.9rem; color: var(--encre); white-space: nowrap; }
+.persel-tete .champ-email { flex: 1; margin: 0; }
+.persel-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 0.45rem; }
+.persel-carte { position: relative; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.35rem 0.3rem; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(180deg, #fff 0%, var(--creme) 100%); cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: "Nunito", sans-serif; }
+.persel-carte:hover { transform: translateY(-2px); box-shadow: var(--ombre-m); }
+.persel-carte.actif { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(217, 143, 99, 0.18), var(--ombre-s); }
+.persel-carte.actif::after { content: "✓"; position: absolute; top: 4px; right: 4px; width: 17px; height: 17px; background: var(--terracotta); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.6rem; font-weight: 800; }
+.persel-carte img { width: 100%; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 8px; background: #f0e7da; }
+.persel-carte span { font-size: 0.6rem; line-height: 1.2; color: var(--encre-doux); font-weight: 700; }
+.persel-carte.indispo { opacity: 0.35; pointer-events: none; }
+
+/* Guide des tailles dans la colonne sur-mesure. */
+.sm-guide { max-width: 100%; margin: 1.1rem 0 0.4rem; }

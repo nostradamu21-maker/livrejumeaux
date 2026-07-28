@@ -141,26 +141,34 @@ export default function Affiche({
             <p className="affiche-taille-titre">{d.affiche.ouCatalogue}</p>
           )}
           {!smRef && ([1, 2] as const).map((j) => (
-            <div className="affiche-enfant" key={j}>
-              <select
-                value={choix[j]}
-                onChange={(e) => setChoix((c) => ({ ...c, [j]: e.target.value }))}
-              >
-                <option value="">{j === 1 ? d.affiche.enfant1 : d.affiche.enfant2}…</option>
+            <div className="persel" key={j}>
+              <div className="persel-tete">
+                <span className="persel-titre">{j === 1 ? d.affiche.enfant1 : d.affiche.enfant2}</span>
+                <input
+                  type="text"
+                  className="champ-email"
+                  placeholder={d.affiche.phPrenom}
+                  maxLength={18}
+                  value={prenoms[j]}
+                  onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
+                />
+              </div>
+              {/* Sélecteur visuel, même esprit que le configurateur du livre. */}
+              <div className="persel-grille">
                 {archetypes.map((a) => (
-                  <option key={a.id} value={a.id}>
-                    {a.label}
-                  </option>
+                  <button
+                    key={a.id}
+                    type="button"
+                    className={`persel-carte${choix[j] === a.id ? " actif" : ""}${a.disponible ? "" : " indispo"}`}
+                    onClick={() => setChoix((c) => ({ ...c, [j]: a.id }))}
+                    aria-pressed={choix[j] === a.id}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={a.fiche} alt={a.label} loading="lazy" />
+                    <span>{a.label}</span>
+                  </button>
                 ))}
-              </select>
-              <input
-                type="text"
-                className="champ-email"
-                placeholder={d.affiche.phPrenom}
-                maxLength={18}
-                value={prenoms[j]}
-                onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
-              />
+              </div>
             </div>
           ))}
           {smRef && ([1, 2] as const).map((j) => (

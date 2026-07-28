@@ -216,6 +216,15 @@ export default function SurMesure({
               d'Elia & Luna, ou son affiche. Images masquées une à une si
               absentes (repli silencieux). */}
           {affiche ? (
+            <>
+            {/* Guide des tailles : les 4 formats cotés sur un vrai mur. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="affiche-guide sm-guide"
+              src="/photos/guide-tailles.jpg"
+              alt=""
+              loading="lazy"
+            />
             <figure className="sm-galerie sm-g-affiche">
               <div className="sm-g-cadre">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -230,6 +239,7 @@ export default function SurMesure({
               </div>
               <figcaption className="sm-g-legende">{d.affiche.exLegende}</figcaption>
             </figure>
+            </>
           ) : (
             <figure className="sm-galerie sm-g-livre">
               <div className="sm-g-pages">
