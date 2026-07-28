@@ -23,6 +23,9 @@ description_paire: 'Les DEUX enfants sont des jumelles identiques : même visage
 prenoms_defaut:
 - Elia
 - Luna
+# Deux filles → accords féminins du texte (chacune, toutes les deux…)
+monozygote: true
+sexe_paire: ff
 selections:
   ref-2: v1
   ref-1: v1
