@@ -251,7 +251,7 @@ const FR: Dict = {
     h1a: "Enfin une histoire",
     h1em: "deux",
     lead:
-      "Le livre personnalisé pensé pour les jumeaux : leurs prénoms, leur allure, leur complicité. Ensemble sur chaque page, du premier câlin au dernier bisou du soir.",
+      "Le livre et l'affiche personnalisés pensés pour les jumeaux : leurs prénoms, leur allure, leur complicité. Leur histoire sur chaque page, leur portrait en grand sur le mur.",
     ctaCreer: "Créer leur livre",
     ctaFeuilleter: "Feuilleter un exemple",
     produits: {
@@ -487,7 +487,7 @@ const EN: Dict = {
     eyebrow: "The gift for twin parents",
     h1a: "At last, a story",
     h1em: "two",
-    lead: "The personalized book made for twins: their names, their looks, their bond. Together on every page, from the first hug to the last goodnight kiss.",
+    lead: "The personalized book and poster made for twins: their names, their looks, their bond. Their story on every page, their portrait big on the wall.",
     ctaCreer: "Create their book",
     ctaFeuilleter: "Browse a sample",
     produits: {
@@ -735,7 +735,7 @@ const ES: Dict = {
     eyebrow: "El regalo de los padres de gemelos",
     h1a: "Por fin una historia",
     h1em: "dos",
-    lead: "El libro personalizado pensado para gemelos: sus nombres, su aspecto, su complicidad. Juntos en cada página, del primer abrazo al último beso de buenas noches.",
+    lead: "El libro y el póster personalizados pensados para gemelos: sus nombres, su aspecto, su complicidad. Su historia en cada página, su retrato en grande en la pared.",
     ctaCreer: "Crear su libro",
     ctaFeuilleter: "Hojear un ejemplo",
     produits: {
@@ -983,7 +983,7 @@ const DE: Dict = {
     eyebrow: "Das Geschenk der Zwillingseltern",
     h1a: "Endlich eine Geschichte,",
     h1em: "zwei",
-    lead: "Das personalisierte Buch für Zwillinge: ihre Namen, ihr Aussehen, ihre Verbundenheit. Gemeinsam auf jeder Seite, von der ersten Umarmung bis zum letzten Gutenachtkuss.",
+    lead: "Personalisiertes Buch und Poster für Zwillinge: ihre Namen, ihr Aussehen, ihre Verbundenheit. Ihre Geschichte auf jeder Seite, ihr Porträt groß an der Wand.",
     ctaCreer: "Ihr Buch gestalten",
     ctaFeuilleter: "Beispiel durchblättern",
     produits: {
