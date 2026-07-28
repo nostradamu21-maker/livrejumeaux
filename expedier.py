@@ -54,16 +54,22 @@ PRODUCT_UID_DEFAUT = (
 # vierges du PDF client n'en font pas partie (Gelato pose les siennes).
 PAGES_PRODUIT = int(ENV.get("GELATO_PAGE_COUNT") or 30)
 
-# Produit AFFICHE (poster livré roulé) : uid Gelato PAR TAILLE, à renseigner
-# dans .env après repérage (`python gelato.py catalogue poster`) :
-#   GELATO_AFFICHE_21X30=..., GELATO_AFFICHE_30X40=..., etc.
+# Produit AFFICHE (poster 170 g non couché, livré roulé) : uids relevés par
+# Simon au catalogue Gelato (juillet 2026). Le « 21x30 » commercial est un A4
+# (21 × 29,7 cm). Surchargeables via GELATO_AFFICHE_<TAILLE> dans .env.
+AFFICHE_UIDS_DEFAUT = {
+    "21x30": "flat_a4-8x12-inch_170-gsm-65lb-uncoated_4-0_ver",
+    "30x40": "flat_300x400-mm-12x16-inch_170-gsm-65lb-uncoated_4-0_ver",
+    "40x50": "flat_400x500-mm-16x20-inch_170-gsm-65lb-uncoated_4-0_ver",
+    "50x70": "flat_500x700-mm-20x28-inch_170-gsm-65lb-uncoated_4-0_ver",
+}
+
+
 def affiche_uid(taille: str) -> str:
-    uid = ENV.get(f"GELATO_AFFICHE_{taille.replace('x', 'X')}") or ""
+    uid = ENV.get(f"GELATO_AFFICHE_{taille.replace('x', 'X')}") or \
+          AFFICHE_UIDS_DEFAUT.get(taille, "")
     if not uid:
-        raise SystemExit(
-            f"GELATO_AFFICHE_{taille.replace('x', 'X')} manquant dans .env.\n"
-            "Trouve l'uid du poster de cette taille :\n"
-            "  python gelato.py catalogue poster   → livres/gelato-catalogue.json")
+        raise SystemExit(f"Taille d'affiche inconnue : {taille}")
     return uid
 
 

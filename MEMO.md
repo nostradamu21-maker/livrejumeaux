@@ -150,10 +150,9 @@ dans le formulaire sur-mesure (prix poster + supplément 15 €, env
 `PRIX_AFFICHE_SM_SUPPLEMENT`). Même tunnel photos → variantes → choix client,
 puis `python sur_mesure.py <ref>` détecte le produit et enchaîne affiche.py
 automatiquement.
-Prérequis UNE FOIS : relancer `site/supabase/schema.sql` (colonnes `produit`/`taille`)
-et renseigner dans `.env` les uid Gelato des posters :
-`python gelato.py catalogue poster` puis `GELATO_AFFICHE_21X30=…`, `GELATO_AFFICHE_30X40=…`,
-`GELATO_AFFICHE_40X50=…`, `GELATO_AFFICHE_50X70=…`.
+Prérequis UNE FOIS : relancer `site/supabase/schema.sql` (colonnes `produit`/`taille`).
+Les uid Gelato des posters (170 g non couché, 21x30 = A4) sont EN DUR dans
+`expedier.py`, surchargeables via `GELATO_AFFICHE_<TAILLE>` dans `.env`.
 Prix de vente par défaut : 19,90 / 24,90 / 29,90 / 34,90 € (variables Vercel
 `PRIX_AFFICHE_21X30` etc. pour ajuster).
 

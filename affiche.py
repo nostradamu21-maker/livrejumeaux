@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parent
 
 # Tailles du produit (mm, sans fond perdu) — mêmes clés que le site et expedier.py.
 TAILLES = {
-    "21x30": (210, 300),
+    "21x30": (210, 297),  # A4 (produit Gelato flat_a4)
     "30x40": (300, 400),
     "40x50": (400, 500),
     "50x70": (500, 700),
