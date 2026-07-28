@@ -55,7 +55,7 @@ export default async function PageLivre({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(donneesStructurees(locale)),
+          __html: JSON.stringify(donneesStructurees(locale, "livre")),
         }}
       />
       <Nav l={locale} />

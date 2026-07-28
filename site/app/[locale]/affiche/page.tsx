@@ -5,7 +5,7 @@ import AfficheTunnel from "@/components/AfficheTunnel";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import { cataloguePublic } from "@/lib/catalogue";
-import { URL_SITE } from "@/lib/seo";
+import { URL_SITE, donneesStructurees } from "@/lib/seo";
 import { LOCALES, estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 
 export async function generateMetadata({
@@ -48,6 +48,12 @@ export default async function PageAffiche({
   }));
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(donneesStructurees(locale, "affiche")),
+        }}
+      />
       <Nav l={locale} />
       <header className="page-tete">
         <h1>{d.pages.affiche.h1}</h1>
