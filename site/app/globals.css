@@ -130,6 +130,14 @@ body::after {
 .lead { font-size: 1.15rem; color: var(--encre-doux); max-width: 34ch; margin: 1.2rem 0 1.8rem; }
 .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
+/* En-tête des pages produit (/livre, /affiche). */
+.page-tete {
+  max-width: 760px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.4rem) 1.2rem 0;
+  text-align: center;
+}
+.page-tete h1 { font-size: clamp(2rem, 4.6vw, 3rem); font-weight: 600; }
+.page-tete p { color: var(--encre-doux); font-size: 1.06rem; margin: 0.8rem 0 0; }
+
 /* Sélecteur des deux produits (cartes cliquables du hero). */
 .hero-produits { display: flex; flex-direction: column; gap: 0.7rem; margin: 0 0 1rem; max-width: 460px; }
 .hero-produit {

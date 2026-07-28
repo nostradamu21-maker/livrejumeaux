@@ -146,7 +146,7 @@ export async function POST(req: Request) {
           },
         ],
         success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${origin}/#affiche`,
+        cancel_url: `${origin}/affiche`,
         metadata,
       });
       return NextResponse.json({ ok: true, url: session.url });

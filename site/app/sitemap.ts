@@ -3,18 +3,24 @@ import { URL_SITE } from "@/lib/seo";
 import { LOCALES, prefixe } from "@/lib/i18n";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const languesAccueil: Record<string, string> = {};
-  for (const l of LOCALES) languesAccueil[l] = `${URL_SITE}${prefixe(l) || ""}` || URL_SITE;
-
-  const accueils: MetadataRoute.Sitemap = LOCALES.map((l) => ({
-    url: `${URL_SITE}${prefixe(l)}` || URL_SITE,
-    changeFrequency: "weekly" as const,
-    priority: l === "fr" ? 1 : 0.9,
-    alternates: { languages: languesAccueil },
-  }));
+  // Home + pages produit, déclinées par langue avec leurs alternates hreflang.
+  const pages = ["", "/livre", "/affiche"];
+  const entrees: MetadataRoute.Sitemap = [];
+  for (const page of pages) {
+    const langues: Record<string, string> = {};
+    for (const l of LOCALES) langues[l] = `${URL_SITE}${prefixe(l)}${page}` || URL_SITE;
+    for (const l of LOCALES) {
+      entrees.push({
+        url: `${URL_SITE}${prefixe(l)}${page}` || URL_SITE,
+        changeFrequency: "weekly" as const,
+        priority: (page === "" ? 1 : 0.9) - (l === "fr" ? 0 : 0.1),
+        alternates: { languages: langues },
+      });
+    }
+  }
 
   return [
-    ...accueils,
+    ...entrees,
     { url: `${URL_SITE}/mentions-legales`, priority: 0.2 },
     { url: `${URL_SITE}/cgv`, priority: 0.2 },
     { url: `${URL_SITE}/confidentialite`, priority: 0.2 },

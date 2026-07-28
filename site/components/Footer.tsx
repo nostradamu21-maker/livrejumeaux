@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { t, type Locale } from "@/lib/i18n";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
 export default function Footer({ l }: { l: Locale }) {
   const d = t(l);
@@ -8,10 +8,10 @@ export default function Footer({ l }: { l: Locale }) {
       <p className="pied-titre">Deux comme nous</p>
       <p>{d.footer.tagline}</p>
       <nav className="pied-nav">
-        <a href="#livre">{d.nav.livre}</a>
-        <a href="#pourquoi">{d.nav.pourquoi}</a>
-        <a href="#creer">{d.nav.cta}</a>
-        <a href="#faq">{d.nav.questions}</a>
+        <a href={`${prefixe(l)}/livre`}>{d.nav.livre}</a>
+        <a href={`${prefixe(l)}/affiche`}>{d.nav.cadre}</a>
+        <a href={`${prefixe(l)}/#pourquoi`}>{d.nav.pourquoi}</a>
+        <a href={`${prefixe(l)}/#faq`}>{d.nav.questions}</a>
       </nav>
       <p className="pied-seo">{d.footer.seo}</p>
       <p className="pied-fin">{d.footer.fin}</p>

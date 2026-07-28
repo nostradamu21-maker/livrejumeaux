@@ -123,7 +123,7 @@ export async function POST(req: Request) {
         },
       ],
       success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/#creer`,
+      cancel_url: `${origin}/livre#creer`,
       metadata: { combo_id: cid, archetype1: a1, archetype2: a2, prenom1: p1, prenom2: p2, langue },
     });
     return NextResponse.json({ ok: true, url: session.url });

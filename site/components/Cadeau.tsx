@@ -1,4 +1,4 @@
-import { t, type Locale } from "@/lib/i18n";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
 export default function Cadeau({ l }: { l: Locale }) {
   const d = t(l);
@@ -13,7 +13,7 @@ export default function Cadeau({ l }: { l: Locale }) {
             <li key={o}>{o}</li>
           ))}
         </ul>
-        <a href="#creer" className="btn btn-primary">
+        <a href={`${prefixe(l)}/livre`} className="btn btn-primary">
           {d.cadeau.cta}
         </a>
       </div>

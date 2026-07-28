@@ -1,9 +1,9 @@
-import { t, type Locale } from "@/lib/i18n";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
-export default function BarreMobile({ l }: { l: Locale }) {
+export default function BarreMobile({ l, href }: { l: Locale; href?: string }) {
   const d = t(l);
   return (
-    <a href="#creer" className="barre-mobile">
+    <a href={href ?? `${prefixe(l)}/livre`} className="barre-mobile">
       <span className="bm-prix">
         {d.config.prixLivre} <small>{d.barre.note}</small>
       </span>

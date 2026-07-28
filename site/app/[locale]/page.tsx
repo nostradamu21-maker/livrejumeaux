@@ -4,17 +4,15 @@ import Hero from "@/components/Hero";
 import Flipbook from "@/components/Flipbook";
 import Pourquoi from "@/components/Pourquoi";
 import Etapes from "@/components/Etapes";
-import Configurateur from "@/components/Configurateur";
-import SurMesure from "@/components/SurMesure";
-import Affiche from "@/components/Affiche";
 import Cadeau from "@/components/Cadeau";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import BarreMobile from "@/components/BarreMobile";
-import { cataloguePublic } from "@/lib/catalogue";
 import { donneesStructurees } from "@/lib/seo";
-import { estLocale, t } from "@/lib/i18n";
+import { estLocale } from "@/lib/i18n";
 
+// Home = vitrine courte : elle présente et convainc, les tunnels de commande
+// vivent sur leurs pages produit (/livre et /affiche).
 export default async function Page({
   params,
 }: {
@@ -22,12 +20,6 @@ export default async function Page({
 }) {
   const { locale } = await params;
   if (!estLocale(locale)) notFound();
-  const d = t(locale);
-  // Libellés d'archétypes localisés (le FR vient du catalogue).
-  const archetypes = cataloguePublic().map((a) => ({
-    ...a,
-    label: d.archetypes[a.id] ?? a.label,
-  }));
   return (
     <>
       <script
@@ -40,10 +32,6 @@ export default async function Page({
       <Hero l={locale} />
       <Flipbook l={locale} />
       <Pourquoi l={locale} />
-      {/* Sur-mesure = produit phare, mis en avant avant le configurateur */}
-      <SurMesure l={locale} />
-      <Configurateur archetypes={archetypes} l={locale} />
-      <Affiche archetypes={archetypes} l={locale} />
       <Etapes l={locale} />
       <Cadeau l={locale} />
       <Faq l={locale} />

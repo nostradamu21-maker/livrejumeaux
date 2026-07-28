@@ -208,7 +208,7 @@ export async function POST(req: Request) {
         },
       ],
       success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/#sur-mesure`,
+      cancel_url: `${origin}/livre#sur-mesure`,
       metadata,
     });
     return NextResponse.json({ ok: true, url: session.url });

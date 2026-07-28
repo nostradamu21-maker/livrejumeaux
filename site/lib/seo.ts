@@ -33,7 +33,7 @@ export function donneesStructurees(l: Locale = "fr") {
       },
       offers: {
         "@type": "Offer",
-        url: `${URL_SITE}${prefixe(l)}#creer`,
+        url: `${URL_SITE}${prefixe(l)}/livre`,
         price: "44.90",
         priceCurrency: "EUR",
         availability: "https://schema.org/InStock",

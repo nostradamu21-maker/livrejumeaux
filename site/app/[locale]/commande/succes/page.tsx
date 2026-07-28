@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { stripe, stripeActif } from "@/lib/stripe";
-import { estLocale, t, type Locale } from "@/lib/i18n";
+import { estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import PurchaseEvent from "@/components/PurchaseEvent";
 
 export const dynamic = "force-dynamic";
@@ -107,7 +107,11 @@ export default async function Succes({
           <p style={{ marginTop: "1.4rem", fontSize: ".9rem", color: "var(--encre-doux)", lineHeight: 1.55 }}>
             {d.succes.upsell}{" "}
             <Link
-              href={lienVariantes && session_id ? `/?sm=${encodeURIComponent(session_id)}#affiche` : "/#affiche"}
+              href={
+                lienVariantes && session_id
+                  ? `${prefixe(l)}/affiche?sm=${encodeURIComponent(session_id)}`
+                  : `${prefixe(l)}/affiche`
+              }
               style={{ color: "var(--terracotta-f)", fontWeight: 700 }}
             >
               {d.succes.upsellCta}

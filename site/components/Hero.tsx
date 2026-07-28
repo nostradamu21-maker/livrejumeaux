@@ -1,7 +1,8 @@
-import { t, type Locale } from "@/lib/i18n";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
 export default function Hero({ l }: { l: Locale }) {
   const d = t(l);
+  const p = prefixe(l);
   return (
     <header className="hero">
       <div className="hero-text">
@@ -22,7 +23,7 @@ export default function Hero({ l }: { l: Locale }) {
         <p className="lead">{d.hero.lead}</p>
         {/* Sélecteur des deux produits : le livre (produit phare) et l'affiche. */}
         <div className="hero-produits">
-          <a href="#sur-mesure" className="hero-produit">
+          <a href={`${p}/livre`} className="hero-produit">
             <span className="hp-icone" aria-hidden="true">📖</span>
             <span className="hp-infos">
               <strong>{d.hero.produits.livre.nom}</strong>
@@ -31,7 +32,7 @@ export default function Hero({ l }: { l: Locale }) {
             <span className="hp-prix">{d.hero.produits.livre.prix}</span>
             <span className="hp-fleche" aria-hidden="true">›</span>
           </a>
-          <a href="#affiche" className="hero-produit">
+          <a href={`${p}/affiche`} className="hero-produit">
             <span className="hp-icone" aria-hidden="true">🖼️</span>
             <span className="hp-infos">
               <strong>{d.hero.produits.affiche.nom}</strong>

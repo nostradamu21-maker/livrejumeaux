@@ -1,7 +1,8 @@
-import { t, type Locale } from "@/lib/i18n";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
-export default function Etapes({ l }: { l: Locale }) {
+export default function Etapes({ l, href }: { l: Locale; href?: string }) {
   const d = t(l);
+  const cible = href ?? `${prefixe(l)}/livre`;
   return (
     <section id="etapes" className="etapes">
       <div className="section-tete">
@@ -17,7 +18,7 @@ export default function Etapes({ l }: { l: Locale }) {
         ))}
       </div>
       <div className="etapes-cta">
-        <a href="#creer" className="btn btn-primary">
+        <a href={cible} className="btn btn-primary">
           {d.etapes.cta}
         </a>
       </div>

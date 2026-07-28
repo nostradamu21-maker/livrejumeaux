@@ -45,6 +45,11 @@ export interface Dict {
     points: [string, string, string];
     alt: string;
   };
+  // Pages produit dédiées (/livre et /affiche) : métadonnées + en-tête.
+  pages: {
+    livre: { metaTitle: string; metaDesc: string; h1: string; sub: string };
+    affiche: { metaTitle: string; metaDesc: string; h1: string; sub: string };
+  };
   flip: {
     h2: string;
     sub: string;
@@ -264,6 +269,22 @@ const FR: Dict = {
       "Par les créateurs de Jumelio & Gemellite.com",
     ],
     alt: "Livre personnalisé pour jumelles : couverture avec les deux enfants, cadeau pour jumeaux et jumelles",
+  },
+  pages: {
+    livre: {
+      metaTitle: "Le livre personnalisé des jumeaux",
+      metaDesc:
+        "Créez le livre personnalisé de vos jumeaux : sur mesure d'après leurs photos, ou avec nos personnages du catalogue dès 44,90 €. Relié 20×20 cm, 30 pages illustrées.",
+      h1: "Le livre personnalisé de vos jumeaux",
+      sub: "Deux façons de le créer : l'édition sur mesure d'après leurs photos, ou nos personnages du catalogue dès 44,90 €.",
+    },
+    affiche: {
+      metaTitle: "L'affiche personnalisée des jumeaux",
+      metaDesc:
+        "Le portrait aquarelle de vos jumeaux avec leurs prénoms, en poster premium. D'après leur photo ou avec nos personnages, 4 tailles dès 19,90 €.",
+      h1: "L'affiche de vos jumeaux",
+      sub: "Leur duo en aquarelle avec leurs prénoms, imprimé grand format et livré roulé, prêt à encadrer.",
+    },
   },
   flip: {
     h2: "Feuilletez un exemplaire réel",
@@ -496,6 +517,22 @@ const EN: Dict = {
     },
     points: ["Two heroes in their likeness", "8×8\" hardcover, 30 pages, from age 3", "By the creators of Jumelio & Gemellite.com"],
     alt: "Personalized book for twin girls: cover with both children, a gift for twins",
+  },
+  pages: {
+    livre: {
+      metaTitle: "The personalized twins book",
+      metaDesc:
+        "Create your twins' personalized book: custom-made from their photos, or with our catalogue characters from €44.90. 8×8\" hardcover, 30 illustrated pages.",
+      h1: "Your twins' personalized book",
+      sub: "Two ways to create it: the custom edition from their photos, or our catalogue characters from €44.90.",
+    },
+    affiche: {
+      metaTitle: "The personalized twins poster",
+      metaDesc:
+        "Your twins' watercolor portrait with their names, as a premium poster. From their photo or with our characters, 4 sizes from €19.90.",
+      h1: "Your twins' poster",
+      sub: "Their duo in watercolor with their names, printed large and shipped rolled, ready to frame.",
+    },
   },
   flip: {
     h2: "Flip through a real copy",
@@ -745,6 +782,22 @@ const ES: Dict = {
     points: ["Dos héroes a su imagen", "Tapa dura 20×20 cm, 30 páginas, desde 3 años", "Por los creadores de Jumelio & Gemellite.com"],
     alt: "Libro personalizado para gemelas: portada con los dos niños, regalo para gemelos",
   },
+  pages: {
+    livre: {
+      metaTitle: "El libro personalizado de los gemelos",
+      metaDesc:
+        "Crea el libro personalizado de tus gemelos: a medida a partir de sus fotos, o con nuestros personajes del catálogo desde 44,90 €. Tapa dura 20×20 cm, 30 páginas ilustradas.",
+      h1: "El libro personalizado de vuestros gemelos",
+      sub: "Dos formas de crearlo: la edición a medida a partir de sus fotos, o nuestros personajes del catálogo desde 44,90 €.",
+    },
+    affiche: {
+      metaTitle: "El póster personalizado de los gemelos",
+      metaDesc:
+        "El retrato en acuarela de tus gemelos con sus nombres, en póster premium. A partir de su foto o con nuestros personajes, 4 tamaños desde 19,90 €.",
+      h1: "El póster de vuestros gemelos",
+      sub: "Su dúo en acuarela con sus nombres, impreso en gran formato y enviado enrollado, listo para enmarcar.",
+    },
+  },
   flip: {
     h2: "Hojea un ejemplar real",
     sub: "Este es el libro personalizado de Elia & Luna: pasa las páginas y descubre las suaves ilustraciones en acuarela. Es un extracto; el libro completo tiene 30 páginas.",
@@ -992,6 +1045,22 @@ const DE: Dict = {
     },
     points: ["Zwei Helden nach ihrem Vorbild", "Hardcover 20×20 cm, 30 Seiten, ab 3 Jahren", "Von den Machern von Jumelio & Gemellite.com"],
     alt: "Personalisiertes Buch für Zwillingsmädchen: Cover mit beiden Kindern, ein Geschenk für Zwillinge",
+  },
+  pages: {
+    livre: {
+      metaTitle: "Das personalisierte Zwillingsbuch",
+      metaDesc:
+        "Gestalten Sie das personalisierte Buch Ihrer Zwillinge: nach Maß von ihren Fotos, oder mit unseren Katalog-Figuren ab 44,90 €. Hardcover 20×20 cm, 30 illustrierte Seiten.",
+      h1: "Das personalisierte Buch Ihrer Zwillinge",
+      sub: "Zwei Wege: die Maßanfertigung nach ihren Fotos, oder unsere Katalog-Figuren ab 44,90 €.",
+    },
+    affiche: {
+      metaTitle: "Das personalisierte Zwillingsposter",
+      metaDesc:
+        "Das Aquarell-Porträt Ihrer Zwillinge mit ihren Namen, als Premium-Poster. Vom Foto oder mit unseren Figuren, 4 Größen ab 19,90 €.",
+      h1: "Das Poster Ihrer Zwillinge",
+      sub: "Ihr Duo in Aquarell mit ihren Namen, groß gedruckt und gerollt geliefert, bereit zum Einrahmen.",
+    },
   },
   flip: {
     h2: "Blättern Sie durch ein echtes Exemplar",

@@ -59,7 +59,13 @@ function BoutonPhoto({
   );
 }
 
-export default function SurMesure({ l }: { l: Locale }) {
+export default function SurMesure({
+  l,
+  produitInitial = "livre",
+}: {
+  l: Locale;
+  produitInitial?: "livre" | "affiche";
+}) {
   const d = t(l);
   const [prenoms, setPrenoms] = useState({ 1: "", 2: "" });
   const [email, setEmail] = useState("");
@@ -67,7 +73,7 @@ export default function SurMesure({ l }: { l: Locale }) {
   const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
   const [reutilisation, setReutilisation] = useState(false);
   // Produit : livre sur mesure (défaut) ou affiche seule (poster d'après photo).
-  const [produit, setProduit] = useState<"livre" | "affiche">("livre");
+  const [produit, setProduit] = useState<"livre" | "affiche">(produitInitial);
   const [taille, setTaille] = useState("30x40");
   // Pré-sélection « affiche » : depuis la section affiche (événement) ou un
   // lien direct /?produit=affiche#sur-mesure.
