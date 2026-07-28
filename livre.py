@@ -450,6 +450,16 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
     p1, p2 = prenoms or (livre.get("prenoms_defaut") or ["Léo", "Jules"])
     variables = {"prenom1": p1, "prenom2": p2}
 
+    def _jpeg(img):
+        """Raster → JPEG qualité impression embarqué tel quel dans le PDF
+        (DCTDecode). Sans ça, reportlab embarque du PNG sans perte : ~10 Mo par
+        page, PDF de 300+ Mo refusé par Supabase Storage (limite 50 Mo)."""
+        import io as _io
+        buf = _io.BytesIO()
+        img.convert("RGB").save(buf, "JPEG", quality=92)
+        buf.seek(0)
+        return ImageReader(buf)
+
     upscaler = None
     pdf_path = dossier / (f"impression-{p1}-{p2}{suffixe_pdf}.pdf".replace(" ", "_"))
     pdfmetrics.registerFont(TTFont("PageFont", str(ROOT / "fonts/Andika-Regular.ttf")))
@@ -490,7 +500,7 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
         art = _upscale(art)
     art = art.resize((int(W * 300 / 25.4), int(H * 300 / 25.4)), Image.LANCZOS)
     c.setPageSize((W * MM, H * MM))
-    c.drawImage(ImageReader(art), 0, 0, width=W * MM, height=H * MM)
+    c.drawImage(_jpeg(art), 0, 0, width=W * MM, height=H * MM)
     # titre directement sur l'illustration (halo clair, sans encadré)
     def _texte_halo(x, y, txt, fonte, taille):
         c.setFont(fonte, taille)
@@ -599,7 +609,7 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
         tcfg["y"] = (y0 + pad) / geo.doc_px * 100.0
         tm, _ = text_geometry(tcfg, geo, variables)
         px0, px1 = geo.doc_px * 0.06, geo.doc_px * 0.94
-        c.drawImage(ImageReader(raster), 0, 0, width=geo.doc_pt, height=geo.doc_pt)
+        c.drawImage(_jpeg(raster), 0, 0, width=geo.doc_pt, height=geo.doc_pt)
         c.saveState()
         c.setFillColor(HexColor("#ffffff"))
         c.setFillAlpha(0.88)

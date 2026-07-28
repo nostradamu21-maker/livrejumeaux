@@ -226,6 +226,17 @@ def expedier(ref: str, imprimer: bool) -> None:
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
     print(f"Scindé : couverture + {pages_int} pages intérieures")
 
+    # Limite Supabase Storage : 50 Mo par fichier (plan gratuit). Les PDF sont
+    # désormais compressés JPEG à la source (livre.py) ; si ça dépasse encore,
+    # le PDF vient d'une ancienne version → le regénérer (gratuit, secondes).
+    for f in (p_couv, p_int):
+        mo = f.stat().st_size / 1e6
+        if mo > 49:
+            raise SystemExit(
+                f"{f.name} fait {mo:.0f} Mo (> limite Supabase 50 Mo).\n"
+                f"Regénère le PDF avec la version à jour du pipeline :\n"
+                f"  python livre.py {cmd['combo_id']} --prenoms \"{cmd['prenom1']},{cmd['prenom2']}\""
+                + ("" if (cmd.get('langue') or 'fr') == 'fr' else f" --langue {cmd['langue']}"))
     prefixe = f"{ref}"
     _upload(f"{prefixe}/couverture.pdf", p_couv)
     _upload(f"{prefixe}/interieur.pdf", p_int)
