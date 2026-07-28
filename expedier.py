@@ -312,6 +312,7 @@ def etat_gelato(ref: str) -> None:
     print(f"Commande Gelato {gid}")
     print(f"  statut global : {data.get('fulfillmentStatus') or data.get('status') or '?'}")
     print(f"  financier     : {data.get('financialStatus', '?')}")
+    apercu_url = ""
     for item in data.get("items", []):
         print(f"  item {item.get('itemReferenceId', '?')} : "
               f"{item.get('fulfillmentStatus') or item.get('status') or '?'}")
@@ -319,8 +320,22 @@ def etat_gelato(ref: str) -> None:
             print(f"    fichier {f.get('type', '?')} : {str(f.get('url', ''))[:60]}…")
         for p in item.get("previews", []) or []:
             print(f"    aperçu {p.get('type', '?')} : {p.get('url', '')[:60]}…")
+            if p.get("type") == "preview_default":
+                apercu_url = p.get("url", "")
     _journal(f"ETAT {ref} → {json.dumps(data)[:2000]}")
     print(f"\nRéponse complète journalisée dans {JOURNAL}")
+    if apercu_url:
+        # Télécharge le rendu Gelato du livre (couverture + toutes les pages,
+        # tel qu'il sera imprimé) et l'ouvre pour vérification visuelle.
+        dest = LIVRES / f"gelato-apercu-{gid[:8]}.pdf"
+        p = subprocess.run(["curl", "-sS", "--fail", "-o", str(dest), apercu_url],
+                           capture_output=True, text=True, timeout=180)
+        if p.returncode == 0 and dest.exists() and dest.stat().st_size > 0:
+            print(f"\n📖 Aperçu du rendu Gelato téléchargé : {dest}")
+            if sys.platform == "darwin":
+                subprocess.run(["open", str(dest)], check=False)
+        else:
+            print(f"\nAperçu non téléchargeable automatiquement — URL complète :\n{apercu_url}")
 
 
 def main() -> None:
