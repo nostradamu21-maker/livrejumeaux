@@ -172,6 +172,44 @@ def scinder(pdf: Path, dossier_tmp: Path) -> tuple[Path, Path, int]:
     return p_couv, p_int, len(pages_int)
 
 
+def analyser_dpi(pdf: Path, seuil: int = 250) -> bool:
+    """Rapport de résolution : pour chaque page, taille en pixels de l'image
+    principale et dpi effectifs à la taille d'impression. True si tout ≥ seuil."""
+    from pypdf import PdfReader
+    lecteur = PdfReader(str(pdf))
+    tout_bon = True
+    print(f"\nRésolution des images — {pdf.name} (seuil {seuil} dpi) :")
+    for i, page in enumerate(lecteur.pages, 1):
+        boite = page.mediabox
+        larg_pouces = float(boite.width) / 72.0
+        haut_pouces = float(boite.height) / 72.0
+        try:
+            xobjs = page["/Resources"]["/XObject"]
+        except KeyError:
+            print(f"  p{i:>2} : (pas d'image — page texte/garde)")
+            continue
+        meilleur = None
+        for nom in xobjs:
+            o = xobjs[nom].get_object()
+            if o.get("/Subtype") == "/Image":
+                w, h = int(o["/Width"]), int(o["/Height"])
+                if meilleur is None or w * h > meilleur[0] * meilleur[1]:
+                    meilleur = (w, h)
+        if not meilleur:
+            print(f"  p{i:>2} : (pas d'image — page texte/garde)")
+            continue
+        w, h = meilleur
+        dpi = min(w / larg_pouces, h / haut_pouces)
+        marque = "✓" if dpi >= seuil else "⚠️ FAIBLE"
+        if dpi < seuil:
+            tout_bon = False
+        print(f"  p{i:>2} : {w}×{h}px sur {larg_pouces * 2.54:.0f}×{haut_pouces * 2.54:.0f} cm "
+              f"→ {dpi:.0f} dpi {marque}")
+    if not tout_bon:
+        print(f"⚠️ Des pages sont sous {seuil} dpi : rendu d'impression possiblement doux.")
+    return tout_bon
+
+
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
                    imprimer: bool) -> dict:
     produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
@@ -225,6 +263,8 @@ def expedier(ref: str, imprimer: bool) -> None:
 
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
     print(f"Scindé : couverture + {pages_int} pages intérieures")
+    analyser_dpi(p_couv)
+    analyser_dpi(p_int)
 
     # Limite Supabase Storage : 50 Mo par fichier (plan gratuit). Les PDF sont
     # désormais compressés JPEG à la source (livre.py) ; si ça dépasse encore,
@@ -358,6 +398,13 @@ def main() -> None:
         return
     if "--etat" in args:
         etat_gelato(args[0])
+        return
+    if "--dpi" in args:
+        cmd = lire_commande(args[0])
+        pdf = trouver_pdf(cmd)
+        p_couv, p_int, _ = scinder(pdf, pdf.parent / "gelato-tmp")
+        analyser_dpi(p_couv)
+        analyser_dpi(p_int)
         return
     expedier(args[0], "--imprimer" in args)
 
