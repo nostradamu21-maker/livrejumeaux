@@ -121,6 +121,25 @@ export default function Affiche({
           </div>
           )}
           {montrerExemple && <p className="affiche-ex-legende">{d.affiche.exLegende}</p>}
+          {/* La colonne suit la hauteur du sélecteur : on l'habille avec le
+              guide des tailles (quand le mockup l'a remplacé) puis l'affiche
+              en situation dans une vraie chambre. */}
+          {!montrerExemple && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="affiche-guide affiche-guide-mini"
+              src="/photos/guide-tailles.jpg"
+              alt=""
+              loading="lazy"
+            />
+          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="affiche-ambiance"
+            src="/photos/affiche-chambre.jpg"
+            alt=""
+            loading="lazy"
+          />
         </div>
         <form className="affiche-form" onSubmit={commander}>
           <span className="sm-eyebrow">{d.affiche.eyebrow}</span>
