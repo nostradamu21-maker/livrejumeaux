@@ -410,6 +410,9 @@ def expedier(ref: str, imprimer: bool, aplatir: bool = False,
             maj["expedie_le"] = datetime.now(timezone.utc).isoformat()
         _rest(f"commandes?ref=eq.{ref}", "PATCH", maj)
         print(f"\n✅ Commande Gelato affiche créée : {gid}")
+        if imprimer:
+            import notifier
+            notifier.email_production(cmd)
         return
 
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
@@ -479,6 +482,8 @@ def expedier(ref: str, imprimer: bool, aplatir: bool = False,
     print(f"\n✅ Commande Gelato créée : {gid}")
     if imprimer:
         print("   Elle part en impression. Suivi : dashboard Gelato.")
+        import notifier
+        notifier.email_production(cmd)
     else:
         print("   BROUILLON : vérifie le rendu dans le dashboard Gelato "
               "(fichiers, adresse), puis valide-la là-bas ou relance avec --imprimer.")
