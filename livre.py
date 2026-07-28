@@ -281,6 +281,8 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
                 style_images=list(refs[1:]) + [ROOT / "style1.png", ROOT / "style2.png"],
                 prompt=(scenes["style"].strip() + ". " + paire + " "
                         + scenes["affiche"]["scene"].strip() + " " + contraintes
+                        + " Pas de texte dans l'image (les prénoms sont ajoutés"
+                        " ensuite en typographie vectorielle)."
                         + correction("affiche")),
                 n=N_VARIANTES, size="1024x1536", quality="high")
             for j, img in enumerate(res.images, 1):
