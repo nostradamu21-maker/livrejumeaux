@@ -99,18 +99,19 @@ export default function SurMesure({
   // Photo réelle « avant » (Jade) si présente, sinon repli sur le cadre placeholder.
   const [photoOk, setPhotoOk] = useState(true);
 
-  const prix = produit === "affiche"
+  const affiche = produit === "affiche";
+  const prix = affiche
     ? d.sm.prixAffiche[taille]
     : reutilisation
       ? d.sm.prixReduit
       : d.sm.prix;
+  // Le sexe ne sert qu'aux accords du texte du livre : pas demandé pour l'affiche.
   const pret = !!(
     prenoms[1] &&
     prenoms[2] &&
     photos[1] &&
     (monozygote || photos[2]) &&
-    sexes[1] &&
-    (monozygote || sexes[2]) &&
+    (affiche || (sexes[1] && (monozygote || sexes[2]))) &&
     consentement
   );
 
@@ -178,7 +179,7 @@ export default function SurMesure({
         <div className="sm-texte">
           <span className="sm-eyebrow">{d.sm.eyebrow}</span>
           <h2>{d.sm.h2}</h2>
-          <p>{d.sm.intro}</p>
+          <p>{affiche ? d.sm.introAffiche : d.sm.intro}</p>
           {/* Avant → après : cadre photo (invitation) qui devient un vrai
               personnage dessiné (Jade). Le placeholder évite d'exposer une
               photo d'enfant réelle. */}
@@ -206,11 +207,11 @@ export default function SurMesure({
           </div>
           <p className="aa-legende">{d.sm.aaLegende}</p>
           <ul className="sm-points">
-            {d.sm.points.map((p) => (
+            {(affiche ? d.sm.pointsAffiche : d.sm.points).map((p) => (
               <li key={p}>{p}</li>
             ))}
           </ul>
-          <p className="sm-comment">{d.sm.comment}</p>
+          <p className="sm-comment">{affiche ? d.sm.commentAffiche : d.sm.comment}</p>
         </div>
         <form className="sm-offre" onSubmit={commander}>
           <div className="sm-produits" role="radiogroup">
@@ -304,6 +305,7 @@ export default function SurMesure({
               <small>{d.sm.zyDiffSub}</small>
             </button>
           </div>
+          {!affiche && (
           <div className="sm-sexe">
             <span className="sm-sexe-titre">{d.sm.sexeTitre}</span>
             {monozygote ? (
@@ -353,12 +355,13 @@ export default function SurMesure({
               ))
             )}
           </div>
+          )}
           {monozygote && (
             <div className="sm-distinctif">
               <p className="sm-distinctif-tete">
                 {d.sm.distinctifAvant}{" "}
                 {prenoms[2] ? <strong>{prenoms[2]}</strong> : d.sm.leSecond}{" "}
-                {d.sm.distinctifApres}
+                {affiche ? d.sm.distinctifApresAffiche : d.sm.distinctifApres}
               </p>
               <div className="distinctif-choix">
                 {ACCESSOIRES.map((a) => (
@@ -396,7 +399,7 @@ export default function SurMesure({
               onChoisir={(f) => choisirPhoto(2, f)}
             />
           )}
-          <span className="sm-photo-note">{d.sm.photoNote}</span>
+          <span className="sm-photo-note">{affiche ? d.sm.photoNoteAffiche : d.sm.photoNote}</span>
           <label className="sm-relation">
             <span>{d.sm.vousEtes}</span>
             <select value={relation} onChange={(e) => setRelation(e.target.value)}>

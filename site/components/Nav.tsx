@@ -11,10 +11,11 @@ export default function Nav({ l }: { l: Locale }) {
         Deux&nbsp;comme&nbsp;nous
       </a>
       <div className="nav-links">
+        {/* Ordre : les deux produits, puis la découverte, puis l'aide. */}
         <a href={`${p}/livre`}>{d.nav.livre}</a>
+        <a href={`${p}/affiche`}>{d.nav.cadre}</a>
         <a href={`${p}/#pourquoi`}>{d.nav.pourquoi}</a>
         <a href={`${p}/#cadeau`}>{d.nav.offrir}</a>
-        <a href={`${p}/affiche`}>{d.nav.cadre}</a>
         <a href={`${p}/#faq`}>{d.nav.questions}</a>
         <div className="nav-langues">
           {LOCALES.map((loc) => (

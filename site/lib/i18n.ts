@@ -118,6 +118,13 @@ export interface Dict {
     intro: string;
     points: [string, string, string, string];
     comment: string;
+    // Variantes du bloc argumentaire quand le produit choisi est l'AFFICHE
+    // (le sur-mesure sert les deux produits, le texte doit suivre).
+    introAffiche: string;
+    pointsAffiche: [string, string, string, string];
+    commentAffiche: string;
+    distinctifApresAffiche: string; // « … sur l'affiche : »
+    photoNoteAffiche: string;
     prixNote: string;
     phP1: string;
     phP2: string;
@@ -371,6 +378,16 @@ const FR: Dict = {
       "Vos photos ne sont jamais conservées : supprimées automatiquement dès que le livre est généré.",
     ],
     comment: "Comment ça marche ? Vous ajoutez la ou les photos et payez en ligne. Dans la minute, vous choisissez vos personnages préférés parmi nos propositions — c'est votre seule décision. Ensuite, nous créons le livre à leur image et nous l'imprimons.",
+    introAffiche: "À partir d'une simple photo, nous dessinons vos jumeaux et créons leur affiche entièrement à leur image : leurs vrais visages, en grand sur le mur.",
+    pointsAffiche: [
+      "Personnages dessinés d'après vos photos",
+      "Vous choisissez parmi 3 propositions par enfant, juste après la commande",
+      "Papier affiche premium mat, livrée roulée dans un tube (+ 4,99 € de livraison)",
+      "Vos photos ne sont jamais conservées : supprimées automatiquement dès que l'affiche est générée.",
+    ],
+    commentAffiche: "Comment ça marche ? Vous ajoutez la ou les photos et payez en ligne. Dans la minute, vous choisissez vos personnages préférés parmi nos propositions — c'est votre seule décision. Ensuite, nous créons leur affiche et nous l'imprimons au format choisi.",
+    distinctifApresAffiche: "sur l'affiche :",
+    photoNoteAffiche: "Visages bien visibles, JPEG ou PNG. Photos supprimées après création de l'affiche.",
     prixNote: "livre sur mesure, à partir d'une photo",
     phP1: "Prénom du premier enfant",
     phP2: "Prénom du second enfant",
@@ -617,6 +634,16 @@ const EN: Dict = {
       "Your photos are never kept: automatically deleted as soon as the book is generated.",
     ],
     comment: "How does it work? Add the photo(s) and pay online. Within a minute, choose your favorite characters among our proposals — that's your only decision. Then we create the book in their likeness and print it.",
+    introAffiche: "From a single photo, we draw your twins and create their poster entirely in their likeness: their real faces, big on the wall.",
+    pointsAffiche: [
+      "Characters drawn from your photos",
+      "You choose among 3 proposals per child, right after ordering",
+      "Premium matte poster paper, delivered rolled in a tube (+ €4.99 shipping)",
+      "Your photos are never kept: automatically deleted as soon as the poster is generated.",
+    ],
+    commentAffiche: "How does it work? Add the photo(s) and pay online. Within a minute, choose your favorite characters among our proposals — that's your only decision. Then we create their poster and print it in the chosen size.",
+    distinctifApresAffiche: "on the poster:",
+    photoNoteAffiche: "Faces clearly visible, JPEG or PNG. Photos deleted after the poster is created.",
     prixNote: "custom book, from a photo",
     phP1: "First child's name",
     phP2: "Second child's name",
@@ -881,6 +908,16 @@ const ES: Dict = {
       "Tus fotos nunca se conservan: se eliminan automáticamente en cuanto se genera el libro.",
     ],
     comment: "¿Cómo funciona? Añades la(s) foto(s) y pagas en línea. En un minuto, eliges tus personajes favoritos entre nuestras propuestas — es tu única decisión. Después creamos el libro a su imagen y lo imprimimos.",
+    introAffiche: "A partir de una simple foto, dibujamos a tus gemelos y creamos su póster totalmente a su imagen: sus verdaderas caras, en grande en la pared.",
+    pointsAffiche: [
+      "Personajes dibujados a partir de tus fotos",
+      "Eliges entre 3 propuestas por niño, justo después del pedido",
+      "Papel de póster premium mate, enviado enrollado en un tubo (+ 4,99 € de envío)",
+      "Tus fotos nunca se conservan: se eliminan automáticamente en cuanto se genera el póster.",
+    ],
+    commentAffiche: "¿Cómo funciona? Añades la(s) foto(s) y pagas en línea. En un minuto, eliges tus personajes favoritos entre nuestras propuestas — es tu única decisión. Después creamos su póster y lo imprimimos en el tamaño elegido.",
+    distinctifApresAffiche: "en el póster:",
+    photoNoteAffiche: "Caras bien visibles, JPEG o PNG. Fotos eliminadas tras crear el póster.",
     prixNote: "libro a medida, a partir de una foto",
     phP1: "Nombre del primer niño",
     phP2: "Nombre del segundo niño",
@@ -1145,6 +1182,16 @@ const DE: Dict = {
       "Ihre Fotos werden nie aufbewahrt: automatisch gelöscht, sobald das Buch erstellt ist.",
     ],
     comment: "Wie funktioniert es? Sie laden das Foto (oder die Fotos) hoch und zahlen online. Innerhalb einer Minute wählen Sie Ihre Lieblingsfiguren aus unseren Vorschlägen — das ist Ihre einzige Entscheidung. Danach erstellen wir das Buch nach ihrem Vorbild und drucken es.",
+    introAffiche: "Aus einem einzigen Foto zeichnen wir Ihre Zwillinge und gestalten ihr Poster ganz nach ihrem Vorbild: ihre echten Gesichter, groß an der Wand.",
+    pointsAffiche: [
+      "Figuren nach Ihren Fotos gezeichnet",
+      "Sie wählen aus 3 Vorschlägen pro Kind, direkt nach der Bestellung",
+      "Premium-Posterpapier matt, gerollt in einer Tube geliefert (+ 4,99 € Versand)",
+      "Ihre Fotos werden nie aufbewahrt: automatisch gelöscht, sobald das Poster erstellt ist.",
+    ],
+    commentAffiche: "Wie funktioniert es? Sie laden das Foto (oder die Fotos) hoch und zahlen online. Innerhalb einer Minute wählen Sie Ihre Lieblingsfiguren aus unseren Vorschlägen — das ist Ihre einzige Entscheidung. Danach erstellen wir ihr Poster und drucken es im gewählten Format.",
+    distinctifApresAffiche: "auf dem Poster:",
+    photoNoteAffiche: "Gesichter gut sichtbar, JPEG oder PNG. Fotos werden nach Erstellung des Posters gelöscht.",
     prixNote: "Buch nach Maß, aus einem Foto",
     phP1: "Name des ersten Kindes",
     phP2: "Name des zweiten Kindes",
