@@ -277,7 +277,7 @@ const FR: Dict = {
     ctaExAffiche: "Voir un exemple d'affiche",
     produits: {
       livre: { nom: "Le livre", sub: "Leur histoire, 30 pages illustrées", prix: "dès 44,90 €" },
-      affiche: { nom: "L'affiche", sub: "Leur portrait aquarelle, en grand sur le mur", prix: "dès 19,90 €" },
+      affiche: { nom: "L'affiche", sub: "Leur portrait aquarelle, en grand sur le mur", prix: "dès 34,90 €" },
     },
     points: [
       "Deux héros à leur image",
@@ -297,7 +297,7 @@ const FR: Dict = {
     affiche: {
       metaTitle: "L'affiche personnalisée des jumeaux",
       metaDesc:
-        "Le portrait aquarelle de vos jumeaux avec leurs prénoms, en poster premium. D'après leur photo ou avec nos personnages, 4 tailles dès 19,90 €.",
+        "Le portrait aquarelle de vos jumeaux avec leurs prénoms, en poster premium. D'après leur photo dès 34,90 €, ou avec nos personnages du catalogue dès 19,90 €. 4 tailles.",
       h1: "L'affiche de vos jumeaux",
       sub: "Leur duo en aquarelle avec leurs prénoms, imprimé grand format et livré roulé, prêt à encadrer.",
     },
@@ -546,7 +546,7 @@ const EN: Dict = {
     ctaExAffiche: "See a poster example",
     produits: {
       livre: { nom: "The book", sub: "Their story, 30 illustrated pages", prix: "from €44.90" },
-      affiche: { nom: "The poster", sub: "Their watercolor portrait, big on the wall", prix: "from €19.90" },
+      affiche: { nom: "The poster", sub: "Their watercolor portrait, big on the wall", prix: "from €34.90" },
     },
     points: ["Two heroes in their likeness", "8×8\" hardcover, 30 pages, from age 3", "By the creators of Jumelio & Gemellite.com"],
     alt: "Personalized book for twin girls: cover with both children, a gift for twins",
@@ -562,7 +562,7 @@ const EN: Dict = {
     affiche: {
       metaTitle: "The personalized twins poster",
       metaDesc:
-        "Your twins' watercolor portrait with their names, as a premium poster. From their photo or with our characters, 4 sizes from €19.90.",
+        "Your twins' watercolor portrait with their names, as a premium poster. From their photo from €34.90, or with our catalogue characters from €19.90. 4 sizes.",
       h1: "Your twins' poster",
       sub: "Their duo in watercolor with their names, printed large and shipped rolled, ready to frame.",
     },
@@ -827,7 +827,7 @@ const ES: Dict = {
     ctaExAffiche: "Ver un ejemplo de póster",
     produits: {
       livre: { nom: "El libro", sub: "Su historia, 30 páginas ilustradas", prix: "desde 44,90 €" },
-      affiche: { nom: "El póster", sub: "Su retrato en acuarela, en grande en la pared", prix: "desde 19,90 €" },
+      affiche: { nom: "El póster", sub: "Su retrato en acuarela, en grande en la pared", prix: "desde 34,90 €" },
     },
     points: ["Dos héroes a su imagen", "Tapa dura 20×20 cm, 30 páginas, desde 3 años", "Por los creadores de Jumelio & Gemellite.com"],
     alt: "Libro personalizado para gemelas: portada con los dos niños, regalo para gemelos",
@@ -843,7 +843,7 @@ const ES: Dict = {
     affiche: {
       metaTitle: "El póster personalizado de los gemelos",
       metaDesc:
-        "El retrato en acuarela de tus gemelos con sus nombres, en póster premium. A partir de su foto o con nuestros personajes, 4 tamaños desde 19,90 €.",
+        "El retrato en acuarela de tus gemelos con sus nombres, en póster premium. A partir de su foto desde 34,90 €, o con nuestros personajes del catálogo desde 19,90 €. 4 tamaños.",
       h1: "El póster de vuestros gemelos",
       sub: "Su dúo en acuarela con sus nombres, impreso en gran formato y enviado enrollado, listo para enmarcar.",
     },
@@ -1108,7 +1108,7 @@ const DE: Dict = {
     ctaExAffiche: "Ein Poster-Beispiel ansehen",
     produits: {
       livre: { nom: "Das Buch", sub: "Ihre Geschichte auf 30 illustrierten Seiten", prix: "ab 44,90 €" },
-      affiche: { nom: "Das Poster", sub: "Ihr Aquarell-Porträt, groß an der Wand", prix: "ab 19,90 €" },
+      affiche: { nom: "Das Poster", sub: "Ihr Aquarell-Porträt, groß an der Wand", prix: "ab 34,90 €" },
     },
     points: ["Zwei Helden nach ihrem Vorbild", "Hardcover 20×20 cm, 30 Seiten, ab 3 Jahren", "Von den Machern von Jumelio & Gemellite.com"],
     alt: "Personalisiertes Buch für Zwillingsmädchen: Cover mit beiden Kindern, ein Geschenk für Zwillinge",
@@ -1124,7 +1124,7 @@ const DE: Dict = {
     affiche: {
       metaTitle: "Das personalisierte Zwillingsposter",
       metaDesc:
-        "Das Aquarell-Porträt Ihrer Zwillinge mit ihren Namen, als Premium-Poster. Vom Foto oder mit unseren Figuren, 4 Größen ab 19,90 €.",
+        "Das Aquarell-Porträt Ihrer Zwillinge mit ihren Namen, als Premium-Poster. Vom Foto ab 34,90 €, oder mit unseren Katalogfiguren ab 19,90 €. 4 Größen.",
       h1: "Das Poster Ihrer Zwillinge",
       sub: "Ihr Duo in Aquarell mit ihren Namen, groß gedruckt und gerollt geliefert, bereit zum Einrahmen.",
     },
