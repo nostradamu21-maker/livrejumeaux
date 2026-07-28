@@ -561,6 +561,11 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
   .sm-carte { grid-template-columns: 1fr; text-align: center; }
   .sm-eyebrow { margin-left: auto; margin-right: auto; }
   .sm-points { text-align: left; max-width: 30ch; margin-left: auto; margin-right: auto; }
+  /* Le formulaire (prix + CTA) passe AVANT l'argumentaire : sur mobile la
+     page produit donne déjà le contexte, inutile de scroller pour commander. */
+  .sm-offre { order: -1; }
+  .sm-galerie { margin-left: auto; margin-right: auto; }
+  .sm-g-legende { text-align: center; }
 }
 @media (max-width: 560px) {
   .nav-links a:not(.nav-cta) { display: none; }
@@ -568,4 +573,20 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 @media (max-width: 700px) {
   .barre-mobile { display: flex; }
   .pied { padding-bottom: 6.5rem; }
+  /* Onglets du tunnel : deux lignes maxi, sans césure disgracieuse. */
+  .tunnel-tabs { margin-top: 1.2rem; }
+  .tunnel-tabs .sm-zy { padding: 0.7rem 0.4rem; font-size: 0.9rem; line-height: 1.2; }
+  .tunnel-tabs .sm-zy small { font-size: 0.7rem; }
+  /* « Vous êtes : » et son menu, empilés (sinon le libellé se casse en 3 lignes). */
+  .sm-relation { flex-direction: column; align-items: stretch; gap: 0.3rem; text-align: left; }
+  .sm-relation select { width: 100%; }
+  /* Catalogue : 3 colonnes → deux fois moins de scroll pour 14 personnages. */
+  .grille { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+  .grille figcaption, .grille span { font-size: 0.68rem; }
+  /* Boutons d'exemple du hero côte à côte plutôt qu'empilés. */
+  .hero-actions { gap: 0.5rem; }
+  .hero-actions .btn { flex: 1 1 0; min-width: 0; padding-left: 0.6rem; padding-right: 0.6rem; font-size: 0.86rem; text-align: center; }
+  /* Exemples : plus grands, la page respire moins serré. */
+  .sm-g-pages { gap: 0.5rem; }
+  .sm-g-pages img { width: calc((100% - 1rem) / 3); border-width: 4px; }
 }
