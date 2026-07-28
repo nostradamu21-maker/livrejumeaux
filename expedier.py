@@ -329,12 +329,20 @@ def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
 
 
 def expedier(ref: str, imprimer: bool, aplatir: bool = False,
-             un_fichier: bool = False) -> None:
+             un_fichier: bool = False, pdf_force: str | None = None) -> None:
     cmd = lire_commande(ref)
     if cmd.get("gelato_id") and cmd.get("expedie_le"):
         print(f"Déjà expédiée (Gelato {cmd['gelato_id']} le {cmd['expedie_le']}).")
         return
-    pdf = trouver_pdf(cmd)
+    if pdf_force:
+        # Imprimer un AUTRE livre que celui de la commande (ex. réimpression
+        # d'un livre déjà produit) en réutilisant l'adresse de cette commande.
+        pdf = Path(pdf_force) if Path(pdf_force).is_absolute() else ROOT / pdf_force
+        if not pdf.exists():
+            raise SystemExit(f"PDF introuvable : {pdf}")
+        print(f"⚠️ PDF forcé (à la place de celui de la commande) : {pdf}")
+    else:
+        pdf = trouver_pdf(cmd)
     print(f"PDF : {pdf.name} ({pdf.stat().st_size // 1024} Ko)")
 
     p_couv, p_int, pages_int = scinder(pdf, pdf.parent / "gelato-tmp")
@@ -511,11 +519,19 @@ def main() -> None:
             planche_contact(p_couv)
             planche_contact(p_int)
         return
+    # --pdf <chemin> : imprimer un autre livre que celui de la commande
+    # (réimpression) en réutilisant l'adresse de la commande.
+    pdf_force = None
+    if "--pdf" in args:
+        i = args.index("--pdf")
+        if i + 1 >= len(args):
+            raise SystemExit('--pdf attend un chemin, ex. --pdf "livres/test-filles/impression-Elia-Luna.pdf"')
+        pdf_force = args[i + 1]
     # PDF UNIQUE par défaut (couverture + intérieur) : c'est le seul format que
     # la visionneuse du dashboard Gelato prévisualise correctement (validé le
     # 28/07/2026). --deux-fichiers = ancien mapping cover/default si besoin.
     expedier(args[0], "--imprimer" in args, aplatir="--aplatir" in args,
-             un_fichier="--deux-fichiers" not in args)
+             un_fichier="--deux-fichiers" not in args, pdf_force=pdf_force)
 
 
 if __name__ == "__main__":
