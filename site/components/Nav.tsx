@@ -1,4 +1,5 @@
-import { LOCALES, prefixe, t, type Locale } from "@/lib/i18n";
+import SelecteurLangue from "@/components/SelecteurLangue";
+import { prefixe, t, type Locale } from "@/lib/i18n";
 
 export default function Nav({ l }: { l: Locale }) {
   const d = t(l);
@@ -17,18 +18,7 @@ export default function Nav({ l }: { l: Locale }) {
         <a href={`${p}/#pourquoi`}>{d.nav.pourquoi}</a>
         <a href={`${p}/#cadeau`}>{d.nav.offrir}</a>
         <a href={`${p}/#faq`}>{d.nav.questions}</a>
-        <div className="nav-langues">
-          {LOCALES.map((loc) => (
-            <a
-              key={loc}
-              href={prefixe(loc) || "/"}
-              className={loc === l ? "actif" : ""}
-              aria-current={loc === l ? "page" : undefined}
-            >
-              {loc.toUpperCase()}
-            </a>
-          ))}
-        </div>
+        <SelecteurLangue l={l} />
         <a href={`${p}/livre`} className="nav-cta">
           {d.nav.cta}
         </a>
