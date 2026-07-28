@@ -242,7 +242,10 @@ def expedier(ref: str, imprimer: bool) -> None:
     _upload(f"{prefixe}/interieur.pdf", p_int)
     url_couv = _lien_signe(f"{prefixe}/couverture.pdf")
     url_int = _lien_signe(f"{prefixe}/interieur.pdf")
-    print("PDF téléversés (liens signés 7 jours)")
+    print("PDF téléversés (liens signés 7 jours) :")
+    print(f"  couverture : {url_couv}")
+    print(f"  intérieur  : {url_int}")
+    _journal(f"URLS {ref} couv={url_couv} int={url_int}")
 
     corps = payload_gelato(cmd, url_couv, url_int, pages_int, imprimer)
     mode = "RÉELLE (impression + débit)" if imprimer else "BROUILLON (à valider au dashboard)"
