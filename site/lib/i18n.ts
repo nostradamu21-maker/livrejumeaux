@@ -153,6 +153,7 @@ export interface Dict {
   faq: { titre: string; items: QA[] };
   affiche: {
     eyebrow: string;
+    smBadge: string;
     h2: string;
     intro: string;
     enfant1: string;
@@ -377,6 +378,7 @@ const FR: Dict = {
   },
   affiche: {
     eyebrow: "Nouveau · L'affiche des jumeaux",
+    smBadge: "✨ Avec vos personnages sur mesure, dessinés d'après vos photos",
     h2: "Leur duo, en grand sur le mur",
     intro: "La même magie que le livre, en poster : une illustration aquarelle de vos deux enfants avec leurs prénoms, imprimée sur papier premium et livrée roulée, prête à encadrer.",
     enfant1: "Premier enfant", enfant2: "Second enfant",
@@ -596,6 +598,7 @@ const EN: Dict = {
   },
   affiche: {
     eyebrow: "New · The twins poster",
+    smBadge: "✨ With your custom characters, drawn from your photos",
     h2: "Their duo, big on the wall",
     intro: "The same magic as the book, as a poster: a watercolor illustration of your two children with their names, printed on premium paper and delivered rolled, ready to frame.",
     enfant1: "First child", enfant2: "Second child",
@@ -832,6 +835,7 @@ const ES: Dict = {
   },
   affiche: {
     eyebrow: "Nuevo · El póster de los gemelos",
+    smBadge: "✨ Con vuestros personajes a medida, dibujados a partir de vuestras fotos",
     h2: "Su dúo, en grande en la pared",
     intro: "La misma magia que el libro, en póster: una ilustración en acuarela de tus dos hijos con sus nombres, impresa en papel premium y entregada enrollada, lista para enmarcar.",
     enfant1: "Primer hijo", enfant2: "Segundo hijo",
@@ -1068,6 +1072,7 @@ const DE: Dict = {
   },
   affiche: {
     eyebrow: "Neu · Das Zwillingsposter",
+    smBadge: "✨ Mit Ihren maßgeschneiderten Figuren, gezeichnet nach Ihren Fotos",
     h2: "Ihr Duo, groß an der Wand",
     intro: "Dieselbe Magie wie das Buch, als Poster: eine Aquarell-Illustration Ihrer beiden Kinder mit ihren Namen, auf Premiumpapier gedruckt und gerollt geliefert, bereit zum Einrahmen.",
     enfant1: "Erstes Kind", enfant2: "Zweites Kind",

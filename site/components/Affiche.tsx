@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ArchetypePublic } from "@/lib/types";
 import { t, type Locale } from "@/lib/i18n";
 
@@ -23,10 +23,17 @@ export default function Affiche({
   const [code, setCode] = useState("");
   const [statut, setStatut] = useState<{ txt: string; cls: string }>({ txt: "", cls: "" });
   const [envoi, setEnvoi] = useState(false);
+  // Mode SUR MESURE : ?sm=<ref> dans l'URL (upsell après une commande
+  // sur-mesure) → l'affiche reprend les personnages du client, pas le catalogue.
+  const [smRef, setSmRef] = useState("");
+  useEffect(() => {
+    const sm = new URLSearchParams(window.location.search).get("sm") ?? "";
+    if (/^cs_(live|test)_[A-Za-z0-9]+$/.test(sm)) setSmRef(sm);
+  }, []);
   const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
 
   const parId = useMemo(() => new Map(archetypes.map((a) => [a.id, a])), [archetypes]);
-  const pret = !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
+  const pret = smRef ? true : !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
 
   async function commander(e: React.FormEvent) {
     e.preventDefault();
@@ -39,6 +46,7 @@ export default function Affiche({
         body: JSON.stringify({
           archetype1: choix[1],
           archetype2: choix[2],
+          sm: smRef,
           prenom1: prenoms[1],
           prenom2: prenoms[2],
           taille,
@@ -93,7 +101,8 @@ export default function Affiche({
           <span className="sm-eyebrow">{d.affiche.eyebrow}</span>
           <h2>{d.affiche.h2}</h2>
           <p className="affiche-intro">{d.affiche.intro}</p>
-          {([1, 2] as const).map((j) => (
+          {smRef && <p className="affiche-sm-badge">{d.affiche.smBadge}</p>}
+          {!smRef && ([1, 2] as const).map((j) => (
             <div className="affiche-enfant" key={j}>
               <select
                 value={choix[j]}
@@ -115,6 +124,17 @@ export default function Affiche({
                 onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
               />
             </div>
+          ))}
+          {smRef && ([1, 2] as const).map((j) => (
+            <input
+              key={j}
+              type="text"
+              className="champ-email"
+              placeholder={j === 1 ? d.affiche.enfant1 : d.affiche.enfant2}
+              maxLength={18}
+              value={prenoms[j]}
+              onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
+            />
           ))}
           <p className="affiche-taille-titre">{d.affiche.tailleTitre}</p>
           <div className="affiche-tailles">

@@ -16,7 +16,7 @@ import {
   PRODUIT_AFFICHE_ID,
   type AfficheTaille,
 } from "@/lib/stripe";
-import { enregistrerCommande } from "@/lib/supabase";
+import { enregistrerCommande, lireSurMesure } from "@/lib/supabase";
 
 interface Corps {
   archetype1?: string;
@@ -27,6 +27,9 @@ interface Corps {
   email?: string;
   langue?: string;
   code?: string;
+  // Affiche SUR MESURE : ref (session Stripe) d'une commande sur-mesure dont
+  // les personnages validés servent d'illustration.
+  sm?: string;
 }
 
 const LANGUES = new Set(["fr", "en", "es", "de"]);
@@ -45,17 +48,38 @@ export async function POST(req: Request) {
     : "30x40";
   const langue = LANGUES.has(body.langue ?? "") ? body.langue! : "fr";
 
-  if (!existe(a1) || !existe(a2)) {
-    return NextResponse.json({ ok: false, erreur: "Personnage inconnu." }, { status: 400 });
+  // Mode SUR MESURE : la ref d'une commande sur-mesure remplace les archétypes.
+  const smRef = String(body.sm ?? "").trim();
+  let smValide = false;
+  let prenom1 = p1;
+  let prenom2 = p2;
+  if (smRef) {
+    if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(smRef)) {
+      return NextResponse.json({ ok: false, erreur: "Référence invalide." }, { status: 400 });
+    }
+    const row = await lireSurMesure(smRef);
+    if (!row) {
+      return NextResponse.json(
+        { ok: false, erreur: "Commande sur mesure introuvable." },
+        { status: 404 },
+      );
+    }
+    smValide = true;
+    prenom1 = p1 || row.prenom1;
+    prenom2 = p2 || row.prenom2;
+  } else {
+    if (!existe(a1) || !existe(a2)) {
+      return NextResponse.json({ ok: false, erreur: "Personnage inconnu." }, { status: 400 });
+    }
   }
-  if (!p1 || !p2) {
+  if (!prenom1 || !prenom2) {
     return NextResponse.json(
       { ok: false, erreur: "Les deux prénoms sont requis." },
       { status: 400 },
     );
   }
 
-  const cid = comboId(a1, a2, null);
+  const cid = smValide ? "sur-mesure" : comboId(a1, a2, null);
   const origin = new URL(req.url).origin;
   const prixPlein = PRIX_AFFICHE_CENTIMES[taille];
   const test = estCodeTest(body.code);
@@ -67,10 +91,11 @@ export async function POST(req: Request) {
     produit: "affiche",
     taille,
     combo_id: cid,
-    archetype1: a1,
-    archetype2: a2,
-    prenom1: p1,
-    prenom2: p2,
+    archetype1: smValide ? "sur-mesure" : a1,
+    archetype2: smValide ? smRef : a2,
+    prenom1,
+    prenom2,
+    sm_ref: smValide ? smRef : "",
     langue,
   };
 
@@ -99,7 +124,9 @@ export async function POST(req: Request) {
             unit_amount: unitAmount,
             product_data: {
               name: `Deux comme nous, l'affiche (${taille.replace("x", "×")} cm)`,
-              description: `${p1} (${archetypeParId(a1)?.label ?? ""}) & ${p2} (${archetypeParId(a2)?.label ?? ""})`,
+              description: smValide
+                ? `${prenom1} & ${prenom2}, d'après vos personnages sur mesure`
+                : `${prenom1} (${archetypeParId(a1)?.label ?? ""}) & ${prenom2} (${archetypeParId(a2)?.label ?? ""})`,
             },
           };
       const session = await stripe.checkout.sessions.create({
@@ -133,10 +160,10 @@ export async function POST(req: Request) {
   // --- Repli : paiement simulé (aucune clé Stripe) ---
   await enregistrerCommande({
     combo_id: cid,
-    archetype1: a1,
-    archetype2: a2,
-    prenom1: p1,
-    prenom2: p2,
+    archetype1: smValide ? "sur-mesure" : a1,
+    archetype2: smValide ? smRef : a2,
+    prenom1,
+    prenom2,
     email: email || null,
     statut: "a_produire",
     paiement: "simulé",

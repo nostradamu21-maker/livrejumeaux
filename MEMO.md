@@ -138,10 +138,13 @@ Tout s'enregistre tout seul ; les fichiers du bucket sont nettoyés à la fin.
 
 `python commandes.py` les liste à part. Production :
 ```bash
-python affiche.py <combo>                       # génère + trie l'illustration (1 fois par paire, ~0,17 $)
-python affiche.py <combo> --prenoms "A,B" --taille 30x40   # PDF du poster (gratuit)
+python affiche.py <livre>                       # génère + trie l'illustration (1 fois par paire, ~0,17 $)
+python affiche.py <livre> --prenoms "A,B" --taille 30x40   # PDF du poster (gratuit)
 python expedier.py <ref>                        # brouillon Gelato, puis --imprimer
 ```
+`<livre>` = la combo (ex. `combo-f1…__f2…`) OU le livre sur-mesure du client
+(ex. `sur-mesure-elia-luna`) : l'affiche SUR MESURE reprend ses personnages
+validés (upsell proposé après l'achat, lien `/?sm=<ref>#affiche`).
 Prérequis UNE FOIS : relancer `site/supabase/schema.sql` (colonnes `produit`/`taille`)
 et renseigner dans `.env` les uid Gelato des posters :
 `python gelato.py catalogue poster` puis `GELATO_AFFICHE_21X30=…`, `GELATO_AFFICHE_30X40=…`,

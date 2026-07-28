@@ -141,12 +141,17 @@ def trouver_pdf(cmd: dict) -> Path:
     if cmd.get("produit") == "affiche":
         taille = cmd.get("taille") or "30x40"
         nom = f"affiche-{p1}-{p2}-{taille}.pdf".replace(" ", "_")
-        chemin = LIVRES / cmd["combo_id"] / nom
-        if chemin.exists():
-            return chemin
+        if cmd["combo_id"] == "sur-mesure":
+            candidats = sorted(LIVRES.glob(f"sur-mesure-*/{nom}"))
+        else:
+            candidats = [LIVRES / cmd["combo_id"] / nom]
+        for c in candidats:
+            if c.exists():
+                return c
+        cible = "<livre-sur-mesure>" if cmd["combo_id"] == "sur-mesure" else cmd["combo_id"]
         raise SystemExit(
             f"PDF affiche introuvable : {nom}\n"
-            f"Produis-le : python affiche.py {cmd['combo_id']} "
+            f"Produis-le : python affiche.py {cible} "
             f"--prenoms \"{p1},{p2}\" --taille {taille}")
     nom = f"impression-{p1}-{p2}{suffixe}.pdf".replace(" ", "_")
     if cmd["combo_id"] == "sur-mesure":

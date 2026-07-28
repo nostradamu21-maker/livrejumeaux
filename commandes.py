@@ -191,16 +191,18 @@ def main() -> None:
     toutes = commandes_a_traiter()
     # Les commandes SUR-MESURE (personnages dessinés d'après photo) ne sont pas
     # des combos d'archétypes : elles se produisent avec `sur_mesure.py`.
-    sur_mesure = [c for c in toutes if c.get("combo_id") == "sur-mesure"]
-    cadres = [c for c in toutes
-              if c.get("produit") == "affiche" and c.get("combo_id") != "sur-mesure"]
+    sur_mesure = [c for c in toutes
+                  if c.get("combo_id") == "sur-mesure" and c.get("produit") != "affiche"]
+    cadres = [c for c in toutes if c.get("produit") == "affiche"]
     cmds = [c for c in toutes
             if c.get("combo_id") != "sur-mesure" and c.get("produit") != "affiche"]
     if cadres:
         print(f"\nℹ️  {len(cadres)} commande(s) d'AFFICHE à produire à part "
-              "(python affiche.py <combo> puis expedier.py) :")
+              "(python affiche.py <livre> puis expedier.py) :")
         for c in cadres:
-            print(f"    • {c['prenom1']} & {c['prenom2']} · {c['combo_id']} · "
+            sm = c.get("combo_id") == "sur-mesure"
+            cible = "livres/sur-mesure-… (personnages du client)" if sm else c["combo_id"]
+            print(f"    • {c['prenom1']} & {c['prenom2']} · {cible} · "
                   f"{c.get('taille') or '30x40'}  ref={c.get('ref') or '?'}")
     if sur_mesure:
         print(f"\nℹ️  {len(sur_mesure)} commande(s) SUR-MESURE à produire à part "

@@ -329,6 +329,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .affiche-tl span { font-size: 0.78rem; color: var(--encre-doux); font-weight: 700; }
 .affiche-tl.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .affiche-note { font-size: 0.78rem; color: var(--encre-doux); text-align: center; }
+.affiche-sm-badge { margin: 0; padding: 0.65rem 0.9rem; background: rgba(127, 169, 141, 0.14); border: 1.5px solid var(--vert); border-radius: 12px; font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--encre); }
 @media (max-width: 860px) { .affiche-carte { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.6rem; } .affiche-tailles { grid-template-columns: repeat(2, 1fr); } }
 
 .contact-page { max-width: 620px; }

@@ -103,10 +103,13 @@ export default async function Succes({
             {d.succes.retour}
           </Link>
         )}
-        {paye && !lienVariantes && (
+        {paye && (
           <p style={{ marginTop: "1.4rem", fontSize: ".9rem", color: "var(--encre-doux)", lineHeight: 1.55 }}>
             {d.succes.upsell}{" "}
-            <Link href="/#affiche" style={{ color: "var(--terracotta-f)", fontWeight: 700 }}>
+            <Link
+              href={lienVariantes && session_id ? `/?sm=${encodeURIComponent(session_id)}#affiche` : "/#affiche"}
+              style={{ color: "var(--terracotta-f)", fontWeight: 700 }}
+            >
               {d.succes.upsellCta}
             </Link>
           </p>
