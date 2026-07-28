@@ -270,8 +270,22 @@ def aplatir_pdf(src: Path, dpi: int = 300) -> Path:
     return dest
 
 
+def fusionner(p_couv: Path, p_int: Path) -> Path:
+    """Recompose UN SEUL PDF (couverture page 1 + intérieur) : c'est le format
+    de l'upload manuel au dashboard, que Gelato sait découper lui-même."""
+    from pypdf import PdfReader, PdfWriter
+    w = PdfWriter()
+    for src in (p_couv, p_int):
+        for page in PdfReader(str(src)).pages:
+            w.add_page(page)
+    dest = p_couv.parent / "livre-complet.pdf"
+    with dest.open("wb") as f:
+        w.write(f)
+    return dest
+
+
 def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
-                   imprimer: bool) -> dict:
+                   imprimer: bool, fichiers: list | None = None) -> dict:
     produit = ENV.get("GELATO_PRODUCT_UID") or PRODUCT_UID_DEFAUT
     a = cmd.get("adresse") or {}
     if not a.get("line1"):
@@ -292,7 +306,7 @@ def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
             "productUid": produit,
             "pageCount": pages_int,
             "quantity": 1,
-            "files": [
+            "files": fichiers or [
                 {"type": "cover", "url": url_couv},
                 {"type": "default", "url": url_int},
             ],
@@ -313,7 +327,8 @@ def payload_gelato(cmd: dict, url_couv: str, url_int: str, pages_int: int,
     }
 
 
-def expedier(ref: str, imprimer: bool, aplatir: bool = False) -> None:
+def expedier(ref: str, imprimer: bool, aplatir: bool = False,
+             un_fichier: bool = False) -> None:
     cmd = lire_commande(ref)
     if cmd.get("gelato_id") and cmd.get("expedie_le"):
         print(f"Déjà expédiée (Gelato {cmd['gelato_id']} le {cmd['expedie_le']}).")
@@ -343,16 +358,26 @@ def expedier(ref: str, imprimer: bool, aplatir: bool = False) -> None:
                 f"  python livre.py {cmd['combo_id']} --prenoms \"{cmd['prenom1']},{cmd['prenom2']}\""
                 + ("" if (cmd.get('langue') or 'fr') == 'fr' else f" --langue {cmd['langue']}"))
     prefixe = f"{ref}"
-    _upload(f"{prefixe}/couverture.pdf", p_couv)
-    _upload(f"{prefixe}/interieur.pdf", p_int)
-    url_couv = _lien_signe(f"{prefixe}/couverture.pdf")
-    url_int = _lien_signe(f"{prefixe}/interieur.pdf")
-    print("PDF téléversés (liens signés 7 jours) :")
-    print(f"  couverture : {url_couv}")
-    print(f"  intérieur  : {url_int}")
-    _journal(f"URLS {ref} couv={url_couv} int={url_int}")
-
-    corps = payload_gelato(cmd, url_couv, url_int, pages_int, imprimer)
+    if un_fichier:
+        # Mode « fichier unique » : même format que l'upload manuel au dashboard
+        # (couverture page 1 + intérieur), Gelato découpe lui-même.
+        p_tout = fusionner(p_couv, p_int)
+        _upload(f"{prefixe}/livre-complet.pdf", p_tout)
+        url_tout = _lien_signe(f"{prefixe}/livre-complet.pdf")
+        print(f"PDF unique téléversé (lien signé 7 jours) :\n  {url_tout}")
+        _journal(f"URLS {ref} unique={url_tout}")
+        corps = payload_gelato(cmd, "", "", pages_int, imprimer,
+                               fichiers=[{"type": "default", "url": url_tout}])
+    else:
+        _upload(f"{prefixe}/couverture.pdf", p_couv)
+        _upload(f"{prefixe}/interieur.pdf", p_int)
+        url_couv = _lien_signe(f"{prefixe}/couverture.pdf")
+        url_int = _lien_signe(f"{prefixe}/interieur.pdf")
+        print("PDF téléversés (liens signés 7 jours) :")
+        print(f"  couverture : {url_couv}")
+        print(f"  intérieur  : {url_int}")
+        _journal(f"URLS {ref} couv={url_couv} int={url_int}")
+        corps = payload_gelato(cmd, url_couv, url_int, pages_int, imprimer)
     mode = "RÉELLE (impression + débit)" if imprimer else "BROUILLON (à valider au dashboard)"
     print(f"\nCommande Gelato {mode}")
     print(f"  Livre : {cmd['prenom1']} & {cmd['prenom2']} ({cmd['combo_id']}, "
@@ -485,7 +510,8 @@ def main() -> None:
             planche_contact(p_couv)
             planche_contact(p_int)
         return
-    expedier(args[0], "--imprimer" in args, aplatir="--aplatir" in args)
+    expedier(args[0], "--imprimer" in args, aplatir="--aplatir" in args,
+             un_fichier="--un-fichier" in args)
 
 
 if __name__ == "__main__":
