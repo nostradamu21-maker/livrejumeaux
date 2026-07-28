@@ -37,6 +37,7 @@ export interface Dict {
     lead: string;
     ctaCreer: string;
     ctaFeuilleter: string;
+    ctaExAffiche: string; // « Voir un exemple d'affiche »
     // Sélecteur des deux produits de la boutique (cartes cliquables du hero).
     produits: {
       livre: { nom: string; sub: string; prix: string };
@@ -265,7 +266,8 @@ const FR: Dict = {
     lead:
       "Le livre et l'affiche personnalisés pensés pour les jumeaux : leurs prénoms, leur allure, leur complicité. Leur histoire sur chaque page, leur portrait en grand sur le mur.",
     ctaCreer: "Créer leur livre",
-    ctaFeuilleter: "Feuilleter un exemple",
+    ctaFeuilleter: "Feuilleter un exemple du livre",
+    ctaExAffiche: "Voir un exemple d'affiche",
     produits: {
       livre: { nom: "Le livre", sub: "Leur histoire, 30 pages illustrées", prix: "dès 44,90 €" },
       affiche: { nom: "L'affiche", sub: "Leur portrait aquarelle, en grand sur le mur", prix: "dès 19,90 €" },
@@ -527,7 +529,8 @@ const EN: Dict = {
     h1em: "two",
     lead: "The personalized book and poster made for twins: their names, their looks, their bond. Their story on every page, their portrait big on the wall.",
     ctaCreer: "Create their book",
-    ctaFeuilleter: "Browse a sample",
+    ctaFeuilleter: "Browse a book sample",
+    ctaExAffiche: "See a poster example",
     produits: {
       livre: { nom: "The book", sub: "Their story, 30 illustrated pages", prix: "from €44.90" },
       affiche: { nom: "The poster", sub: "Their watercolor portrait, big on the wall", prix: "from €19.90" },
@@ -801,7 +804,8 @@ const ES: Dict = {
     h1em: "dos",
     lead: "El libro y el póster personalizados pensados para gemelos: sus nombres, su aspecto, su complicidad. Su historia en cada página, su retrato en grande en la pared.",
     ctaCreer: "Crear su libro",
-    ctaFeuilleter: "Hojear un ejemplo",
+    ctaFeuilleter: "Hojear un ejemplo del libro",
+    ctaExAffiche: "Ver un ejemplo de póster",
     produits: {
       livre: { nom: "El libro", sub: "Su historia, 30 páginas ilustradas", prix: "desde 44,90 €" },
       affiche: { nom: "El póster", sub: "Su retrato en acuarela, en grande en la pared", prix: "desde 19,90 €" },
@@ -1075,7 +1079,8 @@ const DE: Dict = {
     h1em: "zwei",
     lead: "Personalisiertes Buch und Poster für Zwillinge: ihre Namen, ihr Aussehen, ihre Verbundenheit. Ihre Geschichte auf jeder Seite, ihr Porträt groß an der Wand.",
     ctaCreer: "Ihr Buch gestalten",
-    ctaFeuilleter: "Beispiel durchblättern",
+    ctaFeuilleter: "Ein Buchbeispiel durchblättern",
+    ctaExAffiche: "Ein Poster-Beispiel ansehen",
     produits: {
       livre: { nom: "Das Buch", sub: "Ihre Geschichte auf 30 illustrierten Seiten", prix: "ab 44,90 €" },
       affiche: { nom: "Das Poster", sub: "Ihr Aquarell-Porträt, groß an der Wand", prix: "ab 19,90 €" },

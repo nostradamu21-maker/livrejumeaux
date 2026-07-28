@@ -46,6 +46,9 @@ export default function Hero({ l }: { l: Locale }) {
           <a href="#livre" className="btn btn-ghost">
             {d.hero.ctaFeuilleter}
           </a>
+          <a href={`${p}/affiche`} className="btn btn-ghost">
+            {d.hero.ctaExAffiche}
+          </a>
         </div>
         <ul className="hero-points">
           {d.hero.points.map((p) => (
