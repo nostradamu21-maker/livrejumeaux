@@ -191,6 +191,7 @@ export interface Dict {
     prix: Record<string, string>;
     cta: string;
     note: string;
+    exLegende: string; // légende sous le mockup quand l'exemple réel est affiché
   };
   contact: {
     titre: string;
@@ -452,6 +453,7 @@ const FR: Dict = {
     prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
     cta: "Commander l'affiche",
     note: "Papier affiche premium mat, livrée roulée dans un tube. Livraison suivie 4,99 €.",
+    exLegende: "Un exemple réel : l'affiche d'Elia & Luna. La vôtre reprendra vos personnages et vos prénoms.",
   },
   contact: {
     titre: "Écrivez-nous",
@@ -710,6 +712,7 @@ const EN: Dict = {
     prix: { "21x30": "€19.90", "30x40": "€24.90", "40x50": "€29.90", "50x70": "€34.90" },
     cta: "Order the poster",
     note: "Premium matte poster paper, delivered rolled in a tube. Tracked delivery €4.99.",
+    exLegende: "A real example: Elia & Luna's poster. Yours will feature your characters and names.",
   },
   contact: {
     titre: "Write to us",
@@ -985,6 +988,7 @@ const ES: Dict = {
     prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
     cta: "Pedir el póster",
     note: "Papel de póster premium mate, entregado enrollado en un tubo. Envío con seguimiento 4,99 €.",
+    exLegende: "Un ejemplo real: el póster de Elia & Luna. El vuestro llevará vuestros personajes y nombres.",
   },
   contact: {
     titre: "Escríbenos",
@@ -1260,6 +1264,7 @@ const DE: Dict = {
     prix: { "21x30": "19,90 €", "30x40": "24,90 €", "40x50": "29,90 €", "50x70": "34,90 €" },
     cta: "Poster bestellen",
     note: "Mattes Premium-Posterpapier, gerollt im Karton geliefert. Versand mit Sendungsverfolgung 4,99 €.",
+    exLegende: "Ein echtes Beispiel: das Poster von Elia & Luna. Ihres zeigt Ihre Figuren und Namen.",
   },
   contact: {
     titre: "Schreiben Sie uns",

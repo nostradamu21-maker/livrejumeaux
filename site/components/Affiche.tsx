@@ -30,6 +30,10 @@ export default function Affiche({
     const sm = new URLSearchParams(window.location.search).get("sm") ?? "";
     if (/^cs_(live|test)_[A-Za-z0-9]+$/.test(sm)) setSmRef(sm);
   }, []);
+  // Exemple réel (l'affiche d'Elia & Luna) affiché tant que le visiteur n'a
+  // rien choisi ; repli silencieux sur le mockup si l'image n'existe pas encore.
+  const [exempleOk, setExempleOk] = useState(true);
+  const montrerExemple = exempleOk && !smRef && !choix[1] && !choix[2];
   const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
 
   const parId = useMemo(() => new Map(archetypes.map((a) => [a.id, a])), [archetypes]);
@@ -78,24 +82,40 @@ export default function Affiche({
     <section id="affiche" className="affiche-section">
       <div className="affiche-carte">
         <div className="affiche-visuel">
-          {/* Mockup : affiche symbolisée par les deux fiches + prénoms */}
+          {/* Mockup : exemple réel par défaut, sinon affiche symbolisée par
+              les deux fiches + prénoms */}
           <div className="affiche-mock" style={{ aspectRatio: taille.replace("x", " / ") }}>
-            <div className="affiche-passe">
-              <div className="affiche-persos">
-                {([1, 2] as const).map((j) =>
-                  choix[j] ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img key={j} src={parId.get(choix[j])?.fiche} alt="" />
-                  ) : (
-                    <span key={j} className="affiche-vide">?</span>
-                  ),
-                )}
+            {montrerExemple ? (
+              <div className="affiche-passe affiche-passe-ex">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="affiche-exemple"
+                  src="/apercus/test-filles/affiche.jpg"
+                  alt={d.affiche.exLegende}
+                  loading="lazy"
+                  onError={() => setExempleOk(false)}
+                />
+                <span className="affiche-noms affiche-noms-ex">Elia & Luna</span>
               </div>
-              <span className="affiche-noms">
-                {prenoms[1] || d.affiche.enfant1} & {prenoms[2] || d.affiche.enfant2}
-              </span>
-            </div>
+            ) : (
+              <div className="affiche-passe">
+                <div className="affiche-persos">
+                  {([1, 2] as const).map((j) =>
+                    choix[j] ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img key={j} src={parId.get(choix[j])?.fiche} alt="" />
+                    ) : (
+                      <span key={j} className="affiche-vide">?</span>
+                    ),
+                  )}
+                </div>
+                <span className="affiche-noms">
+                  {prenoms[1] || d.affiche.enfant1} & {prenoms[2] || d.affiche.enfant2}
+                </span>
+              </div>
+            )}
           </div>
+          {montrerExemple && <p className="affiche-ex-legende">{d.affiche.exLegende}</p>}
         </div>
         <form className="affiche-form" onSubmit={commander}>
           <span className="sm-eyebrow">{d.affiche.eyebrow}</span>
