@@ -341,7 +341,8 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .affiche-persos { display: flex; gap: 0.4rem; justify-content: center; }
 .affiche-persos img { width: 88px; aspect-ratio: 3 / 4; object-fit: contain; background: transparent; }
 .affiche-vide { width: 88px; aspect-ratio: 3 / 4; display: grid; place-items: center; border: 2px dashed var(--ligne); border-radius: 10px; color: var(--encre-doux); font-size: 1.4rem; }
-.affiche-noms { font-family: "Fraunces", serif; font-weight: 600; color: var(--encre); font-size: 1.05rem; text-align: center; }
+/* Prénoms du mockup : Amatic SC, la police imprimée sur l'affiche (affiche.py). */
+.affiche-noms { font-family: "Amatic SC", "Fraunces", serif; font-weight: 700; color: var(--encre); font-size: 1.6rem; letter-spacing: 0.03em; text-align: center; }
 /* Exemple réel dans le mockup (l'affiche d'Elia & Luna). */
 .affiche-passe-ex { position: relative; padding: 0; justify-content: flex-end; overflow: hidden; }
 .affiche-exemple { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

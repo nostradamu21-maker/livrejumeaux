@@ -85,8 +85,11 @@ def composer(livre_id: str, prenoms: tuple[str, str], taille: str) -> Path:
 
     p1, p2 = prenoms
     pdf_path = dossier / (f"affiche-{p1}-{p2}-{taille}.pdf".replace(" ", "_"))
-    pdfmetrics.registerFont(TTFont("AffTitre", str(ROOT / "fonts/Andika-Bold.ttf")))
-    pdfmetrics.registerFont(TTFont("AffTexte", str(ROOT / "fonts/Andika-Regular.ttf")))
+    # Police de l'affiche : Amatic SC (choix Simon, juillet 2026) — manuscrite,
+    # esprit affiche de chambre d'enfant. Plus condensée qu'Andika → corps
+    # augmenté en proportion (validé sur comparatif visuel).
+    pdfmetrics.registerFont(TTFont("AffTitre", str(ROOT / "fonts/AmaticSC-Bold.ttf")))
+    pdfmetrics.registerFont(TTFont("AffTexte", str(ROOT / "fonts/AmaticSC-Regular.ttf")))
     c = canvas.Canvas(str(pdf_path), pagesize=(L * MM, H * MM))
     buf = io.BytesIO()
     art.save(buf, "JPEG", quality=92)
@@ -105,10 +108,10 @@ def composer(livre_id: str, prenoms: tuple[str, str], taille: str) -> Path:
 
     # Prénoms dans le tiers bas (zone calme prévue par la scène), taille
     # proportionnelle à l'affiche.
-    corps = H * MM * 0.052
-    _halo(L * MM / 2, H * MM * 0.115, f"{p1} & {p2}", "AffTitre", corps)
-    _halo(L * MM / 2, H * MM * 0.115 - corps * 0.95, "deux comme nous", "AffTexte",
-          corps * 0.38)
+    corps = H * MM * 0.080
+    _halo(L * MM / 2, H * MM * 0.118, f"{p1} & {p2}", "AffTitre", corps)
+    _halo(L * MM / 2, H * MM * 0.118 - corps * 0.60, "deux comme nous", "AffTexte",
+          corps * 0.42)
     c.showPage()
     c.save()
 
