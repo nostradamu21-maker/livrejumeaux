@@ -53,15 +53,16 @@ export const PRODUIT_SUR_MESURE_ID = process.env.STRIPE_PRODUIT_SUR_MESURE?.trim
 export const AFFICHE_TAILLES = ["21x30", "30x40", "40x50", "50x70"] as const;
 export type AfficheTaille = (typeof AFFICHE_TAILLES)[number];
 export const PRIX_AFFICHE_CENTIMES: Record<AfficheTaille, number> = {
-  "21x30": Number(process.env.PRIX_AFFICHE_21X30 ?? 1990),
-  "30x40": Number(process.env.PRIX_AFFICHE_30X40 ?? 2490),
-  "40x50": Number(process.env.PRIX_AFFICHE_40X50 ?? 2990),
-  "50x70": Number(process.env.PRIX_AFFICHE_50X70 ?? 3490),
+  "21x30": Number(process.env.PRIX_AFFICHE_21X30 ?? 2990),
+  "30x40": Number(process.env.PRIX_AFFICHE_30X40 ?? 3490),
+  "40x50": Number(process.env.PRIX_AFFICHE_40X50 ?? 3990),
+  "50x70": Number(process.env.PRIX_AFFICHE_50X70 ?? 4990),
 };
 export const PRODUIT_AFFICHE_ID = process.env.STRIPE_PRODUIT_AFFICHE?.trim() || "";
 // Affiche SUR MESURE seule (personnages dessinés d'après photo, sans livre) :
-// prix du poster + supplément couvrant la génération des personnages.
-export const AFFICHE_SM_SUPPLEMENT = Number(process.env.PRIX_AFFICHE_SM_SUPPLEMENT ?? 1500);
+// prix unique, identique au catalogue — un seul prix annoncé partout, aucun écart
+// possible entre la vitrine et la page. Un supplément reste activable par env.
+export const AFFICHE_SM_SUPPLEMENT = Number(process.env.PRIX_AFFICHE_SM_SUPPLEMENT ?? 0);
 
 // Pays de livraison proposés au checkout (Gelato livre bien au-delà ;
 // on ouvre d'abord la zone francophone et ses voisins).
