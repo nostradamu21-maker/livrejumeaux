@@ -139,7 +139,9 @@ def main() -> None:
         moteur.sauver(livre, dossier)
         print("Unité « affiche » activée pour ce livre.")
     if "affiche" not in livre.get("selections", {}):
-        cmdline = [sys.executable, "livre.py", args.livre] + \
+        # Production CIBLÉE : seulement l'unité « affiche » (+ références si
+        # besoin) — jamais les pages du livre, qui ne sont pas commandées ici.
+        cmdline = [sys.executable, "livre.py", args.livre, "--seulement", "affiche"] + \
                   (["--tri-web"] if args.tri_web else [])
         print("Génération + tri de l'affiche (machine à états livre.py)…")
         r = subprocess.run(cmdline, cwd=ROOT)

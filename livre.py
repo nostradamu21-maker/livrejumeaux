@@ -171,24 +171,30 @@ def appliquer_langue(scenes: dict, langue: str) -> None:
 # ---------------------------------------------------------------------------
 
 
-def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
-    """Génère les pages prêtes à l'être. Retourne True si quelque chose a été fait."""
+def etape_generation(livre: dict, scenes: dict, dossier: Path,
+                     cibles: set | None = None) -> bool:
+    """Génère les pages prêtes à l'être. Retourne True si quelque chose a été fait.
+    `cibles` (option --seulement) restreint aux unités listées — les références
+    restent toujours incluses : ce sont les prérequis de toutes les unités."""
     a_generer, en_attente = [], []
     for r in unites_references(livre):
         if not page_generee(dossier, r):
             a_generer.append(r)
-    if not page_generee(dossier, "couv"):
+    if (cibles is None or "couv" in cibles) and not page_generee(dossier, "couv"):
         if unites_references(livre) and not references_pretes(livre):
             en_attente.append("couv")
         else:
             a_generer.append("couv")
     # Unité « affiche » (produit cadre) : seulement si le livre la demande.
-    if livre.get("affiche") and not page_generee(dossier, "affiche"):
+    if (cibles is None or "affiche" in cibles) and \
+       livre.get("affiche") and not page_generee(dossier, "affiche"):
         if unites_references(livre) and not references_pretes(livre):
             en_attente.append("affiche")
         else:
             a_generer.append("affiche")
     for num in scenes["pages"]:
+        if cibles is not None and num not in cibles:
+            continue  # hors périmètre --seulement
         if scenes["pages"][num].get("texte_seul"):
             continue  # pages texte seul : aucune image à générer
         if page_generee(dossier, num):
@@ -349,10 +355,13 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path) -> bool:
 # ---------------------------------------------------------------------------
 
 
-def etape_tri(livre: dict, scenes: dict, dossier: Path) -> bool:
+def etape_tri(livre: dict, scenes: dict, dossier: Path,
+              cibles: set | None = None) -> bool:
     extras = ["couv"] + (["affiche"] if livre.get("affiche") else [])
-    restantes = [n for n in unites_references(livre) + extras + list(scenes["pages"])
-                 if page_generee(dossier, n) and n not in livre["selections"]]
+    refs = unites_references(livre)
+    restantes = [n for n in refs + extras + list(scenes["pages"])
+                 if page_generee(dossier, n) and n not in livre["selections"]
+                 and (cibles is None or n in cibles or n in refs)]
     if not restantes:
         return False
     print(f"Tri : {len(restantes)} page(s) à choisir — le navigateur s'ouvre…")
@@ -722,6 +731,10 @@ def main() -> None:
     ap.add_argument("--tri-web", action="store_true",
                     help="tri depuis le téléphone via le site (tri_web.py) au lieu "
                          "du navigateur local — mode worker/VPS")
+    ap.add_argument("--seulement",
+                    help='restreint la production aux unités listées, ex. "affiche" '
+                         "(commande d'affiche seule : ni les pages du livre ni sa couv). "
+                         "Les références restent produites si besoin.")
     ap.add_argument("--refaire",
                     help='pages à regénérer même déjà triées, ex. "10,21,24,27" '
                          "(ou couv, ref-2) : variantes supprimées + sélection annulée")
@@ -753,7 +766,10 @@ def main() -> None:
         etape_pdf(livre, scenes, dossier, prenoms=(p1, p2), suffixe_pdf=suffixe)
         return
 
-    if etape_generation(livre, scenes, dossier):
+    cibles = ({c.strip() for c in args.seulement.split(",") if c.strip()}
+              if args.seulement else None)
+
+    if etape_generation(livre, scenes, dossier, cibles):
         print("\n→ Relance livre.command pour passer au tri.")
         return
     if args.tri_web:
@@ -763,11 +779,19 @@ def main() -> None:
         tri_web.attendre(args.livre)
         livre, scenes, dossier = charger(args.livre)
         appliquer_langue(scenes, langue)
-    if etape_tri(livre, scenes, dossier):
+    if etape_tri(livre, scenes, dossier, cibles):
         # des pages ancrées sont peut-être devenues générables
-        if etape_generation(livre, scenes, dossier):
+        if etape_generation(livre, scenes, dossier, cibles):
             print("\n→ Relance livre.command pour trier les pages ancrées.")
             return
+    if cibles:
+        faites = [c for c in sorted(cibles) if c in livre["selections"]]
+        reste = sorted(cibles - set(faites))
+        if reste:
+            print(f"Unités restantes ({', '.join(reste)}) — relance la même commande.")
+        else:
+            print(f"✅ Unité(s) {', '.join(faites)} validée(s) — production ciblée terminée.")
+        return
     restantes = [n for n in scenes["pages"]
                  if n not in livre["selections"]
                  and not scenes["pages"][n].get("texte_seul")]
