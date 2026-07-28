@@ -86,82 +86,40 @@ export default function Affiche({
     <section id="affiche" className="affiche-section">
       <div className="affiche-carte">
         <div className="affiche-visuel">
-          {/* Scène murale À L'ÉCHELLE : le buffet fait 1,20 m de large, la
-              scène représente 2,00 m de mur × 1,90 m de haut. L'affiche est
-              accrochée au-dessus et prend sa taille RÉELLE selon le format
-              choisi (bas du cadre fixe, largeur animée). Contenu : l'exemple
-              réel d'Elia & Luna par défaut, sinon les fiches + prénoms. */}
-          {(() => {
-            const [tw, th] = taille.split("x").map(Number);
-            return (
-              <div className="mock-scene">
-                <div className="mock-sol" />
-                <svg
-                  className="mock-buffet"
-                  viewBox="0 0 120 102"
-                  aria-hidden="true"
-                >
-                  {/* plante posée sur le buffet */}
-                  <g stroke="rgba(74,58,48,0.3)" strokeWidth="1">
-                    <ellipse cx="24" cy="12" rx="7" ry="9" fill="#8db39a" />
-                    <ellipse cx="17" cy="18" rx="6" ry="7.5" fill="#7fa98d" />
-                    <ellipse cx="31" cy="18" rx="6" ry="7.5" fill="#9bc0a7" />
-                    <path d="M16 26 h16 l-2.5 12 h-11 z" fill="#c98d6b" />
-                  </g>
-                  {/* corps du buffet + pieds */}
-                  <g stroke="rgba(74,58,48,0.35)" strokeWidth="1.2">
-                    <rect x="2" y="38" width="116" height="50" rx="6" fill="#dcC09a" />
-                    <line x1="60" y1="40" x2="60" y2="86" />
-                    <circle cx="52" cy="63" r="2.2" fill="#a8846a" />
-                    <circle cx="68" cy="63" r="2.2" fill="#a8846a" />
-                    <rect x="12" y="88" width="7" height="12" rx="2.5" fill="#c9ab82" />
-                    <rect x="101" y="88" width="7" height="12" rx="2.5" fill="#c9ab82" />
-                  </g>
-                </svg>
-                <div
-                  className="mock-cadre"
-                  style={{ width: `${(tw / 200) * 100}%`, aspectRatio: `${tw} / ${th}` }}
-                >
-                  {montrerExemple ? (
-                    <div className="affiche-passe affiche-passe-ex">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        className="affiche-exemple"
-                        src="/apercus/test-filles/affiche.jpg"
-                        alt={d.affiche.exLegende}
-                        loading="lazy"
-                        onError={() => setExempleOk(false)}
-                      />
-                      <span className="affiche-noms affiche-noms-ex">Elia & Luna</span>
-                    </div>
-                  ) : (
-                    <div className="affiche-passe">
-                      <div className="affiche-persos">
-                        {([1, 2] as const).map((j) =>
-                          choix[j] ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img key={j} src={parId.get(choix[j])?.fiche} alt="" />
-                          ) : (
-                            <span key={j} className="affiche-vide">?</span>
-                          ),
-                        )}
-                      </div>
-                      <span className="affiche-noms">
-                        {prenoms[1] || d.affiche.enfant1} & {prenoms[2] || d.affiche.enfant2}
-                      </span>
-                    </div>
-                  )}
-                  <span className="mock-dims">
-                    {tw} × {th} cm
-                  </span>
-                </div>
+          {/* Mockup : exemple réel par défaut, sinon affiche symbolisée par
+              les deux fiches + prénoms */}
+          <div className="affiche-mock" style={{ aspectRatio: taille.replace("x", " / ") }}>
+            {montrerExemple ? (
+              <div className="affiche-passe affiche-passe-ex">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="affiche-exemple"
+                  src="/apercus/test-filles/affiche.jpg"
+                  alt={d.affiche.exLegende}
+                  loading="lazy"
+                  onError={() => setExempleOk(false)}
+                />
+                <span className="affiche-noms affiche-noms-ex">Elia & Luna</span>
               </div>
-            );
-          })()}
-          <p className="affiche-ex-legende">
-            {montrerExemple ? `${d.affiche.exLegende} ` : ""}
-            {d.affiche.mockEchelle}
-          </p>
+            ) : (
+              <div className="affiche-passe">
+                <div className="affiche-persos">
+                  {([1, 2] as const).map((j) =>
+                    choix[j] ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img key={j} src={parId.get(choix[j])?.fiche} alt="" />
+                    ) : (
+                      <span key={j} className="affiche-vide">?</span>
+                    ),
+                  )}
+                </div>
+                <span className="affiche-noms">
+                  {prenoms[1] || d.affiche.enfant1} & {prenoms[2] || d.affiche.enfant2}
+                </span>
+              </div>
+            )}
+          </div>
+          {montrerExemple && <p className="affiche-ex-legende">{d.affiche.exLegende}</p>}
         </div>
         <form className="affiche-form" onSubmit={commander}>
           <span className="sm-eyebrow">{d.affiche.eyebrow}</span>

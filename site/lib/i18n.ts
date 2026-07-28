@@ -199,7 +199,6 @@ export interface Dict {
     cta: string;
     note: string;
     exLegende: string; // légende sous le mockup quand l'exemple réel est affiché
-    mockEchelle: string; // note d'échelle sous la scène murale (buffet = 1,20 m)
     // Onglets du tunnel /affiche : photo (sur mesure) ou catalogue, sur place.
     tabPhoto: string;
     tabPhotoSub: string;
@@ -473,7 +472,6 @@ const FR: Dict = {
     cta: "Commander l'affiche",
     note: "Papier affiche premium mat, livrée roulée dans un tube. Livraison suivie 4,99 €.",
     exLegende: "Un exemple réel : l'affiche d'Elia & Luna. La vôtre reprendra vos personnages et vos prénoms.",
-    mockEchelle: "Aperçu à l'échelle réelle — le meuble fait 1,20 m de large.",
     tabPhoto: "✨ D'après leur photo",
     tabPhotoSub: "le plus demandé · dès 29,90 €",
     tabCatalogue: "Personnages du catalogue",
@@ -743,7 +741,6 @@ const EN: Dict = {
     cta: "Order the poster",
     note: "Premium matte poster paper, delivered rolled in a tube. Tracked delivery €4.99.",
     exLegende: "A real example: Elia & Luna's poster. Yours will feature your characters and names.",
-    mockEchelle: "True-to-scale preview — the sideboard is 1.20 m wide.",
     tabPhoto: "✨ From their photo",
     tabPhotoSub: "the favorite · from €29.90",
     tabCatalogue: "Catalogue characters",
@@ -1030,7 +1027,6 @@ const ES: Dict = {
     cta: "Pedir el póster",
     note: "Papel de póster premium mate, entregado enrollado en un tubo. Envío con seguimiento 4,99 €.",
     exLegende: "Un ejemplo real: el póster de Elia & Luna. El vuestro llevará vuestros personajes y nombres.",
-    mockEchelle: "Vista a escala real — el mueble mide 1,20 m de ancho.",
     tabPhoto: "✨ A partir de su foto",
     tabPhotoSub: "el favorito · desde 29,90 €",
     tabCatalogue: "Personajes del catálogo",
@@ -1317,7 +1313,6 @@ const DE: Dict = {
     cta: "Poster bestellen",
     note: "Mattes Premium-Posterpapier, gerollt im Karton geliefert. Versand mit Sendungsverfolgung 4,99 €.",
     exLegende: "Ein echtes Beispiel: das Poster von Elia & Luna. Ihres zeigt Ihre Figuren und Namen.",
-    mockEchelle: "Maßstabsgetreue Vorschau — die Kommode ist 1,20 m breit.",
     tabPhoto: "✨ Nach ihrem Foto",
     tabPhotoSub: "der Favorit · ab 29,90 €",
     tabCatalogue: "Katalog-Figuren",
