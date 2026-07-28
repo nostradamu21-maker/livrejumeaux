@@ -93,6 +93,11 @@ def creer_commande(payload: dict) -> dict:
     return _post(f"{ORDER}/orders", payload)
 
 
+def lire_commande(order_id: str) -> dict:
+    """État d'une commande Gelato (statuts des fichiers, erreurs de rendu…)."""
+    return _get(f"{ORDER}/orders/{order_id}")
+
+
 if __name__ == "__main__":
     import sys
     import traceback

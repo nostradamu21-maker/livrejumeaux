@@ -301,10 +301,35 @@ def lister() -> None:
     print("\nExpédier : python expedier.py <ref> (brouillon) puis --imprimer")
 
 
+def etat_gelato(ref: str) -> None:
+    """Interroge l'API Gelato : état réel de la commande et de ses fichiers
+    (le dashboard peut afficher des aperçus « en boucle » alors que tout est bon)."""
+    cmd = lire_commande(ref)
+    gid = cmd.get("gelato_id")
+    if not gid:
+        raise SystemExit("Pas de gelato_id sur cette commande (brouillon pas créé ?).")
+    data = gelato.lire_commande(gid)
+    print(f"Commande Gelato {gid}")
+    print(f"  statut global : {data.get('fulfillmentStatus') or data.get('status') or '?'}")
+    print(f"  financier     : {data.get('financialStatus', '?')}")
+    for item in data.get("items", []):
+        print(f"  item {item.get('itemReferenceId', '?')} : "
+              f"{item.get('fulfillmentStatus') or item.get('status') or '?'}")
+        for f in item.get("files", []) or []:
+            print(f"    fichier {f.get('type', '?')} : {str(f.get('url', ''))[:60]}…")
+        for p in item.get("previews", []) or []:
+            print(f"    aperçu {p.get('type', '?')} : {p.get('url', '')[:60]}…")
+    _journal(f"ETAT {ref} → {json.dumps(data)[:2000]}")
+    print(f"\nRéponse complète journalisée dans {JOURNAL}")
+
+
 def main() -> None:
     args = sys.argv[1:]
     if not args or "--liste" in args:
         lister()
+        return
+    if "--etat" in args:
+        etat_gelato(args[0])
         return
     expedier(args[0], "--imprimer" in args)
 
