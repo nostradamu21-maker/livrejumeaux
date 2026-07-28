@@ -26,7 +26,9 @@ export async function generateMetadata({
       title: d.pages.affiche.metaTitle,
       description: d.pages.affiche.metaDesc,
       url: `${URL_SITE}${prefixe(l)}/affiche`,
+      images: [{ url: "/og/affiche.jpg", width: 1200, height: 630, alt: d.pages.affiche.metaTitle }],
     },
+    twitter: { card: "summary_large_image", images: ["/og/affiche.jpg"] },
   };
 }
 

@@ -4,7 +4,15 @@ export default function Cadeau({ l }: { l: Locale }) {
   const d = t(l);
   return (
     <section id="cadeau" className="cadeau">
-      <div className="cadeau-carte">
+      <div className="cadeau-duo">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="cadeau-photo"
+          src="/photos/lecture-soir.jpg"
+          alt=""
+          loading="lazy"
+        />
+        <div className="cadeau-carte">
         <p className="eyebrow">{d.cadeau.eyebrow}</p>
         <h2>{d.cadeau.h2}</h2>
         <p className="cadeau-texte">{d.cadeau.texte}</p>
@@ -16,6 +24,7 @@ export default function Cadeau({ l }: { l: Locale }) {
         <a href={`${prefixe(l)}/livre`} className="btn btn-primary">
           {d.cadeau.cta}
         </a>
+        </div>
       </div>
     </section>
   );

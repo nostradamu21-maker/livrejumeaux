@@ -35,20 +35,24 @@ export async function generateMetadata({
       siteName: NOM_SITE,
       locale: { fr: "fr_FR", en: "en_US", es: "es_ES", de: "de_DE" }[l],
       type: "website",
+      // FR : visuel « Leur histoire prend vie » (texte incrusté en français) ;
+      // autres langues : couverture du livre, sans texte marketing.
       images: [
-        {
-          url: "/apercus/test-filles/couverture.jpg",
-          width: 1600,
-          height: 859,
-          alt: d.meta.ogTitle,
-        },
+        l === "fr"
+          ? { url: "/og/home-fr.jpg", width: 1200, height: 630, alt: d.meta.ogTitle }
+          : {
+              url: "/apercus/test-filles/couverture.jpg",
+              width: 1600,
+              height: 859,
+              alt: d.meta.ogTitle,
+            },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: d.meta.ogTitle,
       description: d.meta.ogDesc,
-      images: ["/apercus/test-filles/couverture.jpg"],
+      images: [l === "fr" ? "/og/home-fr.jpg" : "/apercus/test-filles/couverture.jpg"],
     },
   };
 }

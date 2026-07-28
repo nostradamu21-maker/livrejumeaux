@@ -220,14 +220,13 @@ export default function SurMesure({
               <div className="sm-g-cadre">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/apercus/test-filles/affiche.jpg"
+                  src="/photos/affiche-chambre.jpg"
                   alt=""
                   loading="lazy"
                   onError={(e) => {
                     (e.currentTarget.closest(".sm-galerie") as HTMLElement).style.display = "none";
                   }}
                 />
-                <span className="sm-g-noms" aria-hidden="true">Elia & Luna</span>
               </div>
               <figcaption className="sm-g-legende">{d.affiche.exLegende}</figcaption>
             </figure>

@@ -30,7 +30,9 @@ export async function generateMetadata({
       title: d.pages.livre.metaTitle,
       description: d.pages.livre.metaDesc,
       url: `${URL_SITE}${prefixe(l)}/livre`,
+      images: [{ url: "/og/livre.jpg", width: 1200, height: 630, alt: d.pages.livre.metaTitle }],
     },
+    twitter: { card: "summary_large_image", images: ["/og/livre.jpg"] },
   };
 }
 
