@@ -348,7 +348,17 @@ def etat_gelato(ref: str) -> None:
     gid = cmd.get("gelato_id")
     if not gid:
         raise SystemExit("Pas de gelato_id sur cette commande (brouillon pas créé ?).")
-    data = gelato.lire_commande(gid)
+    try:
+        data = gelato.lire_commande(gid)
+    except RuntimeError as e:
+        if "NOT_FOUND" in str(e) or "404" in str(e):
+            # Brouillon supprimé au dashboard : on oublie l'ancien id.
+            _rest(f"commandes?ref=eq.{ref}", "PATCH", {"gelato_id": None})
+            raise SystemExit(
+                f"La commande Gelato {gid} n'existe plus (brouillon supprimé au "
+                "dashboard). Ancien id nettoyé.\n"
+                f"→ recréer le brouillon : python expedier.py {ref}")
+        raise
     print(f"Commande Gelato {gid}")
     print(f"  statut global : {data.get('fulfillmentStatus') or data.get('status') or '?'}")
     print(f"  financier     : {data.get('financialStatus', '?')}")
