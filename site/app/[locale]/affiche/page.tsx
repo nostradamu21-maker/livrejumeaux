@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
-import Affiche from "@/components/Affiche";
-import SurMesure from "@/components/SurMesure";
+import AfficheTunnel from "@/components/AfficheTunnel";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import { cataloguePublic } from "@/lib/catalogue";
@@ -52,8 +51,7 @@ export default async function PageAffiche({
         <h1>{d.pages.affiche.h1}</h1>
         <p>{d.pages.affiche.sub}</p>
       </header>
-      <Affiche archetypes={archetypes} l={locale} />
-      <SurMesure l={locale} produitInitial="affiche" />
+      <AfficheTunnel archetypes={archetypes} l={locale} />
       <Faq l={locale} />
       <Footer l={locale} />
     </>

@@ -11,9 +11,13 @@ const TAILLES = ["21x30", "30x40", "40x50", "50x70"] as const;
 export default function Affiche({
   archetypes,
   l,
+  masquerSmCta = false,
 }: {
   archetypes: ArchetypePublic[];
   l: Locale;
+  // Dans le tunnel /affiche, le sur-mesure a son propre onglet : on masque le
+  // renvoi interne vers #sur-mesure.
+  masquerSmCta?: boolean;
 }) {
   const d = t(l);
   const [choix, setChoix] = useState<{ 1: string; 2: string }>({ 1: "", 2: "" });
@@ -122,7 +126,7 @@ export default function Affiche({
           <h2>{d.affiche.h2}</h2>
           <p className="affiche-intro">{d.affiche.intro}</p>
           {smRef && <p className="affiche-sm-badge">{d.affiche.smBadge}</p>}
-          {!smRef && (
+          {!smRef && !masquerSmCta && (
             <a
               href="#sur-mesure"
               className="affiche-vers-sm"
@@ -132,7 +136,9 @@ export default function Affiche({
               <span>{d.affiche.smSub}</span>
             </a>
           )}
-          {!smRef && <p className="affiche-taille-titre">{d.affiche.ouCatalogue}</p>}
+          {!smRef && !masquerSmCta && (
+            <p className="affiche-taille-titre">{d.affiche.ouCatalogue}</p>
+          )}
           {!smRef && ([1, 2] as const).map((j) => (
             <div className="affiche-enfant" key={j}>
               <select

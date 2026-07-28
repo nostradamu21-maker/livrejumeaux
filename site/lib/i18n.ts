@@ -192,6 +192,11 @@ export interface Dict {
     cta: string;
     note: string;
     exLegende: string; // légende sous le mockup quand l'exemple réel est affiché
+    // Onglets du tunnel /affiche : photo (sur mesure) ou catalogue, sur place.
+    tabPhoto: string;
+    tabPhotoSub: string;
+    tabCatalogue: string;
+    tabCatalogueSub: string;
   };
   contact: {
     titre: string;
@@ -454,6 +459,10 @@ const FR: Dict = {
     cta: "Commander l'affiche",
     note: "Papier affiche premium mat, livrée roulée dans un tube. Livraison suivie 4,99 €.",
     exLegende: "Un exemple réel : l'affiche d'Elia & Luna. La vôtre reprendra vos personnages et vos prénoms.",
+    tabPhoto: "✨ D'après leur photo",
+    tabPhotoSub: "le plus demandé · dès 34,90 €",
+    tabCatalogue: "Personnages du catalogue",
+    tabCatalogueSub: "dès 19,90 €",
   },
   contact: {
     titre: "Écrivez-nous",
@@ -713,6 +722,10 @@ const EN: Dict = {
     cta: "Order the poster",
     note: "Premium matte poster paper, delivered rolled in a tube. Tracked delivery €4.99.",
     exLegende: "A real example: Elia & Luna's poster. Yours will feature your characters and names.",
+    tabPhoto: "✨ From their photo",
+    tabPhotoSub: "the favorite · from €34.90",
+    tabCatalogue: "Catalogue characters",
+    tabCatalogueSub: "from €19.90",
   },
   contact: {
     titre: "Write to us",
@@ -989,6 +1002,10 @@ const ES: Dict = {
     cta: "Pedir el póster",
     note: "Papel de póster premium mate, entregado enrollado en un tubo. Envío con seguimiento 4,99 €.",
     exLegende: "Un ejemplo real: el póster de Elia & Luna. El vuestro llevará vuestros personajes y nombres.",
+    tabPhoto: "✨ A partir de su foto",
+    tabPhotoSub: "el favorito · desde 34,90 €",
+    tabCatalogue: "Personajes del catálogo",
+    tabCatalogueSub: "desde 19,90 €",
   },
   contact: {
     titre: "Escríbenos",
@@ -1265,6 +1282,10 @@ const DE: Dict = {
     cta: "Poster bestellen",
     note: "Mattes Premium-Posterpapier, gerollt im Karton geliefert. Versand mit Sendungsverfolgung 4,99 €.",
     exLegende: "Ein echtes Beispiel: das Poster von Elia & Luna. Ihres zeigt Ihre Figuren und Namen.",
+    tabPhoto: "✨ Nach ihrem Foto",
+    tabPhotoSub: "der Favorit · ab 34,90 €",
+    tabCatalogue: "Katalog-Figuren",
+    tabCatalogueSub: "ab 19,90 €",
   },
   contact: {
     titre: "Schreiben Sie uns",
