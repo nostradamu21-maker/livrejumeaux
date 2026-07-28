@@ -88,20 +88,20 @@ export default function Affiche({
         <div className="affiche-visuel">
           {/* Mockup : exemple réel par défaut, sinon affiche symbolisée par
               les deux fiches + prénoms */}
+          {montrerExemple ? (
+            /* Guide des tailles : les 4 formats côte à côte sur un vrai mur,
+               cotes en cm dans l'image (universelles → aucune traduction). */
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="affiche-guide"
+              src="/photos/guide-tailles.jpg"
+              alt={d.affiche.exLegende}
+              loading="lazy"
+              onError={() => setExempleOk(false)}
+            />
+          ) : (
           <div className="affiche-mock" style={{ aspectRatio: taille.replace("x", " / ") }}>
-            {montrerExemple ? (
-              <div className="affiche-passe affiche-passe-ex">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="affiche-exemple"
-                  src="/apercus/test-filles/affiche.jpg"
-                  alt={d.affiche.exLegende}
-                  loading="lazy"
-                  onError={() => setExempleOk(false)}
-                />
-                <span className="affiche-noms affiche-noms-ex">Elia & Luna</span>
-              </div>
-            ) : (
+            {(
               <div className="affiche-passe">
                 <div className="affiche-persos">
                   {([1, 2] as const).map((j) =>
@@ -119,6 +119,7 @@ export default function Affiche({
               </div>
             )}
           </div>
+          )}
           {montrerExemple && <p className="affiche-ex-legende">{d.affiche.exLegende}</p>}
         </div>
         <form className="affiche-form" onSubmit={commander}>
