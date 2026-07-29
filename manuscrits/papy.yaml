@@ -99,9 +99,11 @@ pages:
 
       Il connaît le nom de chaque petite chose.'
   '07':
-    scene: 'Atelier de grand-père, merveilleusement encombré : établi patiné, outils
-      anciens accrochés au mur, bocaux de vis et boutons, le grand-père montrant aux
-      deux jumeaux un petit voilier en bois en cours de fabrication.'
+    scene: 'Atelier de grand-père, merveilleusement encombré, vue large : établi
+      patiné, outils anciens accrochés au mur, bocaux de vis et boutons, copeaux
+      au sol. Le grand-père DEBOUT scie une planche de bois brut, un jumeau tient
+      la planche à deux mains, l''autre montre du doigt un dessin de bateau punaisé
+      au mur. Rien n''est encore construit : le chantier commence.'
     texte: 'L''atelier de Papy est une caverne aux trésors.
 
       Aujourd''hui, grand chantier :
@@ -109,9 +111,11 @@ pages:
       un vrai bateau, pour naviguer sur la mare.'
   '08':
     ancre: page:07
-    scene: 'Même atelier : le petit voilier terminé, peint en bleu et blanc — le
-      grand-père le tend aux deux jumeaux émerveillés, copeaux de bois au sol,
-      rayon de soleil par la fenêtre de l''atelier.'
+    scene: 'Même atelier, PLAN RAPPROCHÉ et cadrage serré sur l''établi vu de trois
+      quarts : le petit voilier terminé est posé au centre, les trois personnages
+      penchés tout autour, très près les uns des autres, en train de le PEINDRE en
+      bleu et blanc — chacun un pinceau à la main, pots de peinture ouverts,
+      concentration et sourires, taches de peinture sur les doigts.'
     texte: 'Trois paires de mains, un bateau.
 
       Papy dit qu''il tiendra cent ans.
@@ -136,15 +140,16 @@ pages:
 
       On n''attrape pas grand-chose, mais on est drôlement bien.'
   '11':
-    ancre: page:10
-    scene: 'Même bord de mare : un jumeau brandit fièrement un tout petit poisson au
-      bout de sa ligne, l''autre applaudit, le grand-père lève son chapeau, le pliant
-      renversé dans l''enthousiasme.'
-    texte: 'Un poisson ! Minuscule, mais un poisson quand même.
+    scene: 'Coin de jardin ombragé, après-midi : le grand-père fait la sieste dans un
+      transat rayé, bouche entrouverte, journal ouvert posé sur son ventre. Les deux
+      jumeaux, sur la pointe des pieds, le décorent en douce — barrettes et fleurs
+      piquées dans ses cheveux, chapeau de paille de travers, pinces à linge sur le
+      journal. Fous rires étouffés, mains devant la bouche.'
+    texte: 'Après le déjeuner, Papy ferme les yeux « juste cinq minutes ».
 
-      Papy le regarde comme un trophée :
+      Cinq minutes plus tard : barrettes, fleurs et chapeau de travers.
 
-      « Le plus beau que j''aie jamais vu. » Et on le relâche.'
+      Papy dort. Papy ne se doute de rien.'
   '12':
     ancre: page:05
     scene: 'Même chemin de campagne : les deux jumeaux filant à toute allure sur leurs
