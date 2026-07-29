@@ -208,6 +208,170 @@ def email_production(cmd: dict) -> bool:
     return False
 
 
+
+
+# Email « votre commande est expédiée » — {p}, {taille}, bouton de suivi.
+TEXTES_EXPEDITION = {
+    "fr": {
+        "livre": {
+            "sujet": "Le livre de {p} est expédié 📦",
+            "titre": "Il arrive !",
+            "corps": ("Le livre de <strong>{p}</strong> est imprimé et vient "
+                      "d'être remis au transporteur."),
+            "bouton": "Suivre le colis",
+            "note": "Numéro de suivi : {code}",
+            "merci": "Merci de faire confiance à Deux comme nous 💛",
+        },
+        "affiche": {
+            "sujet": "L'affiche de {p} est expédiée 📦",
+            "titre": "Elle arrive !",
+            "corps": ("L'affiche de <strong>{p}</strong> ({taille}) est imprimée "
+                      "et vient d'être remise au transporteur, roulée dans son tube."),
+            "bouton": "Suivre le colis",
+            "note": "Numéro de suivi : {code}",
+            "merci": "Merci de faire confiance à Deux comme nous 💛",
+        },
+    },
+    "en": {
+        "livre": {
+            "sujet": "{p}'s book has shipped 📦",
+            "titre": "It's on its way!",
+            "corps": ("<strong>{p}</strong>'s book is printed and has just been "
+                      "handed to the carrier."),
+            "bouton": "Track the parcel",
+            "note": "Tracking number: {code}",
+            "merci": "Thank you for trusting Deux comme nous 💛",
+        },
+        "affiche": {
+            "sujet": "{p}'s poster has shipped 📦",
+            "titre": "It's on its way!",
+            "corps": ("<strong>{p}</strong>'s poster ({taille}) is printed and has "
+                      "just been handed to the carrier, rolled in its tube."),
+            "bouton": "Track the parcel",
+            "note": "Tracking number: {code}",
+            "merci": "Thank you for trusting Deux comme nous 💛",
+        },
+    },
+    "es": {
+        "livre": {
+            "sujet": "El libro de {p} ya está enviado 📦",
+            "titre": "¡Está en camino!",
+            "corps": ("El libro de <strong>{p}</strong> está impreso y acaba de "
+                      "entregarse al transportista."),
+            "bouton": "Seguir el paquete",
+            "note": "Número de seguimiento: {code}",
+            "merci": "Gracias por confiar en Deux comme nous 💛",
+        },
+        "affiche": {
+            "sujet": "El póster de {p} ya está enviado 📦",
+            "titre": "¡Está en camino!",
+            "corps": ("El póster de <strong>{p}</strong> ({taille}) está impreso y "
+                      "acaba de entregarse al transportista, enrollado en su tubo."),
+            "bouton": "Seguir el paquete",
+            "note": "Número de seguimiento: {code}",
+            "merci": "Gracias por confiar en Deux comme nous 💛",
+        },
+    },
+    "de": {
+        "livre": {
+            "sujet": "Das Buch von {p} ist unterwegs 📦",
+            "titre": "Es kommt!",
+            "corps": ("Das Buch von <strong>{p}</strong> ist gedruckt und wurde "
+                      "soeben dem Versanddienst übergeben."),
+            "bouton": "Paket verfolgen",
+            "note": "Sendungsnummer: {code}",
+            "merci": "Danke für Ihr Vertrauen in Deux comme nous 💛",
+        },
+        "affiche": {
+            "sujet": "Das Poster von {p} ist unterwegs 📦",
+            "titre": "Es kommt!",
+            "corps": ("Das Poster von <strong>{p}</strong> ({taille}) ist gedruckt "
+                      "und wurde soeben dem Versanddienst übergeben, gerollt in "
+                      "seiner Tube."),
+            "bouton": "Paket verfolgen",
+            "note": "Sendungsnummer: {code}",
+            "merci": "Danke für Ihr Vertrauen in Deux comme nous 💛",
+        },
+    },
+}
+
+
+def _html_expedition(t: dict[str, str], p: str, taille: str,
+                     url: str, code: str) -> str:
+    corps = t["corps"].format(p=p, taille=taille)
+    bouton = ""
+    if url:
+        bouton = (f'<p style="text-align:center;margin:24px 0">'
+                  f'<a href="{url}" style="background:#c4744a;color:#fff;'
+                  f'text-decoration:none;padding:14px 28px;border-radius:999px;'
+                  f'font-size:16px;display:inline-block">{t["bouton"]}</a></p>')
+    note = ""
+    if code:
+        note = (f'<p style="font-size:13px;color:#8b7a6c;text-align:center;'
+                f'margin:0 0 8px">{t["note"].format(code=code)}</p>')
+    return f"""\
+<div style="background:#fbf5ec;padding:32px 16px;font-family:Georgia,serif;color:#4a3a30">
+  <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:18px;
+              padding:32px 28px;border:1px solid #eadfce">
+    <p style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+              color:#7fa98d;margin:0 0 10px">Deux comme nous</p>
+    <h1 style="font-size:24px;margin:0 0 16px;color:#c4744a">{t['titre']}</h1>
+    <p style="font-size:16px;line-height:1.6;margin:0 0 14px">{corps}</p>
+    {bouton}
+    {note}
+    <p style="font-size:16px;line-height:1.6;margin:24px 0 0">{t['merci']}</p>
+  </div>
+  <p style="text-align:center;font-size:12px;color:#8b7a6c;margin:18px 0 0">
+    Deux comme nous · boutique.gemellite.com</p>
+</div>"""
+
+
+def _envoyer(dest: str, sujet: str, html: str) -> bool:
+    env = _env()
+    cle = env.get("RESEND_API_KEY", "")
+    if not cle.startswith("re_"):
+        print("  (email sauté : RESEND_API_KEY absente du .env)")
+        return False
+    payload = {
+        "from": env.get("EMAIL_FROM", "Deux comme nous <commandes@gemellite.com>"),
+        "to": [dest],
+        "subject": sujet,
+        "html": html,
+    }
+    r = subprocess.run(
+        ["curl", "-sS", "-X", "POST", "https://api.resend.com/emails",
+         "-H", f"Authorization: Bearer {cle}",
+         "-H", "Content-Type: application/json",
+         "-d", json.dumps(payload)],
+        capture_output=True, text=True, timeout=60)
+    try:
+        reponse = json.loads(r.stdout or "{}")
+    except json.JSONDecodeError:
+        reponse = {}
+    if reponse.get("id"):
+        return True
+    print(f"  ⚠️ Email non envoyé : {r.stdout[:300] or r.stderr[:300]}")
+    return False
+
+
+def email_expedition(cmd: dict, tracking_url: str, tracking_code: str) -> bool:
+    """Prévient le client que sa commande est expédiée (avec lien de suivi)."""
+    dest = (cmd.get("email") or "").strip()
+    if not dest:
+        print("  (email expédition sauté : commande sans adresse email)")
+        return False
+    langue = (cmd.get("langue") or "fr").lower()
+    produit = "affiche" if cmd.get("produit") == "affiche" else "livre"
+    t = TEXTES_EXPEDITION.get(langue, TEXTES_EXPEDITION["fr"])[produit]
+    p = f"{cmd.get('prenom1', '')} & {cmd.get('prenom2', '')}".strip(" &")
+    taille = (cmd.get("taille") or "30x40").replace("x", "×") + " cm"
+    ok = _envoyer(dest, t["sujet"].format(p=p),
+                  _html_expedition(t, p, taille, tracking_url, tracking_code))
+    if ok:
+        print(f"  📧 Email « expédiée » envoyé à {dest} ({langue}).")
+    return ok
+
+
 if __name__ == "__main__":
     # Aperçu local : écrit le HTML des 8 combinaisons dans output/emails/.
     out = ROOT / "output" / "emails"
@@ -216,4 +380,9 @@ if __name__ == "__main__":
         for produit, t in produits.items():
             html = _html(t, "Elia & Luna", "30×40 cm")
             (out / f"production-{produit}-{langue}.html").write_text(html, encoding="utf-8")
-    print(f"Aperçus écrits dans {out}/ (8 fichiers).")
+    for langue, produits in TEXTES_EXPEDITION.items():
+        for produit, t in produits.items():
+            html = _html_expedition(t, "Elia & Luna", "30×40 cm",
+                                    "https://tracking.example/ABC123", "ABC123")
+            (out / f"expedition-{produit}-{langue}.html").write_text(html, encoding="utf-8")
+    print(f"Aperçus écrits dans {out}/ (16 fichiers).")

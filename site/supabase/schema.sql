@@ -41,6 +41,10 @@ alter table public.commandes add column if not exists produit text not null defa
 alter table public.commandes add column if not exists taille text;        -- affiche : 21x30|30x40|40x50|50x70
 alter table public.commandes add column if not exists gelato_id text;     -- id de commande Gelato (draft ou réelle)
 alter table public.commandes add column if not exists expedie_le timestamptz;
+alter table public.commandes add column if not exists statut_gelato text;   -- dernier statut relevé (printed, shipped, delivered…)
+alter table public.commandes add column if not exists tracking_url text;    -- lien de suivi transporteur
+alter table public.commandes add column if not exists tracking_code text;
+alter table public.commandes add column if not exists suivi_envoye_le timestamptz; -- email « expédiée » parti
 
 -- Row Level Security : accès uniquement via la clé service_role (côté serveur).
 alter table public.commandes enable row level security;

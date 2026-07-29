@@ -1,6 +1,7 @@
 """Expédition Gelato d'une commande payée — « Deux comme nous ».
 
     python expedier.py --liste           # commandes payées, PDF prêt ou non, état Gelato
+    python expedier.py --suivi           # relève les statuts Gelato + email « expédiée » (tracking)
     python expedier.py <ref>             # commande BROUILLON Gelato (vérifiable au dashboard)
     python expedier.py <ref> --imprimer  # commande RÉELLE (part en impression, débit Gelato)
 
@@ -489,6 +490,73 @@ def expedier(ref: str, imprimer: bool, aplatir: bool = False,
               "(fichiers, adresse), puis valide-la là-bas ou relance avec --imprimer.")
 
 
+def _chercher_tracking(objet) -> tuple[str, str, str]:
+    """Cherche (statut, tracking_url, tracking_code) dans la réponse Gelato,
+    quel que soit l'endroit exact où le connecteur les place."""
+    statut, url, code = "", "", ""
+
+    def marcher(x) -> None:
+        nonlocal statut, url, code
+        if isinstance(x, dict):
+            for k, v in x.items():
+                bas = k.lower()
+                if bas == "fulfillmentstatus" and isinstance(v, str) and not statut:
+                    statut = v
+                elif bas == "trackingurl" and isinstance(v, str) and v and not url:
+                    url = v
+                elif bas == "trackingcode" and isinstance(v, str) and v and not code:
+                    code = v
+                else:
+                    marcher(v)
+        elif isinstance(x, list):
+            for v in x:
+                marcher(v)
+
+    marcher(objet)
+    return statut, url, code
+
+
+def suivre() -> None:
+    """Relève le statut Gelato des commandes parties en impression ; dès que le
+    transporteur a le colis (tracking disponible), envoie l'email « expédiée »
+    au client et grave le tout dans Supabase. Relançable à volonté (idempotent) :
+    l'email ne part qu'une fois (colonne suivi_envoye_le)."""
+    import notifier
+    lignes = _rest("commandes?select=*&expedie_le=not.is.null&order=expedie_le.desc")
+    if not isinstance(lignes, list) or not lignes:
+        print("Aucune commande partie en impression. ☕")
+        return
+    for cmd in lignes:
+        ref, gid = cmd.get("ref") or "?", cmd.get("gelato_id")
+        p = f"{cmd.get('prenom1')} & {cmd.get('prenom2')}"
+        etiquette = f"{p} · {cmd.get('produit') or 'livre'} · {ref[:24]}…"
+        if not gid:
+            print(f"— {etiquette} : pas de gelato_id ?")
+            continue
+        try:
+            commande = gelato.lire_commande(gid)
+        except SystemExit as e:  # _curl lève SystemExit sur erreur API
+            print(f"— {etiquette} : Gelato injoignable ({e})")
+            continue
+        statut, url, code = _chercher_tracking(commande)
+        maj: dict = {}
+        if statut and statut != cmd.get("statut_gelato"):
+            maj["statut_gelato"] = statut
+        if url and not cmd.get("tracking_url"):
+            maj["tracking_url"], maj["tracking_code"] = url, code
+        deja_envoye = bool(cmd.get("suivi_envoye_le"))
+        envoye = ""
+        if (url or code) and not deja_envoye:
+            if notifier.email_expedition(cmd, url, code):
+                maj["suivi_envoye_le"] = datetime.now(timezone.utc).isoformat()
+                envoye = " → email envoyé"
+        if maj:
+            _rest(f"commandes?ref=eq.{ref}", "PATCH", maj)
+        suivi = code or ("oui" if url else "pas encore")
+        print(f"— {etiquette} : {statut or '?'} · suivi : {suivi}"
+              + envoye + (" (email déjà parti)" if deja_envoye and (url or code) else ""))
+
+
 def lister() -> None:
     data = _rest("commandes?paiement=eq.stripe&order=cree_le.asc&select="
                  "ref,prenom1,prenom2,combo_id,langue,traitee_le,gelato_id,expedie_le,adresse")
@@ -576,6 +644,9 @@ def main() -> None:
     args = sys.argv[1:]
     if not args or "--liste" in args:
         lister()
+        return
+    if "--suivi" in args:
+        suivre()
         return
     if "--etat" in args:
         etat_gelato(args[0])
