@@ -31,16 +31,33 @@ def main() -> None:
 
     scenes = yaml.safe_load((ROOT / "manuscrits" / "papy.yaml").read_text(encoding="utf-8"))
     style = scenes["style"].strip()
-    # Même formulation éprouvée que le sur-mesure du site (site/lib/generation.ts),
-    # adaptée à un adulte : fidélité au visage réel, style figé du projet.
+    # PRIORITÉ N°1 : la RESSEMBLANCE. La fidélité passe en tête du prompt et de
+    # façon impérative ; le style vient après. Trois pièges corrigés après le
+    # premier essai (visage trop jeune et générique) :
+    #  - ne PAS imposer un « grand sourire » : il refabrique tout le bas du
+    #    visage. On demande l'expression de la photo.
+    #  - nommer explicitement les marqueurs d'ÂGE, sinon le modèle rajeunit et
+    #    arrondit systématiquement (biais « album jeunesse ».)
+    #  - reproduire les lunettes RÉELLES (forme + couleur de monture).
     prompt = (
-        f"{style}. Transforme l'adulte de la photo de référence en personnage "
-        "d'album jeunesse : character sheet, debout, corps entier, face au "
-        "lecteur, grand sourire chaleureux, fond uni gris clair. Fidèle à la "
-        "personne réelle (visage, coiffure, couleur des cheveux, lunettes "
-        "éventuelles) mais entièrement stylisé aquarelle douce. Tenue simple "
-        "et douce inspirée de la photo. Mains bien formées à cinq doigts. "
-        "Pas de texte dans l'image."
+        "Portrait fidèle : dessine LA MÊME PERSONNE que sur la photo de "
+        "référence, en illustration. La RESSEMBLANCE est la priorité absolue, "
+        "avant toute considération de style. Conserve précisément : la forme du "
+        "visage (allongé, joues creusées, pommettes marquées), l'ÂGE RÉEL et "
+        "tous ses marqueurs (rides du front et du contour des yeux, plis autour "
+        "de la bouche, peau mature), la coiffure exacte (implantation, longueur, "
+        "mèches, couleur), la couleur des yeux, la carrure et la corpulence. "
+        "Reproduis les LUNETTES telles qu'elles sont sur la photo : même forme "
+        "de monture, même couleur. Garde l'EXPRESSION de la photo — sourire "
+        "discret et bienveillant, bouche fermée. N'invente rien, ne rajeunis "
+        "pas, n'arrondis pas le visage, ne transforme pas les traits en visage "
+        "de dessin animé générique. "
+        f"Rendu : {style}. Stylisation douce mais les traits distinctifs de la "
+        "personne restent parfaitement reconnaissables. "
+        "Character sheet : personnage debout, corps entier bien cadré en entier, "
+        "face au lecteur, bras le long du corps, fond uni gris clair très clair. "
+        "Tenue reprise de la photo (pull, chemise, pantalon : mêmes couleurs). "
+        "Mains bien formées à cinq doigts. Pas de texte dans l'image."
     )
 
     cout = N_VARIANTES * PRIX_IMAGE
@@ -57,11 +74,17 @@ def main() -> None:
 
     out = ROOT / "livres" / "test-papy" / "_variantes-papy"
     out.mkdir(parents=True, exist_ok=True)
+    # La photo est la SEULE image d'entrée : les planches de style du livre
+    # représentent des ENFANTS et tiraient le visage adulte vers le cartoon
+    # (cause du « trop jeune » au premier essai). Le style passe par le texte.
+    # input_fidelity=high : le réglage qui préserve les visages (déjà utilisé
+    # côté site dans lib/generation.ts, il manquait au pipeline Python).
     res = provider.generate(
         reference_image=photo,
-        style_images=[ROOT / "style1.png", ROOT / "style2.png"],
+        style_images=[],
         prompt=prompt,
-        n=N_VARIANTES, size="1024x1536", quality="high")
+        n=N_VARIANTES, size="1024x1536", quality="high",
+        input_fidelity="high")
     for j, img in enumerate(res.images, 1):
         (out / f"v{j}.png").write_bytes(img)
     if res.cost_usd:

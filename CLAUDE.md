@@ -94,6 +94,24 @@ Modèle retenu (juillet 2026, validé par Simon) :
 | — | Manuscrit du livret test « Deux comme nous » (20 pages), voir `manuscrit-livret-test.md` | ✅ Rédigé — en attente de relecture par Simon |
 | — | 2 pages « mot aux parents » (texte seul, sans IA) — mécanisme `texte_seul`, épicènes (pages 29-30) | ✅ Ajoutées — comblent le minimum de pages Gelato |
 | — | Catalogue de 12 archétypes (`archetypes.yaml`) + script de déclinaison/tri (`archetypes.py`) | 🟡 Scaffoldé — 3 fiches validées (g1, f1, f2), 9 à générer |
+## Ressemblance des personnages sur-mesure (leçon du test papy, juillet 2026)
+Premier essai « papy d'après photo » : peu ressemblant (visage rajeuni, arrondi,
+générique). Trois causes identifiées et corrigées — **règles à respecter dans TOUT
+prompt de personnage d'après photo** :
+1. **`input_fidelity="high"`** : le site l'envoyait déjà (`site/lib/generation.ts`),
+   le pipeline Python NON. `providers.py` accepte désormais ce paramètre (repli
+   automatique si le SDK est trop ancien). C'est le levier n°1.
+2. **La fidélité passe EN TÊTE du prompt et de façon impérative** (« dessine LA MÊME
+   PERSONNE, la ressemblance est la priorité absolue »), le style vient APRÈS. Un
+   prompt mené par le style produit un visage de dessin animé générique.
+3. **Ne jamais imposer « grand sourire »** (ça refabrique tout le bas du visage) :
+   on demande l'expression de la photo. Pour un adulte, **nommer explicitement les
+   marqueurs d'âge** (rides, plis, peau mature) sinon le modèle rajeunit, et
+   reproduire les **lunettes réelles** (forme + couleur de monture).
+4. **Ne PAS joindre `style1/style2.png` pour un ADULTE** : ces planches montrent des
+   enfants et tirent le visage vers le cartoon enfantin. Le style passe par le texte.
+Corrections appliquées à `papy_test.py` ET à `site/lib/generation.ts` (enfants).
+
 ## Harmonisation IA (ancrage au sol des poses assises/couchées)
 Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leçon de la page test : fesses et pieds touchent le sol, l'ombre doit entourer la base, jamais passer dessous). La solution validée : une passe d'édition gpt-image-1 sur la page composée, masque limité au sol (personnage verrouillé pixel par pixel + 2 px de garde), prompt « sol et ombre uniquement », `input_fidelity high`. Outil : `ancrer-jules.command` (à généraliser en script paramétrable par page). ~0,18 $/variante en haute qualité. Les résultats vont dans `output/harmonisation/`, Simon choisit, puis le PDF final est reconstruit à partir du raster retenu avec le texte vectoriel. Payant → toujours annoncer volume et coût avant.
 

@@ -37,10 +37,13 @@ class ImageProvider(ABC):
         n: int,
         size: str,
         quality: str,
+        input_fidelity: str | None = None,
     ) -> GenerationResult:
         """Génère `n` images du personnage de référence selon `prompt`.
 
         `style_images` sont jointes à la requête si le fournisseur le permet.
+        `input_fidelity="high"` demande au modèle de coller au plus près des
+        images d'entrée (visages !) — indispensable pour le sur-mesure.
         Retourne des PNG en bytes.
         """
 
@@ -102,24 +105,38 @@ class OpenAIProvider(ImageProvider):
         n: int,
         size: str,
         quality: str,
+        input_fidelity: str | None = None,
     ) -> GenerationResult:
         image_paths = [reference_image, *style_images]
         # gpt-image-1 accepte jusqu'à 16 images d'entrée.
         image_paths = image_paths[:16]
 
-        files = [open(p, "rb") for p in image_paths]
-        try:
-            resp = self._client.images.edit(
-                model=self.model,
-                image=files,
-                prompt=prompt,
-                n=n,
-                size=size,
-                quality=quality,
-            )
-        finally:
-            for f in files:
-                f.close()
+        def _appel(avec_fidelite: bool):
+            files = [open(p, "rb") for p in image_paths]
+            try:
+                extra = {"input_fidelity": input_fidelity} if avec_fidelite else {}
+                return self._client.images.edit(
+                    model=self.model,
+                    image=files,
+                    prompt=prompt,
+                    n=n,
+                    size=size,
+                    quality=quality,
+                    **extra,
+                )
+            finally:
+                for f in files:
+                    f.close()
+
+        if input_fidelity:
+            try:
+                resp = _appel(True)
+            except TypeError:
+                # SDK trop ancien pour le paramètre : on repasse sans.
+                print("  (input_fidelity non supporté par le SDK — appel standard)")
+                resp = _appel(False)
+        else:
+            resp = _appel(False)
 
         images = [base64.b64decode(item.b64_json) for item in resp.data]
 

@@ -10,12 +10,21 @@ export const generationActive = cle.startsWith("sk-");
 const STYLE =
   "illustration aquarelle douce pour album jeunesse, contours légers, palette pastel, éclairage tendre, rendu cohérent d'une page à l'autre";
 
+// La RESSEMBLANCE passe en tête et de façon impérative : le style vient après
+// (leçon du test papy — un prompt mené par le style rajeunit et uniformise les
+// visages). On ne force pas de « grand sourire » : il refabrique le bas du visage.
 const PROMPT_PERSONNAGE =
-  STYLE +
-  ". Transforme l'enfant de la photo de référence en personnage d'album jeunesse : " +
-  "character sheet, debout, corps entier, face au lecteur, grand sourire, fond uni gris clair. " +
-  "Fidèle à l'enfant réel (visage, coiffure, couleur des cheveux et des yeux) mais " +
-  "entièrement stylisé aquarelle douce. Tenue simple et douce inspirée de la photo. " +
+  "Portrait fidèle : dessine LE MÊME ENFANT que sur la photo de référence, en " +
+  "illustration. La RESSEMBLANCE est la priorité absolue, avant toute " +
+  "considération de style. Conserve précisément la forme du visage, la coiffure " +
+  "exacte (implantation, longueur, mèches, couleur), la couleur des yeux et des " +
+  "cheveux, les taches de rousseur ou signes particuliers éventuels, la " +
+  "corpulence. Garde l'expression de la photo, sourire naturel. N'invente rien, " +
+  "ne transforme pas les traits en visage de dessin animé générique. " +
+  "Rendu : " + STYLE + ". Stylisation douce mais les traits distinctifs de " +
+  "l'enfant restent parfaitement reconnaissables. " +
+  "Character sheet : debout, corps entier bien cadré en entier, face au lecteur, " +
+  "fond uni gris clair. Tenue simple et douce inspirée de la photo. " +
   "Pas de texte dans l'image.";
 
 // Qualité de génération des variantes (les fiches finales restent validées
