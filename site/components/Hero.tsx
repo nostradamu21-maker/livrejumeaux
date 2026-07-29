@@ -24,7 +24,8 @@ export default function Hero({ l }: { l: Locale }) {
         {/* Sélecteur des deux produits : le livre (produit phare) et l'affiche. */}
         <div className="hero-produits">
           <a href={`${p}/livre`} className="hero-produit">
-            <span className="hp-icone" aria-hidden="true">📖</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hp-icone" src="/apercus/test-filles/couverture.jpg" alt="" loading="lazy" />
             <span className="hp-infos">
               <strong>{d.hero.produits.livre.nom}</strong>
               <small>{d.hero.produits.livre.sub}</small>
@@ -33,7 +34,8 @@ export default function Hero({ l }: { l: Locale }) {
             <span className="hp-fleche" aria-hidden="true">›</span>
           </a>
           <a href={`${p}/affiche`} className="hero-produit">
-            <span className="hp-icone" aria-hidden="true">🖼️</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hp-icone" src="/apercus/test-filles/affiche.jpg" alt="" loading="lazy" />
             <span className="hp-infos">
               <strong>{d.hero.produits.affiche.nom}</strong>
               <small>{d.hero.produits.affiche.sub}</small>

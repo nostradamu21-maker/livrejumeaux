@@ -64,7 +64,13 @@ def _copier_fiche(combo: str, n: int, aid: str) -> None:
     FICHES.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src, ARCHETYPES_DIR / f"{aid}.png")
     shutil.copy2(src, FICHES / f"{aid}.png")
-    print(f"  fiche {aid} → archetypes/ + site/public/fiches/")
+    # Vignette web compressée : le site n'affiche que le .webp (le .png reste
+    # la source pleine résolution pour le pipeline).
+    from PIL import Image
+    im = Image.open(src)
+    im.thumbnail((480, 640), Image.LANCZOS)
+    im.save(FICHES / f"{aid}.webp", "WEBP", quality=82, method=6)
+    print(f"  fiche {aid} → archetypes/ + site/public/fiches/ (+ .webp)")
 
 
 def _ajouter_yaml(aid: str, genre: str, desc: str, tenue: str) -> None:

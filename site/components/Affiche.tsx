@@ -217,14 +217,6 @@ export default function Affiche({
             ))}
           </div>
           <input
-            type="email"
-            className="champ-email"
-            placeholder={d.affiche.phEmail}
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
             type="text"
             className="champ-email champ-code"
             placeholder={phCode}

@@ -176,7 +176,7 @@ body::after {
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .hero-produit:hover { transform: translateY(-2px); border-color: var(--terracotta); box-shadow: var(--ombre-m); }
-.hp-icone { font-size: 1.7rem; line-height: 1; }
+.hp-icone { width: 46px; height: 46px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; box-shadow: var(--ombre-s); flex: none; }
 .hp-infos { display: flex; flex-direction: column; text-align: left; line-height: 1.3; }
 .hp-infos strong { font-family: "Fraunces", Georgia, serif; font-size: 1.08rem; }
 .hp-infos small { font-size: 0.83rem; color: var(--encre-doux); }
@@ -478,6 +478,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .pied-nav a { color: var(--encre-doux); text-decoration: none; font-weight: 700; font-size: 0.92rem; }
 .pied-nav a:hover { color: var(--terracotta-f); }
 .pied-seo { max-width: 62ch; margin: 1.4rem auto 0 !important; font-size: 0.82rem; line-height: 1.6; opacity: 0.75; }
+@media (max-width: 700px) { .pied-seo { font-size: 0.72rem; line-height: 1.45; opacity: 0.6; } }
 .pied-fin { margin-top: 1.2rem; font-style: italic; }
 .pied-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-top: 1.1rem; }
 .pied-legal a { color: var(--encre-doux); font-size: 0.8rem; text-decoration: none; opacity: 0.8; }

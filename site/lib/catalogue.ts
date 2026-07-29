@@ -24,7 +24,7 @@ export function cataloguePublic(): ArchetypePublic[] {
     id: a.id,
     genre: a.genre,
     label: a.label,
-    fiche: `/fiches/${a.id}.png`,
+    fiche: `/fiches/${a.id}.webp`,
     disponible: true, // fiches validées présentes dans /public/fiches
   }));
 }

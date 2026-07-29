@@ -204,6 +204,8 @@ export interface Dict {
     tabPhotoSub: string;
     tabCatalogue: string;
     tabCatalogueSub: string;
+    tabPhotoSubLivre: string; // sous-titres des mêmes onglets sur /livre
+    tabCatalogueSubLivre: string;
   };
   contact: {
     titre: string;
@@ -428,7 +430,7 @@ const FR: Dict = {
     premierEnfant: "votre premier enfant",
     secondEnfant: "votre second enfant",
     photoNote: "Visages bien visibles, JPEG ou PNG. Photos supprimées après création du livre.",
-    sexeTitre: "Pour accorder joliment le texte du livre :",
+    sexeTitre: "Vos jumeaux sont :",
     sexeGarcon: "Garçon", sexeFille: "Fille",
     sexeGarcons: "Deux garçons", sexeFilles: "Deux filles",
     vousEtes: "Vous êtes :",
@@ -479,6 +481,8 @@ const FR: Dict = {
     tabPhotoSub: "le plus demandé · dès 29,90 €",
     tabCatalogue: "Personnages du catalogue",
     tabCatalogueSub: "dès 29,90 €",
+    tabPhotoSubLivre: "le plus demandé · 64,99 €",
+    tabCatalogueSubLivre: "44,90 €",
   },
   contact: {
     titre: "Écrivez-nous",
@@ -699,7 +703,7 @@ const EN: Dict = {
     premierEnfant: "your first child",
     secondEnfant: "your second child",
     photoNote: "Faces clearly visible, JPEG or PNG. Photos deleted after the book is created.",
-    sexeTitre: "So the book's wording matches:",
+    sexeTitre: "Your twins are:",
     sexeGarcon: "Boy", sexeFille: "Girl",
     sexeGarcons: "Two boys", sexeFilles: "Two girls",
     vousEtes: "You are:",
@@ -751,6 +755,8 @@ const EN: Dict = {
     tabPhotoSub: "the favorite · from €29.90",
     tabCatalogue: "Catalogue characters",
     tabCatalogueSub: "from €29.90",
+    tabPhotoSubLivre: "the favorite · €64.99",
+    tabCatalogueSubLivre: "€44.90",
   },
   contact: {
     titre: "Write to us",
@@ -988,7 +994,7 @@ const ES: Dict = {
     premierEnfant: "tu primer hijo",
     secondEnfant: "tu segundo hijo",
     photoNote: "Caras bien visibles, JPEG o PNG. Fotos eliminadas tras crear el libro.",
-    sexeTitre: "Para concordar bien el texto del libro:",
+    sexeTitre: "Vuestros gemelos son:",
     sexeGarcon: "Niño", sexeFille: "Niña",
     sexeGarcons: "Dos niños", sexeFilles: "Dos niñas",
     vousEtes: "Eres:",
@@ -1040,6 +1046,8 @@ const ES: Dict = {
     tabPhotoSub: "el favorito · desde 29,90 €",
     tabCatalogue: "Personajes del catálogo",
     tabCatalogueSub: "desde 29,90 €",
+    tabPhotoSubLivre: "el favorito · 64,99 €",
+    tabCatalogueSubLivre: "44,90 €",
   },
   contact: {
     titre: "Escríbenos",
@@ -1277,7 +1285,7 @@ const DE: Dict = {
     premierEnfant: "Ihrem ersten Kind",
     secondEnfant: "Ihrem zweiten Kind",
     photoNote: "Gesichter gut sichtbar, JPEG oder PNG. Fotos werden nach Erstellung des Buchs gelöscht.",
-    sexeTitre: "Damit der Buchtext passend formuliert ist:",
+    sexeTitre: "Ihre Zwillinge sind:",
     sexeGarcon: "Junge", sexeFille: "Mädchen",
     sexeGarcons: "Zwei Jungen", sexeFilles: "Zwei Mädchen",
     vousEtes: "Sie sind:",
@@ -1329,6 +1337,8 @@ const DE: Dict = {
     tabPhotoSub: "der Favorit · ab 29,90 €",
     tabCatalogue: "Katalog-Figuren",
     tabCatalogueSub: "ab 29,90 €",
+    tabPhotoSubLivre: "der Favorit · 64,99 €",
+    tabCatalogueSubLivre: "44,90 €",
   },
   contact: {
     titre: "Schreiben Sie uns",

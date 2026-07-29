@@ -277,9 +277,7 @@ export default function SurMesure({
               <small>{d.sm.prodAfficheSub}</small>
             </button>
           </div>
-          {produit === "livre" && <span className="sm-lancement">{d.sm.lancement}</span>}
           <span className="sm-prix-ligne">
-            {produit === "livre" && <span className="sm-prix-barre">{d.sm.prixBarre}</span>}
             <span className="sm-prix">{prix}</span>
           </span>
           {produit === "livre" && <span className="sm-prix-note">{d.sm.prixNote}</span>}
@@ -314,14 +312,6 @@ export default function SurMesure({
             maxLength={18}
             value={prenoms[2]}
             onChange={(e) => setPrenoms((p) => ({ ...p, 2: e.target.value.trim() }))}
-          />
-          <input
-            type="email"
-            className="champ-email"
-            placeholder={d.sm.phEmail}
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="text"
@@ -420,7 +410,7 @@ export default function SurMesure({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       className="acc-img"
-                      src={`/accessoires/${a.id}.png`}
+                      src={`/accessoires/${a.id}.webp`}
                       alt=""
                       loading="lazy"
                     />

@@ -51,6 +51,14 @@ ACCESSOIRES = {
 }
 
 
+
+def _webp(png) -> None:
+    """Vignette web compressée : le site n'affiche que le .webp."""
+    from PIL import Image
+    im = Image.open(png)
+    im.thumbnail((480, 640), Image.LANCZOS)
+    im.save(png.with_suffix(".webp"), "WEBP", quality=82, method=6)
+
 def prompt_pour(detail: str) -> str:
     return (
         f"Style : {STYLE_PROMPT}\n"
@@ -77,6 +85,7 @@ def main() -> None:
     for aid, src in DEJA_GENERES.items():
         if src.exists():
             shutil.copyfile(src, SORTIE / f"{aid}.png")
+            _webp(SORTIE / f"{aid}.png")
             print(f"  {aid} : réutilisé (gratuit) → {SORTIE / (aid + '.png')}")
 
     provider = build_provider("openai", api_key)
@@ -96,6 +105,7 @@ def main() -> None:
             quality=QUALITY,
         )
         (SORTIE / f"{aid}.png").write_bytes(res.images[0])
+        _webp(SORTIE / f"{aid}.png")
         if res.cost_usd:
             total += res.cost_usd
         print(f"    → {SORTIE / (aid + '.png')}")

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Flipbook from "@/components/Flipbook";
-import SurMesure from "@/components/SurMesure";
-import Configurateur from "@/components/Configurateur";
+import LivreTunnel from "@/components/LivreTunnel";
 import Etapes from "@/components/Etapes";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
@@ -63,13 +62,12 @@ export default async function PageLivre({
         <h1>{d.pages.livre.h1}</h1>
         <p>{d.pages.livre.sub}</p>
       </header>
-      <SurMesure l={locale} />
-      <Configurateur archetypes={archetypes} l={locale} />
+      <LivreTunnel archetypes={archetypes} l={locale} />
       <Flipbook l={locale} />
-      <Etapes l={locale} href="#creer" />
+      <Etapes l={locale} href="#tunnel-haut" />
       <Faq l={locale} />
       <Footer l={locale} />
-      <BarreMobile l={locale} variante="livre" href="#creer" />
+      <BarreMobile l={locale} variante="livre" href="#tunnel-haut" />
     </>
   );
 }

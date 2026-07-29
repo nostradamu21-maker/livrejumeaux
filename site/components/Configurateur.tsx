@@ -227,7 +227,7 @@ export default function Configurateur({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       className="acc-img"
-                      src={`/accessoires/${a.id}.png`}
+                      src={`/accessoires/${a.id}.webp`}
                       alt=""
                       loading="lazy"
                     />
@@ -243,14 +243,6 @@ export default function Configurateur({
               <span className="prix">{d.config.prixLivre}</span>
               <span className="prix-note">{d.config.prixNote}</span>
             </div>
-            <input
-              type="email"
-              className="champ-email"
-              placeholder={d.config.phEmail}
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
             <input
               type="text"
               className="champ-email champ-code"

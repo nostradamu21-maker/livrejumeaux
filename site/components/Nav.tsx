@@ -18,7 +18,7 @@ export default function Nav({ l }: { l: Locale }) {
   const chemin = usePathname() ?? "";
   const surAffiche = chemin.includes("/affiche");
   const surLivre = chemin.includes("/livre");
-  const ctaHref = surAffiche ? "#tunnel-haut" : surLivre ? "#creer" : `${p}/livre`;
+  const ctaHref = surAffiche || surLivre ? "#tunnel-haut" : `${p}/livre`;
   const ctaTexte = surAffiche ? d.barre.ctaAffiche : d.barre.cta;
   useEffect(() => {
     document.body.style.overflow = ouvert ? "hidden" : "";
