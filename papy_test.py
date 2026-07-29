@@ -12,9 +12,15 @@ visage est déjà stylisé et validé, le modèle n'a plus qu'à le reporter.
     python papy_test.py portrait photo1.jpg [photo2.jpg ...]
     #   → livres/test-papy/_variantes-papy/portrait-v1.png, -v2, -v3
 
-    # étape 2 — la fiche corps entier, à partir du portrait retenu
-    python papy_test.py fiche 2
-    #   → livres/test-papy/_variantes-papy/fiche-v1.png, -v2, -v3
+    # étape 2 — CORRECTION : on redonne l'illustration + la photo au modèle et
+    #           on lui demande seulement de rapprocher la ressemblance.
+    #           Corriger est bien plus facile que générer. Répétable.
+    python papy_test.py affiner portrait-v2
+    #   → portrait-v2-plus-v1.png, -v2, -v3
+
+    # étape 3 — la fiche corps entier, à partir de l'image retenue
+    python papy_test.py fiche portrait-v2-plus-v1
+    #   → fiche-v1.png, -v2, -v3   (« affiner fiche-v1 » si le visage a bougé)
 
     # puis
     cp livres/test-papy/_variantes-papy/fiche-v2.png livres/test-papy/papy.png
@@ -135,6 +141,27 @@ def prompt_portrait(description: str) -> str:
     )
 
 
+# Passe de CORRECTION COMPARATIVE — trouvée empiriquement par Simon, qui a
+# obtenu bien mieux que le pipeline en donnant simplement l'illustration + la
+# photo avec « améliore l'image pour qu'il ressemble plus à la photo ».
+# Corriger est plus facile que générer : le style, le cadrage, la pose et la
+# tenue sont déjà là, le modèle ne s'occupe QUE du visage, en comparaison
+# directe. On reste volontairement proche de sa formulation : c'est elle qui
+# marche, et un prompt long redonne au modèle des occasions de réinventer.
+def prompt_affiner() -> str:
+    return (
+        "La PREMIÈRE image est une illustration de cette personne. Les images "
+        "suivantes sont ses vraies photos. Améliore l'illustration pour qu'elle "
+        "ressemble beaucoup plus à la photo. Corrige les proportions du visage "
+        "et de la mâchoire, l'implantation et la coupe des cheveux, la forme des "
+        "yeux, du nez, de la bouche et du menton, l'âge et les rides, la forme "
+        "et la couleur des lunettes. "
+        "Ne change RIEN d'autre : même style d'illustration, même cadrage, même "
+        "pose, même expression, même tenue, même fond. Ne travaille que la "
+        "ressemblance. Pas de texte dans l'image."
+    )
+
+
 def prompt_fiche(description: str) -> str:
     return (
         "La PREMIÈRE image est le portrait déjà validé de ce personnage : "
@@ -211,19 +238,61 @@ def etape_portrait(photos: list[Path], n: int, lecture: bool) -> None:
     print("  python papy_test.py fiche <numéro>")
 
 
-def etape_fiche(numero: int, n: int) -> None:
-    portrait = OUT / f"portrait-v{numero}.png"
-    if not portrait.exists():
-        sys.exit(f"{portrait} introuvable — lance d'abord l'étape « portrait ».")
-    src = json.loads(SOURCE.read_text(encoding="utf-8")) if SOURCE.exists() else {}
-    photos = [Path(p) for p in src.get("photos", []) if Path(p).exists()]
-    description = src.get("description", "")
+def _resoudre(nom: str, defaut: str = "portrait") -> Path:
+    """Accepte « 2 », « portrait-v2 », « portrait-v2.png » ou un chemin complet."""
+    if nom.isdigit():
+        nom = f"{defaut}-v{nom}"
+    p = Path(nom).expanduser()
+    if not p.exists():
+        p = OUT / (nom if nom.endswith(".png") else f"{nom}.png")
+    if not p.exists():
+        dispo = sorted(f.name for f in OUT.glob("*.png")) if OUT.exists() else []
+        sys.exit(f"« {nom} » introuvable dans {OUT}/.\nDisponibles : "
+                 + (", ".join(dispo) if dispo else "aucun (lance d'abord « portrait »)"))
+    return p
 
-    _confirmer(f"FICHE corps entier d'après portrait-v{numero}", n, "1024x1536")
+
+def _source() -> tuple[list[Path], str]:
+    src = json.loads(SOURCE.read_text(encoding="utf-8")) if SOURCE.exists() else {}
+    return [Path(p) for p in src.get("photos", []) if Path(p).exists()], src.get("description", "")
+
+
+def etape_affiner(nom: str, n: int) -> None:
+    image = _resoudre(nom)
+    photos, _ = _source()
+    if not photos:
+        sys.exit("Photos d'origine introuvables — relance l'étape « portrait », "
+                 "ou passe les photos à la main avec --photos.")
+    taille = "1024x1536" if _est_portrait_haut(image) else "1024x1024"
+    _confirmer(f"CORRECTION de {image.name} d'après {len(photos)} photo(s)", n, taille)
+    prefixe = f"{image.stem}-plus"
+    _generer(_cle(), ref=image, extras=photos, prompt=prompt_affiner(),
+             n=n, taille=taille, prefixe=prefixe)
+    print(f"\nCorrections dans {OUT}/ ({prefixe}-v1…). Compare avec la photo.")
+    print("Tu peux repasser une couche sur la meilleure :")
+    print(f"  python papy_test.py affiner {prefixe}-v1")
+    print("ou passer à la fiche corps entier :")
+    print(f"  python papy_test.py fiche {prefixe}-v1")
+
+
+def _est_portrait_haut(image: Path) -> bool:
+    """La correction doit garder le format de l'image d'entrée."""
+    from PIL import Image
+    with Image.open(image) as im:
+        return im.height > im.width
+
+
+def etape_fiche(nom: str, n: int) -> None:
+    portrait = _resoudre(nom)
+    photos, description = _source()
+
+    _confirmer(f"FICHE corps entier d'après {portrait.name}", n, "1024x1536")
     _generer(_cle(), ref=portrait, extras=photos, prompt=prompt_fiche(description),
              n=n, taille="1024x1536", prefixe="fiche")
 
-    print(f"\nFiches dans {OUT}/ — choisis la meilleure puis :")
+    print(f"\nFiches dans {OUT}/ — si la ressemblance a bougé, corrige-la :")
+    print("  python papy_test.py affiner fiche-v1")
+    print("Sinon choisis la meilleure puis :")
     print("  cp livres/test-papy/_variantes-papy/fiche-vN.png livres/test-papy/papy.png")
     print("  python livre.py test-papy")
 
@@ -239,15 +308,21 @@ def main() -> None:
     p1.add_argument("--sans-lecture", action="store_true",
                     help="ne pas faire décrire la photo par le modèle de vision")
 
-    p2 = sub.add_parser("fiche", help="fiche corps entier à partir du portrait retenu")
-    p2.add_argument("numero", type=int, help="numéro du portrait choisi (1, 2, 3…)")
+    p2 = sub.add_parser("affiner", help="corriger la ressemblance d'une image, photo à l'appui")
+    p2.add_argument("image", help="« 2 », « portrait-v2 » ou « fiche-v1 »")
     p2.add_argument("--n", type=int, default=3)
+
+    p3 = sub.add_parser("fiche", help="fiche corps entier à partir du portrait retenu")
+    p3.add_argument("image", help="« 2 », « portrait-v2 » ou « portrait-v2-plus-v1 »")
+    p3.add_argument("--n", type=int, default=3)
 
     a = ap.parse_args()
     if a.etape == "portrait":
         etape_portrait([Path(p).expanduser() for p in a.photos], a.n, not a.sans_lecture)
+    elif a.etape == "affiner":
+        etape_affiner(a.image, a.n)
     else:
-        etape_fiche(a.numero, a.n)
+        etape_fiche(a.image, a.n)
 
 
 if __name__ == "__main__":
