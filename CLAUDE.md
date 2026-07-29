@@ -112,6 +112,23 @@ prompt de personnage d'après photo** :
    enfants et tirent le visage vers le cartoon enfantin. Le style passe par le texte.
 Corrections appliquées à `papy_test.py` ET à `site/lib/generation.ts` (enfants).
 
+## Livres à TROIS personnages : identification des références (leçon test papy)
+Les fiches sont envoyées dans l'ordre `references` du livre.yaml ; seule la 1ʳᵉ
+partait comme `reference_image`, les autres en `style_images` — le modèle les
+prenait pour de simples repères de style et **dupliquait le personnage n°1**
+(symptôme observé : une jumelle remplacée par un papy en réduction). Corrections
+dans `livre.py` :
+- champ **`roles`** (optionnel) dans `livre.yaml` : une ligne par référence,
+  injectée en prompt (« la 1ʳᵉ image = Papy, un ADULTE… ; la 2ᵉ = Elia, ENFANT… »)
+  + interdiction explicite de dupliquer ou de mélanger les visages ;
+- règle de **composition** : deux enfants faisant la même action sont côte à côte,
+  même plan, même taille (sinon l'un se retrouvait loin derrière) ;
+- **`input_fidelity="high"`** désormais aussi sur les pages (il n'était que sur
+  les fiches personnage).
+Les manuscrits à 3 personnages doivent rappeler dans `casting`/`contraintes` :
+un seul adulte, jamais d'adulte en réduction, anatomie vérifiée personnage par
+personnage. Un livre sans `roles` garde le comportement historique.
+
 ## Harmonisation IA (ancrage au sol des poses assises/couchées)
 Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leçon de la page test : fesses et pieds touchent le sol, l'ombre doit entourer la base, jamais passer dessous). La solution validée : une passe d'édition gpt-image-1 sur la page composée, masque limité au sol (personnage verrouillé pixel par pixel + 2 px de garde), prompt « sol et ombre uniquement », `input_fidelity high`. Outil : `ancrer-jules.command` (à généraliser en script paramétrable par page). ~0,18 $/variante en haute qualité. Les résultats vont dans `output/harmonisation/`, Simon choisit, puis le PDF final est reconstruit à partir du raster retenu avec le texte vectoriel. Payant → toujours annoncer volume et coût avant.
 

@@ -1,47 +1,55 @@
+# LIVRE TEST du manuscrit « Papy & nous » (fête des grands-pères, 3 personnages).
 titre: Papy & nous — livre test
 manuscrit: papy
 monozygote: true
 sexe_paire: ff
 prenoms:
-- Elia
-- Luna
+  - Elia
+  - Luna
 references:
-- livres/test-papy/papy.png
-- livres/sur-mesure-elia-luna/perso-1.png
-- livres/sur-mesure-elia-luna/perso-2.png
-description_paire: 'TROIS personnages, chacun strictement fidèle à son image de référence.
-  Le GRAND-PÈRE : premier personnage de référence — même visage, même coiffure, mêmes
-  lunettes et MÊME TENUE que sur sa fiche, à l''identique sur chaque page. Les deux
-  jumelles : deuxième et troisième références — deux FILLES identiques, chacune fidèle
-  à sa fiche ; la seconde tient toujours son doudou lapin pour la distinguer.'
+  - livres/test-papy/papy.png
+  - livres/sur-mesure-elia-luna/perso-1.png
+  - livres/sur-mesure-elia-luna/perso-2.png
+# Qui est qui, dans l'ordre des références ci-dessus : injecté dans chaque
+# prompt pour que le modèle n'inverse ni ne duplique les personnages.
+roles:
+  - Papy, le grand-père (un ADULTE aux cheveux gris avec ses lunettes)
+  - Elia, une petite fille (ENFANT)
+  - Luna, sa jumelle identique, celle qui porte le doudou lapin (ENFANT)
+description_paire: 'TROIS personnages, chacun strictement fidèle à son image de
+  référence. Le GRAND-PÈRE : premier personnage de référence — même visage, même
+  coiffure, mêmes lunettes et MÊME TENUE que sur sa fiche, à l''identique sur
+  chaque page. Les deux jumelles : deuxième et troisième références — deux FILLES
+  identiques, chacune fidèle à sa fiche ; la seconde tient toujours son doudou
+  lapin pour la distinguer.'
 selections:
   couv: v1
-  '03': v1
-  '07': v1
-  09: v1
-  '10': v1
-  '13': v1
-  '15': v1
-  '18': v1
-  '19': v1
-  '22': v1
-  '27': v1
-  '20': v1
-  '16': v1
   '01': v1
+  '02': v1
+  '03': v1
   '04': v1
   '05': v1
+  '06': v1
+  '07': v1
+  '08': v1
+  '09': v1
+  '10': v1
+  '11': v1
+  '12': v1
+  '13': v1
   '14': v1
+  '15': v1
+  '16': v1
   '17': v1
+  '18': v1
+  '19': v1
+  '20': v1
   '21': v1
+  '22': v1
+  '23': v1
   '24': v1
   '25': v1
-  '28': v1
-  '02': v1
-  '06': v1
-  '12': v1
-  '23': v1
   '26': v1
-  08: v1
-  '11': v1
+  '27': v1
+  '28': v1
 retouches: {}

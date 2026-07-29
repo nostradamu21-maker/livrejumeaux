@@ -327,6 +327,23 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
         refs = chemins_references(livre, dossier)
         styles = list(refs[1:]) + [ROOT / "style1.png", ROOT / "style2.png"]
         prompt_parts = [style + "."]
+        # Les personnages sont envoyés en tête des images ; sans cette phrase le
+        # modèle prend les références 2 et 3 pour de simples images de style et
+        # duplique le personnage n°1 (leçon du test papy : une jumelle remplacée
+        # par un papy en réduction). `roles` du livre.yaml nomme chaque fiche.
+        roles = livre.get("roles") or []
+        if len(refs) > 1 and len(roles) >= len(refs):
+            liste = "; ".join(f"la {i}{'re' if i == 1 else 'e'} image = {r}"
+                              for i, r in enumerate(roles[:len(refs)], 1))
+            prompt_parts.append(
+                f"IDENTIFICATION DES RÉFÉRENCES : les {len(refs)} PREMIÈRES images "
+                f"fournies sont les fiches des personnages, dans cet ordre — {liste}. "
+                "Chaque personnage doit être dessiné d'après SA fiche et uniquement "
+                "la sienne. Les images suivantes ne servent que de repère de style "
+                "ou de décor : n'y prends aucun personnage. "
+                "Chaque personnage apparaît UNE SEULE FOIS dans l'image : ne duplique "
+                "personne, ne dessine jamais la version réduite d'un adulte à la place "
+                "d'un enfant, ne mélange pas les visages entre les personnages.")
         ancre = ancre_de(scenes, livre, dossier, num)
         if ancre is not None:
             styles.append(Path(ancre))
@@ -345,15 +362,33 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
                 "compris au fond, dans un autre lit, à une fenêtre, dans un miroir ou un "
                 "cadre. Exactement DEUX enfants au total. Tout lit, chaise, siège ou "
                 "espace non occupé par l'un des deux jumeaux reste vide."))
+        if scenes.get("format_page") == "paysage":
+            prompt_parts.append(
+                "CADRAGE : image au format PAYSAGE (plus large que haute). Compose "
+                "la scène entière dans ce cadre horizontal : personnages et décor "
+                "tiennent en entier, rien n'est coupé par les bords. Aucune zone "
+                "n'a besoin d'être réservée au texte : il sera imprimé SOUS l'image.")
+        if not p.get("solo"):
+            prompt_parts.append(
+                "COMPOSITION : quand les deux enfants font la même action, ils sont "
+                "côte à côte, au MÊME plan et à la même distance du lecteur, de taille "
+                "identique — jamais l'un devant et l'autre loin derrière.")
         prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
         if correction(num):
             prompt_parts.append(correction(num).strip())
         out = variantes_dir(dossier, num)
         out.mkdir(parents=True, exist_ok=True)
         print(f"  page {num} : génération…")
+        # Format de l'illustration : carré (défaut historique, texte en cartouche
+        # par-dessus) ou paysage 3:2 (`format_page: paysage` du manuscrit) —
+        # l'image occupe alors toute la largeur et le texte va DESSOUS, sans
+        # jamais rien masquer ni rogner.
+        taille_img = ("1536x1024" if scenes.get("format_page") == "paysage"
+                      else "1024x1024")
         res = provider.generate(reference_image=refs[0], style_images=styles,
                                 prompt=" ".join(prompt_parts),
-                                n=N_VARIANTES, size="1024x1024", quality="high")
+                                n=N_VARIANTES, size=taille_img, quality="high",
+                                input_fidelity="high")
         for i, img in enumerate(res.images, 1):
             (out / f"v{i}.png").write_bytes(img)
         if res.cost_usd:
@@ -505,7 +540,10 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
     import numpy as np
 
     geo = Geometry(20.0, 3.0, 5.0, 300)  # produit Gelato 200x200 mm
-    p1, p2 = prenoms or (livre.get("prenoms_defaut") or ["Léo", "Jules"])
+    # `prenoms_defaut` (historique) ou `prenoms` : les deux clés sont acceptées,
+    # sinon on retombe sur un couple neutre (jamais sur un livre réel).
+    p1, p2 = (prenoms or livre.get("prenoms_defaut") or livre.get("prenoms")
+              or ["Léo", "Jules"])
     variables = {"prenom1": p1, "prenom2": p2}
 
     def _jpeg(img):
@@ -650,7 +688,17 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
             raster = Image.open(grand or src).convert("RGB")
             if min(raster.size) < geo.doc_px:
                 raster = _upscale(raster)
-            raster = raster.resize((geo.doc_px, geo.doc_px), Image.LANCZOS)
+            if scenes.get("format_page") == "paysage":
+                # Zone image = 2/3 supérieurs ; l'illustration s'y insère ENTIÈRE
+                # (contain) : un 3:2 la remplit exactement, un autre ratio garde
+                # des marges. Rien n'est jamais rogné.
+                zone_h = round(geo.doc_px * 2 / 3)
+                ech = min(geo.doc_px / raster.width, zone_h / raster.height)
+                raster = raster.resize(
+                    (round(raster.width * ech), round(raster.height * ech)),
+                    Image.LANCZOS)
+            else:
+                raster = raster.resize((geo.doc_px, geo.doc_px), Image.LANCZOS)
             raster.save(cache)
 
         pcfg = scenes["pages"][num]
@@ -662,19 +710,43 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
         tm, _ = text_geometry(tcfg, geo, variables)
         pad = int(geo.doc_px * 0.026)
         block_h = tm["line_h"] * len(tm["lines"])
-        y1 = geo.doc_px * 0.955
-        y0 = y1 - block_h - 2 * pad
-        tcfg["y"] = (y0 + pad) / geo.doc_px * 100.0
-        tm, _ = text_geometry(tcfg, geo, variables)
-        px0, px1 = geo.doc_px * 0.06, geo.doc_px * 0.94
-        c.drawImage(_jpeg(raster), 0, 0, width=geo.doc_pt, height=geo.doc_pt)
-        c.saveState()
-        c.setFillColor(HexColor("#ffffff"))
-        c.setFillAlpha(0.88)
-        c.roundRect(geo.px_to_pt(px0), geo.doc_pt - geo.px_to_pt(y1),
-                    geo.px_to_pt(px1 - px0), geo.px_to_pt(y1 - y0),
-                    geo.px_to_pt(pad), stroke=0, fill=1)
-        c.restoreState()
+        # Position du cartouche : bas par défaut (rendu historique validé) ;
+        # `texte_position: haut` dans la page quand l'action se joue en bas de
+        # l'image (le tiers supérieur est de toute façon dégagé par le prompt).
+        if pcfg.get("texte_position") == "haut":
+            y0 = geo.doc_px * 0.045
+            y1 = y0 + block_h + 2 * pad
+        else:
+            y1 = geo.doc_px * 0.955
+            y0 = y1 - block_h - 2 * pad
+        paysage = scenes.get("format_page") == "paysage"
+        if paysage:
+            # Illustration ENTIÈRE, pleine largeur, calée en haut ; le texte est
+            # centré dans la bande crème restante — aucun cartouche par-dessus.
+            h_img_px, w_img_px = raster.height, raster.width
+            x_img = (geo.doc_px - w_img_px) / 2      # centrée si marges
+            fond = HexColor(scenes.get("fond_page", "#fbf5ec"))
+            c.setFillColor(fond)
+            c.rect(0, 0, geo.doc_pt, geo.doc_pt, stroke=0, fill=1)
+            c.drawImage(_jpeg(raster), geo.px_to_pt(x_img),
+                        geo.doc_pt - geo.px_to_pt(h_img_px),
+                        width=geo.px_to_pt(w_img_px), height=geo.px_to_pt(h_img_px))
+            bande_h = geo.doc_px - h_img_px
+            y0 = h_img_px + (bande_h - block_h) / 2
+            tcfg["y"] = y0 / geo.doc_px * 100.0
+            tm, _ = text_geometry(tcfg, geo, variables)
+        else:
+            tcfg["y"] = (y0 + pad) / geo.doc_px * 100.0
+            tm, _ = text_geometry(tcfg, geo, variables)
+            px0, px1 = geo.doc_px * 0.06, geo.doc_px * 0.94
+            c.drawImage(_jpeg(raster), 0, 0, width=geo.doc_pt, height=geo.doc_pt)
+            c.saveState()
+            c.setFillColor(HexColor("#ffffff"))
+            c.setFillAlpha(0.88)
+            c.roundRect(geo.px_to_pt(px0), geo.doc_pt - geo.px_to_pt(y1),
+                        geo.px_to_pt(px1 - px0), geo.px_to_pt(y1 - y0),
+                        geo.px_to_pt(pad), stroke=0, fill=1)
+            c.restoreState()
         c.setFillColor(HexColor(tm["color"]))
         c.setFont("PageFont", tm["size_pt"])
         ax = {"left": tm["box_left"], "center": tm["box_left"] + tm["box_w"] / 2,
@@ -706,10 +778,20 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
                                     geo.doc_pt - geo.px_to_pt(base_y + j * 34 + 24), lc)
         c.showPage()
 
-        prev = raster.copy().convert("RGBA")
         from PIL import ImageDraw as _ID
-        dprev = _ID.Draw(prev, "RGBA")
-        dprev.rounded_rectangle((px0, y0, px1, y1), radius=pad, fill=(255, 255, 255, 224))
+        if paysage:
+            # Même composition que le PDF : illustration entière en haut,
+            # bande crème dessous (aucun cartouche superposé).
+            fond_rgb = tuple(int(scenes.get("fond_page", "#fbf5ec").lstrip("#")[i:i + 2], 16)
+                             for i in (0, 2, 4))
+            prev = Image.new("RGBA", (int(geo.doc_px), int(geo.doc_px)), fond_rgb + (255,))
+            prev.paste(raster.convert("RGBA"),
+                       (int((geo.doc_px - raster.width) / 2), 0))
+            dprev = _ID.Draw(prev, "RGBA")
+        else:
+            prev = raster.copy().convert("RGBA")
+            dprev = _ID.Draw(prev, "RGBA")
+            dprev.rounded_rectangle((px0, y0, px1, y1), radius=pad, fill=(255, 255, 255, 224))
         if pcfg.get("texte_centre"):
             from PIL import ImageFont as _IF
             cw, ch = geo.doc_px * 0.46, geo.doc_px * 0.36

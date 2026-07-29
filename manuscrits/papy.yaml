@@ -20,10 +20,18 @@ casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages �
   grand-père et ses DEUX petits-enfants jumeaux — et absolument personne d''autre :
   aucun autre adulte, aucun autre enfant, aucun bébé, aucun visage ni aucune silhouette
   supplémentaire, y compris au fond, à une fenêtre, dans un miroir ou un cadre.
-  Exactement UN adulte et DEUX enfants au total.'
-contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
-  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
-  DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
+  Exactement UN adulte et DEUX enfants au total. Le grand-père n''apparaît qu''UNE
+  seule fois : jamais deux adultes, jamais un adulte en version réduite à la place
+  d''un enfant. Les deux enfants sont de MÊME TAILLE, nettement plus petits que
+  l''adulte.'
+# Mise en page : illustration ENTIÈRE en haut (format paysage 3:2), texte
+# imprimé DESSOUS sur le fond crème — plus rien ne masque l'image.
+format_page: paysage
+fond_page: '#fbf5ec'
+contraintes: 'Pas de texte ni de logo dans l''image. Anatomie STRICTE, à vérifier pour CHACUN des
+  trois personnages : exactement DEUX bras (jamais un troisième bras, jamais une main
+  isolée sans bras), DEUX jambes, UNE tête, mains à cinq doigts bien formées. Chaque bras
+  visible part clairement d''une épaule de son propriétaire. Si un enfant tient un doudou ou porte un
   accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
   devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène
   décrit les trois personnages, les TROIS sont visibles en entier dans l''image.
@@ -42,9 +50,11 @@ affiche:
 
 pages:
   '01':
-    scene: 'Portail d''une maison de campagne fleurie : les deux jumeaux courant dans
-      l''allée bras ouverts vers le grand-père qui les attend sur le pas de la porte,
-      bras écartés et grand sourire, glycine au-dessus de la porte, matin lumineux.'
+    scene: 'Portail d''une maison de campagne fleurie : les deux jumeaux courent
+      CÔTE À CÔTE, épaule contre épaule et à la même distance du lecteur, bras
+      ouverts, dans l''allée vers le grand-père qui les attend sur le pas de la
+      porte, bras écartés et grand sourire, glycine au-dessus de la porte, matin
+      lumineux. Les deux enfants sont au même plan, de taille identique.'
     texte: 'Au bout du chemin, il y a une maison.
 
       Et devant la maison, il y a Papy.
@@ -152,6 +162,7 @@ pages:
       Papy dort. Papy ne se doute de rien.'
   '12':
     ancre: page:05
+    texte_position: haut   # les draisiennes sont en bas de l'image
     scene: 'Même chemin de campagne : les deux jumeaux filant à toute allure sur leurs
       petites draisiennes, cheveux au vent et sourires immenses, le grand-père assis
       sur un banc de bois au bord du chemin, les regardant faire, attendri, chapeau
@@ -179,7 +190,12 @@ pages:
 
       Dans le vieux pommier, deux acrobates rigolent.
 
-      Les jumeaux n''ont peur de rien. Alors Papy s''inquiète pour deux.'
+      Eux n''ont peur de rien. Alors Papy s''inquiète pour deux.'
+    texte_feminin: '« Doucement ! Attention ! Tenez-vous bien ! »
+
+      Dans le vieux pommier, deux acrobates rigolent.
+
+      Elles n''ont peur de rien. Alors Papy s''inquiète pour deux.'
   '15':
     scene: 'Salon douillet aux meubles anciens, horloge comtoise : partie de dominos
       sur la table basse, le grand-père feignant la concentration extrême, les jumeaux
