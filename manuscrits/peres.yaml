@@ -1,0 +1,335 @@
+# Manuscrit « Papa & nous » — livre fête des pères, version jumeaux.
+# PREMIER JET rédigé par Claude pour relecture de Simon (le texte lui appartient).
+# Même schéma que scenes.yaml : style/contraintes IDENTIQUES (style figé du projet),
+# 28 pages illustrées + 2 pages texte seul. Produit SUR-MESURE uniquement :
+# les 3 personnages (papa + jumeaux) sont dessinés d'après photos.
+# Accords : texte épicène par défaut ; variantes texte_feminin quand nécessaire.
+# {prenom1}/{prenom2} = les jumeaux. Le papa est appelé « Papa » (pas de variable).
+
+style: 'illustration aquarelle douce pour album jeunesse, contours légers, palette pastel,
+  éclairage tendre, rendu cohérent d''une page à l''autre
+
+  '
+jumeaux: 'TROIS personnages : le PAPA adulte (premier personnage de référence) et ses
+  DEUX enfants jumeaux (mêmes personnages que les références enfants), chacun
+  strictement fidèle à sa fiche de référence : visage, coiffure et tenue identiques
+  sur chaque page.
+
+  '
+casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages — UN
+  papa adulte et ses DEUX enfants jumeaux — et absolument personne d''autre : aucun
+  autre adulte, aucun autre enfant, aucun bébé, aucun visage ni aucune silhouette
+  supplémentaire, y compris au fond, à une fenêtre, dans un miroir ou un cadre.
+  Exactement UN adulte et DEUX enfants au total.'
+contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
+  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
+  DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
+  accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
+  devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène
+  décrit les trois personnages, les TROIS sont visibles en entier dans l''image.
+
+  '
+
+# Affiche « Papa & nous » (upsell cadre, même mécanique que le livre classique).
+affiche:
+  scene: 'Portrait tendre pour une affiche à encadrer : le papa assis dans l''herbe
+    d''un jardin fleuri baigné de lumière dorée, un jumeau blotti sous chaque bras,
+    tous les trois souriant doucement au lecteur. Grand ciel crème lumineux et aéré
+    au-dessus d''eux, quelques papillons et fleurs des champs. Composition centrée,
+    calme et intemporelle. Le tiers INFÉRIEUR de l''image reste doux et dégagé
+    (herbe claire, fleurs discrètes). AUCUN texte, aucune lettre, aucun prénom dans
+    l''image : la typographie est ajoutée ensuite, séparément.'
+
+pages:
+  '01':
+    scene: 'Petit matin dans la chambre des parents : le papa dort encore dans un grand
+      lit, et les deux jumeaux en pyjama grimpent sur le lit sur la pointe des pieds,
+      l''un un doigt sur la bouche, l''autre retenant un fou rire, lumière douce de
+      l''aube par la fenêtre.'
+    texte: 'Chut… Papa dort encore.
+
+      {prenom1} grimpe sans bruit, {prenom2} retient un fou rire.
+
+      Trois… deux… un… À L''ATTAQUE !'
+  '02':
+    ancre: page:01
+    scene: 'Même chambre des parents : le papa assis dans le lit, ébouriffé et riant
+      aux éclats, un jumeau dans chaque bras, les couvertures en bataille, oreiller
+      tombé au sol.'
+    texte: 'Deux fusées atterrissent sur le lit !
+
+      « Bonjour {prenom1} ! Bonjour {prenom2} ! »
+
+      Avec Papa, la journée peut commencer.'
+  '03':
+    scene: 'Cuisine familiale chaleureuse le matin : le papa en tablier fait sauter une
+      crêpe très haut dans une poêle, les deux jumeaux émerveillés levant les yeux,
+      assis au comptoir, bols et jus d''orange devant eux.'
+    texte: 'Le dimanche, c''est le jour des crêpes de Papa.
+
+      Une pour {prenom1}, une pour {prenom2}…
+
+      et la toute ratée, pour lui !'
+  '04':
+    ancre: page:03
+    scene: 'Même cuisine : nuage de farine, le papa et les deux jumeaux saupoudrés de
+      blanc, tous les trois riant, saladier renversé et fouet à la main.'
+    texte: 'Un nuage de farine, deux apprentis pâtissiers.
+
+      Papa dit que c''est ça, le vrai secret
+
+      des meilleures crêpes du monde.'
+    texte_feminin: 'Un nuage de farine, deux apprenties pâtissières.
+
+      Papa dit que c''est ça, le vrai secret
+
+      des meilleures crêpes du monde.'
+  '05':
+    ancre: backgrounds/parc.png
+    scene: 'Grand parc verdoyant : le papa debout portant UN jumeau assis sur ses
+      épaules et tenant l''autre par la main, tous les trois regardant au loin,
+      sentier et grands arbres.'
+    texte: 'Sur les épaules de Papa, on voit le monde entier.
+
+      Et à deux, le monde est deux fois plus grand.'
+  '06':
+    ancre: page:05
+    scene: 'Même parc : le papa marchant de dos entre les deux jumeaux, donnant une
+      main à chacun, allée bordée de fleurs, lumière dorée.'
+    texte: 'Papa a deux mains.
+
+      Une pour {prenom1}, une pour {prenom2}.
+
+      Comme si c''était prévu depuis toujours.'
+  '07':
+    scene: 'Atelier de bricolage chaleureux : établi en bois, outils accrochés, le papa
+      montre une planche aux deux jumeaux concentrés, chacun un petit outil à la main,
+      un nichoir à oiseaux en construction sur l''établi.'
+    texte: 'Dans l''atelier, Papa montre comment on fait.
+
+      {prenom1} tient la planche, {prenom2} choisit les clous.
+
+      Un vrai chantier d''équipe !'
+  '08':
+    ancre: page:07
+    scene: 'Même atelier : le nichoir terminé tenu fièrement à trois — le papa au
+      milieu, un jumeau de chaque côté, tous les trois avec un grand sourire, sciure
+      au sol.'
+    texte: 'Et voilà : une maison pour les oiseaux,
+
+      construite par six mains.
+
+      Les oiseaux ont bien de la chance.'
+  '09':
+    ancre: backgrounds/parc.png
+    scene: 'Pelouse du parc : partie de football — le papa gardien de but entre deux
+      pulls posés au sol, bras écartés, un jumeau qui tire dans le ballon, l''autre
+      qui lève les bras, plein mouvement.'
+    texte: 'Papa fait le gardien.
+
+      {prenom1} tire… {prenom2} reprend… BUT !
+
+      Deux contre un, ce n''est pas juste. Mais Papa adore perdre.'
+  '10':
+    ancre: page:09
+    scene: 'Allée du parc : apprentissage du vélo — les deux jumeaux chacun sur un
+      petit vélo, le papa au milieu courant de l''un à l''autre, une main tendue vers
+      chaque vélo, air à la fois inquiet et fier.'
+    texte: '« Pédalez ! Je vous tiens ! »
+
+      Papa court d''un vélo à l''autre.
+
+      Il souffle très fort… mais il ne lâche jamais.'
+  '11':
+    ancre: page:09
+    scene: 'Coin d''herbe à l''ombre d''un grand arbre : goûter posé sur un plaid — le
+      papa allongé sur le côté, les deux jumeaux assis en tailleur, gourdes et quartiers
+      de pomme, miettes de gâteau.'
+    texte: 'Après l''aventure, le goûter.
+
+      Papa coupe la pomme en deux parts égales.
+
+      Enfin… presque égales. On recompte ?'
+  '12':
+    ancre: page:09
+    scene: 'Cache-cache dans le parc : les deux jumeaux cachés derrière un arbre bien
+      trop fin, dépassant des deux côtés, le papa au premier plan faisant semblant de
+      chercher, main en visière, sourire complice.'
+    texte: 'À cache-cache, Papa ne trouve jamais personne.
+
+      « Où sont-ils passés ? Quel mystère ! »
+
+      Derrière l''arbre, deux fous rires le trahissent.'
+  '13':
+    scene: 'Rue ou chemin un jour de pluie : bottes et cirés colorés, le papa saute à
+      pieds joints dans une immense flaque, éclaboussures partout, les deux jumeaux
+      morts de rire un peu en retrait, parapluie retourné.'
+    texte: 'Quand il pleut, Papa vise toujours la plus grande flaque.
+
+      SPLASH !
+
+      Champion du monde d''éclaboussures, devant deux arbitres sévères.'
+  '14':
+    scene: 'Salon chaleureux transformé en cabane : draps tendus entre le canapé et
+      des chaises, coussins empilés, guirlande lumineuse, le papa passe la tête par
+      l''ouverture pendant que les deux jumeaux apportent des oreillers.'
+    texte: 'Un drap, quatre chaises, tous les coussins de la maison :
+
+      la cabane de Papa est la plus belle du salon.
+
+      Interdit d''entrer sans le mot de passe !'
+  '15':
+    ancre: page:14
+    scene: 'Intérieur de la cabane de draps, ambiance tamisée : le papa et les deux
+      jumeaux serrés sous la lampe de poche, ombres douces sur les parois de tissu,
+      album illustré ouvert sur les genoux.'
+    texte: 'Dans la cabane, on parle tout bas.
+
+      On partage les secrets, les biscuits
+
+      et la lumière de la lampe de poche.'
+  '16':
+    scene: 'Salle de bain pleine de mousse : les deux jumeaux dans la baignoire avec
+      des montagnes de bulles, le papa à genoux à côté, manches retroussées, une île
+      de mousse posée sur la tête, canards en plastique.'
+    texte: 'L''heure du bain !
+
+      Deux pirates, un capitaine,
+
+      et de la mousse jusqu''au plafond.'
+  '17':
+    ancre: page:16
+    scene: 'Même salle de bain, devant le miroir : les trois en pyjama et peignoir,
+      chacun sa brosse à dents, le papa faisant une grimace pleine de dentifrice, les
+      jumeaux imitant sa grimace en riant.'
+    texte: 'Trois brosses à dents, trois grimaces dans le miroir.
+
+      Le concours est serré…
+
+      mais Papa gagne toujours.'
+  '18':
+    ancre: backgrounds/chambre.png
+    scene: 'Chambre des jumeaux le soir, lumière chaude de la lampe : le papa assis
+      dans un fauteuil, un jumeau sur chaque genou, grand album ouvert, rideaux tirés.'
+    texte: 'Une histoire. Puis une deuxième — une pour chacun.
+
+      La voix de Papa, c''est le plus doux des voyages.'
+    texte_feminin: 'Une histoire. Puis une deuxième — une pour chacune.
+
+      La voix de Papa, c''est le plus doux des voyages.'
+  '19':
+    ancre: backgrounds/chambre.png
+    scene: 'Même chambre, lumière très douce : les deux jumeaux bordés chacun dans son
+      petit lit sous une couverture bleu clair, têtes et bras seuls visibles, le papa
+      penché déposant un baiser sur un front, veilleuse allumée.'
+    texte: 'Papa borde {prenom1}, puis {prenom2}.
+
+      Deux bisous sur deux fronts.
+
+      « À demain, mes deux trésors. »'
+  '20':
+    solo: true
+    scene: 'Scène de rêve onirique dans les nuages pastel : un grand bateau de papier
+      vogue sur un ciel étoilé — à bord, silhouettes douces du papa à la barre et des
+      deux jumeaux à la proue, lune souriante, poissons volants.'
+    texte: 'Cette nuit-là, dans leurs rêves,
+
+      un grand bateau de papier les emmène tous les trois
+
+      jusqu''au bout des étoiles.'
+  '21':
+    solo: true
+    scene: 'Album photo ancien ouvert sur une table en bois : sur la photo sépia, un
+      petit garçon des années passées avec une coupe de cheveux rigolote et un grand
+      sourire édenté, short et pull tricoté ; un doigt d''enfant pointe la photo.'
+    texte: 'Il paraît qu''avant, Papa aussi était petit.
+
+      {prenom1} et {prenom2} ont un peu de mal à y croire…
+
+      surtout avec cette coiffure-là.'
+  '22':
+    scene: 'Coin couture improvisé sur la table du salon : le papa concentré, langue
+      tirée, recousant un doudou usé, les deux jumeaux penchés de chaque côté,
+      inquiets et confiants, boîte à couture ouverte.'
+    texte: 'Un doudou déchiré ? Presque une catastrophe.
+
+      Mais Papa sait tout réparer.
+
+      Même les gros chagrins.'
+  '23':
+    scene: 'Potager ensoleillé du jardin : le papa agenouillé plantant un jeune plant,
+      un jumeau versant l''eau d''un petit arrosoir, l''autre tenant fièrement un
+      semis, bottes et gants trop grands.'
+    texte: 'Au jardin, chacun sa mission :
+
+      {prenom1} arrose, {prenom2} plante, Papa surveille les escargots.
+
+      Cet été, il y aura des tomates pour trois.'
+  '24':
+    scene: 'Chambre des jumeaux, ambiance conspiration joyeuse : les deux jumeaux à
+      plat ventre sur le tapis, feutres éparpillés, dessinant en cachette deux grands
+      dessins colorés, l''un cache son dessin de la main, porte entrouverte au fond.'
+    solo: true
+    texte: 'Chut… c''est un secret.
+
+      Deux dessins, préparés en cachette,
+
+      rien que pour Papa.'
+  '25':
+    scene: 'Salon lumineux : les deux jumeaux tendant fièrement leurs dessins au papa
+      agenouillé à leur hauteur ; sur les dessins enfantins, trois bonshommes qui se
+      tiennent la main ; le papa ému, main sur le cœur.'
+    texte: '« C''est nous trois ! »
+
+      Papa regarde les dessins un long moment.
+
+      Il dit qu''il les gardera toujours. Et c''est vrai.'
+  '26':
+    ancre: backgrounds/parc.png
+    scene: 'Fin de journée dorée au parc : les trois de dos marchant vers le soleil
+      couchant, le papa au milieu, un jumeau à chaque main, grandes ombres allongées
+      devant eux sur le chemin.'
+    texte: 'Les plus belles journées passent toujours trop vite.
+
+      Mais demain, promis,
+
+      on recommence.'
+  '27':
+    scene: 'Gros câlin à trois dans le salon : le papa accroupi serrant les deux
+      jumeaux contre lui, yeux fermés, sourires paisibles, lumière chaude du soir.'
+    texte: 'Papa dit souvent qu''il a deux fois plus de chance
+
+      que tous les autres papas.
+
+      {prenom1} et {prenom2} savent que c''est vrai.'
+  '28':
+    scene: 'Portrait final tendre : le papa assis dans l''herbe du jardin fleuri, un
+      jumeau blotti sous chaque bras, tous les trois face au lecteur avec un sourire
+      doux, papillons et lumière dorée — composition calme et centrée.'
+    texte: 'Un papa. Deux enfants. Mille aventures.
+
+      Bonne fête, Papa —
+
+      de la part de tes deux plus grands trésors.'
+  '29':
+    texte_seul: true
+    titre: 'Pour toi, Papa'
+    texte: 'Ce livre est né d''une idée toute simple :
+
+      te dire merci.
+
+      Merci pour les crêpes du dimanche et les cabanes du salon,
+
+      pour les flaques d''eau et les histoires du soir,
+
+      pour tes deux mains qui ne lâchent jamais.'
+  '30':
+    texte_seul: true
+    titre: 'De notre part à tous les deux'
+    texte: 'Les aventures de ce livre sont les nôtres,
+
+      et celles qui viennent restent à écrire.
+
+      Avec tout notre amour,
+
+      {prenom1} & {prenom2}'

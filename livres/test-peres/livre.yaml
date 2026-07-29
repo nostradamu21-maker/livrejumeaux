@@ -1,0 +1,22 @@
+# LIVRE TEST du manuscrit « Papa & nous » (fête des pères, 3 personnages).
+# Pour produire le test : dépose une fiche PAPA (personnage adulte au style du
+# projet, corps entier fond neutre) dans ce dossier sous le nom papa.png, puis :
+#   python livre.py test-peres
+# Les jumeaux de test réutilisent les fiches validées d'Elia & Luna.
+titre: Papa & nous — livre test
+manuscrit: peres
+monozygote: true
+sexe_paire: ff
+prenoms:
+  - Elia
+  - Luna
+references:
+  - livres/test-peres/papa.png
+  - archetypes/f1-natte-brune.png
+  - archetypes/f2-nattes-brune.png
+description_paire: 'TROIS personnages, chacun strictement fidèle à son image de
+  référence. Le PAPA adulte : premier personnage de référence (visage, coiffure,
+  tenue identiques sur chaque page). Les deux jumelles : deuxième et troisième
+  références — deux FILLES identiques, la seconde tient toujours son doudou lapin
+  pour la distinguer.'
+selections: {}

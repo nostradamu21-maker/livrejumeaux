@@ -11,6 +11,19 @@ Livre pour enfants personnalisé sur la gémellité, vendu aux parents de jumeau
 - **Texte épicène + variante féminine** (affiné par Simon, juillet 2026) : le texte de base reste épicène et sert de défaut pour « 2 garçons » et « mixte » (en français comme en espagnol le masculin l'emporte). Mais pour une paire de **DEUX FILLES**, un jeu de variantes `texte_feminin` (accords au féminin : « chacune », « toutes les deux », « una para cada una »…) est superposé. Un troisième axe `sexe_paire` (`ff`/`mm`/`mixte`) pilote ce choix dans `champ_page()`, combiné avec l'axe mono/dizygote. Le sexe vient automatiquement des archétypes (champ `genre`) côté combo, et d'un sélecteur garçon/fille par enfant côté sur-mesure. Variantes présentes : FR (5), ES (9), DE (1, p.20 « Künstlerinnen ») ; l'anglais n'a pas d'accord → aucune. (Pages 13/26/27 rendues invariables en juillet 2026 — « cache-cache », « sur la pointe des pieds », « pleinement soi » — pour marcher sans variante.) Règles détaillées en tête de `manuscrit-livret-test.md`.
 - **Format (révisé par Simon)** : livre carré **20×20 cm** (produit Gelato « hardcover photobook 200×200 mm », papier 170 g couché soyeux, pelliculage mat), **30 pages de contenu** = 28 pages illustrées + 2 pages « mot aux parents » (texte seul, sans IA), + gardes + couverture. Le nombre de pages a été ajusté au **minimum imposé par Gelato** (les 2 pages parents comblent les 2 pages manquantes). Fond perdu selon specs Gelato, 300 dpi, PDF sRGB. L'ancien 21×21 n'existe pas au catalogue Gelato.
 - **Validation humaine** : chaque image générée est triée/validée par Simon avant d'entrer dans `assets/`. Ne jamais envoyer à l'impression un visuel non validé.
+## Manuscrits multiples (juillet 2026, en cours)
+Le manuscrit par défaut reste `scenes.yaml` (« Deux comme nous »). Un livre peut en
+choisir un autre via `manuscrit: <nom>` dans son `livre.yaml` → `manuscrits/<nom>.yaml`
+(même schéma ; clé racine `casting` = impératif de casting injecté dans les prompts,
+sinon défaut deux-jumeaux ; traductions dans `traductions/<nom>-<langue>.yaml`).
+Premier modèle : **`peres`** (« Papa & nous », fête des pères, TROIS personnages :
+papa + jumeaux, produit SUR-MESURE uniquement — le papa est dessiné d'après photo,
+décision Simon). PREMIER JET du manuscrit rédigé par Claude — **en attente de
+relecture/validation Simon**. Squelette de test : `livres/test-peres/` (nécessite une
+fiche papa.png). Chantiers restants avant vente : validation manuscrit + livre test
+trié, extension `sur_mesure.py`/site (3ᵉ photo, page variantes à 3 jeux, sélecteur de
+modèle dans le tunnel livre, metadata Stripe `modele`).
+
 ## Pipeline unifié (livre.py)
 Un livre = une combinaison d'archétypes = un dossier `livres/<id>/` avec son `livre.yaml`
 (références, sélections, prénoms par défaut). Les 30 pages du livret (28 illustrées + 2

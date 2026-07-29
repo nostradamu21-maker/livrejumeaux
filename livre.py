@@ -46,13 +46,19 @@ PRIX_IMAGE = 0.175  # $ par image 1024×1024 qualité haute (estimation)
 
 
 def charger(livre_id: str) -> tuple[dict, dict, Path]:
-    scenes = yaml.safe_load((ROOT / "scenes.yaml").read_text(encoding="utf-8"))
     dossier = ROOT / "livres" / livre_id
     fy = dossier / "livre.yaml"
     if not fy.exists():
         sys.exit(f"Livre inconnu : {fy}\nCrée-le (voir livres/test-garcon-garcon/livre.yaml).")
     livre = yaml.safe_load(fy.read_text(encoding="utf-8"))
     livre.setdefault("selections", {})
+    # Manuscrit : « Deux comme nous » par défaut (scenes.yaml), sinon un modèle
+    # alternatif de manuscrits/ (ex. manuscrit: peres → manuscrits/peres.yaml).
+    m = livre.get("manuscrit")
+    fscenes = (ROOT / "manuscrits" / f"{m}.yaml") if m else (ROOT / "scenes.yaml")
+    if not fscenes.exists():
+        sys.exit(f"Manuscrit inconnu : {fscenes}")
+    scenes = yaml.safe_load(fscenes.read_text(encoding="utf-8"))
     return livre, scenes, dossier
 
 
@@ -140,8 +146,10 @@ def champ_page(p: dict, livre: dict, cle: str) -> str:
 LANGUES = {"fr", "en", "es", "de"}
 
 
-def appliquer_langue(scenes: dict, langue: str) -> None:
-    """Superpose les textes traduits (traductions/<langue>.yaml) sur scenes.
+def appliquer_langue(scenes: dict, langue: str, manuscrit: str | None = None) -> None:
+    """Superpose les textes traduits sur scenes. Le manuscrit par défaut lit
+    traductions/<langue>.yaml ; un manuscrit alternatif (ex. peres) lit
+    traductions/<manuscrit>-<langue>.yaml.
     Ne touche QUE le texte imprimé (texte/texte_dizygote/titre) : les images
     ne contiennent aucun texte, donc une combo en cache sert toutes les langues.
     Français (ou traduction absente) → aucun changement."""
@@ -150,7 +158,8 @@ def appliquer_langue(scenes: dict, langue: str) -> None:
         return
     if langue not in LANGUES:
         sys.exit(f"Langue inconnue : {langue} (attendu : {', '.join(sorted(LANGUES))})")
-    f = ROOT / "traductions" / f"{langue}.yaml"
+    nom = f"{manuscrit}-{langue}.yaml" if manuscrit else f"{langue}.yaml"
+    f = ROOT / "traductions" / nom
     if not f.exists():
         sys.exit(f"Traduction manquante : {f}")
     trad = yaml.safe_load(f.read_text(encoding="utf-8")).get("pages", {})
@@ -327,14 +336,14 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
             if p.get("tenue"):
                 prompt_parts.append(f"Pour cette scène uniquement, les enfants portent : "
                                     f"{p['tenue']}.")
-            # Cast FERMÉ : uniquement les deux jumeaux, jamais un 3ᵉ personnage.
-            prompt_parts.append(
+            # Cast FERMÉ : celui du manuscrit (clé `casting`), sinon les deux jumeaux.
+            prompt_parts.append(scenes.get("casting") or (
                 "IMPÉRATIF DE CASTING : l'image ne montre QUE ces deux enfants (les "
                 "jumeaux) et absolument personne d'autre — aucun troisième enfant, aucun "
                 "bébé, aucun adulte, aucun visage ni aucune silhouette supplémentaire, y "
                 "compris au fond, dans un autre lit, à une fenêtre, dans un miroir ou un "
                 "cadre. Exactement DEUX enfants au total. Tout lit, chaise, siège ou "
-                "espace non occupé par l'un des deux jumeaux reste vide.")
+                "espace non occupé par l'un des deux jumeaux reste vide."))
         prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
         if correction(num):
             prompt_parts.append(correction(num).strip())
@@ -748,7 +757,7 @@ def main() -> None:
     livre, scenes, dossier = charger(args.livre)
     # Langue du texte : priorité au flag, sinon champ du livre.yaml, sinon fr.
     langue = (args.langue or livre.get("langue") or "fr").lower()
-    appliquer_langue(scenes, langue)
+    appliquer_langue(scenes, langue, livre.get("manuscrit"))
 
     if args.refaire:
         # Annule des pages déjà triées (ratées) : elles repartent en génération.
@@ -780,7 +789,7 @@ def main() -> None:
         import tri_web
         tri_web.attendre(args.livre)
         livre, scenes, dossier = charger(args.livre)
-        appliquer_langue(scenes, langue)
+        appliquer_langue(scenes, langue, livre.get("manuscrit"))
     if etape_tri(livre, scenes, dossier, cibles):
         # des pages ancrées sont peut-être devenues générables
         if etape_generation(livre, scenes, dossier, cibles):
