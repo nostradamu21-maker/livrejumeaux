@@ -84,16 +84,26 @@ Modèle retenu (juillet 2026, validé par Simon) :
   investissement d'assets modulaires. `compose.py` en est déjà la base. À financer par les
   bénéfices de la phase 1.
 
-## État du projet
-| Brique | Contenu | État |
-|---|---|---|
-| 1 | Script de génération des poses d'un archétype (API OpenAI, config YAML, planche contact) | ✅ Validée — archétype garçon cohérent sur 6 poses |
-| 2 | Détourage (rembg/BiRefNet) + upscale ×4 + recadrage → PNG transparents | ✅ Validée — 6 assets propres |
-| 3 | Moteur de composition `compose.py` : décor + personnages (x/y/scale/mirror/rotate) + ombre + texte vectoriel avec variables prénoms → PDF gabarit + preview JPEG | ✅ Validée — page test conforme |
-| — | Page à deux personnages `chacun-son-rythme` (poses, échelles et plans différents, décor miroir) | ✅ Validée par Simon — ancrage au sol via passe d'harmonisation IA (voir ci-dessous) |
-| — | Manuscrit du livret test « Deux comme nous » (20 pages), voir `manuscrit-livret-test.md` | ✅ Rédigé — en attente de relecture par Simon |
-| — | 2 pages « mot aux parents » (texte seul, sans IA) — mécanisme `texte_seul`, épicènes (pages 29-30) | ✅ Ajoutées — comblent le minimum de pages Gelato |
-| — | Catalogue de 12 archétypes (`archetypes.yaml`) + script de déclinaison/tri (`archetypes.py`) | 🟡 Scaffoldé — 3 fiches validées (g1, f1, f2), 9 à générer |
+## État du projet (à jour juillet 2026)
+| Domaine | État |
+|---|---|
+| Boutique en ligne `site/` (FR/EN/ES/DE) | ✅ EN PRODUCTION — https://boutique.gemellite.com |
+| Produit LIVRE catalogue (combo d'archétypes) | ✅ Vendable — combo à la commande + cache |
+| Produit LIVRE sur-mesure (personnages d'après photo) | ✅ Vendable — 64,99 € (54,99 € avec réutilisation) |
+| Produit AFFICHE (4 tailles, 29,90 → 49,90 €) | ✅ Vendable — `affiche.py`, illustration dédiée en cache |
+| Catalogue d'archétypes | ✅ **14 fiches validées** dans `archetypes/` (7 garçons, 7 filles) |
+| Manuscrit « Deux comme nous » (30 pages) | ✅ Écrit, traduit FR/EN/ES/DE, vendu |
+| Chaîne de production `livre.py` (génération → tri → PDF) | ✅ Opérationnelle, tri web mobile inclus |
+| Expédition Gelato + emails client | ✅ `expedier.py` (brouillon/impression, `--suivi`) + `notifier.py` |
+| Manuscrits `papy` et `peres` (3 personnages) | 🟡 Premiers jets écrits — **en attente de relecture Simon**, pas encore vendables |
+| Tunnel site pour livres à 3 personnages | ⬜ À faire (3ᵉ photo, variantes à 3 jeux, sélecteur de modèle, metadata Stripe `modele`) |
+| Avis clients (section témoignages) | ⬜ En attente de vrais avis — aucun avis fictif, c'est illégal en France/UE |
+
+**Ancienne chaîne de composition (briques 1-3)** — `compose.py`, `process_assets.py`,
+`generate_archetypes.py`, `upscaler.py`, `layouts/`, `config.yaml`, `serveur.py` + `web/`.
+Conservée comme plan B après le passage à la génération intégrale. `compose.py` et
+`upscaler.py` sont **toujours utilisés** par `livre.py`/`affiche.py` (géométrie du texte,
+upscale) — ne pas les supprimer. Le reste dort.
 ## Ressemblance des personnages sur-mesure (leçon du test papy, juillet 2026)
 Premier essai « papy d'après photo » : peu ressemblant (visage rajeuni, arrondi,
 générique). Trois causes identifiées et corrigées — **règles à respecter dans TOUT
@@ -110,7 +120,28 @@ prompt de personnage d'après photo** :
    reproduire les **lunettes réelles** (forme + couleur de monture).
 4. **Ne PAS joindre `style1/style2.png` pour un ADULTE** : ces planches montrent des
    enfants et tirent le visage vers le cartoon enfantin. Le style passe par le texte.
+5. **Le nerf de la guerre, ce sont les PIXELS DE VISAGE.** Sur une fiche corps entier
+   1024×1536, la tête fait ~150 px : le modèle n'a pas de quoi porter une ressemblance,
+   quels que soient le prompt et `input_fidelity`. On génère donc d'abord un **portrait
+   serré** (tête et épaules, ~700 px de tête), on le valide, puis on le déplie en pied
+   en le donnant comme référence n°1 (« reporte ce visage, ne le redessine pas »).
+6. **Faire LIRE la photo avant de dessiner** : un modèle de vision rédige un signalement
+   morphologique (mâchoire, implantation des cheveux, plis, monture des lunettes), injecté
+   dans les prompts. Le générateur d'image raisonne mieux sur des ancres écrites.
+7. **La passe de correction comparative est un RATTRAPAGE, pas une étape.** Redonner
+   l'illustration + la photo avec « améliore pour que ça ressemble plus » gagne beaucoup
+   sur une base ratée et **fait perdre** sur une base déjà bonne (le modèle repeint et
+   dégrade). Vérifié sur le papy : toutes les corrections d'un bon portrait étaient moins
+   ressemblantes que l'original.
 Corrections appliquées à `papy_test.py` ET à `site/lib/generation.ts` (enfants).
+
+**Décision Simon (juillet 2026) : la fiche d'un ADULTE sur-mesure est produite À LA MAIN.**
+Simon obtient en deux minutes un meilleur résultat que le pipeline, et une fiche est
+produite une seule fois par commande, sur une vente à 64,99 €. Automatiser ça coûte du
+budget API pour économiser deux minutes : le calcul ne tient pas. Il dépose son PNG validé
+en `livres/<id>/<perso>.png` et le pipeline reprend la main pour les 28 pages, le tri, le
+PDF et l'expédition. **Ne pas relancer de chantier d'automatisation de la ressemblance
+sans que Simon le demande.**
 
 ## Livres à TROIS personnages : identification des références (leçon test papy)
 Les fiches sont envoyées dans l'ordre `references` du livre.yaml ; seule la 1ʳᵉ
@@ -129,20 +160,35 @@ Les manuscrits à 3 personnages doivent rappeler dans `casting`/`contraintes` :
 un seul adulte, jamais d'adulte en réduction, anatomie vérifiée personnage par
 personnage. Un livre sans `roles` garde le comportement historique.
 
-## Harmonisation IA (ancrage au sol des poses assises/couchées)
-Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leçon de la page test : fesses et pieds touchent le sol, l'ombre doit entourer la base, jamais passer dessous). La solution validée : une passe d'édition gpt-image-1 sur la page composée, masque limité au sol (personnage verrouillé pixel par pixel + 2 px de garde), prompt « sol et ombre uniquement », `input_fidelity high`. Outil : `ancrer-jules.command` (à généraliser en script paramétrable par page). ~0,18 $/variante en haute qualité. Les résultats vont dans `output/harmonisation/`, Simon choisit, puis le PDF final est reconstruit à partir du raster retenu avec le texte vectoriel. Payant → toujours annoncer volume et coût avant.
+## Harmonisation IA (ancrage au sol) — ancienne chaîne, plus utilisée
+⚠️ Technique liée à la composition par assets détourés. Avec la génération intégrale des pages, les ombres et l'ancrage au sol sont natifs : **cette passe n'est plus dans le pipeline**. Gardé comme référence.
+Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leçon de la page test : fesses et pieds touchent le sol, l'ombre doit entourer la base, jamais passer dessous). La solution validée : une passe d'édition gpt-image-1 sur la page composée, masque limité au sol (personnage verrouillé pixel par pixel + 2 px de garde), prompt « sol et ombre uniquement », `input_fidelity high`. Outil de l'époque : `ancrer-jules.command` (supprimé depuis ; à réécrire en script paramétrable si le besoin revient). ~0,18 $/variante en haute qualité. Les résultats vont dans `output/harmonisation/`, Simon choisit, puis le PDF final est reconstruit à partir du raster retenu avec le texte vectoriel. Payant → toujours annoncer volume et coût avant.
+
+## Le site de vente (référence)
+Le site (`site/`, Next.js 15, EN PRODUCTION sur **https://boutique.gemellite.com**, déployé via Vercel depuis GitHub `nostradamu21-maker/livrejumeaux`, root = `site`) : configurateur d'archétypes + prénoms + aperçu live, **sélecteur d'accessoire distinctif** pour les paires identiques (vignettes illustrées `site/public/accessoires/`, générées sur g1), section « sur mesure » 64,99 € (prix barré 89,99 €, option −10 € si réutilisation du personnage — env `PRIX_SUR_MESURE_CENTIMES`/`REDUC_REUTILISATION_CENTIMES`, RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés) ; le parcours client ne génère aucune image ni tri. Le sur-mesure a son **paiement Stripe** (64,99 €/54,99 € via `/api/sur-mesure`) avec **upload de photo** : 1 photo (monozygotes) ou 2 (dizygotes), réduites côté navigateur, bucket privé Supabase `sur-mesure`, liens signés 30 j dans l'email interne, à supprimer après génération. **Après paiement**, `/commande/variantes` génère automatiquement **3 variantes de personnage par photo** (gpt-image-1 via `site/lib/generation.ts`, clé `OPENAI_API_KEY` Vercel, qualité `GEN_QUALITE`, style figé repris tel quel) et le client choisit sa préférée par enfant (table `sur_mesure`, notification email du choix) — la validation humaine de Simon reste requise avant impression. Monozygotes : **signe distinctif obligatoire** (sélecteur d'accessoires du configurateur) → 2 jeux de variantes générés depuis la même photo (base + version avec l'accessoire pour le second jumeau). Livraison 4,99 € + collecte d'adresse au checkout. Emails transactionnels via Resend (`site/lib/email.ts`, no-op sans clé). Pages légales (`/mentions-legales`, `/cgv`, `/confidentialite`, servies en FR pour toutes les langues), SEO (métadonnées, JSON-LD, sitemap/robots). **Site multilingue FR/EN/ES/DE** (`site/lib/i18n.ts` = dictionnaire complet ; routes `app/[locale]`, FR à la racine via middleware, hreflang + canonical + JSON-LD localisés, sélecteur de langue dans la nav). ATTENTION : le texte du LIVRE imprimé reste en français, les versions EN/ES/DE l'annoncent (FAQ + note configurateur) ; traduire le produit = traduire les textes de `scenes.yaml` (texte vectoriel, aucune régénération d'images). Reste à activer les clés en prod (Stripe live, Resend) + la vraie commande `gelato.py`. L'ancien scaffold Flask `serveur.py` + `web/` reste comme plan B.
 
 ## Prochaines étapes, dans l'ordre
-0. **Commande Gelato de test en cours** (test-filles, Elia & Luna, ~23 € le livre) — vérifier le rendu physique à réception.
-0.a **Catalogue d'archétypes** : générer les 9 fiches manquantes (`python archetypes.py`, coût annoncé avant, ~quelques $) puis tri Simon → 12 fiches validées dans `archetypes/`.
-0.b **Générateur de livres-combos** (`combo.py`, ✅ scaffoldé) : `python combo.py <archétype1> <archétype2>` crée le `livre.yaml` d'une combo depuis `archetypes.yaml` (id canonique = paire triée pour le cache ; réutilise les fiches validées comme références directes, gratuites ; ne génère une variante `distinctif` que pour une paire identique), puis `python livre.py <combo>` lance le pipeline en mode « combo à la commande + cache ».
-0.c **Front-end de commande** (`site/`, Next.js 15, ✅ EN PRODUCTION sur **https://boutique.gemellite.com**, déployé via Vercel depuis GitHub `nostradamu21-maker/livrejumeaux`, root = `site`) : configurateur d'archétypes + prénoms + aperçu live, **sélecteur d'accessoire distinctif** pour les paires identiques (vignettes illustrées `site/public/accessoires/`, générées sur g1), section « sur mesure » 64,99 € (prix barré 89,99 €, option −10 € si réutilisation du personnage — env `PRIX_SUR_MESURE_CENTIMES`/`REDUC_REUTILISATION_CENTIMES`, RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés) ; le parcours client ne génère aucune image ni tri. Le sur-mesure a son **paiement Stripe** (64,99 €/54,99 € via `/api/sur-mesure`) avec **upload de photo** : 1 photo (monozygotes) ou 2 (dizygotes), réduites côté navigateur, bucket privé Supabase `sur-mesure`, liens signés 30 j dans l'email interne, à supprimer après génération. **Après paiement**, `/commande/variantes` génère automatiquement **3 variantes de personnage par photo** (gpt-image-1 via `site/lib/generation.ts`, clé `OPENAI_API_KEY` Vercel, qualité `GEN_QUALITE`, style figé repris tel quel) et le client choisit sa préférée par enfant (table `sur_mesure`, notification email du choix) — la validation humaine de Simon reste requise avant impression. Monozygotes : **signe distinctif obligatoire** (sélecteur d'accessoires du configurateur) → 2 jeux de variantes générés depuis la même photo (base + version avec l'accessoire pour le second jumeau). Livraison 4,99 € + collecte d'adresse au checkout. Emails transactionnels via Resend (`site/lib/email.ts`, no-op sans clé). Pages légales (`/mentions-legales`, `/cgv`, `/confidentialite`, servies en FR pour toutes les langues), SEO (métadonnées, JSON-LD, sitemap/robots). **Site multilingue FR/EN/ES/DE** (`site/lib/i18n.ts` = dictionnaire complet ; routes `app/[locale]`, FR à la racine via middleware, hreflang + canonical + JSON-LD localisés, sélecteur de langue dans la nav). ATTENTION : le texte du LIVRE imprimé reste en français, les versions EN/ES/DE l'annoncent (FAQ + note configurateur) ; traduire le produit = traduire les textes de `scenes.yaml` (texte vectoriel, aucune régénération d'images). Reste à activer les clés en prod (Stripe live, Resend) + la vraie commande `gelato.py`. L'ancien scaffold Flask `serveur.py` + `web/` reste comme plan B.
-1. (ancienne chaîne, plan B) Ajouter 3 poses au catalogue (`sauter`, `montrer-du-doigt`, `rire`) via la config de la brique 1 — ce sont les seules poses bloquantes pour composer tout le livret.
-2. Générer l'**archétype fille** (référence fournie par Simon) : briques 1 puis 2.
-3. Utiliser `rotate` pour les scènes de sommeil (personnages couchés sur les lits) — pages 4 et 19 du manuscrit.
-4. Créer les layouts JSON des 20 pages du manuscrit + les composer (notes de production page par page dans le manuscrit). Au passage : passer le texte de `layouts/page-test.json` à « en premier » (épicène). Prévoir la passe d'harmonisation IA pour les pages avec personnages assis/couchés (généraliser `ancrer-jules.command`).
-5. Couverture au gabarit Gelato (avec dos) — vérifier les specs et le nombre de pages minimum du format sur le site Gelato avant de finaliser la pagination (le manuscrit prévoit 4 pages optionnelles si 24 pages sont imposées).
-6. Assembler le PDF complet du livret et préparer la commande test Gelato.
+
+1. **Relire et valider les manuscrits `papy` et `peres`** (`manuscrits/*.yaml`). Ce sont
+   des premiers jets écrits par Claude ; le texte appartient à Simon. C'est le vrai
+   blocage avant de pouvoir vendre ces deux modèles. Gratuit.
+2. **Décider du calendrier** des livres fête des pères / grands-pères : sortie cette
+   année ou mise au placard. Tant que ce n'est pas tranché, ne rien construire dessus.
+3. **Si sortie décidée — tunnel site pour les livres à 3 personnages** : upload d'une
+   3ᵉ photo, page variantes à 3 jeux, sélecteur de modèle de livre dans le tunnel,
+   metadata Stripe `modele`, extension de `sur_mesure.py`.
+4. **Collecter de vrais avis clients** pour la section témoignages (aucun avis fictif :
+   c'est une pratique commerciale trompeuse sanctionnée en France et dans l'UE).
+5. **Activer les dernières clés en prod** : Stripe live, Resend, et la vraie commande
+   Gelato (`expedier.py --imprimer` sans brouillon).
+
+### Terminé (ne pas refaire)
+Catalogue de 14 archétypes · combos à la commande + cache · boutique multilingue
+FR/EN/ES/DE en production · produit affiche · paiement Stripe livre + sur-mesure +
+affiche · génération des variantes sur-mesure après paiement · tri web mobile ·
+expédition Gelato automatisée · emails de production et de suivi colis · SEO/GEO ·
+mise en page paysage pour les manuscrits à 3 personnages.
+
 ## Structure du dossier
 - `brief-claude-code-brique{1,2,3}.md` — les briefs d'origine des briques (référence).
 - `manuscrit-livret-test.md` — texte complet du livret (20 pages) avec règles d'écriture et notes de production page par page.
@@ -158,12 +204,16 @@ Une ellipse ou une ombre procédurale ne suffit pas pour les poses au sol (leço
 - `affiche.py` — **produit AFFICHE/POSTER** (juillet 2026) : illustration dédiée « affiche » (portrait 1024×1536, scène `affiche:` de `scenes.yaml`, unité de la machine à états de `livre.py` activée par `affiche: true` dans le livre.yaml, générée/triée une fois par paire puis en cache ; `affiche.py` appelle `livre.py --seulement affiche` → une commande d'affiche SEULE ne génère jamais les pages du livre, uniquement l'illustration ~0,17 $) + PDF aux 4 tailles (21x30/30x40/40x50/50x70, fond perdu 3 mm, prénoms vectoriels + « deux comme nous » en bas). Côté site : section `#affiche` (Affiche.tsx, sélecteurs de personnages + prénoms + taille), `/api/affiche` (Stripe, metadata produit=affiche + taille), upsell sur la page succès, prix env `PRIX_AFFICHE_*` (défauts 29,90 / 34,90 / 39,90 / 49,90 €, **prix unique** : catalogue et sur-mesure au même tarif, `PRIX_AFFICHE_SM_SUPPLEMENT` = 0 par défaut). Expédition via `expedier.py` (PDF 1 page envoyé tel quel, uid Gelato par taille via `GELATO_AFFICHE_<TAILLE>` dans .env, à repérer avec `python gelato.py catalogue poster`).
 - `expedier.py` — **expédition Gelato automatisée d'une commande payée** : `python expedier.py <ref>` scinde le PDF client (page 1 = couverture au gabarit, reste = intérieur, via pypdf), téléverse les deux PDF dans le bucket privé `impressions` (liens signés 7 j), reprend l'**adresse structurée** collectée par le webhook Stripe (colonne `adresse` jsonb de `commandes`, + `telephone`), crée la commande Gelato en **BROUILLON** (vérifiable au dashboard avant impression) ou **réelle** avec `--imprimer`, puis écrit `gelato_id`/`expedie_le` dans Supabase. Avec `--imprimer`, envoie aussi au client l'email « part à l'impression » via `notifier.py` (Resend en curl, textes FR/EN/ES/DE selon la colonne `langue`, livre ou affiche selon `produit` ; requiert `RESEND_API_KEY` + `EMAIL_FROM` dans le `.env` local, no-op sinon ; aperçus HTML : `python notifier.py` → `output/emails/`). `python expedier.py --suivi` = relève des statuts Gelato des commandes parties en impression (colonnes `statut_gelato`/`tracking_url`/`tracking_code`) et, dès que le transporteur a le colis, email « expédiée » au client avec bouton de suivi (une seule fois, colonne `suivi_envoye_le`) — à lancer de temps en temps après une impression (schéma : relancer `site/supabase/schema.sql`). `--liste` = état d'expédition de toutes les commandes payées. Requiert `GELATO_PRODUCT_UID` dans `.env` (uid du photobook 200×200, à trouver via `python gelato.py catalogue`). C'est la brique « automatisation massive » n° 1 (les suivantes : tri web mobile, worker VPS).
 - `commandes.py` (+ `commandes.command`) — **relève des commandes du site** : lit les commandes non traitées dans Supabase (clés `SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` dans `.env`, appels via curl comme `gelato.py`), affiche l'état de chaque combo (en cache / à trier / à produire) et le **coût API estimé**, demande confirmation, puis enchaîne pour chaque commande : `combo.py` si besoin → `livre.py <combo>` (génération + tri) → `livre.py --prenoms` (PDF client) → marque la commande traitée (`traitee_le`) et **enregistre la combo dans la table `combos`** (cache côté site). `--liste` = consultation seule. Nécessite la colonne `traitee_le` (voir `site/supabase/schema.sql`).
-- `test_doudou.py` — test ponctuel : ajoute un doudou dans les bras d'une fiche validée (g1) pour valider le rendu d'un accessoire (2 variantes). Sortie `output/test-doudou/`.
-- `generer_accessoires.py` — génère les vignettes d'aperçu des accessoires du sélecteur (décline g1 avec chaque accessoire, medium) dans `site/public/accessoires/<id>.png` ; réutilise le doudou lapin déjà généré (gratuit). Payant → annoncer le coût.
+- `generer_accessoires.py` — génère les vignettes d'aperçu des accessoires du sélecteur (décline g1 avec chaque accessoire, medium) dans `site/public/accessoires/<id>.webp` ; réutilise le doudou lapin déjà généré (gratuit). Payant → annoncer le coût.
+- `papy_test.py` — fabrique la fiche d'un ADULTE d'après photo, en deux temps : `portrait` (portraits serrés, avec lecture préalable de la photo par un modèle de vision) puis `fiche` (corps entier depuis le portrait retenu). `affiner` = rattrapage comparatif, à n'utiliser que sur une base ratée. **Rappel : Simon produit ces fiches à la main, ce script n'est qu'un point de départ.**
 - `site/` — **front-end de commande de PRODUCTION** (Next.js 15 / React 19 / TS, App Router), déployé sur Vercel → **https://boutique.gemellite.com** (repo GitHub `nostradamu21-maker/livrejumeaux`, root Vercel = `site`). Remplace le scaffold Flask `serveur.py` (conservé comme plan B). Configurateur d'archétypes + prénoms + aperçu live, sélecteur d'accessoire distinctif (paires identiques), section « sur mesure » 64,99 € (option −10 € si réutilisation du personnage, mention RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés). Catalogue porté dans `site/lib/catalogue.ts` (champ `label` client SANS mention de peau ; `description` technique la garde pour la génération). Le parcours client ne génère aucune image.
 - `serveur.py` + `web/` — ancien front-end Flask (phase 1, plan B) : `python serveur.py` → http://127.0.0.1:5001/. Écrit les commandes dans `livres/commandes.json`. Ne génère aucune image.
 - `archetypes/` — fiches de référence validées (`<id>.png`) ; `_variantes/` = variantes en attente de tri.
-- `site/public/accessoires/` — vignettes illustrées des accessoires distinctifs (générées sur g1) affichées dans le sélecteur du configurateur.
+- `site/public/accessoires/`, `site/public/fiches/` — vignettes **`.webp` uniquement**
+  (~8 Ko pièce). Les sources pleine résolution vivent dans `archetypes/` : ne jamais
+  redéposer de PNG dans `site/public/`, ils partaient dans chaque déploiement Vercel
+  (49 Mo nettoyés en juillet 2026). Seule exception : `fiches/g1-chatain-clair.png`,
+  lue en haute définition par `/api/sur-mesure/variantes` comme ancre de génération.
 - `output/archetype-test/` — générations brutes de la brique 1 (4 variantes par pose + planche contact).
 - `selected/archetype1/` — générations retenues (brutes, une par pose).
 - `assets/archetype1/` — PNG transparents haute résolution prêts à composer.

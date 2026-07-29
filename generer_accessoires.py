@@ -3,7 +3,7 @@
 
 Décline l'archétype-échantillon g1 avec chaque accessoire (comme le test doudou),
 pour que le parent voie le rendu réel dans le configurateur. Écrit les PNG dans
-`site/public/accessoires/<id>.png`. Le doudou lapin, déjà généré en test, est
+`site/public/accessoires/<id>.webp`. Le doudou lapin, déjà généré en test, est
 réutilisé tel quel (gratuit).
 
     python generer_accessoires.py            # medium, 1 variante/accessoire
@@ -53,11 +53,17 @@ ACCESSOIRES = {
 
 
 def _webp(png) -> None:
-    """Vignette web compressée : le site n'affiche que le .webp."""
+    """Vignette web compressée, puis on jette le PNG.
+
+    Le site n'affiche que le .webp (8 Ko contre 2,7 Mo) ; laisser le PNG dans
+    site/public/ le faisait partir dans chaque déploiement Vercel pour rien.
+    La source pleine résolution, si on en veut une, vit dans archetypes/.
+    """
     from PIL import Image
     im = Image.open(png)
     im.thumbnail((480, 640), Image.LANCZOS)
     im.save(png.with_suffix(".webp"), "WEBP", quality=82, method=6)
+    png.unlink(missing_ok=True)
 
 def prompt_pour(detail: str) -> str:
     return (

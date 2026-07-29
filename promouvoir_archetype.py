@@ -1,5 +1,5 @@
 """Promeut les personnages d'un livre SUR-MESURE en ARCHÉTYPES publics
-(mécanisme de l'option −30 € : le client a accepté que son personnage validé
+(mécanisme de l'option −10 € : le client a accepté que son personnage validé
 soit réutilisé → il rejoint le catalogue commandable par tous).
 
     python promouvoir_archetype.py <sur-mesure-id> \\
@@ -13,8 +13,9 @@ label = intitulé CLIENT court et SANS mention de peau). Options :
     --exemple         ajoute aussi le livre au flipbook (exemples.json)
 
 Le script, pour chaque personnage :
-  • copie la fiche (livres/<id>/perso-N.png) → archetypes/<aid>.png ET
-    site/public/fiches/<aid>.png (pour le pipeline ET le configurateur) ;
+  • copie la fiche (livres/<id>/perso-N.png) → archetypes/<aid>.png (source
+    pleine résolution du pipeline) et en dépose la vignette
+    site/public/fiches/<aid>.webp (seule version affichée par le site) ;
   • ajoute l'archétype à archetypes.yaml (pipeline) et à site/lib/catalogue.json
     (site) ;
 puis enregistre l'aperçu « vraies pages » de la paire (site/lib/apercus.json)
@@ -62,15 +63,16 @@ def _copier_fiche(combo: str, n: int, aid: str) -> None:
         sys.exit(f"Fiche introuvable : {src}")
     ARCHETYPES_DIR.mkdir(exist_ok=True)
     FICHES.mkdir(parents=True, exist_ok=True)
+    # La source pleine résolution vit dans archetypes/ — c'est elle que lit le
+    # pipeline. Dans site/public/ on ne dépose QUE la vignette .webp : c'est la
+    # seule que le site affiche, et un PNG de 2,7 Mo par archétype partait
+    # inutilement dans chaque déploiement Vercel (49 Mo au total, nettoyés).
     shutil.copy2(src, ARCHETYPES_DIR / f"{aid}.png")
-    shutil.copy2(src, FICHES / f"{aid}.png")
-    # Vignette web compressée : le site n'affiche que le .webp (le .png reste
-    # la source pleine résolution pour le pipeline).
     from PIL import Image
     im = Image.open(src)
     im.thumbnail((480, 640), Image.LANCZOS)
     im.save(FICHES / f"{aid}.webp", "WEBP", quality=82, method=6)
-    print(f"  fiche {aid} → archetypes/ + site/public/fiches/ (+ .webp)")
+    print(f"  fiche {aid} → archetypes/{aid}.png + site/public/fiches/{aid}.webp")
 
 
 def _ajouter_yaml(aid: str, genre: str, desc: str, tenue: str) -> None:
@@ -156,7 +158,7 @@ def main() -> None:
 
     print("\n✅ Promu. Vérifie les fiches, puis :")
     print(f"   git add archetypes/{id1}.png archetypes/{id2}.png "
-          f"site/public/fiches/{id1}.png site/public/fiches/{id2}.png "
+          f"site/public/fiches/{id1}.webp site/public/fiches/{id2}.webp "
           "archetypes.yaml site/lib/catalogue.json site/lib/apercus.json "
           "site/lib/exemples.json site/public/apercus/")
     print('   git commit -m "Archétypes : ' + id1 + ' + ' + id2 + '"')

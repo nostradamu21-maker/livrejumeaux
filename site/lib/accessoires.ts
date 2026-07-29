@@ -1,8 +1,8 @@
 // Accessoires « distinctif » : proposés au parent UNIQUEMENT quand les deux
 // jumeaux ont le même archétype, pour distinguer le second et mapper les prénoms.
 // `distinctif` est la consigne envoyée au pipeline (format « le second … »).
-// `emoji` est un repère visuel temporaire — remplacé plus tard par une icône
-// illustrée dans le style du livre (fichier /accessoires/<id>.png).
+// `emoji` sert de repli ; la vignette illustrée dans le style du livre est le
+// fichier /accessoires/<id>.webp (générée par generer_accessoires.py).
 
 export interface Accessoire {
   id: string;

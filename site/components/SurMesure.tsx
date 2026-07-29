@@ -201,7 +201,7 @@ export default function SurMesure({
             <span className="aa-fleche" aria-hidden="true">→</span>
             <figure className="aa-carte aa-perso">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/fiches/f7-jade.png" alt="" loading="lazy" />
+              <img src="/fiches/f7-jade.webp" alt="" loading="lazy" />
               <figcaption>{d.sm.aaPerso}</figcaption>
             </figure>
           </div>
