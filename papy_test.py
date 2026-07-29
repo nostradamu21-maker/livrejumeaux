@@ -12,15 +12,18 @@ visage est déjà stylisé et validé, le modèle n'a plus qu'à le reporter.
     python papy_test.py portrait photo1.jpg [photo2.jpg ...]
     #   → livres/test-papy/_variantes-papy/portrait-v1.png, -v2, -v3
 
-    # étape 2 — CORRECTION : on redonne l'illustration + la photo au modèle et
-    #           on lui demande seulement de rapprocher la ressemblance.
-    #           Corriger est bien plus facile que générer. Répétable.
-    python papy_test.py affiner portrait-v2
-    #   → portrait-v2-plus-v1.png, -v2, -v3
+    # étape 2 — la fiche corps entier, à partir du portrait retenu
+    python papy_test.py fiche portrait-v1
+    #   → fiche-v1.png, -v2, -v3
 
-    # étape 3 — la fiche corps entier, à partir de l'image retenue
-    python papy_test.py fiche portrait-v2-plus-v1
-    #   → fiche-v1.png, -v2, -v3   (« affiner fiche-v1 » si le visage a bougé)
+    # RATTRAPAGE (pas une étape systématique) — quand une image est nettement
+    #   à côté, on la redonne au modèle avec la photo pour qu'il rapproche les
+    #   traits. Très efficace sur une base ratée, CONTRE-PRODUCTIF sur une base
+    #   déjà bonne : le modèle repeint le visage et perd ce qui était juste.
+    #   Vérifié sur le papy — les corrections d'un bon portrait serré étaient
+    #   moins ressemblantes que l'original.
+    python papy_test.py affiner fiche-v1
+    #   → fiche-v1-plus-v1.png, -v2, -v3
 
     # puis
     cp livres/test-papy/_variantes-papy/fiche-v2.png livres/test-papy/papy.png
@@ -148,6 +151,12 @@ def prompt_portrait(description: str) -> str:
 # tenue sont déjà là, le modèle ne s'occupe QUE du visage, en comparaison
 # directe. On reste volontairement proche de sa formulation : c'est elle qui
 # marche, et un prompt long redonne au modèle des occasions de réinventer.
+#
+# ATTENTION — c'est un RATTRAPAGE, pas une étape de la chaîne. Ça gagne gros
+# sur une base ratée (le cas d'origine : une fiche corps entier où le visage ne
+# faisait que ~150 px), et ça FAIT PERDRE sur une base déjà bonne : le modèle
+# repeint et dégrade ce qui était juste. Constaté sur le papy — les corrections
+# d'un portrait serré correct étaient toutes moins ressemblantes que l'original.
 def prompt_affiner() -> str:
     return (
         "La PREMIÈRE image est une illustration de cette personne. Les images "
