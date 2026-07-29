@@ -52,10 +52,21 @@ PONT_2D_VERS_3D = (
 )
 
 
-def construire_prompt(scenes: dict, livre: dict, num: str, nb_refs: int) -> str:
-    """Même squelette de prompt que livre.py, avec le style Pixar à la place."""
+FICHES_DEJA_3D = (
+    "Les fiches de personnage fournies sont déjà en 3D dans le style attendu : "
+    "reprends-les fidèlement, même visage, même coiffure et même tenue."
+)
+
+
+def construire_prompt(scenes: dict, livre: dict, num: str, nb_refs: int,
+                      pont: str = PONT_2D_VERS_3D) -> str:
+    """Même squelette de prompt que livre.py, avec le style Pixar à la place.
+
+    `pont` = la consigne sur la nature des fiches fournies : conversion 2D→3D
+    par défaut, ou `FICHES_DEJA_3D` quand on part de fiches Pixar validées.
+    """
     p = scenes["pages"][num]
-    parts = [STYLE_PIXAR, PONT_2D_VERS_3D]
+    parts = [STYLE_PIXAR, pont]
 
     roles = livre.get("roles") or []
     if nb_refs > 1 and len(roles) >= nb_refs:
@@ -98,6 +109,10 @@ def main() -> None:
     ap.add_argument("pages", nargs="+", help="numéros de page du manuscrit (ex. 01 03)")
     ap.add_argument("--livre", default="test-papy", help="id du livre (défaut test-papy)")
     ap.add_argument("--n", type=int, default=1, help="variantes par page (défaut 1)")
+    ap.add_argument("--refs", nargs="+", metavar="FICHE",
+                    help="fiches à utiliser à la place de celles du livre — passe ici "
+                         "les fiches Pixar produites par fiches_pixar.py, dans le MÊME "
+                         "ordre que `references`/`roles` du livre.yaml")
     a = ap.parse_args()
 
     livre, scenes, dossier = moteur.charger(a.livre)
@@ -105,7 +120,17 @@ def main() -> None:
     if inconnues:
         sys.exit(f"Page(s) inconnue(s) : {', '.join(inconnues)}")
 
-    refs = moteur.chemins_references(livre, dossier)
+    if a.refs:
+        refs = [Path(r).expanduser() for r in a.refs]
+        attendu = len(livre.get("references") or [])
+        if attendu and len(refs) != attendu:
+            sys.exit(f"{len(refs)} fiche(s) passée(s) à --refs mais le livre en attend "
+                     f"{attendu} (l'ordre doit suivre `roles`).")
+    else:
+        refs = moteur.chemins_references(livre, dossier)
+    # Les fiches Pixar sont déjà en 3D : la consigne de conversion n'a plus lieu
+    # d'être et ne ferait que brouiller le rendu.
+    pont = FICHES_DEJA_3D if a.refs else PONT_2D_VERS_3D
     manquantes = [r for r in refs if not Path(r).exists()]
     if manquantes:
         sys.exit("Fiches personnage introuvables :\n  "
@@ -136,7 +161,7 @@ def main() -> None:
         # style 2D maison, elles ramèneraient l'image vers l'aplat.
         res = provider.generate(
             reference_image=refs[0], style_images=list(refs[1:]),
-            prompt=construire_prompt(scenes, livre, num, len(refs)),
+            prompt=construire_prompt(scenes, livre, num, len(refs), pont),
             n=a.n, size=taille, quality="high", input_fidelity="high")
         for i, img in enumerate(res.images, 1):
             (SORTIE / f"{a.livre}-page{num}-pixar-v{i}.png").write_bytes(img)
