@@ -27,7 +27,7 @@ export default function AfficheTunnel({
   }, []);
   return (
     <div className="tunnel">
-      <div className="tunnel-tabs sm-produits" role="radiogroup">
+      <div id="tunnel-haut" className="tunnel-tabs sm-produits" role="radiogroup">
         <button
           type="button"
           className={`sm-zy${mode === "photo" ? " actif" : ""}`}

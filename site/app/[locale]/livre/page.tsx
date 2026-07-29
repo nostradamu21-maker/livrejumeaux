@@ -69,7 +69,7 @@ export default async function PageLivre({
       <Etapes l={locale} href="#creer" />
       <Faq l={locale} />
       <Footer l={locale} />
-      <BarreMobile l={locale} href="#creer" />
+      <BarreMobile l={locale} variante="livre" href="#creer" />
     </>
   );
 }

@@ -645,3 +645,11 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 
 /* Guide des tailles dans la colonne sur-mesure. */
 .sm-guide { max-width: 100%; margin: 1.1rem 0 0.4rem; }
+
+/* Barre mobile bi-produit (home) : livre + affiche côte à côte. */
+.bm-duo { gap: 0.6rem; }
+.bm-produit { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 0.1rem; border-radius: 999px; padding: 0.6rem 0.5rem; font-family: "Nunito", sans-serif; text-align: center; text-decoration: none; }
+.bm-produit strong { font-size: 0.95rem; font-weight: 800; line-height: 1.1; }
+.bm-produit small { font-size: 0.7rem; font-weight: 700; opacity: 0.92; }
+.bm-p-livre { background: var(--terracotta); color: #fff; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.4); }
+.bm-p-affiche { background: var(--vert); color: #fff; box-shadow: 0 6px 16px rgba(127, 169, 141, 0.4); }

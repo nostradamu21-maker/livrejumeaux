@@ -220,7 +220,7 @@ export interface Dict {
     lien: string; // libellé du lien « Contact » (nav/footer)
   };
   footer: { tagline: string; seo: string; fin: string; mentions: string; cgv: string; conf: string };
-  barre: { note: string; cta: string };
+  barre: { note: string; cta: string; ctaAffiche: string };
   succes: {
     merciTitre: string;
     merciMsg: string;
@@ -500,7 +500,7 @@ const FR: Dict = {
     fin: "Par les créateurs de Jumelio & Gemellite.com, des parents de jumeaux, pour des parents de jumeaux. 💛",
     mentions: "Mentions légales", cgv: "CGV", conf: "Confidentialité",
   },
-  barre: { note: "+ 4,99 € de livraison", cta: "Créer leur livre" },
+  barre: { note: "+ 4,99 € de livraison", cta: "Créer leur livre", ctaAffiche: "Créer leur affiche" },
   succes: {
     merciTitre: "Merci ! Commande confirmée",
     merciMsg: "Votre commande est bien enregistrée. Nous préparons votre livre et vous tenons informé par e-mail.",
@@ -772,7 +772,7 @@ const EN: Dict = {
     fin: "By the creators of Jumelio & Gemellite.com, twin parents, for twin parents. 💛",
     mentions: "Legal notice", cgv: "Terms of sale", conf: "Privacy",
   },
-  barre: { note: "+ €4.99 shipping", cta: "Create their book" },
+  barre: { note: "+ €4.99 shipping", cta: "Create their book", ctaAffiche: "Create their poster" },
   succes: {
     merciTitre: "Thank you! Order confirmed",
     merciMsg: "Your order has been received. We are preparing your book and will keep you posted by email.",
@@ -1061,7 +1061,7 @@ const ES: Dict = {
     fin: "Por los creadores de Jumelio & Gemellite.com, padres de gemelos, para padres de gemelos. 💛",
     mentions: "Aviso legal", cgv: "Condiciones de venta", conf: "Privacidad",
   },
-  barre: { note: "+ 4,99 € de envío", cta: "Crear su libro" },
+  barre: { note: "+ 4,99 € de envío", cta: "Crear su libro", ctaAffiche: "Crear su póster" },
   succes: {
     merciTitre: "¡Gracias! Pedido confirmado",
     merciMsg: "Tu pedido ha sido registrado. Estamos preparando tu libro y te mantendremos informado por correo.",
@@ -1350,7 +1350,7 @@ const DE: Dict = {
     fin: "Von den Machern von Jumelio & Gemellite.com, Zwillingseltern, für Zwillingseltern. 💛",
     mentions: "Impressum", cgv: "AGB", conf: "Datenschutz",
   },
-  barre: { note: "+ 4,99 € Versand", cta: "Ihr Buch gestalten" },
+  barre: { note: "+ 4,99 € Versand", cta: "Ihr Buch gestalten", ctaAffiche: "Ihr Poster gestalten" },
   succes: {
     merciTitre: "Danke! Bestellung bestätigt",
     merciMsg: "Ihre Bestellung ist eingegangen. Wir bereiten Ihr Buch vor und halten Sie per E-Mail auf dem Laufenden.",

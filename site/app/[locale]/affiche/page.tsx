@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import AfficheTunnel from "@/components/AfficheTunnel";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
+import BarreMobile from "@/components/BarreMobile";
 import { cataloguePublic } from "@/lib/catalogue";
 import { URL_SITE, donneesStructurees } from "@/lib/seo";
 import { LOCALES, estLocale, prefixe, t, type Locale } from "@/lib/i18n";
@@ -62,6 +63,7 @@ export default async function PageAffiche({
       <AfficheTunnel archetypes={archetypes} l={locale} />
       <Faq l={locale} />
       <Footer l={locale} />
+      <BarreMobile l={locale} variante="affiche" />
     </>
   );
 }
