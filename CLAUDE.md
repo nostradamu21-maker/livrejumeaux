@@ -16,9 +16,9 @@ Le manuscrit par défaut reste `scenes.yaml` (« Deux comme nous »). Un livre p
 choisir un autre via `manuscrit: <nom>` dans son `livre.yaml` → `manuscrits/<nom>.yaml`
 (même schéma ; clé racine `casting` = impératif de casting injecté dans les prompts,
 sinon défaut deux-jumeaux ; traductions dans `traductions/<nom>-<langue>.yaml`).
-Premier modèle : **`peres`** (« Papa & nous », fête des pères, TROIS personnages :
-papa + jumeaux, produit SUR-MESURE uniquement — le papa est dessiné d'après photo,
-décision Simon). PREMIER JET du manuscrit rédigé par Claude — **en attente de
+Modèles : **`peres`** (« Papa & nous », fête des pères) et **`papy`** (« Papy & nous », fête des grands-pères, début octobre — pain perdu, atelier-voilier, pêche à la mare, grenier aux trésors, photo « c'est votre papa petit ») — TROIS personnages :
+l'adulte + jumeaux, produit SUR-MESURE uniquement — l'adulte est dessiné d'après photo,
+décision Simon). PREMIERS JETS des deux manuscrits rédigés par Claude — **en attente de
 relecture/validation Simon**. Squelette de test : `livres/test-peres/` (nécessite une
 fiche papa.png). Chantiers restants avant vente : validation manuscrit + livre test
 trié, extension `sur_mesure.py`/site (3ᵉ photo, page variantes à 3 jeux, sélecteur de

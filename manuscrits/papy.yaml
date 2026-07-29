@@ -1,0 +1,330 @@
+# Manuscrit « Papy & nous » — livre fête des grands-pères, version jumeaux.
+# PREMIER JET rédigé par Claude pour relecture de Simon (le texte lui appartient).
+# Même schéma que scenes.yaml/peres.yaml : style/contraintes IDENTIQUES (style figé),
+# 28 pages illustrées + 2 pages texte seul. Produit SUR-MESURE uniquement :
+# les 3 personnages (papy + jumeaux) sont dessinés d'après photos.
+# Accords : texte épicène par défaut ; variantes texte_feminin quand nécessaire.
+# {prenom1}/{prenom2} = les jumeaux. Le grand-père est appelé « Papy » (pas de variable).
+
+style: 'illustration aquarelle douce pour album jeunesse, contours légers, palette pastel,
+  éclairage tendre, rendu cohérent d''une page à l''autre
+
+  '
+jumeaux: 'TROIS personnages : le GRAND-PÈRE (premier personnage de référence, adulte aux
+  cheveux gris) et ses DEUX petits-enfants jumeaux (mêmes personnages que les références
+  enfants), chacun strictement fidèle à sa fiche de référence : visage, coiffure et tenue
+  identiques sur chaque page.
+
+  '
+casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages — UN
+  grand-père et ses DEUX petits-enfants jumeaux — et absolument personne d''autre :
+  aucun autre adulte, aucun autre enfant, aucun bébé, aucun visage ni aucune silhouette
+  supplémentaire, y compris au fond, à une fenêtre, dans un miroir ou un cadre.
+  Exactement UN adulte et DEUX enfants au total.'
+contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
+  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
+  DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
+  accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
+  devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène
+  décrit les trois personnages, les TROIS sont visibles en entier dans l''image.
+
+  '
+
+# Affiche « Papy & nous » (upsell cadre, même mécanique que les autres modèles).
+affiche:
+  scene: 'Portrait tendre pour une affiche à encadrer : le grand-père assis sur un banc
+    de jardin en bois baigné de lumière dorée, un jumeau blotti de chaque côté contre
+    lui, tous les trois souriant doucement au lecteur, jardin fleuri autour. Grand ciel
+    crème lumineux et aéré au-dessus d''eux, quelques papillons. Composition centrée,
+    calme et intemporelle. Le tiers INFÉRIEUR de l''image reste doux et dégagé (herbe
+    claire, fleurs discrètes). AUCUN texte, aucune lettre, aucun prénom dans l''image :
+    la typographie est ajoutée ensuite, séparément.'
+
+pages:
+  '01':
+    scene: 'Portail d''une maison de campagne fleurie : les deux jumeaux courant dans
+      l''allée bras ouverts vers le grand-père qui les attend sur le pas de la porte,
+      bras écartés et grand sourire, glycine au-dessus de la porte, matin lumineux.'
+    texte: 'Au bout du chemin, il y a une maison.
+
+      Et devant la maison, il y a Papy.
+
+      « Papyyyy ! » Les samedis commencent toujours comme ça.'
+  '02':
+    ancre: page:01
+    scene: 'Même pas de porte : câlin à trois — le grand-père accroupi serrant les deux
+      jumeaux contre lui, yeux fermés de bonheur, un chat roux observant depuis le
+      rebord de la fenêtre.'
+    texte: 'Dans les bras de Papy, il y a de la place pour deux.
+
+      Il dit toujours :
+
+      « Mes deux moineaux sont arrivés ! »'
+  '03':
+    scene: 'Cuisine ancienne et chaleureuse aux carreaux de faïence : le grand-père en
+      tablier fait dorer du pain perdu dans une grande poêle, les deux jumeaux debout
+      sur un petit banc pour regarder, pot de confiture ouvert sur la table en bois.'
+    texte: 'Chez Papy, le goûter est une affaire sérieuse :
+
+      pain perdu doré et confiture de sa fabrication.
+
+      La recette ? « Secret de grand-père. »'
+  '04':
+    ancre: page:03
+    scene: 'Même cuisine : dégustation — les trois attablés, moustaches de confiture
+      sur les lèvres des jumeaux, le grand-père trinquant avec eux au chocolat chaud,
+      miettes et bonne humeur.'
+    texte: 'Deux moustaches de confiture, plus une troisième :
+
+      celle de Papy.
+
+      « Le meilleur goûter, c''est celui qu''on partage. »'
+  '05':
+    scene: 'Chemin de campagne bordé de haies : promenade tranquille, le grand-père
+      au milieu donnant une main à chaque jumeau, canne accrochée à son bras, les
+      trois regardant un papillon qui passe.'
+    texte: 'Papy ne marche jamais vite.
+
+      « On a tout notre temps », dit-il.
+
+      Une main pour {prenom1}, une main pour {prenom2}.'
+  '06':
+    ancre: page:05
+    scene: 'Même chemin : arrêt découverte — le grand-père agenouillé montrant aux
+      jumeaux un escargot sur une feuille, les deux enfants penchés, fascinés,
+      sacoche de trouvailles en bandoulière.'
+    texte: 'Avec Papy, on s''arrête pour tout :
+
+      un escargot, une plume, un caillou qui brille.
+
+      Il connaît le nom de chaque petite chose.'
+  '07':
+    scene: 'Atelier de grand-père, merveilleusement encombré : établi patiné, outils
+      anciens accrochés au mur, bocaux de vis et boutons, le grand-père montrant aux
+      deux jumeaux un petit voilier en bois en cours de fabrication.'
+    texte: 'L''atelier de Papy est une caverne aux trésors.
+
+      Aujourd''hui, grand chantier :
+
+      un vrai bateau, pour naviguer sur la mare.'
+  '08':
+    ancre: page:07
+    scene: 'Même atelier : le petit voilier terminé, peint en bleu et blanc — le
+      grand-père le tend aux deux jumeaux émerveillés, copeaux de bois au sol,
+      rayon de soleil par la fenêtre de l''atelier.'
+    texte: 'Trois paires de mains, un bateau.
+
+      Papy dit qu''il tiendra cent ans.
+
+      Les bateaux de Papy tiennent toujours cent ans.'
+  '09':
+    scene: 'Potager foisonnant du grand-père : rangées de légumes, tuteurs de tomates,
+      épouvantail rigolo — le grand-père désigne les tomates mûres, un jumeau tient
+      un panier, l''autre croque un petit pois, bottes et chapeaux de paille.'
+    texte: 'Le potager de Papy, c''est son royaume.
+
+      {prenom1} cueille, {prenom2} goûte — surtout {prenom2}.
+
+      « C''est en goûtant qu''on apprend ! » rigole Papy.'
+  '10':
+    scene: 'Bord d''une mare paisible sous un saule : partie de pêche — le grand-père
+      assis sur un pliant entre les deux jumeaux, trois cannes à pêche, bouchons
+      rouges sur l''eau, le petit voilier en bois flottant non loin, libellules.'
+    texte: 'À la pêche, la règle est simple :
+
+      chut.
+
+      On n''attrape pas grand-chose, mais on est drôlement bien.'
+  '11':
+    ancre: page:10
+    scene: 'Même bord de mare : un jumeau brandit fièrement un tout petit poisson au
+      bout de sa ligne, l''autre applaudit, le grand-père lève son chapeau, le pliant
+      renversé dans l''enthousiasme.'
+    texte: 'Un poisson ! Minuscule, mais un poisson quand même.
+
+      Papy le regarde comme un trophée :
+
+      « Le plus beau que j''aie jamais vu. » Et on le relâche.'
+  '12':
+    scene: 'Verger du jardin : cache-cache — les deux jumeaux cachés derrière le tronc
+      d''un vieux pommier, dépassant des deux côtés, le grand-père cherchant avec une
+      lenteur théâtrale, main en visière, sourire malicieux.'
+    texte: 'À cache-cache, Papy cherche longtemps, très longtemps.
+
+      « Où sont donc passés mes moineaux ? »
+
+      Papy perd toujours. Papy fait exprès. Chuuut.'
+  '13':
+    scene: 'Grenier de la maison, lumière dorée par une lucarne : malle ancienne
+      ouverte, le grand-père coiffé d''un vieux chapeau tend une lanterne aux jumeaux
+      qui découvrent des trésors — globe terrestre, boîte à musique, cadre ancien.'
+    texte: 'Sous le toit, il y a le grenier.
+
+      Et dans le grenier, mille histoires endormies.
+
+      Papy connaît celle de chaque trésor.'
+  '14':
+    ancre: page:13
+    scene: 'Même grenier : déguisements improvisés — les jumeaux flottant dans de
+      vieilles vestes et chapeaux trop grands, le grand-père saluant comme au théâtre
+      avec une écharpe en cape, malle débordante.'
+    texte: 'Mesdames et messieurs, le grand spectacle du grenier !
+
+      Costumes d''époque, artistes de sept ans
+
+      et un présentateur aux cheveux gris.'
+  '15':
+    scene: 'Salon douillet aux meubles anciens, horloge comtoise : partie de dominos
+      sur la table basse, le grand-père feignant la concentration extrême, les jumeaux
+      alignant leurs dominos, chat roux endormi sur le fauteuil.'
+    texte: 'L''après-midi, grand tournoi de dominos.
+
+      Papy réfléchit fort, très fort…
+
+      et perd encore. Quel malchanceux, ce Papy.'
+  '16':
+    ancre: page:15
+    scene: 'Même salon : le grand-père dans son grand fauteuil apprend aux jumeaux à
+      faire un noeud de marin avec une cordelette, les deux enfants concentrés bout
+      de langue tiré, pelote de corde au sol.'
+    texte: 'Papy sait faire les vrais noeuds de marin.
+
+      Doigts appliqués, langues tirées :
+
+      ses deux moussaillons apprennent le métier.'
+  '17':
+    scene: 'Cuisine le soir : préparation de la soupe — le grand-père épluche les
+      légumes du potager pendant que les jumeaux lavent les carottes dans l''évier,
+      éclaboussures et rires, marmite fumante sur la cuisinière.'
+    texte: 'Ce soir, soupe du potager.
+
+      Les légumes, c''est bien meilleur
+
+      quand on les a fait pousser soi-même.'
+  '18':
+    scene: 'Salon au coin du feu, lumière chaude : les deux jumeaux en pyjama blottis
+      contre le grand-père dans le grand fauteuil, qui raconte les mains ouvertes,
+      des étincelles d''imaginaire au-dessus d''eux, plaid sur les genoux.'
+    texte: 'Les histoires de Papy ne sont pas dans les livres.
+
+      Elles commencent toujours par :
+
+      « Quand j''étais petit, comme vous… »'
+  '19':
+    scene: 'Chambre d''amis mansardée et douce : les deux jumeaux bordés dans deux
+      petits lits sous des couvertures bleu clair, têtes et bras seuls visibles, le
+      grand-père penché déposant un baiser sur un front, veilleuse étoilée.'
+    texte: 'Papy borde {prenom1}, puis {prenom2}.
+
+      « Bonne nuit, mes moineaux.
+
+      Demain, on a encore mille choses à faire. »'
+  '20':
+    solo: true
+    scene: 'Scène de rêve onirique dans les nuages pastel : le petit voilier en bois
+      devenu grand vogue sur un ciel étoilé — à bord, silhouettes douces du grand-père
+      à la barre et des deux jumeaux à la proue, lune souriante, poissons volants.'
+    texte: 'Cette nuit-là, le petit bateau de l''atelier
+
+      devient un grand navire
+
+      et les emmène tous les trois au pays des étoiles.'
+  '21':
+    solo: true
+    scene: 'Album photo ancien ouvert sur une table en bois : sur la photo sépia, un
+      petit garçon d''autrefois en culotte courte et pull tricoté, grand sourire,
+      devant le même portail fleuri de la maison ; un doigt d''enfant pointe la photo.'
+    texte: 'Dans le grand album, il y a une photo étonnante :
+
+      un petit garçon, devant la même maison.
+
+      « C''est votre papa, quand il avait votre âge. »'
+  '22':
+    scene: 'Coin établi dans le salon : le grand-père, lunettes sur le nez, répare
+      délicatement une petite boîte à musique ancienne, les deux jumeaux penchés de
+      chaque côté retenant leur souffle, tournevis miniatures alignés.'
+    texte: 'Chez Papy, rien n''est jamais vraiment cassé.
+
+      Ses mains savent réparer les jouets,
+
+      les boîtes à musique… et les jours de gros chagrin.'
+  '23':
+    scene: 'Jardin au matin : le grand-père et les jumeaux accrochent le nichoir en
+      bois dans le vieux pommier, un jumeau sur un petit escabeau tenu par le
+      grand-père, l''autre tendant des graines, rouge-gorge curieux sur une branche.'
+    texte: 'Une maison pour les oiseaux, dans le vieux pommier.
+
+      « Maintenant, dit Papy, le jardin chantera
+
+      même quand vous ne serez pas là. »'
+  '24':
+    solo: true
+    scene: 'Chambre d''amis, ambiance conspiration joyeuse : les deux jumeaux à plat
+      ventre sur le tapis, feutres éparpillés, dessinant en cachette deux grands
+      dessins colorés, l''un cache son dessin de la main, porte entrouverte.'
+    texte: 'Chut… c''est un secret.
+
+      Deux dessins, préparés en cachette,
+
+      rien que pour Papy.'
+  '25':
+    scene: 'Salon lumineux : les deux jumeaux tendant fièrement leurs dessins au
+      grand-père assis dans son fauteuil ; sur les dessins enfantins, trois bonshommes
+      qui se tiennent la main devant une petite maison ; le grand-père ému, main sur
+      le coeur, lunettes relevées.'
+    texte: '« C''est nous trois, devant ta maison ! »
+
+      Papy regarde les dessins un long moment, sans rien dire.
+
+      Puis il les range près de sa plus belle photo.'
+  '26':
+    ancre: page:01
+    scene: 'Fin de journée dorée : devant le portail fleuri, le grand-père agenouillé
+      pour un dernier câlin à deux, petites valises posées, lumière du soir, le chat
+      roux assis sur le muret.'
+    texte: 'Les samedis chez Papy passent toujours trop vite.
+
+      « Revenez-moi bientôt, mes moineaux.
+
+      La maison est trop calme sans vous. »'
+  '27':
+    scene: 'Gros plan tendre dans le jardin : le grand-père assis dans l''herbe, un
+      jumeau blotti sous chaque bras, les trois riant ensemble, lumière chaude,
+      pommier en fleurs derrière eux.'
+    texte: 'Papy dit souvent qu''il a deux fois plus de chance
+
+      que tous les autres papys.
+
+      {prenom1} et {prenom2} savent que c''est vrai.'
+  '28':
+    scene: 'Portrait final tendre : le grand-père sur son banc de jardin en bois, un
+      jumeau assis de chaque côté serré contre lui, tous les trois face au lecteur
+      avec un sourire doux, jardin fleuri, papillons, lumière dorée — composition
+      calme et centrée.'
+    texte: 'Un papy. Deux enfants. Mille souvenirs.
+
+      Bonne fête, Papy —
+
+      de la part de tes deux moineaux préférés.'
+  '29':
+    texte_seul: true
+    titre: 'Pour toi, Papy'
+    texte: 'Ce livre est né d''une idée toute simple :
+
+      te dire merci.
+
+      Merci pour le pain perdu et les parties de dominos,
+
+      pour les trésors du grenier et les histoires au coin du feu,
+
+      pour ta maison qui sent bon les samedis heureux.'
+  '30':
+    texte_seul: true
+    titre: 'De notre part à tous les deux'
+    texte: 'Les souvenirs de ce livre sont les nôtres,
+
+      et ceux qui viennent restent à écrire.
+
+      Avec tout notre amour,
+
+      {prenom1} & {prenom2}'
