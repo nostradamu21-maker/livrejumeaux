@@ -29,7 +29,7 @@ export interface Dict {
     ogTitle: string;
     ogDesc: string;
   };
-  nav: { livre: string; pourquoi: string; offrir: string; questions: string; cadre: string; cta: string };
+  nav: { accueil: string; livre: string; pourquoi: string; offrir: string; questions: string; cadre: string; cta: string };
   hero: {
     eyebrow: string;
     h1a: string; // avant le mot en italique
@@ -274,7 +274,7 @@ const FR: Dict = {
     ogDesc:
       "Enfin une histoire où ils sont deux : le livre personnalisé qui célèbre le lien de vos jumeaux, relié et expédié chez vous. Le cadeau préféré des parents de jumeaux.",
   },
-  nav: { livre: "Le livre", pourquoi: "Pourquoi", offrir: "Offrir", questions: "Questions", cadre: "L'affiche", cta: "Créer le vôtre" },
+  nav: { accueil: "Accueil", livre: "Le livre", pourquoi: "Pourquoi", offrir: "Offrir", questions: "Questions", cadre: "L'affiche", cta: "Créer le vôtre" },
   hero: {
     eyebrow: "Le cadeau des parents de jumeaux",
     h1a: "Enfin une histoire",
@@ -552,7 +552,7 @@ const EN: Dict = {
     ogTitle: "Twin gift: the personalized book Deux comme nous",
     ogDesc: "At last, a story where they are two: the personalized book that celebrates your twins' bond, hardbound and shipped to your door.",
   },
-  nav: { livre: "The book", pourquoi: "Why", offrir: "Gift it", questions: "FAQ", cadre: "The poster", cta: "Create yours" },
+  nav: { accueil: "Home", livre: "The book", pourquoi: "Why", offrir: "Gift it", questions: "FAQ", cadre: "The poster", cta: "Create yours" },
   hero: {
     eyebrow: "The gift for twin parents",
     h1a: "At last, a story",
@@ -841,7 +841,7 @@ const ES: Dict = {
     ogTitle: "Regalo para gemelos: el libro personalizado Deux comme nous",
     ogDesc: "Por fin una historia donde son dos: el libro personalizado que celebra el vínculo de tus gemelos, encuadernado y enviado a casa.",
   },
-  nav: { livre: "El libro", pourquoi: "Por qué", offrir: "Regalar", questions: "Preguntas", cadre: "El póster", cta: "Crear el vuestro" },
+  nav: { accueil: "Inicio", livre: "El libro", pourquoi: "Por qué", offrir: "Regalar", questions: "Preguntas", cadre: "El póster", cta: "Crear el vuestro" },
   hero: {
     eyebrow: "El regalo de los padres de gemelos",
     h1a: "Por fin una historia",
@@ -1130,7 +1130,7 @@ const DE: Dict = {
     ogTitle: "Zwillingsgeschenk: das personalisierte Buch Deux comme nous",
     ogDesc: "Endlich eine Geschichte, in der sie zu zweit sind: das personalisierte Buch, das die Verbundenheit Ihrer Zwillinge feiert, gebunden und nach Hause geliefert.",
   },
-  nav: { livre: "Das Buch", pourquoi: "Warum", offrir: "Verschenken", questions: "Fragen", cadre: "Das Poster", cta: "Jetzt gestalten" },
+  nav: { accueil: "Startseite", livre: "Das Buch", pourquoi: "Warum", offrir: "Verschenken", questions: "Fragen", cadre: "Das Poster", cta: "Jetzt gestalten" },
   hero: {
     eyebrow: "Das Geschenk der Zwillingseltern",
     h1a: "Endlich eine Geschichte,",

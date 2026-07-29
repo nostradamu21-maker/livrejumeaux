@@ -47,7 +47,9 @@ export default function Nav({ l }: { l: Locale }) {
           if ((e.target as HTMLElement).closest("a")) setOuvert(false);
         }}
       >
-        {/* Ordre : les deux produits, puis la découverte, puis l'aide. */}
+        {/* Ordre : accueil (menu mobile), les deux produits, la découverte,
+            l'aide. Sur desktop la marque tient lieu d'accueil. */}
+        <a href={p || "/"} className="nav-accueil">{d.nav.accueil}</a>
         <a href={`${p}/livre`}>{d.nav.livre}</a>
         <a href={`${p}/affiche`}>{d.nav.cadre}</a>
         <a href={`${p}/#pourquoi`}>{d.nav.pourquoi}</a>
