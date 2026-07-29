@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import SelecteurLangue from "@/components/SelecteurLangue";
 import { prefixe, t, type Locale } from "@/lib/i18n";
 
@@ -12,6 +13,13 @@ export default function Nav({ l }: { l: Locale }) {
   // Menu mobile : un burger qui ouvre un panneau plein écran, fermé au clic
   // sur n'importe quel lien. Sur desktop le panneau redevient une rangée.
   const [ouvert, setOuvert] = useState(false);
+  // CTA contextuel : chaque page pousse SON produit (fini le « Créer le
+  // vôtre » ambigu maintenant qu'il y a deux produits).
+  const chemin = usePathname() ?? "";
+  const surAffiche = chemin.includes("/affiche");
+  const surLivre = chemin.includes("/livre");
+  const ctaHref = surAffiche ? "#tunnel-haut" : surLivre ? "#creer" : `${p}/livre`;
+  const ctaTexte = surAffiche ? d.barre.ctaAffiche : d.barre.cta;
   useEffect(() => {
     document.body.style.overflow = ouvert ? "hidden" : "";
     return () => {
@@ -46,8 +54,8 @@ export default function Nav({ l }: { l: Locale }) {
         <a href={`${p}/#cadeau`}>{d.nav.offrir}</a>
         <a href={`${p}/#faq`}>{d.nav.questions}</a>
         <SelecteurLangue l={l} />
-        <a href={`${p}/livre`} className="nav-cta">
-          {d.nav.cta}
+        <a href={ctaHref} className="nav-cta">
+          {ctaTexte}
         </a>
       </div>
     </nav>
