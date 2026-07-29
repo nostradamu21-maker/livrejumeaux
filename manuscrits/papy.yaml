@@ -196,14 +196,16 @@ pages:
 
       une voix pour {prenom1}, une voix pour {prenom2}.'
   '17':
-    scene: 'Cuisine le soir : préparation de la soupe — le grand-père épluche les
-      légumes du potager pendant que les jumeaux lavent les carottes dans l''évier,
-      éclaboussures et rires, marmite fumante sur la cuisinière.'
-    texte: 'Ce soir, soupe du potager.
+    ancre: page:03
+    scene: 'Même cuisine, le soir : deux assiettes de soupe fumantes sur la table en
+      bois, les deux jumeaux bras croisés, moues boudeuses, regardant leur assiette
+      de travers ; le grand-père assis en face, sourcils froncés, grimace mi-sévère
+      mi-amusée, cuillère levée.'
+    texte: 'Ce soir : soupe du potager. Deux assiettes fument…
 
-      Les légumes, c''est bien meilleur
+      devant deux moues boudeuses. Papy fronce les sourcils :
 
-      quand on les a fait pousser soi-même.'
+      « On goûte d''abord. On boude après. » Devinez qui a tout fini ? Les deux.'
   '18':
     scene: 'Salon au coin du feu, lumière chaude : les deux jumeaux en pyjama blottis
       contre le grand-père dans le grand fauteuil, qui raconte les mains ouvertes,
