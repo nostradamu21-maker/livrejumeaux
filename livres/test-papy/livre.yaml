@@ -19,6 +19,12 @@ references:
   - livres/test-papy/papy.png
   - livres/sur-mesure-elia-luna/perso-1.png
   - livres/sur-mesure-elia-luna/perso-2.png
+# Qui est qui, dans l'ordre des références ci-dessus : injecté dans chaque
+# prompt pour que le modèle n'inverse ni ne duplique les personnages.
+roles:
+  - Papy, le grand-père (un ADULTE aux cheveux gris avec ses lunettes)
+  - Elia, une petite fille (ENFANT)
+  - Luna, sa jumelle identique, celle qui porte le doudou lapin (ENFANT)
 description_paire: 'TROIS personnages, chacun strictement fidèle à son image de
   référence. Le GRAND-PÈRE : premier personnage de référence — même visage, même
   coiffure, mêmes lunettes et MÊME TENUE que sur sa fiche, à l''identique sur

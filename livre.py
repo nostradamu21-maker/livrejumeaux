@@ -327,6 +327,23 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
         refs = chemins_references(livre, dossier)
         styles = list(refs[1:]) + [ROOT / "style1.png", ROOT / "style2.png"]
         prompt_parts = [style + "."]
+        # Les personnages sont envoyés en tête des images ; sans cette phrase le
+        # modèle prend les références 2 et 3 pour de simples images de style et
+        # duplique le personnage n°1 (leçon du test papy : une jumelle remplacée
+        # par un papy en réduction). `roles` du livre.yaml nomme chaque fiche.
+        roles = livre.get("roles") or []
+        if len(refs) > 1 and len(roles) >= len(refs):
+            liste = "; ".join(f"la {i}{'re' if i == 1 else 'e'} image = {r}"
+                              for i, r in enumerate(roles[:len(refs)], 1))
+            prompt_parts.append(
+                f"IDENTIFICATION DES RÉFÉRENCES : les {len(refs)} PREMIÈRES images "
+                f"fournies sont les fiches des personnages, dans cet ordre — {liste}. "
+                "Chaque personnage doit être dessiné d'après SA fiche et uniquement "
+                "la sienne. Les images suivantes ne servent que de repère de style "
+                "ou de décor : n'y prends aucun personnage. "
+                "Chaque personnage apparaît UNE SEULE FOIS dans l'image : ne duplique "
+                "personne, ne dessine jamais la version réduite d'un adulte à la place "
+                "d'un enfant, ne mélange pas les visages entre les personnages.")
         ancre = ancre_de(scenes, livre, dossier, num)
         if ancre is not None:
             styles.append(Path(ancre))
@@ -345,6 +362,11 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
                 "compris au fond, dans un autre lit, à une fenêtre, dans un miroir ou un "
                 "cadre. Exactement DEUX enfants au total. Tout lit, chaise, siège ou "
                 "espace non occupé par l'un des deux jumeaux reste vide."))
+        if not p.get("solo"):
+            prompt_parts.append(
+                "COMPOSITION : quand les deux enfants font la même action, ils sont "
+                "côte à côte, au MÊME plan et à la même distance du lecteur, de taille "
+                "identique — jamais l'un devant et l'autre loin derrière.")
         prompt_parts += [champ_page(p, livre, "scene").strip(), contraintes]
         if correction(num):
             prompt_parts.append(correction(num).strip())
@@ -353,7 +375,8 @@ def etape_generation(livre: dict, scenes: dict, dossier: Path,
         print(f"  page {num} : génération…")
         res = provider.generate(reference_image=refs[0], style_images=styles,
                                 prompt=" ".join(prompt_parts),
-                                n=N_VARIANTES, size="1024x1024", quality="high")
+                                n=N_VARIANTES, size="1024x1024", quality="high",
+                                input_fidelity="high")
         for i, img in enumerate(res.images, 1):
             (out / f"v{i}.png").write_bytes(img)
         if res.cost_usd:

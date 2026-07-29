@@ -20,10 +20,15 @@ casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages �
   grand-père et ses DEUX petits-enfants jumeaux — et absolument personne d''autre :
   aucun autre adulte, aucun autre enfant, aucun bébé, aucun visage ni aucune silhouette
   supplémentaire, y compris au fond, à une fenêtre, dans un miroir ou un cadre.
-  Exactement UN adulte et DEUX enfants au total.'
+  Exactement UN adulte et DEUX enfants au total. Le grand-père n''apparaît qu''UNE
+  seule fois : jamais deux adultes, jamais un adulte en version réduite à la place
+  d''un enfant. Les deux enfants sont de MÊME TAILLE, nettement plus petits que
+  l''adulte.'
 contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
-  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
-  DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
+  Pas de texte ni de logo dans l''image. Anatomie STRICTE, à vérifier pour CHACUN des
+  trois personnages : exactement DEUX bras (jamais un troisième bras, jamais une main
+  isolée sans bras), DEUX jambes, UNE tête, mains à cinq doigts bien formées. Chaque bras
+  visible part clairement d''une épaule de son propriétaire. Si un enfant tient un doudou ou porte un
   accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
   devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène
   décrit les trois personnages, les TROIS sont visibles en entier dans l''image.
@@ -42,9 +47,11 @@ affiche:
 
 pages:
   '01':
-    scene: 'Portail d''une maison de campagne fleurie : les deux jumeaux courant dans
-      l''allée bras ouverts vers le grand-père qui les attend sur le pas de la porte,
-      bras écartés et grand sourire, glycine au-dessus de la porte, matin lumineux.'
+    scene: 'Portail d''une maison de campagne fleurie : les deux jumeaux courent
+      CÔTE À CÔTE, épaule contre épaule et à la même distance du lecteur, bras
+      ouverts, dans l''allée vers le grand-père qui les attend sur le pas de la
+      porte, bras écartés et grand sourire, glycine au-dessus de la porte, matin
+      lumineux. Les deux enfants sont au même plan, de taille identique.'
     texte: 'Au bout du chemin, il y a une maison.
 
       Et devant la maison, il y a Papy.
