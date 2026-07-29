@@ -2,7 +2,12 @@
 # 1. python papy_test.py photo-papy.jpg  → fiche d'après SA photo (3 propositions, ~0,50 $)
 # 2. cp .../vN.png livres/test-papy/papy.png
 # 3. python livre.py test-papy      → génération (~4,7 $) puis tri puis PDF
-# Les jumelles de test réutilisent les fiches validées d'Elia & Luna.
+#
+# Les TROIS personnages sont dessinés d'après PHOTO — c'est le vrai produit
+# sur-mesure : le papy d'après sa photo, Elia & Luna d'après les fiches déjà
+# validées de la commande sur-mesure (livres/sur-mesure-elia-luna/perso-{1,2}.png).
+# Même registre visuel pour les trois : c'est ce que testera ce livre.
+# Si ces fiches manquent : python sur_mesure.py <ref-de-la-commande> --preparer
 titre: Papy & nous — livre test
 manuscrit: papy
 monozygote: true
@@ -12,11 +17,12 @@ prenoms:
   - Luna
 references:
   - livres/test-papy/papy.png
-  - archetypes/f1-natte-brune.png
-  - archetypes/f2-nattes-brune.png
+  - livres/sur-mesure-elia-luna/perso-1.png
+  - livres/sur-mesure-elia-luna/perso-2.png
 description_paire: 'TROIS personnages, chacun strictement fidèle à son image de
   référence. Le GRAND-PÈRE : premier personnage de référence — même visage, même
-  coiffure, mêmes lunettes éventuelles et MÊME TENUE que sur sa fiche, à l''identique
-  sur chaque page. Les deux jumelles : deuxième et troisième références — deux FILLES
-  identiques, la seconde tient toujours son doudou lapin pour la distinguer.'
+  coiffure, mêmes lunettes et MÊME TENUE que sur sa fiche, à l''identique sur
+  chaque page. Les deux jumelles : deuxième et troisième références — deux FILLES
+  identiques, chacune fidèle à sa fiche ; la seconde tient toujours son doudou
+  lapin pour la distinguer.'
 selections: {}
