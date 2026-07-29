@@ -184,14 +184,15 @@ pages:
       et perd encore. Quel malchanceux, ce Papy.'
   '16':
     ancre: page:15
-    scene: 'Même salon : le grand-père dans son grand fauteuil apprend aux jumeaux à
-      faire un noeud de marin avec une cordelette, les deux enfants concentrés bout
-      de langue tiré, pelote de corde au sol.'
-    texte: 'Papy sait faire les vrais noeuds de marin.
+    scene: 'Même salon : le grand-père dans son grand fauteuil lit un grand livre
+      d''images ancien, un jumeau installé sur chaque genou, tous les trois penchés
+      sur les pages illustrées, bibliothèque en bois derrière eux, lumière douce,
+      le chat roux endormi sur l''accoudoir.'
+    texte: 'Dans la bibliothèque de Papy, il y a un très vieux livre d''images.
 
-      Doigts appliqués, langues tirées :
+      Papy le lit avec des voix rigolotes :
 
-      ses deux moussaillons apprennent le métier.'
+      une voix pour {prenom1}, une voix pour {prenom2}.'
   '17':
     scene: 'Cuisine le soir : préparation de la soupe — le grand-père épluche les
       légumes du potager pendant que les jumeaux lavent les carottes dans l''évier,
