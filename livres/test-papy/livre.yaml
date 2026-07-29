@@ -1,0 +1,23 @@
+# LIVRE TEST du manuscrit « Papy & nous » (fête des grands-pères, 3 personnages).
+# 1. python papy_test.py            → fiche papy de test (3 propositions, ~0,50 $)
+# 2. cp .../vN.png livres/test-papy/papy.png
+# 3. python livre.py test-papy      → génération (~4,7 $) puis tri puis PDF
+# Les jumelles de test réutilisent les fiches validées d'Elia & Luna.
+titre: Papy & nous — livre test
+manuscrit: papy
+monozygote: true
+sexe_paire: ff
+prenoms:
+  - Elia
+  - Luna
+references:
+  - livres/test-papy/papy.png
+  - archetypes/f1-natte-brune.png
+  - archetypes/f2-nattes-brune.png
+description_paire: 'TROIS personnages, chacun strictement fidèle à son image de
+  référence. Le GRAND-PÈRE : premier personnage de référence (visage, cheveux gris,
+  lunettes rondes et tenue identiques sur chaque page — gilet de laine vert, chemise
+  à carreaux, pantalon de velours marron). Les deux jumelles : deuxième et troisième
+  références — deux FILLES identiques, la seconde tient toujours son doudou lapin
+  pour la distinguer.'
+selections: {}
