@@ -99,7 +99,8 @@ def invalider(livre: dict, scenes: dict, dossier: Path, num: str) -> list[str]:
     Si c'est une page SOURCE d'ancrage (ex. 07 pour 08, 17 pour 18/20), ses pages
     dépendantes sont invalidées AUSSI (leur décor doit suivre le nouveau).
     Renvoie la liste complète des unités invalidées."""
-    faites = [num]
+    touchee = variantes_dir(dossier, num).exists() or num in livre["selections"]
+    faites = [num] if touchee else []
     shutil.rmtree(variantes_dir(dossier, num), ignore_errors=True)
     livre["selections"].pop(num, None)
     for n, p in scenes.get("pages", {}).items():
@@ -397,7 +398,17 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path,
                     f"<h1>Tri — {len(restantes)} page(s) restante(s)</h1>",
                     "<p>Clique sur ta variante préférée. Fermeture automatique à la fin.</p>"]
             for num in restantes:
-                html.append(f"<h2>page {num}</h2><div>")
+                # Pages qui reprennent le décor de celle-ci (elles seront
+                # refaites avec elle) : on prévient AVANT le clic.
+                liees = [n for n, p in scenes.get("pages", {}).items()
+                         if p.get("ancre") == f"page:{num}"]
+                dependantes = ""
+                if liees:
+                    dependantes = (
+                        "<span style='color:#f0b46a;font-size:0.85em'> — "
+                        f"décor partagé avec {', '.join(liees)} "
+                        "(refaire cette page les refera aussi)</span>")
+                html.append(f"<h2>page {num}{dependantes}</h2><div>")
                 for i in range(1, N_VARIANTES + 1):
                     html.append(
                         f"<a href='/choisir/{num}/v{i}'>"
@@ -449,7 +460,9 @@ def etape_tri(livre: dict, scenes: dict, dossier: Path,
                 for f in faites:
                     if f in restantes:
                         restantes.remove(f)
-                print(f"  à refaire : {', '.join(faites)}")
+                autres = [f for f in faites if f != num]
+                print(f"  à refaire : {num}"
+                      + (f" (+ décor partagé : {', '.join(autres)})" if autres else ""))
                 self.send_response(302)
                 self.send_header("Location", "/fin" if not restantes else "/")
                 self.end_headers()
