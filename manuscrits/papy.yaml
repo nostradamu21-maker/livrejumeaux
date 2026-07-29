@@ -146,14 +146,16 @@ pages:
 
       « Le plus beau que j''aie jamais vu. » Et on le relâche.'
   '12':
-    scene: 'Verger du jardin : cache-cache — les deux jumeaux cachés derrière le tronc
-      d''un vieux pommier, dépassant des deux côtés, le grand-père cherchant avec une
-      lenteur théâtrale, main en visière, sourire malicieux.'
-    texte: 'À cache-cache, Papy cherche longtemps, très longtemps.
+    ancre: page:05
+    scene: 'Même chemin de campagne : les deux jumeaux filant à toute allure sur leurs
+      petites draisiennes, cheveux au vent et sourires immenses, le grand-père assis
+      sur un banc de bois au bord du chemin, les regardant faire, attendri, chapeau
+      relevé, applaudissant.'
+    texte: 'Sur le chemin, deux draisiennes filent comme le vent.
 
-      « Où sont donc passés mes moineaux ? »
+      Papy ne court pas derrière — il s''assoit sur le banc, et il regarde.
 
-      Papy perd toujours. Papy fait exprès. Chuuut.'
+      Regarder ses deux moineaux filer, c''est son spectacle préféré.'
   '13':
     scene: 'Grenier de la maison, lumière dorée par une lucarne : malle ancienne
       ouverte, le grand-père coiffé d''un vieux chapeau tend une lanterne aux jumeaux
