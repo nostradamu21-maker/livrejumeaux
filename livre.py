@@ -528,7 +528,10 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
     import numpy as np
 
     geo = Geometry(20.0, 3.0, 5.0, 300)  # produit Gelato 200x200 mm
-    p1, p2 = prenoms or (livre.get("prenoms_defaut") or ["Léo", "Jules"])
+    # `prenoms_defaut` (historique) ou `prenoms` : les deux clés sont acceptées,
+    # sinon on retombe sur un couple neutre (jamais sur un livre réel).
+    p1, p2 = (prenoms or livre.get("prenoms_defaut") or livre.get("prenoms")
+              or ["Léo", "Jules"])
     variables = {"prenom1": p1, "prenom2": p2}
 
     def _jpeg(img):
@@ -685,8 +688,15 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
         tm, _ = text_geometry(tcfg, geo, variables)
         pad = int(geo.doc_px * 0.026)
         block_h = tm["line_h"] * len(tm["lines"])
-        y1 = geo.doc_px * 0.955
-        y0 = y1 - block_h - 2 * pad
+        # Position du cartouche : bas par défaut (rendu historique validé) ;
+        # `texte_position: haut` dans la page quand l'action se joue en bas de
+        # l'image (le tiers supérieur est de toute façon dégagé par le prompt).
+        if pcfg.get("texte_position") == "haut":
+            y0 = geo.doc_px * 0.045
+            y1 = y0 + block_h + 2 * pad
+        else:
+            y1 = geo.doc_px * 0.955
+            y0 = y1 - block_h - 2 * pad
         tcfg["y"] = (y0 + pad) / geo.doc_px * 100.0
         tm, _ = text_geometry(tcfg, geo, variables)
         px0, px1 = geo.doc_px * 0.06, geo.doc_px * 0.94

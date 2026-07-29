@@ -159,6 +159,7 @@ pages:
       Papy dort. Papy ne se doute de rien.'
   '12':
     ancre: page:05
+    texte_position: haut   # les draisiennes sont en bas de l'image
     scene: 'Même chemin de campagne : les deux jumeaux filant à toute allure sur leurs
       petites draisiennes, cheveux au vent et sourires immenses, le grand-père assis
       sur un banc de bois au bord du chemin, les regardant faire, attendri, chapeau
@@ -186,7 +187,12 @@ pages:
 
       Dans le vieux pommier, deux acrobates rigolent.
 
-      Les jumeaux n''ont peur de rien. Alors Papy s''inquiète pour deux.'
+      Eux n''ont peur de rien. Alors Papy s''inquiète pour deux.'
+    texte_feminin: '« Doucement ! Attention ! Tenez-vous bien ! »
+
+      Dans le vieux pommier, deux acrobates rigolent.
+
+      Elles n''ont peur de rien. Alors Papy s''inquiète pour deux.'
   '15':
     scene: 'Salon douillet aux meubles anciens, horloge comtoise : partie de dominos
       sur la table basse, le grand-père feignant la concentration extrême, les jumeaux
