@@ -12,6 +12,7 @@ import {
   CODE_PROMO,
   CODE_TEST,
   PRODUIT_SUR_MESURE_ID,
+  PRODUIT_AFFICHE_ID,
   AFFICHE_TAILLES,
   PRIX_AFFICHE_CENTIMES,
   AFFICHE_SM_SUPPLEMENT,
@@ -177,8 +178,13 @@ export async function POST(req: Request) {
         unitAmount = prixBase - remise;
       }
     }
-    const priceData = PRODUIT_SUR_MESURE_ID
-      ? { currency: DEVISE, unit_amount: unitAmount, product: PRODUIT_SUR_MESURE_ID }
+    // Rattachement Stripe par TYPE de produit : une affiche sur mesure compte
+    // dans le produit « affiche », pas dans le « sur mesure » (reporting CA).
+    const produitStripe = produit === "affiche"
+      ? PRODUIT_AFFICHE_ID || PRODUIT_SUR_MESURE_ID
+      : PRODUIT_SUR_MESURE_ID;
+    const priceData = produitStripe
+      ? { currency: DEVISE, unit_amount: unitAmount, product: produitStripe }
       : {
           currency: DEVISE,
           unit_amount: unitAmount,
