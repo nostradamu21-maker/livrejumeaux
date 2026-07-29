@@ -3,11 +3,11 @@
 Remplace l'ancien `papy_test.py`, qui ne savait faire qu'un grand-père dans le
 style maison. Marche pour n'importe qui, dans le style du produit ou en Pixar.
 
-    # 1. portraits serrés (plusieurs photos = meilleure structure du visage)
-    python perso_photo.py portrait ~/Desktop/papy.jpg --nom papy --adulte
-    python perso_photo.py portrait ~/Desktop/elia.jpg --nom elia --style pixar
+    # LE PLUS SIMPLE — photo → fiche en pied, en un seul appel
+    python perso_photo.py direct ~/Desktop/papy.jpg --nom papy --style pixar --adulte
 
-    # 2. la fiche corps entier, à partir du portrait retenu
+    # LE PLUS RESSEMBLANT — en deux temps
+    python perso_photo.py portrait ~/Desktop/papy.jpg --nom papy --adulte
     python perso_photo.py fiche portrait-v2 --nom papy --adulte
 
     # RATTRAPAGE, seulement si une image est nettement à côté
@@ -16,12 +16,15 @@ style maison. Marche pour n'importe qui, dans le style du produit ou en Pixar.
 Sorties dans `output/personnages/<nom>/` (ou `<nom>-pixar/`). Rien du projet
 n'est modifié : la fiche retenue se copie ensuite à la main là où il faut.
 
-POURQUOI DEUX ÉTAPES : la ressemblance se joue au nombre de PIXELS DE VISAGE.
+DIRECT OU EN DEUX TEMPS ? La ressemblance se joue au nombre de PIXELS DE VISAGE.
 Sur une fiche corps entier 1024x1536, la tête fait ~150 px — le modèle n'a pas
-de quoi porter des traits reconnaissables, quel que soit le prompt. On fabrique
-donc d'abord un portrait serré (~700 px de tête), on le valide, puis on le
-déplie en pied : à ce moment-là le visage est déjà validé, il n'y a plus qu'à
-le reporter.
+de quoi porter des traits reconnaissables, quel que soit le prompt. D'où l'étape
+`portrait` (~700 px de tête) qu'on valide avant de la déplier en pied.
+    • `direct` : un appel, ~0,25 $ la proposition. Suffisant pour juger un STYLE
+      ou un personnage générique. C'est ce trajet qui donnait un papy peu
+      ressemblant.
+    • `portrait` puis `fiche` : deux appels, mais la ressemblance est jugée sur
+      l'image où elle se voit. À préférer pour une vraie commande sur-mesure.
 
 Photos : visage bien visible. Deux ou trois angles (face + 3/4) valent mieux
 qu'une seule photo — le modèle en déduit le VOLUME du visage.
@@ -145,6 +148,29 @@ def prompt_portrait(desc: str, style: str, adulte: bool) -> str:
     )
 
 
+def prompt_fiche_directe(desc: str, style: str, adulte: bool) -> str:
+    """Photo → fiche en pied, en un seul appel.
+
+    Deux fois moins cher que portrait + fiche, mais le visage ne fait qu'environ
+    150 px dans le cadre : la ressemblance est nettement moins bonne. Bon pour
+    juger un STYLE, insuffisant pour une fiche de production d'après photo.
+    On demande au moins un cadrage qui maximise la taille du personnage.
+    """
+    return (
+        "Fiche de personnage fidèle, d'après photo. " + _FIDELITE
+        + (_ADULTE if adulte else "") + _signalement(desc)
+        + f"STYLE DE RENDU : {style} "
+        "Chaque trait distinctif de la personne reste parfaitement reconnaissable "
+        "malgré la stylisation. "
+        "CADRAGE : character sheet — personnage debout, corps entier entièrement "
+        "visible de la tête aux pieds, face au lecteur, bras le long du corps. Le "
+        "personnage occupe TOUTE la hauteur de l'image, sans marge inutile en haut "
+        "ni en bas, pour que le visage soit aussi grand que possible. Fond uni gris "
+        "très clair, sans décor. Tenue reprise de la photo, mêmes couleurs. Mains "
+        "bien formées à cinq doigts, anatomie correcte. Pas de texte dans l'image."
+    )
+
+
 def prompt_fiche(desc: str, style: str, adulte: bool) -> str:
     return (
         "La PREMIÈRE image est le portrait déjà validé de ce personnage : reprends "
@@ -261,6 +287,38 @@ def etape_portrait(a) -> None:
           + (" --adulte" if a.adulte else ""))
 
 
+def etape_directe(a) -> None:
+    out = dossier(a.nom, a.style)
+    photos = [Path(p).expanduser() for p in a.photos]
+    for p in photos:
+        if not p.exists():
+            sys.exit(f"Photo introuvable : {p}")
+    _confirmer(f"FICHE DIRECTE de « {a.nom} » ({a.style}) d'après {len(photos)} photo(s)",
+               a.n, "1024x1536")
+    key = _cle()
+
+    desc = ""
+    if not a.sans_lecture:
+        print("Lecture de la photo par le modèle de vision…")
+        try:
+            desc = decrire_photo(key, photos)
+            print("\n--- signalement retenu ---\n" + desc + "\n--------------------------\n")
+        except Exception as e:                                   # noqa: BLE001
+            print(f"  (lecture impossible : {e} — on continue sans signalement)")
+
+    _generer(key, out, ref=photos[0], extras=photos[1:],
+             prompt=prompt_fiche_directe(desc, style_texte(a.style, a.manuscrit), a.adulte),
+             n=a.n, taille="1024x1536", prefixe="fiche")
+    (out / "source.json").write_text(json.dumps(
+        {"photos": [str(p) for p in photos], "description": desc},
+        ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\nFiches dans {out}/")
+    print("Si la ressemblance ne suffit pas, reprends par le portrait serré :")
+    print(f"  python perso_photo.py portrait {' '.join(str(p) for p in photos)} "
+          f"--nom {a.nom}" + (f" --style {a.style}" if a.style != "maison" else "")
+          + (" --adulte" if a.adulte else ""))
+
+
 def etape_fiche(a) -> None:
     out = dossier(a.nom, a.style)
     portrait = _resoudre(out, a.image)
@@ -302,6 +360,12 @@ def main() -> None:
         p.add_argument("--adulte", action="store_true", help="ajoute les marqueurs d'âge")
         p.add_argument("--n", type=int, default=3)
 
+    p0 = sub.add_parser("direct", help="photo → fiche en pied en UN appel (moins cher, "
+                                       "moins ressemblant)")
+    p0.add_argument("photos", nargs="+")
+    p0.add_argument("--sans-lecture", action="store_true")
+    commun(p0)
+
     p1 = sub.add_parser("portrait", help="portraits serrés d'après photo(s)")
     p1.add_argument("photos", nargs="+")
     p1.add_argument("--sans-lecture", action="store_true")
@@ -316,7 +380,8 @@ def main() -> None:
     commun(p3)
 
     a = ap.parse_args()
-    {"portrait": etape_portrait, "fiche": etape_fiche, "affiner": etape_affiner}[a.etape](a)
+    {"direct": etape_directe, "portrait": etape_portrait,
+     "fiche": etape_fiche, "affiner": etape_affiner}[a.etape](a)
 
 
 if __name__ == "__main__":
