@@ -166,15 +166,15 @@ pages:
 
       Papy connaît celle de chaque trésor.'
   '14':
-    ancre: page:13
-    scene: 'Même grenier : déguisements improvisés — les jumeaux flottant dans de
-      vieilles vestes et chapeaux trop grands, le grand-père saluant comme au théâtre
-      avec une écharpe en cape, malle débordante.'
-    texte: 'Mesdames et messieurs, le grand spectacle du grenier !
+    scene: 'Verger du jardin : les deux jumeaux grimpent dans le vieux pommier, un
+      sur une branche basse, l''autre déjà un peu plus haut, tout sourire et parfaitement
+      à l''aise — en dessous, le grand-père tourne autour du tronc, bras tendus vers eux,
+      mine affolée et attendrissante, chapeau de travers.'
+    texte: '« Doucement ! Attention ! Tenez-vous bien ! »
 
-      Costumes d''époque, artistes de sept ans
+      Dans le vieux pommier, deux acrobates rigolent.
 
-      et un présentateur aux cheveux gris.'
+      Les jumeaux n''ont peur de rien. Alors Papy s''inquiète pour deux.'
   '15':
     scene: 'Salon douillet aux meubles anciens, horloge comtoise : partie de dominos
       sur la table basse, le grand-père feignant la concentration extrême, les jumeaux
@@ -252,6 +252,7 @@ pages:
 
       les boîtes à musique… et les jours de gros chagrin.'
   '23':
+    ancre: page:14
     scene: 'Jardin au matin : le grand-père et les jumeaux accrochent le nichoir en
       bois dans le vieux pommier, un jumeau sur un petit escabeau tenu par le
       grand-père, l''autre tendant des graines, rouge-gorge curieux sur une branche.'
