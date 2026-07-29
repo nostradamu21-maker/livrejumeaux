@@ -21,8 +21,11 @@ casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages �
   autre adulte, aucun autre enfant, aucun bébé, aucun visage ni aucune silhouette
   supplémentaire, y compris au fond, à une fenêtre, dans un miroir ou un cadre.
   Exactement UN adulte et DEUX enfants au total.'
-contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
-  Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
+# Mise en page : illustration ENTIÈRE en haut (format paysage 3:2), texte
+# imprimé DESSOUS sur le fond crème — plus rien ne masque l'image.
+format_page: paysage
+fond_page: '#fbf5ec'
+contraintes: 'Pas de texte ni de logo dans l''image. Anatomie STRICTE : chaque personnage a exactement
   DEUX bras et DEUX jambes, mains bien formées. Si un enfant tient un doudou ou porte un
   accessoire distinctif, l''objet est tenu naturellement dans UNE seule main, bien visible
   devant lui — jamais dans le dos, jamais flottant, sans bras supplémentaire. Quand la scène

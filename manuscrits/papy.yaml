@@ -24,8 +24,11 @@ casting: 'IMPÉRATIF DE CASTING : l''image ne montre QUE ces trois personnages �
   seule fois : jamais deux adultes, jamais un adulte en version réduite à la place
   d''un enfant. Les deux enfants sont de MÊME TAILLE, nettement plus petits que
   l''adulte.'
-contraintes: 'Laisser le tiers supérieur de l''image dégagé et calme pour accueillir du texte.
-  Pas de texte ni de logo dans l''image. Anatomie STRICTE, à vérifier pour CHACUN des
+# Mise en page : illustration ENTIÈRE en haut (format paysage 3:2), texte
+# imprimé DESSOUS sur le fond crème — plus rien ne masque l'image.
+format_page: paysage
+fond_page: '#fbf5ec'
+contraintes: 'Pas de texte ni de logo dans l''image. Anatomie STRICTE, à vérifier pour CHACUN des
   trois personnages : exactement DEUX bras (jamais un troisième bras, jamais une main
   isolée sans bras), DEUX jambes, UNE tête, mains à cinq doigts bien formées. Chaque bras
   visible part clairement d''une épaule de son propriétaire. Si un enfant tient un doudou ou porte un
