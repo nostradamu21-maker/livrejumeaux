@@ -135,6 +135,10 @@ prompt de personnage d'après photo** :
    ressemblantes que l'original.
 Corrections appliquées à `perso_photo.py` ET à `site/lib/generation.ts` (enfants).
 
+**Piste PIXAR 3D : testée puis abandonnée (juillet 2026).** Fiches régénérées d'après
+photo en rendu 3D, en un temps comme en deux : pas plus ressemblant, et le style
+aquarelle reste la signature du produit. Ne pas rouvrir sans demande explicite.
+
 **Décision Simon (juillet 2026) : la fiche d'un ADULTE sur-mesure est produite À LA MAIN.**
 Simon obtient en deux minutes un meilleur résultat que le pipeline, et une fiche est
 produite une seule fois par commande, sur une vente à 64,99 €. Automatiser ça coûte du
@@ -212,9 +216,10 @@ mise en page paysage pour les manuscrits à 3 personnages.
   (marqueurs d'âge), `--nom` (dossier de sortie dans `output/personnages/`). Remplace
   l'ancien `papy_test.py`. **Rappel : Simon produit ces fiches à la main, ce script
   n'est qu'un point de départ.**
-- `test_pixar.py` / `fiches_pixar.py` — tests ISOLÉS du rendu Pixar 3D (une page, ou la
-  conversion de fiches existantes). Ne modifient rien : sorties dans `output/test-pixar/`.
-  Le style graphique du produit reste une décision structurante de Simon.
+- `test_pixar.py` / `fiches_pixar.py` — tests ISOLÉS du rendu Pixar 3D (une page, ou des
+  fiches). Ne modifient rien : sorties dans `output/test-pixar/`. **Piste abandonnée par
+  Simon (juillet 2026)** — scripts conservés au cas où, ne pas la relancer sans qu'il le
+  demande. Le style aquarelle du produit reste la constante du projet.
 - `site/` — **front-end de commande de PRODUCTION** (Next.js 15 / React 19 / TS, App Router), déployé sur Vercel → **https://boutique.gemellite.com** (repo GitHub `nostradamu21-maker/livrejumeaux`, root Vercel = `site`). Remplace le scaffold Flask `serveur.py` (conservé comme plan B). Configurateur d'archétypes + prénoms + aperçu live, sélecteur d'accessoire distinctif (paires identiques), section « sur mesure » 64,99 € (option −10 € si réutilisation du personnage, mention RGPD photo supprimée après génération). Stripe + Supabase câblés (mock si non configurés). Catalogue porté dans `site/lib/catalogue.ts` (champ `label` client SANS mention de peau ; `description` technique la garde pour la génération). Le parcours client ne génère aucune image.
 - `serveur.py` + `web/` — ancien front-end Flask (phase 1, plan B) : `python serveur.py` → http://127.0.0.1:5001/. Écrit les commandes dans `livres/commandes.json`. Ne génère aucune image.
 - `archetypes/` — fiches de référence validées (`<id>.png`) ; `_variantes/` = variantes en attente de tri.
