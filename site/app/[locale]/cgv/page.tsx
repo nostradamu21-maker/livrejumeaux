@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ENTREPRISE } from "@/lib/legal";
 
+// Contenu servi en FRANÇAIS pour toutes les langues : une seule version fait
+// autorité, sinon /en/cgv & co. héritaient du canonical du layout
+// et se déclaraient doublons de l'accueil.
 export const metadata: Metadata = {
   title: "Conditions générales de vente",
   robots: { index: true, follow: true },
+  alternates: { canonical: "/cgv" },
 };
 
 export default function Cgv() {

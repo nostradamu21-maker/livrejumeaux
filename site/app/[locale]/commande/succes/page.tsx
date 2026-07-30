@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { stripe, stripeActif } from "@/lib/stripe";
 import { estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import PurchaseEvent from "@/components/PurchaseEvent";
+
+// Page de tunnel : jamais indexee. robots.txt interdit deja /commande/, mais un
+// lien partage par un client peut la faire decouvrir autrement.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export const dynamic = "force-dynamic";
 

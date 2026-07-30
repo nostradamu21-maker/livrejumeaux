@@ -2,7 +2,12 @@ import { Suspense } from "react";
 import ChoixVariantes from "./ChoixVariantes";
 import { estLocale, type Locale } from "@/lib/i18n";
 
-export const metadata = { title: "Deux comme nous" };
+// Page de tunnel : jamais indexée. robots.txt interdit déjà /commande/, mais un
+// lien partagé par un client peut la faire découvrir autrement.
+export const metadata = {
+  title: "Deux comme nous",
+  robots: { index: false, follow: false },
+};
 
 export default async function Page({
   params,

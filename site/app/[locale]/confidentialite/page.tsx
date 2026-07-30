@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ENTREPRISE } from "@/lib/legal";
 
+// Contenu servi en FRANÇAIS pour toutes les langues : une seule version fait
+// autorité, sinon /en/confidentialite & co. héritaient du canonical du layout
+// et se déclaraient doublons de l'accueil.
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   robots: { index: true, follow: true },
+  alternates: { canonical: "/confidentialite" },
 };
 
 export default function Confidentialite() {
