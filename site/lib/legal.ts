@@ -8,7 +8,7 @@ export const ENTREPRISE = {
   rcs: "827 511 551 R.C.S. Dijon (inscrit le 12/03/2025)",
   tva: "FR85827511551",
   adresse: "31 rue Diderot, 21000 Dijon, France",
-  email: "bonjour@gemellite.com",
+  email: "contact@jumelio.com",
   site: "https://boutique.gemellite.com",
 };
 

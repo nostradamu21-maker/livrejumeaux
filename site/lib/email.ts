@@ -4,7 +4,7 @@
 //
 // Variables d'environnement :
 //   RESEND_API_KEY  clé API Resend (re_...)
-//   EMAIL_FROM      expéditeur, ex. "Deux comme nous <commandes@gemellite.com>"
+//   EMAIL_FROM      expéditeur, ex. "Deux comme nous <contact@jumelio.com>"
 //                   (domaine à vérifier dans Resend)
 //   EMAIL_NOTIF     adresse interne prévenue à chaque commande (Simon)
 
@@ -13,7 +13,7 @@ export const emailActif = key.startsWith("re_");
 
 const FROM =
   process.env.EMAIL_FROM?.trim() ||
-  "Deux comme nous <commandes@gemellite.com>";
+  "Deux comme nous <contact@jumelio.com>";
 const NOTIF = process.env.EMAIL_NOTIF?.trim() ?? "";
 
 export interface InfosCommande {
