@@ -702,10 +702,17 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
             raster.save(cache)
 
         pcfg = scenes["pages"][num]
-        # Cartouche blanc arrondi en bas (lisibilité garantie sur toute illustration).
+        paysage = scenes.get("format_page") == "paysage"
+        # Taille du texte : 23 pt en carré (calibrée pour un cartouche posé SUR
+        # l'illustration, où le texte doit s'imposer), plus petite en paysage —
+        # dans une bande pleine largeur, la même taille paraît énorme. Réglable
+        # par manuscrit via `taille_texte`, sans toucher au code.
+        taille_texte = scenes.get("taille_texte") or (19 if paysage else 23)
+        # Carré : cartouche blanc arrondi en bas (lisible sur toute illustration).
+        # Paysage : pas de cartouche, le texte est imprimé sous l'image.
         tcfg = {"content": champ_page(pcfg, livre, "texte"), "x": 10, "y": 50, "width": 80,
                 "align": "center", "font": str(ROOT / "fonts/Andika-Regular.ttf"),
-                "size_pt": 23, "color": pcfg.get("couleur_texte", "#3a3230"),
+                "size_pt": taille_texte, "color": pcfg.get("couleur_texte", "#3a3230"),
                 "line_spacing": 1.3}
         tm, _ = text_geometry(tcfg, geo, variables)
         pad = int(geo.doc_px * 0.026)
@@ -719,7 +726,6 @@ def etape_pdf(livre: dict, scenes: dict, dossier: Path, prenoms=None,
         else:
             y1 = geo.doc_px * 0.955
             y0 = y1 - block_h - 2 * pad
-        paysage = scenes.get("format_page") == "paysage"
         if paysage:
             # Illustration ENTIÈRE, pleine largeur, calée en haut ; le texte est
             # centré dans la bande crème restante — aucun cartouche par-dessus.
