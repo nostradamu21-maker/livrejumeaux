@@ -41,7 +41,7 @@ export default function Affiche({
   const phCode = { fr: "Code promo (facultatif)", en: "Promo code (optional)", es: "Código promocional (opcional)", de: "Rabattcode (optional)" }[l];
 
   const parId = useMemo(() => new Map(archetypes.map((a) => [a.id, a])), [archetypes]);
-  const pret = smRef ? true : !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
+  const pret = smRef ? true : !!(choix[1] && choix[2] && prenoms[1].trim() && prenoms[2].trim());
 
   async function commander(e: React.FormEvent) {
     e.preventDefault();
@@ -55,8 +55,8 @@ export default function Affiche({
           archetype1: choix[1],
           archetype2: choix[2],
           sm: smRef,
-          prenom1: prenoms[1],
-          prenom2: prenoms[2],
+          prenom1: prenoms[1].trim(),
+          prenom2: prenoms[2].trim(),
           taille,
           email: email.trim(),
           langue: l,
@@ -169,7 +169,7 @@ export default function Affiche({
                   placeholder={d.affiche.phPrenom}
                   maxLength={18}
                   value={prenoms[j]}
-                  onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
+                  onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value }))}
                 />
               </div>
               {/* Sélecteur visuel, même esprit que le configurateur du livre. */}
@@ -198,7 +198,7 @@ export default function Affiche({
               placeholder={j === 1 ? d.affiche.enfant1 : d.affiche.enfant2}
               maxLength={18}
               value={prenoms[j]}
-              onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))}
+              onChange={(e) => setPrenoms((p) => ({ ...p, [j]: e.target.value }))}
             />
           ))}
           <p className="affiche-taille-titre">{d.affiche.tailleTitre}</p>

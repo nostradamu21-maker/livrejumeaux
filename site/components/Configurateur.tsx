@@ -41,7 +41,7 @@ export default function Configurateur({
   );
 
   const memeArchetype = !!choix[1] && choix[1] === choix[2];
-  const pret = !!(choix[1] && choix[2] && prenoms[1] && prenoms[2]);
+  const pret = !!(choix[1] && choix[2] && prenoms[1].trim() && prenoms[2].trim());
 
   // Vraies pages disponibles pour cette paire (combo déjà produite) ?
   const [apercuOuvert, setApercuOuvert] = useState(false);
@@ -67,8 +67,8 @@ export default function Configurateur({
         body: JSON.stringify({
           archetype1: choix[1],
           archetype2: choix[2],
-          prenom1: prenoms[1],
-          prenom2: prenoms[2],
+          prenom1: prenoms[1].trim(),
+          prenom2: prenoms[2].trim(),
           email: email.trim(),
           accessoire: memeArchetype ? accessoire : null,
           langue: l,
@@ -99,15 +99,20 @@ export default function Configurateur({
       {visibles.map((a) => {
         const actif = choix[jumeau] === a.id;
         return (
-          <div
+          // Un vrai bouton : focusable au clavier, état « sélectionné » annoncé
+          // aux lecteurs d'écran (aria-pressed), indisponible = disabled.
+          <button
+            type="button"
             key={a.id}
             className={`carte${a.disponible ? "" : " indispo"}${actif ? " actif" : ""}`}
-            onClick={() => a.disponible && setChoix((c) => ({ ...c, [jumeau]: a.id }))}
+            aria-pressed={actif}
+            disabled={!a.disponible}
+            onClick={() => setChoix((c) => ({ ...c, [jumeau]: a.id }))}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={a.fiche} alt={a.label} loading="lazy" />
             <div className="legende">{a.label}</div>
-          </div>
+          </button>
         );
       })}
     </div>
@@ -133,7 +138,9 @@ export default function Configurateur({
             ] as const).map(([g, label]) => (
               <button
                 key={g}
+                type="button"
                 className={`filtre${filtre === g ? " actif" : ""}`}
+                aria-pressed={filtre === g}
                 onClick={() => setFiltre(g)}
               >
                 {label}
@@ -155,7 +162,7 @@ export default function Configurateur({
                     autoComplete="off"
                     value={prenoms[j]}
                     onChange={(e) =>
-                      setPrenoms((p) => ({ ...p, [j]: e.target.value.trim() }))
+                      setPrenoms((p) => ({ ...p, [j]: e.target.value }))
                     }
                   />
                 </label>

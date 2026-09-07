@@ -221,7 +221,9 @@ export interface Dict {
     retour: string;
     lien: string; // libellé du lien « Contact » (nav/footer)
   };
-  footer: { tagline: string; seo: string; fin: string; mentions: string; cgv: string; conf: string };
+  footer: { tagline: string; seo: string; fin: string; mentions: string; cgv: string; conf: string; cookies: string };
+  // Bandeau de consentement aux traceurs (pixel Meta) : obligation CNIL/RGPD.
+  cookies: { texte: string; savoir: string; accepter: string; refuser: string };
   barre: { note: string; cta: string; ctaAffiche: string };
   succes: {
     merciTitre: string;
@@ -502,7 +504,13 @@ const FR: Dict = {
     tagline: "Le livre personnalisé des jumeaux et des jumelles : deux héros, une histoire.",
     seo: "« Deux comme nous » est le cadeau pour jumeaux et jumelles imaginé par des parents de jumeaux : un livre personnalisé avec leurs prénoms, à offrir à la naissance, pour un anniversaire ou à Noël. Une idée cadeau originale pour des jumeaux, expédiée en France, en Belgique, en Suisse et au-delà.",
     fin: "Par les créateurs de Jumelio & Gemellite.com, des parents de jumeaux, pour des parents de jumeaux. 💛",
-    mentions: "Mentions légales", cgv: "CGV", conf: "Confidentialité",
+    mentions: "Mentions légales", cgv: "CGV", conf: "Confidentialité", cookies: "Cookies",
+  },
+  cookies: {
+    texte: "Avec votre accord, nous utilisons un traceur (pixel Meta) pour mesurer l'efficacité de nos publicités. Sans lui, le site fonctionne exactement pareil.",
+    savoir: "En savoir plus",
+    accepter: "Accepter",
+    refuser: "Refuser",
   },
   barre: { note: "+ 4,99 € de livraison", cta: "Créer leur livre", ctaAffiche: "Créer leur affiche" },
   succes: {
@@ -776,7 +784,13 @@ const EN: Dict = {
     tagline: "The personalized book for twins: two heroes, one story.",
     seo: "\"Deux comme nous\" is the gift for twins imagined by twin parents: a personalized book with their names, to give at birth, for a birthday or for Christmas. An original gift idea for twins, shipped across Europe and beyond.",
     fin: "By the creators of Jumelio & Gemellite.com, twin parents, for twin parents. 💛",
-    mentions: "Legal notice", cgv: "Terms of sale", conf: "Privacy",
+    mentions: "Legal notice", cgv: "Terms of sale", conf: "Privacy", cookies: "Cookies",
+  },
+  cookies: {
+    texte: "With your consent, we use a tracker (Meta pixel) to measure how well our ads work. Without it, the site works exactly the same.",
+    savoir: "Learn more",
+    accepter: "Accept",
+    refuser: "Decline",
   },
   barre: { note: "+ €4.99 shipping", cta: "Create their book", ctaAffiche: "Create their poster" },
   succes: {
@@ -1067,7 +1081,13 @@ const ES: Dict = {
     tagline: "El libro personalizado de los gemelos y mellizos: dos héroes, una historia.",
     seo: "«Deux comme nous» es el regalo para gemelos y mellizos imaginado por padres de gemelos: un libro personalizado con sus nombres, para regalar en un nacimiento, un cumpleaños o en Navidad. Una idea de regalo original para gemelos, con envío a España y toda Europa.",
     fin: "Por los creadores de Jumelio & Gemellite.com, padres de gemelos, para padres de gemelos. 💛",
-    mentions: "Aviso legal", cgv: "Condiciones de venta", conf: "Privacidad",
+    mentions: "Aviso legal", cgv: "Condiciones de venta", conf: "Privacidad", cookies: "Cookies",
+  },
+  cookies: {
+    texte: "Con tu consentimiento, usamos un rastreador (píxel de Meta) para medir la eficacia de nuestros anuncios. Sin él, el sitio funciona exactamente igual.",
+    savoir: "Más información",
+    accepter: "Aceptar",
+    refuser: "Rechazar",
   },
   barre: { note: "+ 4,99 € de envío", cta: "Crear su libro", ctaAffiche: "Crear su póster" },
   succes: {
@@ -1358,7 +1378,13 @@ const DE: Dict = {
     tagline: "Das personalisierte Buch für Zwillinge: zwei Helden, eine Geschichte.",
     seo: "„Deux comme nous“ ist das Geschenk für Zwillinge, erdacht von Zwillingseltern: ein personalisiertes Buch mit ihren Namen, zur Geburt, zum Geburtstag oder zu Weihnachten. Eine originelle Geschenkidee für Zwillinge, mit Versand nach Deutschland, Österreich, in die Schweiz und ganz Europa.",
     fin: "Von den Machern von Jumelio & Gemellite.com, Zwillingseltern, für Zwillingseltern. 💛",
-    mentions: "Impressum", cgv: "AGB", conf: "Datenschutz",
+    mentions: "Impressum", cgv: "AGB", conf: "Datenschutz", cookies: "Cookies",
+  },
+  cookies: {
+    texte: "Mit Ihrer Zustimmung nutzen wir einen Tracker (Meta-Pixel), um die Wirksamkeit unserer Anzeigen zu messen. Ohne ihn funktioniert die Seite genau gleich.",
+    savoir: "Mehr erfahren",
+    accepter: "Akzeptieren",
+    refuser: "Ablehnen",
   },
   barre: { note: "+ 4,99 € Versand", cta: "Ihr Buch gestalten", ctaAffiche: "Ihr Poster gestalten" },
   succes: {

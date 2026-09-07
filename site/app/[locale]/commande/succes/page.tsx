@@ -45,7 +45,7 @@ export default async function Succes({
         if (m.combo_id === "sur-mesure") {
           titre = d.succes.smTitre;
           message = d.succes.smMsg(m.prenom1 ?? "", m.prenom2 ?? "");
-          lienVariantes = `/commande/variantes?session_id=${encodeURIComponent(session_id)}`;
+          lienVariantes = `${prefixe(l)}/commande/variantes?session_id=${encodeURIComponent(session_id)}`;
         } else if (m.prenom1 && m.prenom2) {
           message = d.succes.livreMsg(m.prenom1, m.prenom2);
         }
@@ -104,7 +104,7 @@ export default async function Succes({
             {d.succes.choisir}
           </Link>
         ) : (
-          <Link href="/" className="btn btn-primary" style={{ marginTop: "1.6rem" }}>
+          <Link href={prefixe(l) || "/"} className="btn btn-primary" style={{ marginTop: "1.6rem" }}>
             {d.succes.retour}
           </Link>
         )}

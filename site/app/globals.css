@@ -27,7 +27,7 @@ html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   margin: 0;
   overflow-x: clip;
-  font-family: "Nunito", system-ui, sans-serif;
+  font-family: var(--font-nunito), system-ui, sans-serif;
   color: var(--encre);
   background:
     radial-gradient(1200px 600px at 80% -5%, #fde7d6 0%, transparent 55%),
@@ -35,7 +35,7 @@ body {
     var(--creme);
   line-height: 1.6;
 }
-h1, h2, h3 { font-family: "Fraunces", Georgia, serif; color: var(--encre); line-height: 1.1; margin: 0; }
+h1, h2, h3 { font-family: var(--font-fraunces), Georgia, serif; color: var(--encre); line-height: 1.1; margin: 0; }
 em { font-style: italic; color: var(--terracotta-f); }
 
 /* Police du livre (texte des aperçus « vraies pages »). */
@@ -69,7 +69,7 @@ body::after {
 }
 
 .btn {
-  display: inline-block; font-family: "Nunito", sans-serif; font-weight: 700;
+  display: inline-block; font-family: var(--font-nunito), sans-serif; font-weight: 700;
   font-size: 1rem; border-radius: 999px; padding: 0.85rem 1.6rem; cursor: pointer;
   text-decoration: none; border: 2px solid transparent;
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
@@ -86,7 +86,7 @@ body::after {
   background: rgba(251, 245, 236, 0.82); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--ligne);
 }
-.brand { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.25rem; color: var(--terracotta-f); text-decoration: none; }
+.brand { font-family: var(--font-fraunces), serif; font-weight: 600; font-size: 1.25rem; color: var(--terracotta-f); text-decoration: none; }
 .nav-links { display: flex; align-items: center; gap: 1.5rem; }
 .nav-links a { color: var(--encre-doux); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
 .nav-links a:hover { color: var(--encre); }
@@ -98,14 +98,14 @@ body::after {
 
 /* Sélecteur d'exemples du flipbook (pastilles) */
 .fb-exemples { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 0 0 1.4rem; }
-.fb-onglet { border: 1.5px solid var(--ligne); background: #fff; color: var(--encre-doux); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.88rem; border-radius: 999px; padding: 0.4rem 1.1rem; cursor: pointer; box-shadow: var(--ombre-s); transition: all 0.15s; }
+.fb-onglet { border: 1.5px solid var(--ligne); background: #fff; color: var(--encre-doux); font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.88rem; border-radius: 999px; padding: 0.4rem 1.1rem; cursor: pointer; box-shadow: var(--ombre-s); transition: all 0.15s; }
 .fb-onglet:hover { color: var(--encre); border-color: var(--terracotta); }
 .fb-onglet.actif { background: var(--terracotta); color: #fff; border-color: var(--terracotta); box-shadow: 0 6px 16px rgba(217, 143, 99, 0.35); }
 
 /* Prix sur-mesure : offre de lancement (129 barré → 79) */
-.sm-lancement { display: inline-block; background: var(--terracotta); color: #fff; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.28rem 0.8rem; border-radius: 999px; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.35); }
+.sm-lancement { display: inline-block; background: var(--terracotta); color: #fff; font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.28rem 0.8rem; border-radius: 999px; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.35); }
 .sm-prix-ligne { display: flex; align-items: baseline; justify-content: center; gap: 0.6rem; margin-top: 0.2rem; }
-.sm-prix-barre { font-family: "Fraunces", serif; font-size: 1.4rem; color: var(--encre-doux); text-decoration: line-through; text-decoration-color: var(--terracotta); opacity: 0.7; }
+.sm-prix-barre { font-family: var(--font-fraunces), serif; font-size: 1.4rem; color: var(--encre-doux); text-decoration: line-through; text-decoration-color: var(--terracotta); opacity: 0.7; }
 
 /* ---------------------------- HERO ---------------------------- */
 .hero {
@@ -148,7 +148,7 @@ body::after {
 }
 .sm-g-noms {
   position: absolute; left: 0; right: 0; bottom: 9%; text-align: center;
-  font-family: "Amatic SC", "Fraunces", serif; font-weight: 700; font-size: 1.5rem;
+  font-family: var(--font-amatic), var(--font-fraunces), serif; font-weight: 700; font-size: 1.5rem;
   color: #3a3230; line-height: 1;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.85);
 }
@@ -178,7 +178,7 @@ body::after {
 .hero-produit:hover { transform: translateY(-2px); border-color: var(--terracotta); box-shadow: var(--ombre-m); }
 .hp-icone { width: 46px; height: 46px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; box-shadow: var(--ombre-s); flex: none; }
 .hp-infos { display: flex; flex-direction: column; text-align: left; line-height: 1.3; }
-.hp-infos strong { font-family: "Fraunces", Georgia, serif; font-size: 1.08rem; }
+.hp-infos strong { font-family: var(--font-fraunces), Georgia, serif; font-size: 1.08rem; }
 .hp-infos small { font-size: 0.83rem; color: var(--encre-doux); }
 .hp-prix { margin-left: auto; font-weight: 800; font-size: 0.92rem; color: var(--terracotta-f); white-space: nowrap; }
 .hp-fleche { font-size: 1.3rem; color: var(--encre-doux); opacity: 0.6; }
@@ -191,7 +191,7 @@ body::after {
 /* -------------------------- LIVRE / BOOK -------------------------- */
 .book { position: relative; z-index: 1; border-radius: 6px 12px 12px 6px; overflow: hidden; box-shadow: var(--ombre-l); background: #fff; border-left: 6px solid rgba(0, 0, 0, 0.08); }
 .book img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.book-fallback { display: none; padding: 2rem; font-family: "Fraunces", serif; font-size: 1.6rem; color: var(--terracotta-f); }
+.book-fallback { display: none; padding: 2rem; font-family: var(--font-fraunces), serif; font-size: 1.6rem; color: var(--terracotta-f); }
 .book.book-vide img { display: none; }
 .book.book-vide .book-fallback { display: grid; place-items: center; min-height: 320px; }
 .book-hero { width: min(100%, 400px); aspect-ratio: 1 / 1; transform: rotate(2deg); transition: transform 0.4s; }
@@ -204,7 +204,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .section-tete h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 600; }
 .section-sub { color: var(--encre-doux); font-size: 1.08rem; margin-top: 0.8rem; }
 .note-catalogue { color: var(--encre-doux); font-size: 0.85rem; margin-top: 0.7rem; opacity: 0.82; background: var(--creme-2); border-radius: 12px; padding: 0.55rem 0.9rem; display: inline-block; }
-.config-eyebrow { display: inline-block; font-family: "Nunito", sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vert-f); background: rgba(127, 169, 141, 0.14); padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.9rem; }
+.config-eyebrow { display: inline-block; font-family: var(--font-nunito), sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vert-f); background: rgba(127, 169, 141, 0.14); padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.9rem; }
 
 /* -------------------------- FLIPBOOK -------------------------- */
 .livre-flip { text-align: center; }
@@ -225,7 +225,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .fb-hint { color: var(--encre-doux); font-size: 0.9rem; min-width: 12ch; }
 .fb-perso { margin: 1.4rem auto 0; max-width: 42ch; color: var(--encre-doux); font-size: 1rem; line-height: 1.6; }
 .fb-perso b { color: var(--encre); font-weight: 700; }
-.perso-noms { display: inline-block; position: relative; font-family: "Fraunces", serif; font-weight: 600; color: var(--terracotta-f); white-space: nowrap; padding: 0 0.15em; }
+.perso-noms { display: inline-block; position: relative; font-family: var(--font-fraunces), serif; font-weight: 600; color: var(--terracotta-f); white-space: nowrap; padding: 0 0.15em; }
 .perso-noms::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 0.42em; z-index: -1; background: var(--terracotta); opacity: 0.22; border-radius: 3px; }
 .perso-a, .perso-b { display: inline-block; transition: opacity 0.35s, transform 0.35s; }
 .perso-swap { opacity: 0; transform: translateY(-4px); }
@@ -234,57 +234,58 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .creer { position: relative; }
 .configurateur { display: grid; grid-template-columns: 1fr 370px; gap: 2.2rem; align-items: start; }
 .filtres { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.4rem; font-size: 0.9rem; color: var(--encre-doux); }
-.filtre { border: 1.5px solid var(--terracotta); background: transparent; color: var(--terracotta-f); font-family: "Nunito", sans-serif; font-weight: 700; border-radius: 999px; padding: 0.35rem 0.95rem; cursor: pointer; transition: all 0.15s; }
+.filtre { border: 1.5px solid var(--terracotta); background: transparent; color: var(--terracotta-f); font-family: var(--font-nunito), sans-serif; font-weight: 700; border-radius: 999px; padding: 0.35rem 0.95rem; cursor: pointer; transition: all 0.15s; }
 .filtre.actif, .filtre:hover { background: var(--terracotta); color: #fff; }
 .jumeau { margin-bottom: 2.2rem; }
 .jumeau-tete { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
 .pastille { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--vert); color: #fff; font-weight: 800; font-size: 1.05rem; flex: none; box-shadow: var(--ombre-s); }
 .jumeau-tete label { display: flex; flex-direction: column; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 700; color: var(--encre-doux); gap: 0.35rem; }
-.prenom { font-family: "Nunito", sans-serif; font-size: 1.1rem; font-weight: 600; padding: 0.5rem 0.8rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); width: 240px; text-transform: none; letter-spacing: 0; }
+.prenom { font-family: var(--font-nunito), sans-serif; font-size: 1.1rem; font-weight: 600; padding: 0.5rem 0.8rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); width: 240px; text-transform: none; letter-spacing: 0; }
 .prenom:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.25); }
 .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 1rem; }
-.carte { position: relative; border: 2px solid transparent; border-radius: 16px; background: linear-gradient(180deg, #fff 0%, var(--creme) 100%); padding: 0.5rem 0.5rem 0.4rem; cursor: pointer; text-align: center; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; }
+.carte { display: block; width: 100%; font: inherit; color: inherit; position: relative; border: 2px solid transparent; border-radius: 16px; background: linear-gradient(180deg, #fff 0%, var(--creme) 100%); padding: 0.5rem 0.5rem 0.4rem; cursor: pointer; text-align: center; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; }
 .carte:hover { transform: translateY(-4px); box-shadow: var(--ombre-m); }
 .carte.actif { border-color: var(--terracotta); box-shadow: 0 0 0 4px rgba(217, 143, 99, 0.18), var(--ombre-m); }
 .carte.actif::after { content: "✓"; position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; background: var(--terracotta); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-weight: 800; }
 .carte img { width: 100%; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 10px; background: #f0e7da; }
 .carte .legende { font-size: 0.7rem; line-height: 1.25; margin-top: 0.4rem; color: var(--encre-doux); }
-.carte.indispo { opacity: 0.35; pointer-events: none; }
+.carte.indispo, .carte:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.carte:focus-visible, .filtre:focus-visible, .persel-carte:focus-visible { outline: 3px solid var(--terracotta-f); outline-offset: 2px; }
 
 /* -------------------------- APERÇU -------------------------- */
 .apercu { position: sticky; top: 84px; }
 .book-preview { width: 100%; aspect-ratio: 1 / 1; border-radius: 6px 14px 14px 6px; transform: rotate(-1.5deg); }
 .book-cover { height: 100%; background: linear-gradient(160deg, #fdf6ea 0%, #f4e6d1 100%); padding: 1.4rem 1.2rem 1.6rem; display: flex; flex-direction: column; text-align: center; }
-.couv-titre { font-family: "Fraunces", serif; font-size: 1.7rem; font-weight: 600; color: var(--terracotta-f); margin-bottom: 1rem; }
+.couv-titre { font-family: var(--font-fraunces), serif; font-size: 1.7rem; font-weight: 600; color: var(--terracotta-f); margin-bottom: 1rem; }
 .couv-fiches { display: flex; justify-content: center; gap: 0.6rem; flex: 1; min-height: 0; }
 .couv-fiche { width: 45%; border-radius: 12px; background: #fff; display: grid; place-items: center; overflow: hidden; box-shadow: var(--ombre-s); }
 .couv-fiche img { width: 100%; height: 100%; object-fit: contain; background: #f0e7da; }
 .couv-fiche .vide { font-size: 0.72rem; color: var(--encre-doux); opacity: 0.6; }
 .note-apercu { font-size: 0.75rem; color: var(--encre-doux); opacity: 0.8; margin: 0.7rem 0 0; text-align: center; line-height: 1.45; }
-.couv-prenoms { margin-top: 1rem; font-family: "Fraunces", serif; font-size: 1.3rem; color: var(--encre); min-height: 1.3em; }
+.couv-prenoms { margin-top: 1rem; font-family: var(--font-fraunces), serif; font-size: 1.3rem; color: var(--encre); min-height: 1.3em; }
 .note { font-size: 0.82rem; color: var(--encre-doux); background: #fff; border-left: 3px solid var(--vert); padding: 0.6rem 0.75rem; border-radius: 8px; margin: 1rem 0 0; box-shadow: var(--ombre-s); }
 .distinctif { margin-top: 1rem; background: #fff; border-radius: 12px; padding: 0.9rem 1rem 1rem; box-shadow: var(--ombre-s); border-left: 3px solid var(--vert); }
 .distinctif-tete { font-size: 0.85rem; color: var(--encre-doux); margin: 0 0 0.7rem; line-height: 1.45; }
 .distinctif-choix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-.acc { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.55rem 0.35rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); cursor: pointer; transition: border-color 0.14s, box-shadow 0.14s, transform 0.14s; font-family: "Nunito", sans-serif; }
+.acc { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.55rem 0.35rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); cursor: pointer; transition: border-color 0.14s, box-shadow 0.14s, transform 0.14s; font-family: var(--font-nunito), sans-serif; }
 .acc:hover { transform: translateY(-2px); }
 .acc.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .acc-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: top center; border-radius: 9px; background: #fff; }
 .acc-label { font-size: 0.72rem; font-weight: 700; color: var(--encre-doux); text-align: center; }
 .acc.actif .acc-label { color: var(--vert-f); }
 .apercus-reels { margin-top: 1.1rem; }
-.apercus-reels h3 { font-family: "Nunito", sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--encre-doux); margin: 0 0 0.5rem; }
+.apercus-reels h3 { font-family: var(--font-nunito), sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--encre-doux); margin: 0 0 0.5rem; }
 .bandeau { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.4rem; }
 .bandeau img { height: 88px; border-radius: 8px; box-shadow: var(--ombre-s); }
 
 /* -------------------------- COMMANDE -------------------------- */
 .commande { margin-top: 1.3rem; background: #fff; border-radius: var(--r); padding: 1.2rem; box-shadow: var(--ombre-m); display: flex; flex-direction: column; gap: 0.8rem; }
 .prix-ligne { display: flex; align-items: baseline; gap: 0.5rem; }
-.prix { font-family: "Fraunces", serif; font-size: 1.9rem; font-weight: 600; color: var(--encre); }
+.prix { font-family: var(--font-fraunces), serif; font-size: 1.9rem; font-weight: 600; color: var(--encre); }
 .prix-note { font-size: 0.85rem; color: var(--encre-doux); }
-.champ-email { font-family: "Nunito", sans-serif; padding: 0.6rem 0.8rem; border: 1.5px solid var(--ligne); border-radius: 12px; font-size: 0.95rem; }
+.champ-email { font-family: var(--font-nunito), sans-serif; padding: 0.6rem 0.8rem; border: 1.5px solid var(--ligne); border-radius: 12px; font-size: 0.95rem; }
 .champ-email:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.25); }
-.btn-commander { background: var(--terracotta); color: #fff; border: none; border-radius: 999px; padding: 0.9rem; font-family: "Nunito", sans-serif; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(217, 143, 99, 0.35); transition: transform 0.15s, background 0.15s; }
+.btn-commander { background: var(--terracotta); color: #fff; border: none; border-radius: 999px; padding: 0.9rem; font-family: var(--font-nunito), sans-serif; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(217, 143, 99, 0.35); transition: transform 0.15s, background 0.15s; }
 .btn-commander:hover:not(:disabled) { transform: translateY(-2px); background: var(--terracotta-f); }
 .btn-commander:disabled { background: #e2d3c1; box-shadow: none; cursor: not-allowed; }
 .mention-cgv { font-size: 0.72rem; color: var(--encre-doux); opacity: 0.8; margin: 0; }
@@ -295,7 +296,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 
 /* ------------------------ SUR MESURE ------------------------ */
 .sm-carte { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.4rem; align-items: center; background: linear-gradient(155deg, #fff 0%, var(--creme-2) 100%); border: 1.5px solid var(--ligne); border-radius: var(--r); padding: clamp(1.6rem, 4vw, 2.8rem); box-shadow: var(--ombre-m); }
-.sm-eyebrow { display: inline-block; font-family: "Nunito", sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vert-f); background: rgba(127, 169, 141, 0.14); padding: 0.3rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+.sm-eyebrow { display: inline-block; font-family: var(--font-nunito), sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vert-f); background: rgba(127, 169, 141, 0.14); padding: 0.3rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
 .sm-texte h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); font-weight: 600; line-height: 1.15; }
 .sm-texte p { color: var(--encre-doux); font-size: 1.05rem; line-height: 1.6; margin-top: 0.9rem; }
 .sm-texte p strong { color: var(--terracotta-f); }
@@ -304,10 +305,10 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-points li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: var(--vert); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; font-weight: 800; }
 .sm-reduc { margin: 1.2rem 0 0; padding: 0.9rem 1.1rem; background: var(--creme-2); border: 1.5px solid var(--ligne); border-radius: 14px; font-size: 0.92rem; color: var(--encre); line-height: 1.5; }
 .sm-offre { background: #fff; border-radius: var(--r); padding: 1.8rem 1.5rem; box-shadow: var(--ombre-m); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; }
-.sm-prix { font-family: "Fraunces", serif; font-size: 2.6rem; font-weight: 600; color: var(--encre); line-height: 1; }
+.sm-prix { font-family: var(--font-fraunces), serif; font-size: 2.6rem; font-weight: 600; color: var(--encre); line-height: 1; }
 .sm-prix-note { font-size: 0.9rem; color: var(--encre-doux); max-width: 22ch; }
 .sm-prix-reduc { font-size: 0.9rem; font-weight: 800; color: var(--vert-f); }
-.sm-cta { margin-top: 0.5rem; background: var(--vert); color: #fff; text-decoration: none; border: none; cursor: pointer; border-radius: 999px; padding: 0.85rem 1.5rem; font-family: "Nunito", sans-serif; font-size: 1.02rem; font-weight: 800; box-shadow: 0 8px 20px rgba(127, 169, 141, 0.35); transition: transform 0.15s, background 0.15s; }
+.sm-cta { margin-top: 0.5rem; background: var(--vert); color: #fff; text-decoration: none; border: none; cursor: pointer; border-radius: 999px; padding: 0.85rem 1.5rem; font-family: var(--font-nunito), sans-serif; font-size: 1.02rem; font-weight: 800; box-shadow: 0 8px 20px rgba(127, 169, 141, 0.35); transition: transform 0.15s, background 0.15s; }
 .sm-cta:hover:not(:disabled) { transform: translateY(-2px); background: var(--vert-f); }
 .sm-cta:disabled { background: #cbd8cf; box-shadow: none; cursor: not-allowed; }
 .sm-note { font-size: 0.8rem; color: var(--encre-doux); }
@@ -321,7 +322,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .aa-cam { font-size: 1.8rem; }
 .aa-photo-reelle img, .aa-perso img { display: block; object-fit: cover; object-position: top center; background: #f0e7da; box-shadow: var(--ombre-m); border: 3px solid #fff; }
 .aa-photo-reelle img { width: clamp(96px, 30%, 150px); aspect-ratio: 3 / 4; border-radius: 16px; }
-.aa-carte figcaption { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.78rem; color: var(--encre-doux); }
+.aa-carte figcaption { font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.78rem; color: var(--encre-doux); }
 .aa-perso figcaption { color: var(--terracotta-f); }
 .aa-fleche { font-size: 1.8rem; color: var(--terracotta); font-weight: 800; flex: none; }
 .aa-legende { font-size: 0.86rem !important; color: var(--encre-doux); font-style: italic; text-align: center; margin: 0 0 0.4rem !important; }
@@ -329,18 +330,18 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .sm-option { display: flex; gap: 0.55rem; align-items: flex-start; text-align: left; font-size: 0.82rem; color: var(--encre); line-height: 1.45; background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 12px; padding: 0.65rem 0.8rem; cursor: pointer; }
 .sm-option input { margin-top: 0.15rem; accent-color: var(--vert-f); }
 .sm-zygote, .sm-produits { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; }
-.sm-zy { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.sm-zy { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .sm-zy small { font-weight: 600; font-size: 0.68rem; color: var(--encre-doux); }
 .sm-zy.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .sm-sexe { display: flex; flex-direction: column; gap: 0.4rem; width: 100%; }
-.sm-sexe-titre { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.8rem; color: var(--encre-doux); }
+.sm-sexe-titre { font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.8rem; color: var(--encre-doux); }
 .sm-sexe-enfant { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.sm-sexe-nom { font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--encre); }
+.sm-sexe-nom { font-family: var(--font-nunito), sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--encre); }
 .sm-sexe-choix { display: flex; gap: 0.4rem; }
-.sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.sm-sx { padding: 0.4rem 0.85rem; border: 1.5px solid var(--ligne); border-radius: 999px; background: var(--creme); font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--encre); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
 .sm-sx.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 /* ---- Tri web mobile (admin) ---- */
-.tri-ecran { min-height: 100vh; background: #221d1a; color: #f2ece4; padding: 0 0 4rem; font-family: "Nunito", sans-serif; }
+.tri-ecran { min-height: 100vh; background: #221d1a; color: #f2ece4; padding: 0 0 4rem; font-family: var(--font-nunito), sans-serif; }
 .tri-tete { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1rem; background: rgba(34, 29, 26, 0.94); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.95rem; }
 .tri-tete .tri-ok { color: #9fd3ae; font-weight: 800; }
 .tri-fini { margin: 0.9rem 1rem; padding: 0.9rem 1rem; background: #2e4436; color: #cdeeda; border-radius: 14px; font-size: 0.92rem; line-height: 1.5; }
@@ -373,7 +374,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .affiche-persos img { width: 88px; aspect-ratio: 3 / 4; object-fit: contain; background: transparent; }
 .affiche-vide { width: 88px; aspect-ratio: 3 / 4; display: grid; place-items: center; border: 2px dashed var(--ligne); border-radius: 10px; color: var(--encre-doux); font-size: 1.4rem; }
 /* Prénoms du mockup : Amatic SC, la police imprimée sur l'affiche (affiche.py). */
-.affiche-noms { font-family: "Amatic SC", "Fraunces", serif; font-weight: 700; color: var(--encre); font-size: 1.6rem; letter-spacing: 0.03em; text-align: center; }
+.affiche-noms { font-family: var(--font-amatic), var(--font-fraunces), serif; font-weight: 700; color: var(--encre); font-size: 1.6rem; letter-spacing: 0.03em; text-align: center; }
 /* Exemple réel dans le mockup (l'affiche d'Elia & Luna). */
 .affiche-passe-ex { position: relative; padding: 0; justify-content: flex-end; overflow: hidden; }
 .affiche-exemple { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -389,38 +390,38 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 }
 .affiche-ex-legende { margin: 0.7rem auto 0; max-width: 320px; text-align: center; font-size: 0.85rem; color: var(--encre-doux); }
 .affiche-form { display: flex; flex-direction: column; gap: 0.7rem; }
-.affiche-form h2 { font-family: "Fraunces", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0.4rem 0 0; }
+.affiche-form h2 { font-family: var(--font-fraunces), serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0.4rem 0 0; }
 .affiche-intro { color: var(--encre-doux); line-height: 1.6; margin: 0 0 0.4rem; }
 .affiche-enfant { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.5rem; }
-.affiche-enfant select { font-family: "Nunito", sans-serif; font-size: 0.95rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.75rem 0.9rem; }
-.affiche-taille-titre { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.85rem; color: var(--encre-doux); margin: 0.3rem 0 0; }
+.affiche-enfant select { font-family: var(--font-nunito), sans-serif; font-size: 0.95rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.75rem 0.9rem; }
+.affiche-taille-titre { font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.85rem; color: var(--encre-doux); margin: 0.3rem 0 0; }
 .affiche-tailles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
-.affiche-tl { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.55rem 0.3rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: "Nunito", sans-serif; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.affiche-tl { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.55rem 0.3rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: var(--creme); font-family: var(--font-nunito), sans-serif; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .affiche-tl strong { font-size: 0.82rem; color: var(--encre); }
 .affiche-tl span { font-size: 0.78rem; color: var(--encre-doux); font-weight: 700; }
 .affiche-tl.actif { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); background: #fff; }
 .affiche-note { font-size: 0.78rem; color: var(--encre-doux); text-align: center; }
 .affiche-vers-sm { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.9rem 1.1rem; background: var(--terracotta); color: #fff; border-radius: 16px; text-decoration: none; box-shadow: 0 10px 26px rgba(217, 143, 99, 0.4); transition: transform 0.15s, background 0.15s; }
 .affiche-vers-sm:hover { transform: translateY(-2px); background: var(--terracotta-f); }
-.affiche-vers-sm strong { font-family: "Nunito", sans-serif; font-size: 1.02rem; font-weight: 800; }
+.affiche-vers-sm strong { font-family: var(--font-nunito), sans-serif; font-size: 1.02rem; font-weight: 800; }
 .affiche-vers-sm span { font-size: 0.82rem; opacity: 0.92; }
-.affiche-sm-badge { margin: 0; padding: 0.65rem 0.9rem; background: rgba(127, 169, 141, 0.14); border: 1.5px solid var(--vert); border-radius: 12px; font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--encre); }
+.affiche-sm-badge { margin: 0; padding: 0.65rem 0.9rem; background: rgba(127, 169, 141, 0.14); border: 1.5px solid var(--vert); border-radius: 12px; font-family: var(--font-nunito), sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--encre); }
 @media (max-width: 860px) { .affiche-carte { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.6rem; } .affiche-tailles { grid-template-columns: repeat(2, 1fr); } .affiche-visuel { position: static; } .affiche-ambiance, .affiche-guide-mini { display: none; } }
 
 .contact-page { max-width: 620px; }
 .contact-form { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.4rem; }
-.champ-message { width: 100%; font-family: "Nunito", sans-serif; font-size: 1rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.8rem 1rem; resize: vertical; min-height: 140px; }
+.champ-message { width: 100%; font-family: var(--font-nunito), sans-serif; font-size: 1rem; color: var(--encre); background: var(--creme); border: 1.5px solid var(--ligne); border-radius: 14px; padding: 0.8rem 1rem; resize: vertical; min-height: 140px; }
 .champ-message:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.22); }
 .contact-form .btn { align-self: flex-start; }
 .champ-code { text-transform: uppercase; letter-spacing: 0.08em; }
 .champ-code::placeholder { text-transform: none; letter-spacing: normal; }
 .sm-fichier { display: none; }
 .sm-relation { display: flex; align-items: center; gap: 0.6rem; width: 100%; font-size: 0.85rem; font-weight: 700; color: var(--encre-doux); }
-.sm-relation select { flex: 1; font-family: "Nunito", sans-serif; font-size: 0.92rem; padding: 0.55rem 0.7rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); }
+.sm-relation select { flex: 1; font-family: var(--font-nunito), sans-serif; font-size: 0.92rem; padding: 0.55rem 0.7rem; border: 1.5px solid var(--ligne); border-radius: 12px; background: #fff; color: var(--encre); }
 .sm-relation select:focus { outline: none; border-color: var(--vert); box-shadow: 0 0 0 3px rgba(127, 169, 141, 0.25); }
 .sm-distinctif { width: 100%; text-align: left; }
 .sm-distinctif-tete { font-size: 0.82rem; color: var(--encre-doux); margin: 0 0 0.5rem; line-height: 1.4; }
-.sm-photo-btn { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%; padding: 0.85rem; border: 2px dashed var(--terracotta); border-radius: 14px; background: rgba(217, 143, 99, 0.06); color: var(--terracotta-f); font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }
+.sm-photo-btn { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%; padding: 0.85rem; border: 2px dashed var(--terracotta); border-radius: 14px; background: rgba(217, 143, 99, 0.06); color: var(--terracotta-f); font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }
 .sm-photo-btn:hover { background: rgba(217, 143, 99, 0.12); }
 .sm-photo-apercu { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; box-shadow: var(--ombre-s); }
 .sm-photo-note { font-size: 0.72rem; color: var(--encre-doux); line-height: 1.4; }
@@ -429,7 +430,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .etapes { text-align: center; }
 .etapes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; margin-bottom: 2.5rem; }
 .etape { background: #fff; border-radius: var(--r); padding: 2rem 1.4rem; box-shadow: var(--ombre-s); text-align: center; }
-.etape-num { display: grid; place-items: center; width: 46px; height: 46px; margin: 0 auto 1rem; border-radius: 50%; background: var(--creme-2); color: var(--terracotta-f); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.3rem; }
+.etape-num { display: grid; place-items: center; width: 46px; height: 46px; margin: 0 auto 1rem; border-radius: 50%; background: var(--creme-2); color: var(--terracotta-f); font-family: var(--font-fraunces), serif; font-weight: 700; font-size: 1.3rem; }
 .etape h3 { font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: 600; }
 .etape p { color: var(--encre-doux); margin: 0; font-size: 0.98rem; }
 
@@ -464,7 +465,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .faq-item { background: #fff; border-radius: 14px; box-shadow: var(--ombre-s); border: 1.5px solid var(--ligne); overflow: hidden; }
 .faq-item summary { cursor: pointer; list-style: none; padding: 1.05rem 1.3rem; font-weight: 800; font-size: 1.02rem; color: var(--encre); position: relative; padding-right: 3rem; }
 .faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: "+"; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--terracotta); transition: transform 0.2s; }
+.faq-item summary::after { content: "+"; position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); font-family: var(--font-fraunces), serif; font-size: 1.5rem; color: var(--terracotta); transition: transform 0.2s; }
 .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .faq-item[open] summary { color: var(--terracotta-f); }
 .faq-item p { margin: 0; padding: 0 1.3rem 1.15rem; color: var(--encre-doux); line-height: 1.6; font-size: 0.98rem; }
@@ -472,7 +473,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 
 /* -------------------------- PIED -------------------------- */
 .pied { text-align: center; padding: 3rem 1.5rem 3.5rem; background: linear-gradient(180deg, transparent, rgba(217, 143, 99, 0.08)); color: var(--encre-doux); }
-.pied-titre { font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--terracotta-f); margin: 0 0 0.3rem; }
+.pied-titre { font-family: var(--font-fraunces), serif; font-size: 1.5rem; color: var(--terracotta-f); margin: 0 0 0.3rem; }
 .pied p { margin: 0.2rem 0; }
 .pied-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; margin: 1.1rem 0 0; }
 .pied-nav a { color: var(--encre-doux); text-decoration: none; font-weight: 700; font-size: 0.92rem; }
@@ -495,7 +496,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .legale-maj { font-size: 0.85rem !important; opacity: 0.7; margin-bottom: 1rem; }
 
 /* --------------- VISIONNEUSE « VRAIES PAGES, VOS PRÉNOMS » --------------- */
-.btn-apercu { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; width: 100%; margin-top: 0.7rem; padding: 0.8rem 1rem; border: none; border-radius: 999px; background: var(--vert); color: #fff; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 8px 20px rgba(127, 169, 141, 0.35); transition: transform 0.15s, background 0.15s; }
+.btn-apercu { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; width: 100%; margin-top: 0.7rem; padding: 0.8rem 1rem; border: none; border-radius: 999px; background: var(--vert); color: #fff; font-family: var(--font-nunito), sans-serif; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 8px 20px rgba(127, 169, 141, 0.35); transition: transform 0.15s, background 0.15s; }
 .btn-apercu:hover:not(:disabled) { transform: translateY(-2px); background: var(--vert-f); }
 .btn-apercu:disabled { background: #cbd8cf; box-shadow: none; cursor: not-allowed; }
 .btn-apercu small { font-weight: 600; font-size: 0.72rem; opacity: 0.9; }
@@ -509,9 +510,9 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 /* Cartouche blanc arrondi, même mise en page que le PDF imprimé (recouvre
    celui incrusté dans l'image ; le texte est re-rendu avec les prénoms). */
 .al-cartouche { position: absolute; left: 5%; right: 5%; top: 70.4%; bottom: 4.4%; background: #fff; border-radius: 5.5% / 15%; display: flex; flex-direction: column; justify-content: center; padding: 1% 4%; }
-.al-cartouche p { margin: 0; font-family: "Andika", "Nunito", sans-serif; color: #3a3230; text-align: center; line-height: 1.5; font-size: clamp(0.72rem, 2.55vw, 1.02rem); }
+.al-cartouche p { margin: 0; font-family: "Andika", var(--font-nunito), sans-serif; color: #3a3230; text-align: center; line-height: 1.5; font-size: clamp(0.72rem, 2.55vw, 1.02rem); }
 .al-couv-texte { position: absolute; top: 6%; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
-.al-couv-titre { font-family: "Fraunces", serif; font-weight: 600; color: #7a4a2e; font-size: clamp(1.3rem, 5vw, 2rem); text-shadow: 0 1px 8px rgba(255, 248, 235, 0.9), 0 0 22px rgba(255, 248, 235, 0.8); }
+.al-couv-titre { font-family: var(--font-fraunces), serif; font-weight: 600; color: #7a4a2e; font-size: clamp(1.3rem, 5vw, 2rem); text-shadow: 0 1px 8px rgba(255, 248, 235, 0.9), 0 0 22px rgba(255, 248, 235, 0.8); }
 .al-couv-prenoms { font-family: "Andika", sans-serif; color: #5c4634; font-size: clamp(0.95rem, 3.4vw, 1.35rem); text-shadow: 0 1px 6px rgba(255, 248, 235, 0.95); }
 .al-controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.8rem; }
 .al-controles button { width: 42px; height: 42px; border: none; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.35); }
@@ -526,7 +527,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .v-groupe { margin: 2rem 0; padding: 0; }
 .v-groupe h2 { font-size: 1.3rem; margin-bottom: 1rem; }
 .v-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; max-width: 640px; margin: 0 auto; }
-.v-carte { border: 2.5px solid transparent; border-radius: 16px; background: #fff; padding: 0.5rem 0.5rem 0.6rem; cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: "Nunito", sans-serif; display: flex; flex-direction: column; gap: 0.4rem; }
+.v-carte { border: 2.5px solid transparent; border-radius: 16px; background: #fff; padding: 0.5rem 0.5rem 0.6rem; cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: var(--font-nunito), sans-serif; display: flex; flex-direction: column; gap: 0.4rem; }
 .v-carte:hover { transform: translateY(-3px); box-shadow: var(--ombre-m); }
 .v-carte.actif { border-color: var(--terracotta); box-shadow: 0 0 0 4px rgba(217, 143, 99, 0.18), var(--ombre-m); }
 .v-carte img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 10px; background: #f0e7da; }
@@ -546,8 +547,8 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
   padding: 0.5rem 0.55rem 0.5rem 1.1rem; box-shadow: var(--ombre-l);
   text-decoration: none;
 }
-.bm-prix { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.05rem; color: var(--encre); line-height: 1.1; }
-.bm-prix small { display: block; font-family: "Nunito", sans-serif; font-weight: 700; font-size: 0.66rem; color: var(--encre-doux); }
+.bm-prix { font-family: var(--font-fraunces), serif; font-weight: 600; font-size: 1.05rem; color: var(--encre); line-height: 1.1; }
+.bm-prix small { display: block; font-family: var(--font-nunito), sans-serif; font-weight: 700; font-size: 0.66rem; color: var(--encre-doux); }
 .bm-btn { background: var(--terracotta); color: #fff; border-radius: 999px; padding: 0.65rem 1.2rem; font-weight: 800; font-size: 0.95rem; white-space: nowrap; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.4); }
 
 /* -------------------------- RESPONSIVE -------------------------- */
@@ -636,7 +637,7 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 .persel-titre { font-weight: 800; font-size: 0.9rem; color: var(--encre); white-space: nowrap; }
 .persel-tete .champ-email { flex: 1; margin: 0; }
 .persel-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 0.45rem; }
-.persel-carte { position: relative; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.35rem 0.3rem; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(180deg, #fff 0%, var(--creme) 100%); cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: "Nunito", sans-serif; }
+.persel-carte { position: relative; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.35rem 0.3rem; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(180deg, #fff 0%, var(--creme) 100%); cursor: pointer; box-shadow: var(--ombre-s); transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s; font-family: var(--font-nunito), sans-serif; }
 .persel-carte:hover { transform: translateY(-2px); box-shadow: var(--ombre-m); }
 .persel-carte.actif { border-color: var(--terracotta); box-shadow: 0 0 0 3px rgba(217, 143, 99, 0.18), var(--ombre-s); }
 .persel-carte.actif::after { content: "✓"; position: absolute; top: 4px; right: 4px; width: 17px; height: 17px; background: var(--terracotta); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.6rem; font-weight: 800; }
@@ -649,8 +650,18 @@ section { max-width: 1160px; margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) c
 
 /* Barre mobile bi-produit (home) : livre + affiche côte à côte. */
 .bm-duo { gap: 0.6rem; }
-.bm-produit { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 0.1rem; border-radius: 999px; padding: 0.6rem 0.5rem; font-family: "Nunito", sans-serif; text-align: center; text-decoration: none; }
+.bm-produit { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 0.1rem; border-radius: 999px; padding: 0.6rem 0.5rem; font-family: var(--font-nunito), sans-serif; text-align: center; text-decoration: none; }
 .bm-produit strong { font-size: 0.95rem; font-weight: 800; line-height: 1.1; }
 .bm-produit small { font-size: 0.7rem; font-weight: 700; opacity: 0.92; }
 .bm-p-livre { background: var(--terracotta); color: #fff; box-shadow: 0 6px 16px rgba(217, 143, 99, 0.4); }
 .bm-p-affiche { background: var(--vert); color: #fff; box-shadow: 0 6px 16px rgba(127, 169, 141, 0.4); }
+
+/* Bandeau de consentement aux traceurs (pixel Meta) — cf. FacebookPixel.tsx. */
+.cookies { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 60; max-width: 560px; margin: 0 auto; background: #fff; border-radius: 18px; padding: 1.1rem 1.3rem; box-shadow: 0 18px 50px rgba(74, 58, 48, 0.22); display: grid; gap: 0.9rem; }
+.cookies p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--encre); }
+.cookies a { color: var(--terracotta-f); font-weight: 700; }
+.cookies-actions { display: flex; gap: 0.6rem; justify-content: flex-end; flex-wrap: wrap; }
+.cookies-actions .btn { padding: 0.6rem 1.2rem; font-size: 0.92rem; }
+@media (max-width: 700px) { .cookies { bottom: 4.6rem; } .cookies-actions .btn { flex: 1; text-align: center; } }
+.pied-cookies { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: var(--encre-doux); font-size: 0.8rem; opacity: 0.8; }
+.pied-cookies:hover { color: var(--terracotta-f); }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CookiesLien from "@/components/CookiesLien";
 import { prefixe, t, type Locale } from "@/lib/i18n";
 
 export default function Footer({ l }: { l: Locale }) {
@@ -21,6 +22,7 @@ export default function Footer({ l }: { l: Locale }) {
         <Link href="/mentions-legales">{d.footer.mentions}</Link>
         <Link href="/cgv">{d.footer.cgv}</Link>
         <Link href="/confidentialite">{d.footer.conf}</Link>
+        <CookiesLien libelle={d.footer.cookies} />
       </nav>
     </footer>
   );

@@ -90,6 +90,10 @@ export default function Flipbook({ l }: { l: Locale }) {
         <div className="fb-book" ref={bookRef} onClick={clicLivre}>
           {leaves.map(([front, back], k) => {
             const estTourne = k < turned;
+            // Les feuilles sont empilées au même endroit : loading="lazy" ne
+            // différerait rien. On ne pose le src que sur les feuilles proches
+            // de la page ouverte (2 d'avance), les autres se chargent en tournant.
+            const charger = k <= turned + 2;
             return (
               <div
                 key={`${ex.id}-${k}`}
@@ -98,11 +102,11 @@ export default function Flipbook({ l }: { l: Locale }) {
               >
                 <div className={`fb-face fb-front${k === 0 ? " is-cover" : ""}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={front} alt="" />
+                  {charger && <img src={front} alt="" />}
                 </div>
                 <div className="fb-face fb-back">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {back && <img src={back} alt="" />}
+                  {charger && back && <img src={back} alt="" />}
                 </div>
               </div>
             );

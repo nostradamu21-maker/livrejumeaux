@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { prefixe, type Locale } from "@/lib/i18n";
 import {
   stripe,
   stripeActif,
@@ -213,8 +214,8 @@ export async function POST(req: Request) {
           },
         },
       ],
-      success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/livre#sur-mesure`,
+      success_url: `${origin}${prefixe(langue as Locale)}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}${prefixe(langue as Locale)}/livre#sur-mesure`,
       metadata,
     });
     return NextResponse.json({ ok: true, url: session.url });

@@ -87,9 +87,24 @@ export default function Confidentialite() {
 
       <h2>Cookies</h2>
       <p>
-        Le site ne dépose pas de cookies publicitaires. Seuls des cookies
-        techniques strictement nécessaires peuvent être utilisés lors du
-        paiement (Stripe) — ils ne requièrent pas de consentement.
+        Des cookies techniques strictement nécessaires peuvent être utilisés
+        lors du paiement (Stripe) — ils ne requièrent pas de consentement. La
+        mesure d&apos;audience (Vercel Analytics) ne dépose aucun cookie et ne
+        collecte aucune donnée personnelle.
+      </p>
+      <p>
+        Avec votre accord uniquement, le site charge le <strong>pixel Meta</strong>{" "}
+        (Facebook / Instagram), un traceur publicitaire édité par Meta Platforms
+        Ireland Ltd qui permet de mesurer l&apos;efficacité de nos publicités.
+        Il n&apos;est activé qu&apos;après un clic sur «&nbsp;Accepter&nbsp;» dans le
+        bandeau affiché à votre première visite ; refuser ne change rien au
+        fonctionnement du site. Votre choix est conservé 6 mois dans votre
+        navigateur et vous pouvez le modifier à tout moment via le lien
+        «&nbsp;Cookies&nbsp;» en pied de page. Politique de Meta&nbsp;:{" "}
+        <a href="https://www.facebook.com/privacy/policy" rel="noopener noreferrer">
+          facebook.com/privacy/policy
+        </a>
+        .
       </p>
 
       <p>

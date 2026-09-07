@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const l of LOCALES) {
       entrees.push({
         url: `${URL_SITE}${prefixe(l)}${page}` || URL_SITE,
-        lastModified: new Date(),
         changeFrequency: "weekly" as const,
         priority: (page === "" ? 1 : page === "/contact" ? 0.4 : 0.9) - (l === "fr" ? 0 : 0.1),
         alternates: { languages: langues },

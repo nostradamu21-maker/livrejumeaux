@@ -107,8 +107,8 @@ export default function SurMesure({
       : d.sm.prix;
   // Le sexe ne sert qu'aux accords du texte du livre : pas demandé pour l'affiche.
   const pret = !!(
-    prenoms[1] &&
-    prenoms[2] &&
+    prenoms[1].trim() &&
+    prenoms[2].trim() &&
     photos[1] &&
     (monozygote || photos[2]) &&
     (affiche || (sexes[1] && (monozygote || sexes[2]))) &&
@@ -135,8 +135,8 @@ export default function SurMesure({
     setStatut({ txt: d.config.stTraitement, cls: "" });
     try {
       const form = new FormData();
-      form.set("prenom1", prenoms[1]);
-      form.set("prenom2", prenoms[2]);
+      form.set("prenom1", prenoms[1].trim());
+      form.set("prenom2", prenoms[2].trim());
       form.set("email", email.trim());
       form.set("reutilisation", reutilisation ? "1" : "0");
       form.set("monozygote", monozygote ? "1" : "0");
@@ -303,7 +303,7 @@ export default function SurMesure({
             placeholder={d.sm.phP1}
             maxLength={18}
             value={prenoms[1]}
-            onChange={(e) => setPrenoms((p) => ({ ...p, 1: e.target.value.trim() }))}
+            onChange={(e) => setPrenoms((p) => ({ ...p, 1: e.target.value }))}
           />
           <input
             type="text"
@@ -311,7 +311,7 @@ export default function SurMesure({
             placeholder={d.sm.phP2}
             maxLength={18}
             value={prenoms[2]}
-            onChange={(e) => setPrenoms((p) => ({ ...p, 2: e.target.value.trim() }))}
+            onChange={(e) => setPrenoms((p) => ({ ...p, 2: e.target.value }))}
           />
           <input
             type="text"

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { prefixe, type Locale } from "@/lib/i18n";
 import { existe, archetypeParId } from "@/lib/catalogue";
 import { comboId } from "@/lib/combo";
 import {
@@ -145,8 +146,8 @@ export async function POST(req: Request) {
             },
           },
         ],
-        success_url: `${origin}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${origin}/affiche`,
+        success_url: `${origin}${prefixe(langue as Locale)}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}${prefixe(langue as Locale)}/affiche`,
         metadata,
       });
       return NextResponse.json({ ok: true, url: session.url });

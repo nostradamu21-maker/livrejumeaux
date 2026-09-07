@@ -1,10 +1,32 @@
 import type { Metadata } from "next";
+import { Fraunces, Nunito, Amatic_SC } from "next/font/google";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import FacebookPixel from "@/components/FacebookPixel";
 import { LOCALES, estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import { URL_SITE, NOM_SITE } from "@/lib/seo";
 import "../globals.css";
+
+// Polices auto-hébergées au build (next/font) : plus aucune requête vers les
+// serveurs Google au chargement (RGPD, jurisprudence allemande) et pas de CSS
+// bloquant. Les variables CSS sont consommées dans globals.css.
+const fraunces = Fraunces({
+  subsets: ["latin", "latin-ext"],
+  axes: ["opsz"],
+  display: "swap",
+  variable: "--font-fraunces",
+});
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-nunito",
+});
+const amatic = Amatic_SC({
+  subsets: ["latin", "latin-ext"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-amatic",
+});
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -67,23 +89,11 @@ export default async function RootLayout({
   const { locale } = await params;
   if (!estLocale(locale)) notFound();
   return (
-    <html lang={locale}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800&family=Amatic+SC:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang={locale} className={`${fraunces.variable} ${nunito.variable} ${amatic.variable}`}>
       <body id="top">
         {children}
         <Analytics />
-        <FacebookPixel />
+        <FacebookPixel l={locale} />
       </body>
     </html>
   );
