@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { MAINTENANCE } from "@/lib/maintenance";
 import { prefixe, type Locale } from "@/lib/i18n";
 import { existe, archetypeParId } from "@/lib/catalogue";
 import { comboId } from "@/lib/combo";
@@ -38,6 +39,13 @@ const LANGUES = new Set(["fr", "en", "es", "de"]);
 // Produit AFFICHE : poster des deux jumeaux (illustration dédiée,
 // générée/triée à la première commande de la paire puis mise en cache).
 export async function POST(req: Request) {
+  // Boutique en pause : aucun nouveau paiement (voir lib/maintenance.ts).
+  if (MAINTENANCE) {
+    return NextResponse.json(
+      { ok: false, erreur: "La boutique ne prend plus de commandes pour le moment." },
+      { status: 503 },
+    );
+  }
   const body = (await req.json().catch(() => ({}))) as Corps;
   const a1 = body.archetype1 ?? "";
   const a2 = body.archetype2 ?? "";

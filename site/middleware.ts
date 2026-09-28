@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { MAINTENANCE, pageOuverte, pageMaintenance, langueDuChemin } from "./lib/maintenance";
 
 const LOCALES = ["fr", "en", "es", "de"];
 
@@ -8,6 +9,19 @@ const LOCALES = ["fr", "en", "es", "de"];
 //  -  /en, /es, /de  →  servis tels quels
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Boutique en pause (voir lib/maintenance.ts) : 503 temporaire partout,
+  // sauf les pages dont ont besoin les clients ayant déjà commandé.
+  if (MAINTENANCE && !pageOuverte(pathname)) {
+    return new NextResponse(pageMaintenance(langueDuChemin(pathname)), {
+      status: 503,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Retry-After": "86400",
+        "Cache-Control": "no-store",
+      },
+    });
+  }
 
   if (pathname === "/fr" || pathname.startsWith("/fr/")) {
     const url = req.nextUrl.clone();

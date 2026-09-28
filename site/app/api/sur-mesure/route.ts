@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { MAINTENANCE } from "@/lib/maintenance";
 import { prefixe, type Locale } from "@/lib/i18n";
 import {
   stripe,
@@ -34,6 +35,13 @@ function photoValide(p: unknown): p is File {
 // privé puis supprimées après génération du livre (RGPD). Après paiement, le
 // client choisit ses variantes de personnages sur /commande/variantes.
 export async function POST(req: Request) {
+  // Boutique en pause : aucun nouveau paiement (voir lib/maintenance.ts).
+  if (MAINTENANCE) {
+    return NextResponse.json(
+      { ok: false, erreur: "La boutique ne prend plus de commandes pour le moment." },
+      { status: 503 },
+    );
+  }
   const form = await req.formData().catch(() => null);
   if (!form) {
     return NextResponse.json({ ok: false, erreur: "Requête invalide." }, { status: 400 });

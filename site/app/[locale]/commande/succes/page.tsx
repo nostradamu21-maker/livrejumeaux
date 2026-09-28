@@ -3,6 +3,7 @@ import Link from "next/link";
 import { stripe, stripeActif } from "@/lib/stripe";
 import { estLocale, prefixe, t, type Locale } from "@/lib/i18n";
 import PurchaseEvent from "@/components/PurchaseEvent";
+import { MAINTENANCE } from "@/lib/maintenance";
 
 // Page de tunnel : jamais indexee. robots.txt interdit deja /commande/, mais un
 // lien partage par un client peut la faire decouvrir autrement.
@@ -108,7 +109,7 @@ export default async function Succes({
             {d.succes.retour}
           </Link>
         )}
-        {paye && (
+        {paye && !MAINTENANCE && (
           <p style={{ marginTop: "1.4rem", fontSize: ".9rem", color: "var(--encre-doux)", lineHeight: 1.55 }}>
             {d.succes.upsell}{" "}
             <Link

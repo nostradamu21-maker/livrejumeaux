@@ -87,7 +87,7 @@ Modèle retenu (juillet 2026, validé par Simon) :
 ## État du projet (à jour juillet 2026)
 | Domaine | État |
 |---|---|
-| Boutique en ligne `site/` (FR/EN/ES/DE) | ✅ EN PRODUCTION — https://boutique.gemellite.com |
+| Boutique en ligne `site/` (FR/EN/ES/DE) | ⏸️ **EN MAINTENANCE** (septembre 2026, décision Simon : plus le temps de s'en occuper) — page « boutique en pause » en 503, nouveaux paiements bloqués, commandes déjà payées toujours servies. Rouvrir : `MAINTENANCE=0` sur Vercel + redéploiement. Détails dans `site/lib/maintenance.ts` |
 | Produit LIVRE catalogue (combo d'archétypes) | ✅ Vendable — combo à la commande + cache |
 | Produit LIVRE sur-mesure (personnages d'après photo) | ✅ Vendable — 64,99 € (54,99 € avec réutilisation) |
 | Produit AFFICHE (4 tailles, 29,90 → 49,90 €) | ✅ Vendable — `affiche.py`, illustration dédiée en cache |
